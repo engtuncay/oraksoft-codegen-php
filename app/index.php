@@ -22,9 +22,7 @@ require 'FiAppImports.php'
     </style>
 </head>
 <body class="fibody">
-
 <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
-
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -77,11 +75,9 @@ require 'FiAppImports.php'
     </div>
 </div>
 
-<!--
 <h2>Merhaba <span data-bind="text: name"></span>!</h2>
 <input type="text" data-bind="value: name" />
 <button data-bind="click: changeName">Adı 'Ali' Yap</button>
--->
 
 <script>
     function AppViewModel() {
