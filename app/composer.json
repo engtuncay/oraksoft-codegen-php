@@ -1,0 +1,15 @@
+{
+  "name": "oraksoft/orakcodegen",
+  "description": "Orak Yazılım Code Generator",
+  "repositories": [
+    {
+      "type": "path",
+      "url": "Y:\\xampp\\htdocs\\phputils8"
+    }
+  ],
+  "require": {
+    "twbs/bootstrap": "^5.3",
+    "phpoffice/phpspreadsheet": "^4.0",
+    "engtuncay/phputils8": "*"
+  }
+}

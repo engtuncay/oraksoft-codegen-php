@@ -10,7 +10,7 @@ export default defineConfig({
                 assetFileNames: '[name].[ext]'    // CSS veya diğer varlıklar için isimlendirme
             }
         },
-        outDir: 'dist/assets',
+        outDir: 'app/assets',
         emptyOutDir: true
     }
 });
