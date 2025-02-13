@@ -77,7 +77,7 @@ require 'FiAppImports.php'
 
 <h2>Merhaba <span data-bind="text: name"></span>!</h2>
 <input type="text" data-bind="value: name" />
-<button data-bind="click: changeName">Adı 'Ali' Yap</button>
+<button data-bind="click: changeName">Change Name</button>
 
 <script>
     function AppViewModel() {
@@ -90,22 +90,7 @@ require 'FiAppImports.php'
     ko.applyBindings(new AppViewModel());
 </script>
 
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
-
-
-<!--<div class="container">-->
-<!--    <h1 class="text-center text-primary mt-5">Hello, Bootstrap 5 Merhaba!</h1>-->
-<!---->
-<!--    <form action="process.php" method="POST">-->
-<!--        <label for="name">Adınız:</label>-->
-<!--        <input type="text" id="name" name="name" required>-->
-<!---->
-<!--        <label for="email">Email:</label>-->
-<!--        <input type="email" id="email" name="email" required>-->
-<!---->
-<!--        <button type="submit">Gönder</button>-->
-<!--    </form>-->
-<!--</div>-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module" src="assets/main.js"></script>
 <script src="vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
