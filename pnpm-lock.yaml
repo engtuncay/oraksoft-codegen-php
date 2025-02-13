@@ -7,7 +7,14 @@ settings:
 importers:
 
   .:
+    dependencies:
+      knockout:
+        specifier: ^3.5.1
+        version: 3.5.1
     devDependencies:
+      '@types/knockout':
+        specifier: ^3.4.77
+        version: 3.4.77
       typescript:
         specifier: ~5.6.2
         version: 5.6.3
@@ -253,6 +260,9 @@ packages:
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
 
+  '@types/knockout@3.4.77':
+    resolution: {integrity: sha512-RpujDayUysbJlpygCxDnMSOp7DeUIROcoIW0Xf85YkqoZ/DE5R2R4TcFhbgLaGTM5bi4QLTVSG/DUUc0wL4KmQ==}
+
   esbuild@0.21.5:
     resolution: {integrity: sha512-mg3OPMV4hXywwpoDxu3Qda5xCKQi+vCTZq8S9J/EpkhB2HzKXq4SNFZE3+NK93JYxc8VMSep+lOUSC/RVKaBqw==}
     engines: {node: '>=12'}
@@ -262,6 +272,9 @@ packages:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
+
+  knockout@3.5.1:
+    resolution: {integrity: sha512-wRJ9I4az0QcsH7A4v4l0enUpkS++MBx0BnL/68KaLzJg7x1qmbjSlwEoCNol7KTYZ+pmtI7Eh2J0Nu6/2Z5J/Q==}
 
   nanoid@3.3.8:
     resolution: {integrity: sha512-WNLf5Sd8oZxOm+TzppcYk8gVOgP+l58xNy58D0nbUnOxOWRWvlcCV4kUF7ltmI6PsrLl/BgKEyS4mqsGChFN0w==}
@@ -450,6 +463,8 @@ snapshots:
 
   '@types/estree@1.0.6': {}
 
+  '@types/knockout@3.4.77': {}
+
   esbuild@0.21.5:
     optionalDependencies:
       '@esbuild/aix-ppc64': 0.21.5
@@ -478,6 +493,8 @@ snapshots:
 
   fsevents@2.3.3:
     optional: true
+
+  knockout@3.5.1: {}
 
   nanoid@3.3.8: {}
 

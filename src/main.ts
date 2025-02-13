@@ -7,6 +7,7 @@ import { FiComboBoxEdit } from "./FiComboBoxEdit";
 import { FiComboBoxEdit2 } from "./FiComboBoxEdit2";
 import { FiMultiSelect } from "./FiMultiSelect";
 import { FiSelect } from "./FiSelect";
+import * as ko from "knockout";
 
 const options = [
   "Apple",
@@ -41,6 +42,19 @@ multiselectComponent.init();
 const elCombo2: Element = document.querySelector(".js-combobox2");
 const comboComponent2 = new FiComboBoxEdit2(elCombo2, options);
 comboComponent2.init();
+
+// ViewModel oluştur
+class AppViewModel {
+  message = ko.observable("Merhaba, Knockout.js ve Vite!");
+
+  updateMessage() {
+    this.message("Güncellendi!");
+  }
+}
+
+const vm = new AppViewModel();
+ko.applyBindings(vm);
+
 
 
 
