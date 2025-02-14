@@ -44,16 +44,16 @@ const comboComponent2 = new FiComboBoxEdit2(elCombo2, options);
 comboComponent2.init();
 
 // ViewModel oluştur
-class AppViewModel {
-  message = ko.observable("Merhaba, Knockout.js ve Vite!");
-
-  updateMessage() {
-    this.message("Güncellendi!");
-  }
-}
-
-const vm = new AppViewModel();
-ko.applyBindings(vm);
+// class AppViewModel {
+//   message = ko.observable("Merhaba, Knockout.js ve Vite!");
+//
+//   updateMessage() {
+//     this.message("Güncellendi!");
+//   }
+// }
+//
+// const vm = new AppViewModel();
+// ko.applyBindings(vm);
 
 //document.getElementById("").innerHTML;
 

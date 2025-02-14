@@ -8,7 +8,7 @@ export default defineConfig({
     ],
     build: {
         rollupOptions: {
-            input: 'index.php',  // Giriş noktası olarak TypeScript dosyasını belirt
+            input: ['index.php'], // Giriş noktası olarak TypeScript dosyasını belirt
             output: {
                 entryFileNames: 'main.js',        // Hash olmadan dosya adı
                 chunkFileNames: 'chunk-[name].js',  // Diğer parçalar için isimlendirme
