@@ -55,10 +55,6 @@ class AppViewModel {
 const vm = new AppViewModel();
 ko.applyBindings(vm);
 
-
-
-
-
 //document.getElementById("").innerHTML;
 
 // document.querySelector<HTMLDivElement>('#app')!.innerHTML = `

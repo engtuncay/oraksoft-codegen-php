@@ -2,10 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
-    <link rel="stylesheet" href="./src/style.css" />
+
+    <script type="module" crossorigin src="./main.js"></script>
+    <link rel="stylesheet" crossorigin href="./index.css">
   </head>
   <body>
 
@@ -97,6 +99,6 @@
     <h1 data-bind="text: message"></h1>
     <button data-bind="click: updateMessage">Mesajı Güncelle</button>
 
-    <script type="module" src="/src/main.ts"></script>
+
   </body>
 </html>
