@@ -8,24 +8,36 @@
     "build": "tsc && vite build",
     "wc": "tsc && vite build --watch",
     "preview": "vite preview",
-    "copy-deps": "node ./copy-deps.js"
+    "copy-deps": "node ./copy-deps.js",
+    "pnpm-update": "pnpm update"
   },
   "devDependencies": {
+    "@types/alpinejs": "^3.13.11",
     "@types/knockout": "^3.4.77",
     "path": "^0.12.7",
-    "typescript": "~5.6.2",
-    "vite": "^5.4.10"
+    "typescript": "~5.6.3",
+    "vite": "^5.4.14"
   },
   "dependencies": {
+    "alpinejs": "^3.14.8",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "knockout": "^3.5.1"
   },
   "copyDepsLibFolder": "app/libs",
-  "copyDepsModulesToCopy" : [
-    { "name": "axios", "file": "dist/axios.min.js" },
-    { "name": "bootstrap", "file": "dist/css/bootstrap.min.css" },
-    { "name": "bootstrap", "file": "dist/js/bootstrap.min.js" }
+  "copyDepsModulesToCopy": [
+    {
+      "name": "bootstrap",
+      "file": "dist/css/bootstrap.min.css"
+    },
+    {
+      "name": "bootstrap",
+      "file": "dist/js/bootstrap.min.js"
+    },
+    {
+      "name": "knockout",
+      "file": "build/output/knockout-latest.js"
+    }
   ],
   "copyDepsLibFolderEmpty": false
 }
