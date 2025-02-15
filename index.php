@@ -1,104 +1,78 @@
+<?php
+require 'fiAppImports.php'
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Vite + TS</title>
-    <link rel="stylesheet" href="./src/style.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orak Soft Code Generator</title>
+    <!-- <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">-->
+    <!--<script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-3.5.0.js"></script>-->
+    <!--  <link rel="stylesheet" href="assets/index.css" />-->
+    <!--  <script-->
+    <!--    src="https://code.jquery.com/jquery-3.7.1.min.js"-->
+    <!--    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="-->
+    <!--    crossorigin="anonymous"></script>-->
+    <script src="fiapp.js"></script>
+    <style>
+        .fibody {
+            background-image: url("./img/ocg-background.jpeg");
+        }
+    </style>
 </head>
-<body>
+<body class="fibody">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title text-center">Orak Soft Code Generator</h3>
+                </div>
 
-<label for="combo2" class="combo-label">Editable Combobox Example</label>
+                <div class="card-body">
 
-<!-- js-combobox class  -->
-<div class="combo js-combobox">
-    <input
-            aria-activedescendant=""
-            aria-autocomplete="none"
-            aria-controls="listbox2"
-            aria-expanded="false"
-            aria-haspopup="listbox"
-            id="combo2"
-            class="combo-input"
-            role="combobox"
-            type="text"
-    />
-    <div class="combo-menu" role="listbox" id="listbox2"></div>
-</div>
+                    <form action="upload.php" method="post" enctype="multipart/form-data">
 
-<label id="combo3-label" class="combo-label"
->Multi-select Combobox Example</label
->
-
-<span id="combo3-remove" style="display: none">remove</span>
-<!-- used as descriptive text for option buttons; if used within the button text itself, it ends up being read with the input name -->
-
-<ul class="selected-options" id="combo3-selected"></ul>
-<div class="combo js-multiselect">
-    <input
-            aria-activedescendant=""
-            aria-autocomplete="none"
-            aria-controls="listbox3"
-            aria-expanded="false"
-            aria-haspopup="listbox"
-            aria-labelledby="combo3-label combo3-selected"
-            id="combo3"
-            class="combo-input"
-            role="combobox"
-            type="text"
-    />
-    <div class="combo-menu" role="listbox" id="listbox3"></div>
-</div>
-
-<!-- read only  -->
-<p>Read Only Combobox</p>
-
-<label id="combo1-label" class="combo-label"
->Read-only Select Example</label
->
-<div class="combo js-select">
-    <div
-            aria-activedescendant="combo1-value"
-            aria-autocomplete="none"
-            aria-controls="listbox1"
-            aria-expanded="false"
-            aria-haspopup="listbox"
-            aria-labelledby="combo1-label"
-            id="combo1"
-            class="combo-input"
-            role="combobox"
-            tabindex="0"
-    >
-        <span class="combo1-value" id="combo1-value"></span>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="selectFi" class="form-label">Typescript:</label>
+                                    <select class="form-select" aria-label="Default select example" name="selectFi" id="selectFi">
+                                        <option value="-1" selected>Seçiniz</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                    <!--          <div class="form-text">note.</div>-->
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="selectFi" class="form-label">Typescript:</label>
+                                    <select class="form-select" aria-label="Default select example" name="selectFi2" id="selectFi2">
+                                        <option value="-1" selected>Seçiniz</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                    <!--          <div class="form-text">note.</div>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="excelFile" class="form-label">Excel Dosyası Seçin:</label>
+                            <input type="file" class="form-control" name="excelFile" id="excelFile"
+                                   accept=".xlsx, .xls, .csv" required>
+                            <div class="form-text">Sadece .xlsx, .xls veya .csv dosyaları yükleyebilirsiniz.</div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Yükle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="combo-menu" role="listbox" id="listbox1"></div>
 </div>
-
-
-<label for="combo2" class="combo-label">Editable Combobox Example (2)</label>
-
-<!-- js-combobox class  -->
-<div class="combo js-combobox2">
-    <input
-            aria-activedescendant=""
-            aria-autocomplete="none"
-            aria-controls="listbox2"
-            aria-expanded="false"
-            aria-haspopup="listbox"
-            id="combo2"
-            class="combo-input"
-            role="combobox"
-            type="text"
-    />
-    <div class="combo-menu" role="listbox" id="listbox2"></div>
-</div>
-
-<h1 data-bind="text: message"></h1>
-<button data-bind="click: updateMessage">Mesajı Güncelle</button>
-
-<script type="module" src="./src/main1.ts"></script>
-<script type="module" src="./src/main.ts"></script>
-
 </body>
 </html>

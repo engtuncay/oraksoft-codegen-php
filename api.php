@@ -1,6 +1,6 @@
 <?php
 // RouteHandler'ı dahil et
-require 'FiAppImports.php';
+require 'fiAppImports.php';
 require 'RouteHandler.php';
 
 // Veritabanı bağlantısı

@@ -1,5 +1,5 @@
 <?php
-require 'FiAppImports.php'
+require 'fiAppImports.php'
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,11 +78,5 @@ require 'FiAppImports.php'
 <h1 data-bind="text: message"></h1>
 <button data-bind="click: updateMessage">Mesajı Güncelle</button>
 
-<!--<h2>Merhaba <span data-bind="text: name"></span>!</h2>-->
-<!--<input type="text" data-bind="value: name" />-->
-<!--<button data-bind="click: changeName">Change Name</button>-->
-
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
-<!--<script src="vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
 </body>
 </html>
