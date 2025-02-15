@@ -3,57 +3,45 @@
 // import viteLogo from '/vite.svg'
 // import { setupCounter } from './counter.ts'
 
-import * as ko from "knockout";
-import { FiComboBoxEdit } from "./FiComboBoxEdit";
-import { FiComboBoxEdit2 } from "./FiComboBoxEdit2";
-import { FiMultiSelect } from "./FiMultiSelect";
-import { FiSelect } from "./FiSelect";
+// import * as ko from "knockout";
+// import { FiComboBoxEdit } from "./FiComboBoxEdit";
+// import { FiComboBoxEdit2 } from "./FiComboBoxEdit2";
+// import { FiMultiSelect } from "./FiMultiSelect";
+// import { FiSelect } from "./FiSelect";
 
-// ViewModel oluştur
-class AppViewModel {
-  message = ko.observable("Merhaba, Knockout.js ve Vite!");
-
-  updateMessage() {
-    this.message("Güncellendi!");
-  }
-}
-
-const vm = new AppViewModel();
-ko.applyBindings(vm);
-
-const options = [
-  "Apple",
-  "Banana",
-  "Blueberry",
-  "Boysenberry",
-  "Cherry",
-  "Durian",
-  "Eggplant",
-  "Fig",
-  "Grape",
-  "Guava",
-  "Huckleberry",
-];
-
-// Editable Combobox
-const elCombo: Element = document.querySelector(".js-combobox");
-const comboComponent = new FiComboBoxEdit(elCombo, options);
-comboComponent.init();
-
-// Non-Editable Combobox (select)
-const selectEl = document.querySelector(".js-select");
-const selectComponent = new FiSelect(selectEl, options);
-selectComponent.init();
-
-// init multiselect
-const multiselectEl = document.querySelector(".js-multiselect");
-const multiselectComponent = new FiMultiSelect(multiselectEl, options);
-multiselectComponent.init();
-
-// Editable Combobox (2)
-const elCombo2: Element = document.querySelector(".js-combobox2");
-const comboComponent2 = new FiComboBoxEdit2(elCombo2, options);
-comboComponent2.init();
+// const options = [
+//   "Apple",
+//   "Banana",
+//   "Blueberry",
+//   "Boysenberry",
+//   "Cherry",
+//   "Durian",
+//   "Eggplant",
+//   "Fig",
+//   "Grape",
+//   "Guava",
+//   "Huckleberry",
+// ];
+//
+// // Editable Combobox
+// const elCombo: Element = document.querySelector(".js-combobox");
+// const comboComponent = new FiComboBoxEdit(elCombo, options);
+// comboComponent.init();
+//
+// // Non-Editable Combobox (select)
+// const selectEl = document.querySelector(".js-select");
+// const selectComponent = new FiSelect(selectEl, options);
+// selectComponent.init();
+//
+// // init multiselect
+// const multiselectEl = document.querySelector(".js-multiselect");
+// const multiselectComponent = new FiMultiSelect(multiselectEl, options);
+// multiselectComponent.init();
+//
+// // Editable Combobox (2)
+// const elCombo2: Element = document.querySelector(".js-combobox2");
+// const comboComponent2 = new FiComboBoxEdit2(elCombo2, options);
+// comboComponent2.init();
 
 //document.getElementById("").innerHTML;
 

@@ -7,7 +7,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const projectRoot = path.resolve(__dirname, './');
-//const modulesToCopy = ['axios'];
 const srcDir = path.join(projectRoot, 'node_modules');
 
 // Proje kök dizinini belirle
@@ -31,7 +30,6 @@ if (typeof packageJson.copyDepsLibFolder !== "string") {
 const destDir = path.join(projectRoot, packageJson.copyDepsLibFolder);
 
 //const destDir = path.join(projectRoot, 'app/libs');
-
 //const destDir = path.resolve('dist/libs'); // Silinecek klasör
 
 if (fs.existsSync(destDir)) {
@@ -48,8 +46,8 @@ if (!fs.existsSync(destDir)) {
 }
 
 // const modulesToCopy = [
-//     { name: 'axios', file: 'dist/axios.min.js' },
-////     { name: 'lodash', file: 'lodash.min.js' }
+//  { name: 'axios', file: 'dist/axios.min.js' },
+//  { name: 'lodash', file: 'lodash.min.js' }
 // ];
 
 const modulesToCopy = packageJson.modulesToCopy;
