@@ -22,9 +22,10 @@
     "knockout": "^3.5.1"
   },
   "copyDepsLibFolder": "app/libs",
-  "modulesToCopy" : [
+  "copyDepsModulesToCopy" : [
     { "name": "axios", "file": "dist/axios.min.js" },
     { "name": "bootstrap", "file": "dist/css/bootstrap.min.css" },
     { "name": "bootstrap", "file": "dist/js/bootstrap.min.js" }
-  ]
+  ],
+  "copyDepsLibFolderEmpty": false
 }

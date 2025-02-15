@@ -9,14 +9,11 @@ const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, './');
 const srcDir = path.join(projectRoot, 'node_modules');
 
-// Proje kök dizinini belirle
-//const projectRoot = path.resolve('.');
-
 // package.json dosyasını oku
 const packageJsonPath = path.join(projectRoot, 'package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
-if (!packageJson.modulesToCopy || !Array.isArray(packageJson.modulesToCopy)) {
+if (!packageJson.copyDepsModulesToCopy || !Array.isArray(packageJson.copyDepsModulesToCopy)) {
     console.error("Error: 'modulesToCopy' alanı package.json içinde bir dizi olarak tanımlanmalıdır.");
     process.exit(1);
 }
@@ -26,40 +23,49 @@ if (typeof packageJson.copyDepsLibFolder !== "string") {
     process.exit(1);
 }
 
-// dist klasör adını package.json içindeki "copyDepsLibFolder" alanına göre belirle
+// copyDepsLibFolder dizinini belirle
 const destDir = path.join(projectRoot, packageJson.copyDepsLibFolder);
 
-//const destDir = path.join(projectRoot, 'app/libs');
-//const destDir = path.resolve('dist/libs'); // Silinecek klasör
-
-if (fs.existsSync(destDir)) {
-    fs.rmSync(destDir, { recursive: true, force: true });
-    console.log(`Deleted ${destDir} and its contents.`);
+if(packageJson.copyDepsLibFolderEmpty) {
+    if (fs.existsSync(destDir)) {
+        fs.rmSync(destDir, { recursive: true, force: true });
+        console.log(`Deleted ${destDir} and its contents.`);
+    }
 }
-
-// Yeniden oluştur
-//fs.mkdirSync(destDir, { recursive: true });
 
 // Klasörü oluştur
 if (!fs.existsSync(destDir)) {
     fs.mkdirSync(destDir, { recursive: true });
 }
 
-// const modulesToCopy = [
-//  { name: 'axios', file: 'dist/axios.min.js' },
-//  { name: 'lodash', file: 'lodash.min.js' }
-// ];
+// 📌 Kopyalanacak dosyaları belirle
+const modulesToCopy = packageJson.copyDepsModulesToCopy;
+const filesToKeep = modulesToCopy.map(({ file }) => path.basename(file));
 
-const modulesToCopy = packageJson.modulesToCopy;
-
-modulesToCopy.forEach(({ name, file }) => {
-    const modPath = path.join(srcDir, name, file); // Doğru dosyayı seç
-    const destPath = path.join(destDir, path.basename(file)); // Sadece gerekli dosyayı al
-
-    if (fs.existsSync(modPath)) {
-        fs.cpSync(modPath, destPath, { recursive: false });
-        console.log(`Copied ${modPath} to ${destPath}`);
-    } else {
-        console.error(`Error: ${modPath} not found!`);
+// 📌 1. Fazlalık dosyaları temizle (Eğer copyDepsLibFolder içinde olup modulesToCopy listesinde yoksa sil)
+fs.readdirSync(destDir).forEach(file => {
+    if (!filesToKeep.includes(file)) {
+        const filePath = path.join(destDir, file);
+        fs.unlinkSync(filePath);
+        console.log(`🗑️ Deleted unnecessary file: ${filePath}`);
     }
 });
+
+// 📌 2. Eksik dosyaları kopyala
+modulesToCopy.forEach(({ name, file }) => {
+    const modPath = path.join(srcDir, name, file); // Kaynak dosya
+    const destPath = path.join(destDir, path.basename(file)); // Hedef dosya
+
+    if (!fs.existsSync(destPath)) {  // Eğer dosya yoksa kopyala
+        if (fs.existsSync(modPath)) {
+            fs.cpSync(modPath, destPath, { recursive: false });
+            console.log(`✅ Copied: ${modPath} → ${destPath}`);
+        } else {
+            console.error(`❌ Error: ${modPath} not found!`);
+        }
+    } else {
+        console.log(`⚠️ Skipped (already exists): ${destPath}`);
+    }
+});
+
+console.log("🎉 Dependency sync process completed!");
