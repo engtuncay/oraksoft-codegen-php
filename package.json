@@ -1,0 +1,30 @@
+{
+  "name": "lib-project",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "wc": "tsc && vite build --watch",
+    "preview": "vite preview",
+    "copy-deps": "node ./copy-deps.js"
+  },
+  "devDependencies": {
+    "@types/knockout": "^3.4.77",
+    "path": "^0.12.7",
+    "typescript": "~5.6.2",
+    "vite": "^5.4.10"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "bootstrap": "^5.3.3",
+    "knockout": "^3.5.1"
+  },
+  "copyDepsLibFolder": "app/libs",
+  "modulesToCopy" : [
+    { "name": "axios", "file": "dist/axios.min.js" },
+    { "name": "bootstrap", "file": "dist/css/bootstrap.min.css" },
+    { "name": "bootstrap", "file": "dist/js/bootstrap.min.js" }
+  ]
+}

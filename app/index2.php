@@ -7,9 +7,10 @@ require 'fiAppImports.php'
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Orak Soft Code Generator</title>
-<!--  <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">-->
+  <!--    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">-->
+  <script type="module" crossorigin src="./assets/main.js"></script>
   <!--<script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-3.5.0.js"></script>-->
-<!--  <link rel="stylesheet" href="assets/index.css" />-->
+  <!--<link rel="stylesheet" href="assets/index.css" />-->
   <!--  <script-->
   <!--    src="https://code.jquery.com/jquery-3.7.1.min.js"-->
   <!--    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="-->
@@ -78,5 +79,23 @@ require 'fiAppImports.php'
 <h1 data-bind="text: message"></h1>
 <button data-bind="click: updateMessage">Mesajı Güncelle</button>
 
+<!--<h2>Merhaba <span data-bind="text: name"></span>!</h2>-->
+<!--<input type="text" data-bind="value: name" />-->
+<!--<button data-bind="click: changeName">Change Name</button>-->
+
+<script>
+    // function AppViewModel() {
+    //     this.name = ko.observable("Ahmet");
+    //     this.changeName = () => {
+    //         this.name("Ali");
+    //     };
+    // }
+    //
+    // ko.applyBindings(new AppViewModel());
+</script>
+
+<script type="module" src="./assets/main.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--<script src="vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
 </body>
 </html>

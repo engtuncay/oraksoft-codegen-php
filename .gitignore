@@ -136,4 +136,5 @@ Homestead.json
 # Other
 
 /fi-logs/
-/app/assets
+/app/assets/
+/app/libs
