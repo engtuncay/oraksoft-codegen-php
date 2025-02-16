@@ -9,7 +9,9 @@
     "wc": "tsc && vite build --watch",
     "preview": "vite preview",
     "copy-deps": "node ./copy-deps.js",
-    "pnpm-update": "pnpm update"
+    "pnpm-update": "pnpm update",
+    "pnpm-link-oraksoft-ui":"pnpm link --global oraksoft-ui",
+    "pnpm-unlink-oraksoft-ui":"pnpm unlink --global oraksoft-ui"
   },
   "devDependencies": {
     "@types/alpinejs": "^3.13.11",
@@ -22,7 +24,10 @@
     "alpinejs": "^3.14.8",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
-    "knockout": "^3.5.1"
+    "knockout": "^3.5.1",
+    "orak-util-js": "^0.0.11",
+    "orak-util-ts": "^0.0.14",
+    "oraksoft-ui": "^0.0.5"
   },
   "copyDepsLibFolder": "app/libs",
   "copyDepsModulesToCopy": [
@@ -37,6 +42,14 @@
     {
       "name": "knockout",
       "file": "build/output/knockout-latest.js"
+    },
+    {
+      "name": "oraksoft-ui",
+      "file": "dist/oraksoft-ui.min.js"
+    },
+    {
+      "name": "oraksoft-ui",
+      "file": "dist/oraksoft-ui.js"
     }
   ],
   "copyDepsLibFolderEmpty": false

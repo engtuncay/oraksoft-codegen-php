@@ -31,19 +31,13 @@ require 'fiAppImports.php'
 
                 <div class="card-body">
 
-                    <form @submit.prevent="validateForm" action="upload.php" method="post"
-                          enctype="multipart/form-data">
-
+                    <form action="upload.php" method="post" enctype="multipart/form-data">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-4 mb-3">
                                     <label for="selectFi" class="form-label">Csharp:</label>
                                     <select class="form-select" aria-label="Default select example" name="selectFi"
-                                            id="selectFi">
-                                        <option value="-1" selected>Seçiniz</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                            id="opsCsharp">
                                     </select>
                                     <!--          <div class="form-text">note.</div>-->
                                 </div>
@@ -107,6 +101,7 @@ require 'fiAppImports.php'
 
     ko.applyBindings(new AppViewModel());
 </script>
+<script type="module" src="main.mjs"></script>
 <script src="libs/bootstrap.min.js"></script>
 <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
 <!--<script type="module" src="./assets/main.js"></script>-->
