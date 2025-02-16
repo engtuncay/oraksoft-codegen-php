@@ -25,9 +25,7 @@
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "knockout": "^3.5.1",
-    "orak-util-js": "^0.0.11",
-    "orak-util-ts": "^0.0.14",
-    "oraksoft-ui": "^0.0.5"
+    "orak-util-ts": "^0.0.17"
   },
   "copyDepsLibFolder": "app/libs",
   "copyDepsModulesToCopy": [
