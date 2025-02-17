@@ -8,9 +8,10 @@
     "build": "tsc && vite build",
     "wc": "tsc && vite build --watch",
     "preview": "vite preview",
-    "copy-deps": "node ./copy-deps.js",
-    "pnpm-update": "pnpm update",
+    "copy-deps-ocg": "node ./copy-deps.js",
+    "pnpm-update-ocg": "pnpm update",
     "pnpm-link-oraksoft-ui":"pnpm link --global oraksoft-ui",
+    "pnpm-link-orak-util-ts":"pnpm link --global orak-util-ts",
     "pnpm-unlink-oraksoft-ui":"pnpm unlink --global oraksoft-ui"
   },
   "devDependencies": {
@@ -24,8 +25,7 @@
     "alpinejs": "^3.14.8",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
-    "knockout": "^3.5.1",
-    "orak-util-ts": "^0.0.17"
+    "knockout": "^3.5.1"
   },
   "copyDepsLibFolder": "app/libs",
   "copyDepsModulesToCopy": [

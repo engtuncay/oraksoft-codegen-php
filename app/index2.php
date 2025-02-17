@@ -34,7 +34,7 @@ require 'fiAppImports.php'
 
         <div class="card-body">
 
-          <form action="upload.php" method="post" enctype="multipart/form-data">
+          <form action="codegen.php" method="post" enctype="multipart/form-data">
 
             <div class="container">
               <div class="row">

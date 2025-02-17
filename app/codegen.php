@@ -1,6 +1,7 @@
 <?php
 require 'vendor/autoload.php';
 
+use Engtuncay\Phputils8\meta\FiCol;
 use Engtuncay\Phputils8\meta\FiColList;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Engtuncay\Phputils8\log\FiLog;
@@ -26,9 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
   $fiExcel = new \Engtuncay\Phputils8\excel\FiExcel();
 
   $fiCols = new FiColList();
-  $fiCol = new \Engtuncay\Phputils8\meta\FiCol();
-  $fiCol->ofcTxFieldName="A1";
-  $fiCol->ofcTxHeader="A1";
+  $fiCol = new FiCol();
+  $fiCol->ofcTxFieldName = "A1";
+  $fiCol->ofcTxHeader = "A1";
 
   $fiCols->add($fiCol);
 
@@ -51,8 +52,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 //  echo "Email: " . $formObject->email . "\n";
 //  echo("<br/>");
   print_r($formObject);
-
-
+}
+?>
+<!doctype html>
+<html lang="tr">
+<head>
+<?php require 'commonHead.php';?>
+</head>
+<body>
+Sonuç console
+</body>
+<script>
+    var fkb = <?php echo json_encode($fdr->getFkbList()); ?>;
+    console.log(fkb);
+</script>
+</html>
 
 
 //    try {
@@ -91,4 +105,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 //} else {
 //    echo 'Lütfen bir dosya seçin.';
 
-}
+//}
