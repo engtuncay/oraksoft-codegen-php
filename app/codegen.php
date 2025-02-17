@@ -36,9 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
   $fdr = $fiExcel::readExcelFile($inputFileName, $fiCols);
 
   //print_r($fdr);
-  echo var_export($fdr->getFkbList(), true);
-  echo PHP_EOL;
-  print_r($fdr->getFkbList());
+  //echo var_export($fdr->getFkbList(), true);
+  //echo PHP_EOL;
+  //print_r($fdr->getFkbList());
 
   // Formdan gelen POST verilerini al
   $formData = $_POST;
@@ -51,24 +51,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 //  echo("<br/>");
 //  echo "Email: " . $formObject->email . "\n";
 //  echo("<br/>");
-  print_r($formObject);
+  //print_r($formObject);
 }
 ?>
-<!doctype html>
-<html lang="tr">
-<head>
-<?php require 'commonHead.php';?>
-</head>
-<body>
-Sonuç console
-</body>
-<script>
-    var fkb = <?php echo json_encode($fdr->getFkbList()); ?>;
-    console.log(fkb);
-</script>
-</html>
+    <!doctype html>
+    <html lang="tr">
+    <head>
+      <?php require 'fiHead.php'; ?>
+    </head>
+    <body>
+    <h1>Codegen</h1>
+    <textarea name="txaOutput" id="txaOutput" cols="30" rows="10"></textarea>
+    <div>
+      <?php print_r($fdr->getFkbList()->getAsMultiArray()) ?>
+    </div>
+    </body>
+    <script>
+        var fkb =<?php echo json_encode($fdr->getFkbList()->getAsMultiArray()); ?>;
+        //document.getElementById("#txaOutput").textContent = fkb.toString();
+        for (const fkbElement of fkb) {
+            console.log(fkbElement);
+            document.getElementById("#txaOutput").textContent = fkbElement;
+        }
 
+        console.log(fkb);
 
+    </script>
+    </html>
+<?php
 //    try {
 //        $spreadsheet = IOFactory::load($inputFileName);
 //        $sheet = $spreadsheet->getActiveSheet();
