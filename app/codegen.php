@@ -58,15 +58,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
     <html lang="tr">
     <head>
       <?php require 'fiHead.php'; ?>
+        <link rel="stylesheet" href="codeblock.css">
     </head>
     <body>
     <h1>Codegen</h1>
-    <textarea name="txaOutput" id="txaOutput" cols="30" rows="10"></textarea>
+
+    <div class="position-relative">
+    <pre class="p-3 rounded"><code id="code-snippet">
+const hello = "Hello, Bootstrap!";
+console.log(hello);
+    </code></pre>
+        <button class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-2 copy-btn" onclick="copyCode()">
+            Copy
+        </button>
+    </div>
+
     <div>
       <?php print_r($fdr->getFkbList()->getAsMultiArray()) ?>
     </div>
-    </body>
+
     <script>
+
+        function copyCode() {
+            const code = document.getElementById("code-snippet").innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                alert("Copied!");
+            });
+        }
+
+        // Butonun tıklanmasıyla fonksiyonu çalıştır
+        document.getElementById("copy-btn").addEventListener("click", copyCode);
+
         var fkb =<?php echo json_encode($fdr->getFkbList()->getAsMultiArray()); ?>;
         //document.getElementById("#txaOutput").textContent = fkb.toString();
         for (const fkbElement of fkb) {
@@ -74,10 +96,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
             document.getElementById("#txaOutput").textContent = fkbElement;
         }
 
+
         console.log(fkb);
 
     </script>
-    </html>
+    </body>
+</html>
 <?php
 //    try {
 //        $spreadsheet = IOFactory::load($inputFileName);
