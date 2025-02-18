@@ -1,5 +1,5 @@
 <?php
-require 'vendor/autoload.php';
+require 'fiAppImports.php';
 
 use Engtuncay\Phputils8\meta\FiCol;
 use Engtuncay\Phputils8\meta\FiColList;
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 
   $fiCols->add($fiCol);
 
-  $fdr = $fiExcel::readExcelFile($inputFileName, $fiCols);
+  $fdrExcel = $fiExcel::readExcelFile($inputFileName, $fiCols);
 
   //print_r($fdr);
   //echo var_export($fdr->getFkbList(), true);
@@ -52,6 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 //  echo "Email: " . $formObject->email . "\n";
 //  echo("<br/>");
   //print_r($formObject);
+} else {
+  $fdrExcel = new \Engtuncay\Phputils8\meta\Fdr(false, "No Excel File");
 }
 ?>
     <!doctype html>
@@ -68,13 +70,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 const hello = "Hello, Bootstrap!";
 console.log(hello);
     </code></pre>
-        <button class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-2 copy-btn" onclick="copyCode()">
-            Copy
-        </button>
+    <button class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-2 copy-btn" onclick="copyCode()">
+    Copy
+    </button>
     </div>
 
     <div>
-      <?php print_r($fdr->getFkbList()->getAsMultiArray()) ?>
+      <?php //print_r($fdrExcel?->getFkbListInit()?->getAsMultiArray()) ?>
     </div>
 
     <script>
@@ -87,9 +89,9 @@ console.log(hello);
         }
 
         // Butonun tıklanmasıyla fonksiyonu çalıştır
-        document.getElementById("copy-btn").addEventListener("click", copyCode);
+        //document.getElementById("copy-btn").addEventListener("click", copyCode);
 
-        var fkb =<?php echo json_encode($fdr->getFkbList()->getAsMultiArray()); ?>;
+        var fkb =<?php echo json_encode($fdrExcel->getFkbListInit()->getAsMultiArray()); ?>;
         //document.getElementById("#txaOutput").textContent = fkb.toString();
         for (const fkbElement of fkb) {
             console.log(fkbElement);
@@ -101,7 +103,7 @@ console.log(hello);
 
     </script>
     </body>
-</html>
+    </html>
 <?php
 //    try {
 //        $spreadsheet = IOFactory::load($inputFileName);
