@@ -9,9 +9,20 @@ function addOption(element, value,textContent) {
     element.appendChild(option);
 }
 
-addOption(elementById,"-1","Seçiniz");
-addOption(elementById,"1","FiCol");
-addOption(elementById,"2","opt2");
+let txIdSeciniz = "-1";
+
+addOption(elementById,txIdSeciniz,"Seçiniz");
+addOption(elementById,"1","FiCol Csharp Sınıf");
+
+let eleSelPhp = document.getElementById("selPhp");
+
+addOption(eleSelPhp,txIdSeciniz,"Seçiniz");
+addOption(eleSelPhp,"1","FiCol Php Sınıf");
+
+let eleSelTs = document.getElementById("selTs");
+
+addOption(eleSelTs,txIdSeciniz,"Seçiniz");
+addOption(eleSelTs,"1","FiCol Ts Sınıf");
 
 //let fkb = new Fikeybean();
 

@@ -5,15 +5,16 @@ use Engtuncay\Phputils8\meta\Fdr;
 use Engtuncay\Phputils8\meta\FiCol;
 use Engtuncay\Phputils8\meta\FiColList;
 
-//use PhpOffice\PhpSpreadsheet\IOFactory;
 use Engtuncay\Phputils8\log\FiLog;
 
 FiLog::initLogger('filog');
 
 $fdrExcel = new Fdr();
 
+$message = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
+
     $uploadedFile = $_FILES['excelFile'];
     // Dosya geçici olarak kaydediliyor
     $_SESSION["uploaded_file"] = $_FILES["excelFile"]["name"];
@@ -58,6 +59,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
     // stdClass nesnesine dönüştür
     $formObject = (object)$formData;
 
+
+
+    if($formObject->selCsharp == "1") {
+        $message = "csharp1 seçildi";
+        $message.= serialize($fdrExcel->getFkbListInit()->getAsMultiArray());
+    }
+
     // Nesne olarak verileri görüntüle
     //  echo "Ad: " . $formObject->name . "\n";
     //  echo("<br/>");
@@ -86,24 +94,13 @@ endExcelOkuma:
     <pre class="p-3 rounded"><code id="code-snippet">
 const hello = "Hello, Bootstrap!";
 console.log(hello);
+<?= $message;?>
     </code></pre>
         <button class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-2 copy-btn" onclick="copyCode()">
             Copy
         </button>
     </div>
-
 </div>
-
-
-<!--<h2>Renk Seçin</h2>-->
-<!---->
-<!-- Select elementi -->
-<!--<select data-bind="options: colors, value: selectedColor, optionsText: 'name', optionsValue: 'code'">-->
-<!--</select>-->
-<!---->
-<!-- Seçilen rengi göster -->
-<!--<p>Seçilen Renk: <span data-bind="text: selectedColor"></span></p>-->
-
 
 <script>
 
@@ -119,10 +116,10 @@ console.log(hello);
 
     // Butonun tıklanmasıyla fonksiyonu çalıştır
     //document.getElementById("copy-btn").addEventListener("click", copyCode);
-
-    var fkb =<?php echo json_encode($fdrExcel->getFkbListInit()->getAsMultiArray()); ?>;
-    var fdrResult =<?php echo json_encode($fdrExcel->getBoResult())?>;
-
+<?php
+//    var fkb =<?php echo json_encode($fdrExcel->getFkbListInit()->getAsMultiArray()); ?>;
+//    var fdrResult =<?php echo json_encode($fdrExcel->getBoResult())?>;
+?>
     console.log(fkb);
     console.log(fdrResult);
 
@@ -137,7 +134,7 @@ console.log(hello);
     //     var self = this;
     //
     //     // Renk seçenekleri
-    //     self.colors = [
+    //     self.colors = [-
     //         {name: "Kırmızı", code: "#FF0000"},
     //         {name: "Yeşil", code: "#00FF00"},
     //         {name: "Mavi", code: "#0000FF"},

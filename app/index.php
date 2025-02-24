@@ -10,7 +10,7 @@ FiLog::initLogger('filog');
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <?php require 'fiHead.php'; ?>
+    <?php require 'fiHead.php'; ?>
     <!--    <link rel="stylesheet" href="codeblock.css">-->
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
 </head>
@@ -29,20 +29,21 @@ FiLog::initLogger('filog');
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-4 mb-3">
-                                    <label for="selectFi" class="form-label">Csharp:</label>
-                                    <select class="form-select" aria-label="Default select example" name="selectFi"
+                                    <label for="selCsharp" class="form-label">Csharp:</label>
+                                    <select class="form-select" aria-label="Csharp Operations" name="selCsharp"
                                             id="opsCsharp">
                                     </select>
                                     <!--          <div class="form-text">note.</div>-->
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label for="selectFi" class="form-label">Typescript:</label>
-                                    <select class="form-select" aria-label="Default select example" name="selectFi2"
-                                            id="selectFi2">
-                                        <option value="-1" selected>Seçiniz</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <label for="selTs" class="form-label">Typescript:</label>
+                                    <select class="form-select" aria-label="Ts Operations" name="selTs"
+                                            id="selTs"></select>
+                                    <!--          <div class="form-text">note.</div>-->
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="selPhp" class="form-label">Php:</label>
+                                    <select class="form-select" aria-label="Php Operations" name="selPhp" id="selPhp">
                                     </select>
                                     <!--          <div class="form-text">note.</div>-->
                                 </div>
