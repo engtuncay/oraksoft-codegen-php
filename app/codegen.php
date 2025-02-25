@@ -47,6 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 
     $fdrExcel = $fiExcel::readExcelFile($inputFileName, $fiCols);
 
+    $fkbExcel = $fdrExcel->getFkbListInit();
+
     //print_r($fdr);
     //echo var_export($fdr->getFkbList(), true);
     //echo PHP_EOL;
@@ -59,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
     $formObject = (object)$formData;
 
     if($formObject->selCsharp == "1") {
+        \modal\McgCsharp::actGenFiColListByExcel($fkbExcel);
         $message = "csharp1 seçildi";
         $message.= serialize($fdrExcel->getFkbListInit()->getAsMultiArray());
     }
