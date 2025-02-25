@@ -30,22 +30,18 @@ FiLog::initLogger('filog');
                             <div class="row">
                                 <div class="col-md-4 mb-3">
                                     <label for="selCsharp" class="form-label">Csharp:</label>
-                                    <select class="form-select" aria-label="Csharp Operations" name="selCsharp"
-                                            id="opsCsharp">
+                                    <select name="selCsharp" id="selCsharp" class="form-select" aria-label="Csharp Operations" >
                                     </select>
                                     <!--          <div class="form-text">note.</div>-->
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="selTs" class="form-label">Typescript:</label>
-                                    <select class="form-select" aria-label="Ts Operations" name="selTs"
-                                            id="selTs"></select>
-                                    <!--          <div class="form-text">note.</div>-->
+                                    <select class="form-select" aria-label="Ts Operations" name="selTs" id="selTs"></select>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="selPhp" class="form-label">Php:</label>
                                     <select class="form-select" aria-label="Php Operations" name="selPhp" id="selPhp">
                                     </select>
-                                    <!--          <div class="form-text">note.</div>-->
                                 </div>
                             </div>
                         </div>

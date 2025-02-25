@@ -1,6 +1,6 @@
 //import { FiKeybean } from "./libs/oraksoft-ui.js";
 
-let elementById = document.getElementById("opsCsharp");
+let elementById = document.getElementById("selCsharp");
 
 function addOption(element, value,textContent) {
     const option = document.createElement("option");

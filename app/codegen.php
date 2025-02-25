@@ -4,7 +4,6 @@ require 'fiAppImports.php';
 use Engtuncay\Phputils8\meta\Fdr;
 use Engtuncay\Phputils8\meta\FiCol;
 use Engtuncay\Phputils8\meta\FiColList;
-
 use Engtuncay\Phputils8\log\FiLog;
 
 FiLog::initLogger('filog');
@@ -29,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
     $allowedExtensions = ['xlsx', 'xls', 'csv'];
 
     if (!in_array(strtolower($fileExtension), $allowedExtensions)) {
-        $mess = 'Geçersiz dosya formatı. Sadece .xlsx, .xls veya .csv dosyaları yükleyebilirsiniz.';
+        $mess = 'Geçersiz dosya formatı. Sadece .xlsx veya .xls dosyaları yükleyebilirsiniz.';
         //die($mess);
         $fdrExcel->setMessage($mess);
         goto endExcelOkuma;
@@ -59,8 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
     // stdClass nesnesine dönüştür
     $formObject = (object)$formData;
 
-
-
     if($formObject->selCsharp == "1") {
         $message = "csharp1 seçildi";
         $message.= serialize($fdrExcel->getFkbListInit()->getAsMultiArray());
@@ -75,7 +72,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 } else {
     $fdrExcel = new Fdr(false, "No Excel Upload File");
 }
-
 endExcelOkuma:
 
 
@@ -116,9 +112,10 @@ console.log(hello);
 
     // Butonun tıklanmasıyla fonksiyonu çalıştır
     //document.getElementById("copy-btn").addEventListener("click", copyCode);
+
 <?php
-//    var fkb =<?php echo json_encode($fdrExcel->getFkbListInit()->getAsMultiArray()); ?>;
-//    var fdrResult =<?php echo json_encode($fdrExcel->getBoResult())?>;
+//    var fkb =<?php echo json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
+//    var fdrResult =<?php echo json_encode($fdrExcel->getBoResult())
 ?>
     console.log(fkb);
     console.log(fdrResult);
