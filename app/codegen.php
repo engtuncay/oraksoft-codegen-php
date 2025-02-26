@@ -16,66 +16,66 @@ $message = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 
-    $uploadedFile = $_FILES['excelFile'];
-    // Dosya geçici olarak kaydediliyor
-    $_SESSION["uploaded_file"] = $_FILES["excelFile"]["name"];
+  $uploadedFile = $_FILES['excelFile'];
+  // Dosya geçici olarak kaydediliyor
+  $_SESSION["uploaded_file"] = $_FILES["excelFile"]["name"];
 
-    if ($uploadedFile['error'] !== UPLOAD_ERR_OK) {
-        //die('Dosya yüklenirken hata oluştu.');
-        $fdrExcel->setMessage("Dosya yüklenirken Hata oluştu.");
-        goto endExcelOkuma;
-    }
+  if ($uploadedFile['error'] !== UPLOAD_ERR_OK) {
+    //die('Dosya yüklenirken hata oluştu.');
+    $fdrExcel->setMessage("Dosya yüklenirken Hata oluştu.");
+    goto endExcelOkuma;
+  }
 
-    $fileExtension = pathinfo($uploadedFile['name'], PATHINFO_EXTENSION);
-    $allowedExtensions = ['xlsx', 'xls', 'csv'];
+  $fileExtension = pathinfo($uploadedFile['name'], PATHINFO_EXTENSION);
+  $allowedExtensions = ['xlsx', 'xls', 'csv'];
 
-    if (!in_array(strtolower($fileExtension), $allowedExtensions)) {
-        $mess = 'Geçersiz dosya formatı. Sadece .xlsx veya .xls dosyaları yükleyebilirsiniz.';
-        //die($mess);
-        $fdrExcel->setMessage($mess);
-        goto endExcelOkuma;
-    }
+  if (!in_array(strtolower($fileExtension), $allowedExtensions)) {
+    $mess = 'Geçersiz dosya formatı. Sadece .xlsx veya .xls dosyaları yükleyebilirsiniz.';
+    //die($mess);
+    $fdrExcel->setMessage($mess);
+    goto endExcelOkuma;
+  }
 
-    $inputFileName = $uploadedFile['tmp_name'];
+  $inputFileName = $uploadedFile['tmp_name'];
 
-    $fiExcel = new FiExcel();
+  $fiExcel = new FiExcel();
 
-    $fiCols = new FiColList();
-    $fiCol = new FiCol();
-    $fiCol->ofcTxFieldName = "A1";
-    $fiCol->ofcTxHeader = "A1";
+  $fiCols = new FiColList();
+  $fiCol = new FiCol();
+  $fiCol->ofcTxFieldName = "A1";
+  $fiCol->ofcTxHeader = "A1";
 
-    $fiCols->add($fiCol);
+  $fiCols->add($fiCol);
 
-    $fdrExcel = $fiExcel::readExcelFile($inputFileName, $fiCols);
+  $fdrExcel = $fiExcel::readExcelFile($inputFileName, $fiCols);
 
-    $fkbExcel = $fdrExcel->getFkbListInit();
+  $fkbExcel = $fdrExcel->getFkbListInit();
 
-    //print_r($fdr);
-    //echo var_export($fdr->getFkbList(), true);
-    //echo PHP_EOL;
-    //print_r($fdr->getFkbList());
+  //print_r($fdr);
+  //echo var_export($fdr->getFkbList(), true);
+  //echo PHP_EOL;
+  //print_r($fdr->getFkbList());
 
-    // Formdan gelen POST verilerini al
-    $formData = $_POST;
+  // Formdan gelen POST verilerini al
+  $formData = $_POST;
 
-    // stdClass nesnesine dönüştür
-    $formObject = (object)$formData;
+  // stdClass nesnesine dönüştür
+  $formObject = (object)$formData;
 
-    if($formObject->selCsharp == "1") {
-        CgmPhp::actGenFiColListByExcel($fkbExcel);
-        $message = "csharp1 seçildi";
-        $message.= serialize($fdrExcel->getFkbListInit()->getAsMultiArray());
-    }
+  if ($formObject->selCsharp == "1") {
+    $message .= CgmPhp::actGenFiColListByFkbList($fkbExcel);
+    $message .= "csharp1 seçildi";
+    $message .= serialize($fdrExcel->getFkbListInit()->getAsMultiArray());
+  }
 
-    // Nesne olarak verileri görüntüle
-    //  echo "Ad: " . $formObject->name . "\n";
-    //  echo("<br/>");
-    //  echo "Email: " . $formObject->email . "\n";
-    //  echo("<br/>");
-    //print_r($formObject);
+  // Nesne olarak verileri görüntüle
+  //  echo "Ad: " . $formObject->name . "\n";
+  //  echo("<br/>");
+  //  echo "Email: " . $formObject->email . "\n";
+  //  echo("<br/>");
+  //print_r($formObject);
 } else {
-    $fdrExcel = new Fdr(false, "No Excel Upload File");
+  $fdrExcel = new Fdr(false, "No Excel Upload File");
 }
 endExcelOkuma:
 
@@ -95,7 +95,7 @@ endExcelOkuma:
     <pre class="p-3 rounded"><code id="code-snippet">
 const hello = "Hello, Bootstrap!";
 console.log(hello);
-<?= $message;?>
+<?= $message; ?>
     </code></pre>
         <button class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-2 copy-btn" onclick="copyCode()">
             Copy
@@ -118,10 +118,10 @@ console.log(hello);
     // Butonun tıklanmasıyla fonksiyonu çalıştır
     //document.getElementById("copy-btn").addEventListener("click", copyCode);
 
-<?php
-//    var fkb =<?php echo json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
-//    var fdrResult =<?php echo json_encode($fdrExcel->getBoResult())
-?>
+    <?php
+    //    var fkb =<?php echo json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
+    //    var fdrResult =<?php echo json_encode($fdrExcel->getBoResult())
+    ?>
     console.log(fkb);
     console.log(fdrResult);
 

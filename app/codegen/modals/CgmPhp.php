@@ -3,6 +3,7 @@
 namespace codegen\modals;
 
 use Engtuncay\Phputils8\Core\FiArray;
+use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Core\FiString;
 use Engtuncay\Phputils8\Meta\FiCol;
 use Engtuncay\Phputils8\Meta\FiColList;
@@ -10,9 +11,12 @@ use Engtuncay\Phputils8\Meta\FiKeybean;
 use Engtuncay\Phputils8\Meta\FkbList;
 use codegen\ficols\CgmFiCol;
 
+/**
+ * Code Generator Modal
+ */
 class CgmPhp
 {
-  public static function actGenFiColListByExcel(FkbList $fkbExcel)
+  public static function actGenFiColListByFkbList(FkbList $fkbExcel):string
   {
 
     $fiCols = CgmFiCol::getFiColListFromFkbList($fkbExcel);
@@ -31,14 +35,14 @@ class CgmPhp
     //$result = implode('', $buffer);
 
     //fiCol.buiColType(OzColType.{{fieldType}});
-    $sbClassBody = []; //new StringBuilder();
-    $sbFiColMethodsBody = []; //new StringBuilder();
+    $sbClassBody = new FiStrbui(); //new StringBuilder();
+    $sbFiColMethodsBody = new FiStrbui(); //new StringBuilder();
 
     //int
     $index = 0;
 
-    $sbFieldColsAddition = []; //new StringBuilder();
-    $sbFieldColsAdditionTrans = []; //new StringBuilder();
+    $sbFieldColsAddition = new FiStrbui();
+    $sbFieldColsAdditionTrans = new FiStrbui();
 
     /**
      * @var FiCol $fiCol
@@ -53,19 +57,18 @@ class CgmPhp
 
       //String
       $fieldName = $fiCol->ofcTxFieldName; //getOfcTxFieldName();
-      //    fkbParamsFiColMethod.add("fieldMethodName", FiString.capitalizeFirstLetter(fieldName));
+      //fkbParamsFiColMethod.add("fieldMethodName", FiString.capitalizeFirstLetter(fieldName));
       $fkbParamsFiColMethod->add("fieldMethodName", $fieldName);
       $fkbParamsFiColMethod->add("fieldName", $fieldName);
       $fkbParamsFiColMethod->add("fieldHeader", $fiCol->ofcTxHeader);
-      $fkbParamsFiColMethod->add("fiColMethodBody", FiArray::arrStrBuild($sbFiColMethodBody));
+      $fkbParamsFiColMethod->add("fiColMethodBody", $sbFiColMethodBody->toString());
 
       /**
        * @var string $txFiColMethod
        */
       $txFiColMethod = FiString::substitutor($templateFiColMethod, $fkbParamsFiColMethod);
 
-      $sbFiColMethodsBody[] = $txFiColMethod;
-      $sbFiColMethodsBody[] = "\n\n";
+      $sbFiColMethodsBody->append($txFiColMethod)->append("\n\n");
 
       //
 //            if (!FiBool . isTrue(fiCol . getOftBoTransient())) {
@@ -101,9 +104,9 @@ class CgmPhp
 //        sbClassBody . append("\n") . append(txGenTableColsMethodTrans) . append("\n");
 //
 //
-    $sbClassBody[] = "\n";
-    $sbClassBody[] = FiArray::arrStrBuild($sbFiColMethodsBody);
-    $sbClassBody[] = "\n";
+    $sbClassBody->append("\n");
+    $sbClassBody->append($sbFiColMethodsBody->toString());
+    $sbClassBody->append("\n");
 
 //
 //        String classPref = "FiCols";
@@ -121,19 +124,19 @@ class CgmPhp
 //        getOccHomeCont() . appendTextNewLine(txResult);
 
     //getGcgHome().appendTextNewLine(FiConsole.textFiCols(fiCols));
-
+    return $sbClassBody->toString();
   }
 
-  private static function genFiColMethodBodyDetail(FiCol $fiCol): array
+  private static function genFiColMethodBodyDetail(FiCol $fiCol): FiStrbui
   {
     //StringBuilder
-    $sbFiColMethodBody = []; // new StringBuilder();
+    $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
 
     //String
     //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::ofcTxFieldType()));
 
     if ($fiCol->colType != null)
-      $sbFiColMethodBody[] = sprintf("\tfiCol.fiColType = FiColType.%s;\n", $fiCol->colType);
+      $sbFiColMethodBody->append(sprintf("\tfiCol.fiColType = FiColType.%s;\n", $fiCol->colType));
 
 //        String ofiTxIdType = fiCol.getOfiTxIdType();
 //        //FiCodeGen.convertExcelIdentityTypeToFiColAttribute(fiCol.getTosOrEmpty(FiColsMetaTable.ofiTxIdType()));
