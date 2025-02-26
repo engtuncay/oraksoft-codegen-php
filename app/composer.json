@@ -10,5 +10,10 @@
   "require": {
     "phpoffice/phpspreadsheet": "^4.0",
     "engtuncay/phputils8": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "codegen\\": "codegen/"
+    }
   }
 }

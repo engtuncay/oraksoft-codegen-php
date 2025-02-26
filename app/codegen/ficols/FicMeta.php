@@ -1,6 +1,6 @@
 <?php
 
-namespace ficols;
+namespace codegen\ficols;
 
 use Engtuncay\Phputils8\meta\FiCol;
 

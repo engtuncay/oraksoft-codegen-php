@@ -1,6 +1,6 @@
 <?php
 
-namespace modal;
+namespace codegen\modals;
 
 class FiCodeGen
 {

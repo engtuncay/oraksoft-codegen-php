@@ -1,6 +1,6 @@
 <?php
 
-namespace ficols;
+namespace codegen\ficols;
 
 use Engtuncay\Phputils8\meta\FiCol;
 use Engtuncay\Phputils8\meta\FiColList;
@@ -21,10 +21,10 @@ class CgmFiCol
 
             $ficol = new FiCol();
 
-            $txFieldName = $fkbItem->getByFiCol(FicMeta::ofcTxFieldName());
+            $txFieldName = $fkbItem->getValueByFiCol(FicMeta::ofcTxFieldName());
             $ficol->ofcTxFieldName = $txFieldName;
 
-            $txHeader = $fkbItem->getByFiCol(FicMeta::ofcTxHeader());
+            $txHeader = $fkbItem->getValueByFiCol(FicMeta::ofcTxHeader());
             $ficol->ofcTxHeader = $txHeader;
 
             $ficols->add($ficol);

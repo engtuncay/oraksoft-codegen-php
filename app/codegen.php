@@ -1,10 +1,11 @@
 <?php
 require 'fiAppImports.php';
 
+use Engtuncay\Phputils8\log\FiLog;
 use Engtuncay\Phputils8\meta\Fdr;
 use Engtuncay\Phputils8\meta\FiCol;
 use Engtuncay\Phputils8\meta\FiColList;
-use Engtuncay\Phputils8\log\FiLog;
+use codegen\modals\CgmCsharp;
 
 FiLog::initLogger('filog');
 
@@ -61,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
     $formObject = (object)$formData;
 
     if($formObject->selCsharp == "1") {
-        \modal\CgmCsharp::actGenFiColListByExcel($fkbExcel);
+        CgmCsharp::actGenFiColListByExcel($fkbExcel);
         $message = "csharp1 seçildi";
         $message.= serialize($fdrExcel->getFkbListInit()->getAsMultiArray());
     }

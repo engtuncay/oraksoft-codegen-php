@@ -1,12 +1,11 @@
 <?php
 
-namespace modal;
+namespace codegen\modals;
 
 use Engtuncay\Phputils8\meta\FiCol;
 use Engtuncay\Phputils8\meta\FiColList;
 use Engtuncay\Phputils8\meta\FkbList;
-use ficols\CgmFiCol;
-use ficols\FicMeta;
+use codegen\ficols\CgmFiCol;
 
 class CgmCsharp
 {
