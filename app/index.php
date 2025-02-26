@@ -1,8 +1,8 @@
 <?php
 require 'fiAppImports.php';
 
-use Engtuncay\Phputils8\meta\Fdr;
-use Engtuncay\Phputils8\log\FiLog;
+use Engtuncay\Phputils8\Meta\Fdr;
+use Engtuncay\Phputils8\Log\FiLog;
 
 FiLog::initLogger('filog');
 

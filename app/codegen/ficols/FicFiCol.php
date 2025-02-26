@@ -2,14 +2,19 @@
 
 namespace codegen\ficols;
 
-use Engtuncay\Phputils8\meta\FiCol;
+use Engtuncay\Phputils8\FiCol\FimColType;
+use Engtuncay\Phputils8\FiCol\IFiTableMeta;
+use Engtuncay\Phputils8\Meta\FiCol;
+use Engtuncay\Phputils8\Meta\FiColList;
 
-class FicMeta
+
+class FicFiCol implements IFiTableMeta
 {
     public static function ofcTxFieldType(): FiCol
     {
         $fiCol = new FiCol("ofcTxFieldType", "");
-        // fiCol.buiColType(OzColType.);
+        $fiCol->ofcTxFieldType = FimcolType::String->value;
+
         return $fiCol;
     }
 
@@ -144,4 +149,19 @@ class FicMeta
 //    }
 
 
+  function getITxTableName(): string
+  {
+    // TODO: Implement getITxTableName() method.
+    return "";
+  }
+
+  function genITableCols(): FiColList
+  {
+    // TODO: Implement genITableCols() method.
+  }
+
+  function genITableColsTrans(): FiColList
+  {
+    // TODO: Implement genITableColsTrans() method.
+  }
 }

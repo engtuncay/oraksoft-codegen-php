@@ -2,10 +2,10 @@
 
 namespace codegen\ficols;
 
-use Engtuncay\Phputils8\meta\FiCol;
-use Engtuncay\Phputils8\meta\FiColList;
-use Engtuncay\Phputils8\meta\FiKeybean;
-use Engtuncay\Phputils8\meta\FkbList;
+use Engtuncay\Phputils8\Meta\FiCol;
+use Engtuncay\Phputils8\Meta\FiColList;
+use Engtuncay\Phputils8\Meta\FiKeybean;
+use Engtuncay\Phputils8\Meta\FkbList;
 
 class CgmFiCol
 {
@@ -21,10 +21,10 @@ class CgmFiCol
 
             $ficol = new FiCol();
 
-            $txFieldName = $fkbItem->getValueByFiCol(FicMeta::ofcTxFieldName());
+            $txFieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
             $ficol->ofcTxFieldName = $txFieldName;
 
-            $txHeader = $fkbItem->getValueByFiCol(FicMeta::ofcTxHeader());
+            $txHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
             $ficol->ofcTxHeader = $txHeader;
 
             $ficols->add($ficol);
