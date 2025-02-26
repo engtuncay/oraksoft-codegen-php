@@ -7,7 +7,7 @@ use Engtuncay\Phputils8\meta\FiColList;
 use Engtuncay\Phputils8\meta\FiKeybean;
 use Engtuncay\Phputils8\meta\FkbList;
 
-class McgFiCol
+class CgmFiCol
 {
 
     public static function getFiColListFromFkbList(FkbList $fkbList):FiColList

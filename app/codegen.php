@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
     $formObject = (object)$formData;
 
     if($formObject->selCsharp == "1") {
-        \modal\McgCsharp::actGenFiColListByExcel($fkbExcel);
+        \modal\CgmCsharp::actGenFiColListByExcel($fkbExcel);
         $message = "csharp1 seçildi";
         $message.= serialize($fdrExcel->getFkbListInit()->getAsMultiArray());
     }
