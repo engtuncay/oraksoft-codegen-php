@@ -218,6 +218,8 @@ public static function  GetTxTableName() : string{
   return "{{entityName}}";
 }
 
+{{classBody}}
+
 public function genITableCols() : FiColList {
   return self::GenTableCols();
 }
@@ -225,8 +227,6 @@ public function genITableCols() : FiColList {
 public function genITableColsTrans():FiColList {
   return self::GenTableColsTrans();
 }
-
-{{classBody}}
 
 }
 EOD;
