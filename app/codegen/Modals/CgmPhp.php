@@ -3,8 +3,10 @@
 namespace codegen\modals;
 
 use Engtuncay\Phputils8\Core\FiArray;
+use Engtuncay\Phputils8\Core\FiBool;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Core\FiString;
+use Engtuncay\Phputils8\Core\FiTemplate;
 use Engtuncay\Phputils8\Meta\FiCol;
 use Engtuncay\Phputils8\Meta\FiColList;
 use Engtuncay\Phputils8\Meta\FiKeybean;
@@ -16,18 +18,13 @@ use codegen\ficols\CgmFiCol;
  */
 class CgmPhp
 {
-  public static function actGenFiColClassByFkbList(FkbList $fkbListExcel):string
+  public static function actGenFiColClassByFkbList(FkbList $fkbListExcel): string
   {
 
     $fiCols = CgmFiCol::getFiColListFromFkbList($fkbListExcel);
 
     //if (FiCollection.isEmpty(fiCols)) return;
 
-
-    /**
-     * @var string
-     */
-    $templateFiColMethod = self::getTemplateFiColMethod();
 
 //        $buffer[] = "Merhaba";
 //        $buffer[] = " Dünya!";
@@ -44,6 +41,8 @@ class CgmPhp
     $sbFieldColsAddition = new FiStrbui();
     $sbFieldColsAdditionTrans = new FiStrbui();
 
+    $templateFiColMethod = self::getTemplateFiColMethod();
+
     /**
      * @var FiCol $fiCol
      */
@@ -56,7 +55,7 @@ class CgmPhp
       $fkbParamsFiColMethod = new FiKeybean();
 
       //String
-      $fieldName = $fiCol->ofcTxFieldName; //getOfcTxFieldName();
+      $fieldName = $fiCol->ofcTxFieldName;
       //fkbParamsFiColMethod.add("fieldMethodName", FiString.capitalizeFirstLetter(fieldName));
       $fkbParamsFiColMethod->add("fieldMethodName", $fieldName);
       $fkbParamsFiColMethod->add("fieldName", $fieldName);
@@ -66,65 +65,66 @@ class CgmPhp
       /**
        * @var string $txFiColMethod
        */
-      $txFiColMethod = FiString::substitutor($templateFiColMethod, $fkbParamsFiColMethod);
+      $txFiColMethod = FiTemplate::replaceParams($templateFiColMethod, $fkbParamsFiColMethod);
 
       $sbFiColMethodsBody->append($txFiColMethod)->append("\n\n");
 
       //
-//            if (!FiBool . isTrue(fiCol . getOftBoTransient())) {
-//                sbFieldColsAddition . append("\tfiColList.Add(") . append(fieldName) . append("());\n");
-////                sbFieldColsAddition.append("\tfiColList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
-//            } else {
-//                sbFieldColsAdditionTrans . append("\tfiColList.Add(") . append(fieldName) . append("());\n");
-////                sbFieldColsAdditionTrans.append("\tfiColList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
-//            }
-//
+      if (!FiBool::isTrue($fiCol->ofcBoTransient)) {
+        $sbFieldColsAddition->append("\tfiColList.Add(")->append($fieldName)->append("());\n");
+        //sbFieldColsAddition.append("\tfiColList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
+      } else {
+        $sbFieldColsAdditionTrans->append("\tfiColList.Add(")->append($fieldName)->append("());\n");
+        //sbFieldColsAdditionTrans.append("\tfiColList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
+      }
+
       $index++;
-//
     }
 //}
     // String
-    $tempGenTableCols = "public static function GenTableCols() : FiColList {\n\n" .
-      "\tFiColList fiColList = new FiColList();\n\n" .
+    $tempGenTableCols = "public static function genTableCols() : FiColList {\n\n" .
+      "  \$fiColList = new FiColList();\n\n" .
       "{{fiColsAddition}}\n" .
-      "\treturn fiColList;\n" .
+      "  return \$fiColList;\n" .
       "}";
 
-//        String txGenTableColsMethod = FiTemplate . replaceParams(tempGenTableCols, FiKeyBean . bui() . putKeyTos("fiColsAddition", sbFieldColsAddition . toString()));
-//        sbClassBody . append("\n") . append(txGenTableColsMethod) . append("\n");
-//
-//        String tempGenTableColsTrans = "public static FiColList GenTableColsTrans() {\n\n" +
-//                "\tFiColList fiColList = new FiColList();\n\n" +
-//                "{{fiColsAddition}}\n" +
-//                "\treturn fiColList;\n" +
-//                "}";
-//
-//        String txGenTableColsMethodTrans = FiTemplate . replaceParams(tempGenTableColsTrans
-//                    , FiKeyBean . bui() . putKeyTos("fiColsAddition", sbFieldColsAdditionTrans . toString()));
-//        sbClassBody . append("\n") . append(txGenTableColsMethodTrans) . append("\n");
-//
-//
+//        String
+    $txGenTableColsMethod = FiTemplate:: replaceParams($tempGenTableCols, FiKeybean::bui()->buiPut("fiColsAddition", $sbFieldColsAddition->toString()));
+
+    $sbClassBody->append("\n")->append($txGenTableColsMethod)->append("\n");
+
+    // String
+    $tempGenTableColsTrans = "public static function genTableColsTrans() : FiColList  {\n\n" .
+      "\t\$fiColList = new FiColList();\n\n" .
+      "{{fiColsAddition}}\n" .
+      "\treturn \$fiColList;\n" .
+      "}";
+
+    //    String
+    $txGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenTableColsTrans, FiKeyBean::bui()->buiPut("fiColsAddition", $sbFieldColsAdditionTrans->toString()));
+    $sbClassBody->append("\n")->append($txGenTableColsMethodTrans)->append("\n");
+
     $sbClassBody->append("\n");
     $sbClassBody->append($sbFiColMethodsBody->toString());
     $sbClassBody->append("\n");
 
-//
-//        String classPref = "FiCols";
-//        //FIXME entity name çekilecek
-//        String txEntityName = fiCols . get(0) . getOfcTxEntityName(); //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
-//
-//        FiKeyBean fkbParamsMain = new FiKeyBean();
-//        fkbParamsMain . add("classPref", classPref);
-//        fkbParamsMain . add("entityName", txEntityName);
-//        fkbParamsMain . add("classBody", sbClassBody . toString());
-//
-//        String templateMain = getTemplateFiColsClassWithInterface();
-//        String txResult = FiTemplate . replaceParams(templateMain, fkbParamsMain);
-//
-//        getOccHomeCont() . appendTextNewLine(txResult);
+    //
+    $classPref = "FiCols";
+    // URFIX entity name çekilecek
+    // String
+    $txEntityName = $fiCols->get(0)?->getOfcTxEntityNameNtn();
+    //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
+    //
+    $fkbParamsMain = new FiKeyBean();
+    $fkbParamsMain->add("classPref", $classPref);
+    $fkbParamsMain->add("entityName", $txEntityName);
+    $fkbParamsMain->add("classBody", $sbClassBody->toString());
 
-    //getGcgHome().appendTextNewLine(FiConsole.textFiCols(fiCols));
-    return $sbClassBody->toString();
+    // String
+    $templateMain = self::getTemplateFiColClassWithInterface();
+    $txResult = FiTemplate::replaceParams($templateMain, $fkbParamsMain);
+
+    return $txResult;
   }
 
   private static function genFiColMethodBodyDetail(FiCol $fiCol): FiStrbui
@@ -136,7 +136,7 @@ class CgmPhp
     //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::ofcTxFieldType()));
 
     if ($fiCol->colType != null)
-      $sbFiColMethodBody->append(sprintf("\tfiCol.fiColType = FiColType.%s;\n", $fiCol->colType));
+      $sbFiColMethodBody->append(sprintf(" \$fiCol.fiColType = FiColType.%s;\n", $fiCol->colType));
 
 //        String ofiTxIdType = fiCol.getOfiTxIdType();
 //        //FiCodeGen.convertExcelIdentityTypeToFiColAttribute(fiCol.getTosOrEmpty(FiColsMetaTable.ofiTxIdType()));
@@ -145,10 +145,10 @@ class CgmPhp
 //          sbFiColMethodBody.append("\tfiCol.boKeyIdField = true;\n");
 //          sbFiColMethodBody.append(String.format("\tfiCol.ofiTxIdType = FiIdGenerationType.%s.toString();\n", ofiTxIdType));
 //        }
-//
-//        if (FiBool.isTrue(fiCol.getOftBoTransient())) {
-//          sbFiColMethodBody.append("\tfiCol.oftBoTransient = true;\n");
-//        }
+
+    if (FiBool::isTrue($fiCol->ofcBoTransient)) {
+      $sbFiColMethodBody->append(" \$fiCol->ofcBoTransient = true;\n");
+    }
 //
 //        if (fiCol.getOfcLnLength() != null) {
 //          sbFiColMethodBody.append(String.format("\tfiCol.ofcLnLength = %s;\n", fiCol.getOfcLnLength().toString()));
@@ -193,34 +193,32 @@ class CgmPhp
 
   private static function getTemplateFiColMethod(): string
   {
-    return "public static function {{fieldMethodName}} : FiCol () {\n" .
-      "\t\$fiCol = new FiCol(\"{{fieldName}}\", \"{{fieldHeader}}\");\n" .
+    return "public static function {{fieldMethodName}} () : FiCol {\n" .
+      "  \$fiCol = new FiCol(\"{{fieldName}}\", \"{{fieldHeader}}\");\n" .
       "{{fiColMethodBody}}\n" .
-      "\treturn \$fiCol;\n" .
+      "  return \$fiCol;\n" .
       "}";
   }
 
 
-  public static function getTemplateFiColsClassWithInterface(): string
+  public static function getTemplateFiColClassWithInterface(): string
   {
     //String
-    $templateMain =
+    $templateMain = "\n\n" .
       "class {{classPref}}{{entityName}} : IFiTableMeta {\n" .
       "\n" .
-      "\tpublic string GetITxTableName() {\n" .
-      "\t\treturn GetTxTableName();\n" .
-      "\t}\n\n" .
-      "\tpublic static string GetTxTableName() {\n" .
-      "\t\treturn \"{{entityName}}\";\n" .
-      "\t}\n" .
-      "\n" .
+      "public string GetITxTableName() {\n" .
+      "  return GetTxTableName();\n" .
+      "}\n\n" .
+      "public static string GetTxTableName() {\n" .
+      "  return \"{{entityName}}\";\n" .
+      "}\n\n" .
       "public function GenITableCols() : FiColList {\n" .
-      "\treturn GenTableCols();\n" .
-      "}\n" .
-      "\n" .
+      "  return GenTableCols();\n" .
+      "}\n\n" .
       "function genITableColsTrans():FiColList {\n" .
-      "\treturn self::genTableColsTrans();\n" .
-      "\t}\n" .
+      "  return self::genTableColsTrans();\n" .
+      "}\n" .
       "\n" .
       "{{classBody}}\n" .
       "}";

@@ -1,6 +1,7 @@
 <?php
 require 'fiAppImports.php';
 
+use codegen\ficols\FicFiCol;
 use Engtuncay\Phputils8\Excel\FiExcel;
 use Engtuncay\Phputils8\Log\FiLog;
 use Engtuncay\Phputils8\Meta\Fdr;
@@ -41,11 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
   $fiExcel = new FiExcel();
 
   $fiCols = new FiColList();
-  $fiCol1 = new FiCol("ofcTxFieldName", "ofcTxFieldName");
-  $fiCol2 = new FiCol("ofcTxHeader", "ofcTxHeader");
-
-  $fiCols->add($fiCol1);
-  $fiCols->add($fiCol2);
+  $fiCols->add(FicFiCol::ofcTxFieldName());
+  $fiCols->add(FicFiCol::ofcTxHeader());
+  $fiCols->add(FicFiCol::ofcTxFieldType());
+  $fiCols->add(FicFiCol::ofcBoTransient());
 
   $fdrExcel = $fiExcel::readExcelFile($inputFileName, $fiCols);
 
@@ -65,7 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
   if ($formObject->selPhp == "1") {
     $message .= "// Php FiCol Class Generating";
     $message .= CgmPhp::actGenFiColClassByFkbList($fkbListExcel);
-    //$message .= serialize($fdrExcel->getFkbListInit()->getAsMultiArray());
+    $message.= "\n";
+    $message .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
   }
 
   // Nesne olarak verileri görüntüle
@@ -93,7 +94,7 @@ endExcelOkuma:
     <!--code blok -->
     <div class="position-relative">
     <pre class="p-3 rounded">
-        <code id="code-snippet"><?=$message;?></code>
+        <code id="code-snippet"><?= $message; ?></code>
     </pre>
         <button class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-2 copy-btn" onclick="copyCode()">
             Copy
@@ -120,8 +121,8 @@ endExcelOkuma:
     //    var fkb =<?php echo json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
     //    var fdrResult =<?php echo json_encode($fdrExcel->getBoResult())
     ?>
-    console.log(fkb);
-    console.log(fdrResult);
+    //console.log(fkb);
+    //console.log(fdrResult);
 
     //document.getElementById("#txaOutput").textContent = fkb.toString();
     // for (const fkbElement of fkb) {

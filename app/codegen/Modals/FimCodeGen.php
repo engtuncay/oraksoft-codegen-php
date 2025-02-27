@@ -2,7 +2,7 @@
 
 namespace codegen\modals;
 
-class FiCodeGen
+class FimCodeGen
 {
 
 }

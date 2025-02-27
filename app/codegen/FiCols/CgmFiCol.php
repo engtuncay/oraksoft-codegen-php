@@ -10,26 +10,29 @@ use Engtuncay\Phputils8\Meta\FkbList;
 class CgmFiCol
 {
 
-    public static function getFiColListFromFkbList(FkbList $fkbList):FiColList
-    {
-        $ficols = new FiColList();
+  public static function getFiColListFromFkbList(FkbList $fkbList): FiColList
+  {
+    $ficols = new FiColList();
 
-        /**
-         * @var FiKeybean $fkbItem
-         */
-        foreach ($fkbList->getItems() as $fkbItem) {
+    /**
+     * @var FiKeybean $fkbItem
+     */
+    foreach ($fkbList->getItems() as $fkbItem) {
 
-            $ficol = new FiCol();
+      $ficol = new FiCol();
 
-            $txFieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
-            $ficol->ofcTxFieldName = $txFieldName;
+      $txFieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
+      $ficol->ofcTxFieldName = $txFieldName;
 
-            $txHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
-            $ficol->ofcTxHeader = $txHeader;
+      $txHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
+      $ficol->ofcTxHeader = $txHeader;
 
-            $ficols->add($ficol);
-        }
+      $boTransient = $fkbItem->getValueAsBoolByFiCol(FicFiCol::ofcBoTransient());
+      $ficol->ofcBoTransient = $boTransient;
 
-        return $ficols;
+      $ficols->add($ficol);
     }
+
+    return $ficols;
+  }
 }
