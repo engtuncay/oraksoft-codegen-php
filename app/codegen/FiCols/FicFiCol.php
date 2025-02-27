@@ -2,14 +2,71 @@
 
 namespace codegen\ficols;
 
-use Engtuncay\Phputils8\FiCol\FimColType;
+// Php FiCol Class Generating
+
 use Engtuncay\Phputils8\FiCol\IFiTableMeta;
 use Engtuncay\Phputils8\Meta\FiCol;
 use Engtuncay\Phputils8\Meta\FiColList;
 
-
-class FicFiCol
+class FicFiCol implements IFiTableMeta
 {
+
+  public function getITxTableName(): string
+  {
+    return self::GetTxTableName();
+  }
+
+  public static function GetTxTableName(): string
+  {
+    return "FicFiCol";
+  }
+
+  public function genITableCols(): FiColList
+  {
+    return self::GenTableCols();
+  }
+
+  public function genITableColsTrans(): FiColList
+  {
+    return self::GenTableColsTrans();
+  }
+
+
+  public static function GenTableCols(): FiColList
+  {
+
+    $fiColList = new FiColList();
+
+    $fiColList->add(self::ofcTxEntityName());
+    $fiColList->add(self::ofcTxFieldType());
+    $fiColList->add(self::ofcTxFieldName());
+    $fiColList->add(self::ofcTxHeader());
+    $fiColList->add(self::ofcTxIdType());
+    $fiColList->add(self::ofcBoTransient());
+    $fiColList->add(self::ofcLnLength());
+    $fiColList->add(self::ofcBoNullable());
+    $fiColList->add(self::ofcLnPrecision());
+    $fiColList->add(self::ofcLnScale());
+    $fiColList->add(self::ofcBoUnique());
+    $fiColList->add(self::ofcBoUniqGro1());
+    $fiColList->add(self::ofcTxDefValue());
+    $fiColList->add(self::ofcTxCollation());
+    $fiColList->add(self::ofcTxTypeName());
+    $fiColList->add(self::ofcBoFilterLike());
+    $fiColList->add(self::ofcTxFieldDesc());
+
+    return $fiColList;
+  }
+
+  public static function GenTableColsTrans(): FiColList
+  {
+
+    $fiColList = new FiColList();
+
+
+
+    return $fiColList;
+  }
 
   public static function ofcTxEntityName(): FiCol
   {
@@ -42,6 +99,7 @@ class FicFiCol
   public static function ofcTxFieldDesc(): FiCol
   {
     $fiCol = new FiCol("ofcTxFieldDesc", "ofcTxFieldDesc");
+    $fiCol->ofcBoTransient = true;
 
     return $fiCol;
   }
@@ -98,13 +156,6 @@ class FicFiCol
   public static function ofcBoUniqGro1(): FiCol
   {
     $fiCol = new FiCol("ofcBoUniqGro1", "ofcBoUniqGro1");
-
-    return $fiCol;
-  }
-
-  public static function ofcBoUtfSupport(): FiCol
-  {
-    $fiCol = new FiCol("ofcBoUtfSupport", "ofcBoUtfSupport");
 
     return $fiCol;
   }

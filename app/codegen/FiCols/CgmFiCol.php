@@ -10,11 +10,19 @@ use Engtuncay\Phputils8\Meta\FkbList;
 class CgmFiCol
 {
 
+  /**
+   * UBOM Fkb yi FiCola çevir
+   *
+   * @param FkbList $fkbList
+   * @return FiColList
+   */
   public static function getFiColListFromFkbList(FkbList $fkbList): FiColList
   {
     $ficols = new FiColList();
 
     /**
+     *
+     *
      * @var FiKeybean $fkbItem
      */
     foreach ($fkbList->getItems() as $fkbItem) {
@@ -26,6 +34,9 @@ class CgmFiCol
 
       $txHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
       $ficol->ofcTxHeader = $txHeader;
+
+      $txEntName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxEntityName());
+      $ficol->ofcTxEntityName = $txEntName;
 
       $boTransient = $fkbItem->getValueAsBoolByFiCol(FicFiCol::ofcBoTransient());
       $ficol->ofcBoTransient = $boTransient;

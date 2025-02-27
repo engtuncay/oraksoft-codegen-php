@@ -13,7 +13,8 @@ FiLog::initLogger('filog');
 
 $fdrExcel = new Fdr();
 
-$message = "";
+$txCodeGen = "";
+$txCodeGenExtra = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 
@@ -41,13 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 
   $fiExcel = new FiExcel();
 
-  $fiCols = new FiColList();
-  $fiCols->add(FicFiCol::ofcTxFieldName());
-  $fiCols->add(FicFiCol::ofcTxHeader());
-  $fiCols->add(FicFiCol::ofcTxFieldType());
-  $fiCols->add(FicFiCol::ofcBoTransient());
-
-  $fdrExcel = $fiExcel::readExcelFile($inputFileName, $fiCols);
+  $fdrExcel = $fiExcel::readExcelFile($inputFileName, FicFiCol::GenTableCols());
 
   $fkbListExcel = $fdrExcel->getFkbListInit();
 
@@ -63,10 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
   $formObject = (object)$formData;
 
   if ($formObject->selPhp == "1") {
-    $message .= "// Php FiCol Class Generating";
-    $message .= CgmPhp::actGenFiColClassByFkbList($fkbListExcel);
-    $message.= "\n";
-    $message .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
+    $txCodeGen .= "// Php FiCol Class Generating";
+    $txCodeGen .= CgmPhp::actGenFiColClassByFkbList($fkbListExcel);
+    $txCodeGen .= "\n";
+    //$txCodeGenExtra .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
   }
 
   // Nesne olarak verileri görüntüle
@@ -94,9 +89,21 @@ endExcelOkuma:
     <!--code blok -->
     <div class="position-relative">
     <pre class="p-3 rounded">
-        <code id="code-snippet"><?= $message; ?></code>
+        <code id="code-snippet"><?= $txCodeGen; ?></code>
     </pre>
         <button class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-2 copy-btn" onclick="copyCode()">
+            Copy
+        </button>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <!--code blok -->
+    <div class="position-relative">
+    <pre class="p-3 rounded">
+        <code id="code-snippet-extra"><?=$txCodeGenExtra;?></code>
+    </pre>
+        <button class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-2 copy-btn" onclick="copyCodeExtra()">
             Copy
         </button>
     </div>
@@ -106,6 +113,13 @@ endExcelOkuma:
 
     function copyCode() {
         const code = document.getElementById("code-snippet").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            //alert("Copied!");
+        });
+    }
+
+    function copyCodeExtra() {
+        const code = document.getElementById("code-snippet-extra").innerText;
         navigator.clipboard.writeText(code).then(() => {
             //alert("Copied!");
         });
@@ -121,6 +135,7 @@ endExcelOkuma:
     //    var fkb =<?php echo json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
     //    var fdrResult =<?php echo json_encode($fdrExcel->getBoResult())
     ?>
+    
     //console.log(fkb);
     //console.log(fdrResult);
 
