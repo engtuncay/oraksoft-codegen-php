@@ -12,14 +12,14 @@ use Engtuncay\Phputils8\Meta\FkbList;
 use codegen\ficols\CgmFiCol;
 
 /**
- * Code Generator Modal
+ * Code Generator Modal for Php
  */
 class CgmPhp
 {
-  public static function actGenFiColListByFkbList(FkbList $fkbExcel):string
+  public static function actGenFiColClassByFkbList(FkbList $fkbListExcel):string
   {
 
-    $fiCols = CgmFiCol::getFiColListFromFkbList($fkbExcel);
+    $fiCols = CgmFiCol::getFiColListFromFkbList($fkbListExcel);
 
     //if (FiCollection.isEmpty(fiCols)) return;
 

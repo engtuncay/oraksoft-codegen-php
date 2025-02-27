@@ -41,15 +41,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
   $fiExcel = new FiExcel();
 
   $fiCols = new FiColList();
-  $fiCol = new FiCol();
-  $fiCol->ofcTxFieldName = "A1";
-  $fiCol->ofcTxHeader = "A1";
+  $fiCol1 = new FiCol("ofcTxFieldName", "ofcTxFieldName");
+  $fiCol2 = new FiCol("ofcTxHeader", "ofcTxHeader");
 
-  $fiCols->add($fiCol);
+  $fiCols->add($fiCol1);
+  $fiCols->add($fiCol2);
 
   $fdrExcel = $fiExcel::readExcelFile($inputFileName, $fiCols);
 
-  $fkbExcel = $fdrExcel->getFkbListInit();
+  $fkbListExcel = $fdrExcel->getFkbListInit();
 
   //print_r($fdr);
   //echo var_export($fdr->getFkbList(), true);
@@ -62,10 +62,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
   // stdClass nesnesine dönüştür
   $formObject = (object)$formData;
 
-  if ($formObject->selCsharp == "1") {
-    $message .= CgmPhp::actGenFiColListByFkbList($fkbExcel);
-    $message .= "csharp1 seçildi";
-    $message .= serialize($fdrExcel->getFkbListInit()->getAsMultiArray());
+  if ($formObject->selPhp == "1") {
+    $message .= "// Php FiCol Class Generating";
+    $message .= CgmPhp::actGenFiColClassByFkbList($fkbListExcel);
+    //$message .= serialize($fdrExcel->getFkbListInit()->getAsMultiArray());
   }
 
   // Nesne olarak verileri görüntüle
@@ -92,11 +92,9 @@ endExcelOkuma:
 <div class="container mt-3">
     <!--code blok -->
     <div class="position-relative">
-    <pre class="p-3 rounded"><code id="code-snippet">
-const hello = "Hello, Bootstrap!";
-console.log(hello);
-<?= $message; ?>
-    </code></pre>
+    <pre class="p-3 rounded">
+        <code id="code-snippet"><?=$message;?></code>
+    </pre>
         <button class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-2 copy-btn" onclick="copyCode()">
             Copy
         </button>
