@@ -2,6 +2,7 @@
 require 'fiAppImports.php';
 
 use codegen\ficols\FicFiCol;
+use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Excel\FiExcel;
 use Engtuncay\Phputils8\Log\FiLog;
 use Engtuncay\Phputils8\Meta\Fdr;
@@ -13,8 +14,8 @@ FiLog::initLogger('filog');
 
 $fdrExcel = new Fdr();
 
-$txCodeGen = "";
 $txCodeGenExtra = "";
+$sbTxCodeGen = new FiStrbui();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 
@@ -58,9 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
   $formObject = (object)$formData;
 
   if ($formObject->selPhp == "1") {
-    $txCodeGen .= "// Php FiCol Class Generating";
-    $txCodeGen .= CgmPhp::actGenFiColClassByFkbList($fkbListExcel);
-    $txCodeGen .= "\n";
+    $sbTxCodeGen->append("// Php FiCol Class Generating\n");
+    $sbTxCodeGen->append(CgmPhp::actGenFiColClassByFkbList($fkbListExcel));
+    $sbTxCodeGen->append("\n");
     //$txCodeGenExtra .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
   }
 
@@ -89,7 +90,7 @@ endExcelOkuma:
     <!--code blok -->
     <div class="position-relative">
     <pre class="p-3 rounded">
-        <code id="code-snippet"><?= $txCodeGen; ?></code>
+        <code id="code-snippet"><?= $sbTxCodeGen->toString(); ?></code>
     </pre>
         <button class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-2 copy-btn" onclick="copyCode()">
             Copy
@@ -101,9 +102,10 @@ endExcelOkuma:
     <!--code blok -->
     <div class="position-relative">
     <pre class="p-3 rounded">
-        <code id="code-snippet-extra"><?=$txCodeGenExtra;?></code>
+        <code id="code-snippet-extra"><?= $txCodeGenExtra; ?></code>
     </pre>
-        <button class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-2 copy-btn" onclick="copyCodeExtra()">
+        <button class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-2 copy-btn"
+                onclick="copyCodeExtra()">
             Copy
         </button>
     </div>
@@ -135,7 +137,7 @@ endExcelOkuma:
     //    var fkb =<?php echo json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
     //    var fdrResult =<?php echo json_encode($fdrExcel->getBoResult())
     ?>
-    
+
     //console.log(fkb);
     //console.log(fdrResult);
 

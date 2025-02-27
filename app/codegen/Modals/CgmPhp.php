@@ -2,13 +2,10 @@
 
 namespace codegen\modals;
 
-use Engtuncay\Phputils8\Core\FiArray;
 use Engtuncay\Phputils8\Core\FiBool;
 use Engtuncay\Phputils8\Core\FiStrbui;
-use Engtuncay\Phputils8\Core\FiString;
 use Engtuncay\Phputils8\Core\FiTemplate;
 use Engtuncay\Phputils8\Meta\FiCol;
-use Engtuncay\Phputils8\Meta\FiColList;
 use Engtuncay\Phputils8\Meta\FiKeybean;
 use Engtuncay\Phputils8\Meta\FkbList;
 use codegen\ficols\CgmFiCol;
@@ -78,31 +75,34 @@ class CgmPhp
     }
 
     // String
-    $tempGenFiCols = "public static function GenTableCols() : FiColList {\n\n" .
-      "  \$fiColList = new FiColList();\n\n" .
-      "{{fiColListBody}}\n" .
-      "  return \$fiColList;\n" .
-      "}";
-
-//        String
-    $txGenTableColsMethod = FiTemplate:: replaceParams($tempGenFiCols, FiKeybean::bui()->buiPut("fiColListBody", $sbFiColListBody->toString()));
-
-    $sbClassBody->append("\n")->append($txGenTableColsMethod)->append("\n");
+    $tempGenFiCols = <<<EOD
+public static function GenTableCols() : FiColList {
+  \$fiColList = new FiColList();
+{{fiColListBody}}
+  return \$fiColList;
+}
+EOD;
 
     // String
-    $tempGenFiColsTrans = "public static function GenTableColsTrans() : FiColList  {\n\n" .
-      "  \$fiColList = new FiColList();\n\n" .
-      "{{fiColListBodyTrans}}\n" .
-      "  return \$fiColList;\n" .
-      "}";
+    $txResGenTableColsMethod = FiTemplate::replaceParams($tempGenFiCols, FiKeybean::bui()->buiPut("fiColListBody", $sbFiColListBody->toString()));
+
+    $sbClassBody->append("\n")->append($txResGenTableColsMethod)->append("\n");
+
+    // String
+    $tempGenFiColsTrans = <<<EOD
+public static function GenTableColsTrans() : FiColList  {
+  \$fiColList = new FiColList();
+{{fiColListBodyTrans}}
+  return \$fiColList;
+}
+EOD;
 
     //    String
-    $txGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeyBean::bui()->buiPut("fiColListBodyTrans", $sbFiColListBodyTrans->toString()));
-    $sbClassBody->append("\n")->append($txGenTableColsMethodTrans)->append("\n");
+    $txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeyBean::bui()->buiPut("fiColListBodyTrans", $sbFiColListBodyTrans->toString()));
+    $sbClassBody->append("\n")->append($txResGenTableColsMethodTrans)->append("\n");
 
     $sbClassBody->append("\n");
     $sbClassBody->append($sbFiColMethodsBody->toString());
-    $sbClassBody->append("\n");
 
     //
     $classPref = "Fic";
@@ -145,12 +145,12 @@ class CgmPhp
     if (FiBool::isTrue($fiCol->ofcBoTransient)) {
       $sbFiColMethodBody->append(" \$fiCol->ofcBoTransient = true;\n");
     }
-//
-//        if (fiCol.getOfcLnLength() != null) {
-//          sbFiColMethodBody.append(String.format("\tfiCol.ofcLnLength = %s;\n", fiCol.getOfcLnLength().toString()));
-//        }
-//
-//        if (FiBool.isTrue(fiCol.getBoNullable())) {
+
+    if ($fiCol->ofcLnLength != null) {
+      $sbFiColMethodBody->append(sprintf("\tfiCol.ofcLnLength = %s;\n", $fiCol->ofcLnLength));
+    }
+
+    //        if (FiBool.isTrue(fiCol.getBoNullable())) {
 //          sbFiColMethodBody.append("\tfiCol.ofcBoNullable = true;\n");
 //        }
 //
@@ -189,38 +189,47 @@ class CgmPhp
 
   private static function getTemplateFiColMethod(): string
   {
-    return "public static function {{fieldMethodName}} () : FiCol {\n" .
-      "  \$fiCol = new FiCol(\"{{fieldName}}\", \"{{fieldHeader}}\");\n" .
-      "{{fiColMethodBody}}\n" .
-      "  return \$fiCol;\n" .
-      "}";
+    return <<<EOD
+public static function {{fieldMethodName}} () : FiCol {
+  \$fiCol = new FiCol("{{fieldName}}", "{{fieldHeader}}");
+{{fiColMethodBody}}
+  return \$fiCol;
+}
+EOD;
   }
 
 
   public static function getTemplateFiColClassWithInterface(): string
   {
     //String
-    $templateMain = "\n\n" .
-      "use Engtuncay\Phputils8\FiCol\IFiTableMeta;\n" .
-      "use Engtuncay\Phputils8\Meta\FiCol;\n" .
-      "use Engtuncay\Phputils8\Meta\FiColList;\n\n" .
-      "class {{entityName}} implements IFiTableMeta {\n" .
-      "\n" .
-      "public function getITxTableName() : string {\n" .
-      "  return self::GetTxTableName();\n" .
-      "}\n\n" .
-      "public static function  GetTxTableName() : string{\n" .
-      "  return \"{{entityName}}\";\n" .
-      "}\n\n" .
-      "public function genITableCols() : FiColList {\n" .
-      "  return self::GenTableCols();\n" .
-      "}\n\n" .
-      "public function genITableColsTrans():FiColList {\n" .
-      "  return self::GenTableColsTrans();\n" .
-      "}\n" .
-      "\n" .
-      "{{classBody}}\n" .
-      "}";
+    $templateMain = <<<EOD
+      
+use Engtuncay\Phputils8\FiCol\IFiTableMeta;
+use Engtuncay\Phputils8\Meta\FiCol;
+use Engtuncay\Phputils8\Meta\FiColList;
+
+class {{entityName}} implements IFiTableMeta {
+
+public function getITxTableName() : string {
+  return self::GetTxTableName();
+}
+
+public static function  GetTxTableName() : string{
+  return "{{entityName}}";
+}
+
+public function genITableCols() : FiColList {
+  return self::GenTableCols();
+}
+
+public function genITableColsTrans():FiColList {
+  return self::GenTableColsTrans();
+}
+
+{{classBody}}
+
+}
+EOD;
 
     return $templateMain;
   }
