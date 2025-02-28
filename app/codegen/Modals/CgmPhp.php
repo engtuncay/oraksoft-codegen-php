@@ -131,12 +131,13 @@ EOD;
     //String
     //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::ofcTxFieldType()));
 
-    if ($fiCol->colType != null)
-      $sbFiColMethodBody->append(sprintf(" \$fiCol->fiColType = FiColType.%s;\n", $fiCol->colType));
+    if ($fiCol->ofcTxFieldType != null)
+      $sbFiColMethodBody->append(sprintf(" \$fiCol->ofcTxFieldType = '%s';\n", $fiCol->ofcTxFieldType));
 
-//        String ofiTxIdType = fiCol.getOfiTxIdType();
-//        //FiCodeGen.convertExcelIdentityTypeToFiColAttribute(fiCol.getTosOrEmpty(FiColsMetaTable.ofiTxIdType()));
-//
+
+        //$ofcTxIdType = $fiCol->ofcTxIdType;
+        //CgmCodeGen::convertExcelIdentityTypeToFiColAttribute($fiCol->ofcTxIdType);
+
 //        if (!FiString.isEmpty(ofiTxIdType)) {
 //          sbFiColMethodBody.append("\tfiCol.boKeyIdField = true;\n");
 //          sbFiColMethodBody.append(String.format("\tfiCol.ofiTxIdType = FiIdGenerationType.%s.toString();\n", ofiTxIdType));
@@ -147,13 +148,13 @@ EOD;
     }
 
     if ($fiCol->ofcLnLength != null) {
-      $sbFiColMethodBody->append(sprintf("\tfiCol.ofcLnLength = %s;\n", $fiCol->ofcLnLength));
+      $sbFiColMethodBody->append(sprintf("  fiCol.ofcLnLength = %s;\n", $fiCol->ofcLnLength));
     }
 
-    //        if (FiBool.isTrue(fiCol.getBoNullable())) {
-//          sbFiColMethodBody.append("\tfiCol.ofcBoNullable = true;\n");
-//        }
-//
+    if (FiBool::isTrue($fiCol->ofcBoNullable)) {
+      $sbFiColMethodBody->append("  fiCol->ofcBoNullable = true;\n");
+    }
+
 //        if (fiCol.getOfcLnPrecision() != null) {
 //          sbFiColMethodBody.append(String.format("\tfiCol.ofcLnPrecision = %s;\n", fiCol.getOfcLnPrecision().toString()));
 //        }
@@ -183,7 +184,7 @@ EOD;
 //        }
 //
 //        // ofcTxCollation	ofcTxTypeName
-//
+
     return $sbFiColMethodBody;
   }
 
