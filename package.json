@@ -10,13 +10,16 @@
     "preview": "vite preview",
     "copy-deps-ocg": "node ./copy-deps.js",
     "pnpm-update-ocg": "pnpm update",
-    "pnpm-link-oraksoft-ui":"pnpm link --global oraksoft-ui",
-    "pnpm-link-orak-util-ts":"pnpm link --global orak-util-ts",
-    "pnpm-unlink-oraksoft-ui":"pnpm unlink --global oraksoft-ui"
+    "pnpm-link-oraksoft-ui": "pnpm link --global oraksoft-ui",
+    "pnpm-link-orak-util-ts": "pnpm link --global orak-util-ts",
+    "pnpm-unlink-oraksoft-ui": "pnpm unlink --global oraksoft-ui",
+    "fideploy": "node ./fideploy.js"
   },
   "devDependencies": {
     "@types/alpinejs": "^3.13.11",
     "@types/knockout": "^3.4.77",
+    "archiver": "^7.0.1",
+    "basic-ftp": "^5.0.5",
     "path": "^0.12.7",
     "typescript": "~5.6.3",
     "vite": "^5.4.14"

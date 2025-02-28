@@ -1,8 +1,8 @@
-const fs = require("fs");
-const archiver = require("archiver");
-const ftp = require("basic-ftp");
+import fs from "fs";
+import archiver from "archiver";
+import { Client } from "basic-ftp";
 
-function createZip(zipFileName, sourceDir) {
+async function createZip(zipFileName, sourceDir) {
     return new Promise((resolve, reject) => {
         const output = fs.createWriteStream(zipFileName);
         const archive = archiver("zip", { zlib: { level: 9 } });
@@ -17,7 +17,7 @@ function createZip(zipFileName, sourceDir) {
 }
 
 async function uploadZip(zipFileName) {
-    const client = new ftp.Client();
+    const client = new Client();
     client.ftp.verbose = true;
 
     try {
@@ -29,19 +29,23 @@ async function uploadZip(zipFileName) {
         });
 
         console.log("FTP bağlantısı başarılı. ZIP yükleniyor...");
-        await client.uploadFrom(zipFileName, "public_html/proje.zip");
+        await client.uploadFrom(zipFileName, `public_html/${zipFileName}`);
         console.log("ZIP dosyası başarıyla yüklendi!");
 
     } catch (err) {
-        console.error(err);
+        console.error("FTP yükleme hatası:", err);
+    } finally {
+        client.close();
     }
-
-    client.close();
 }
 
 const zipFileName = "deploy.zip";
-const sourceDir = "./app";
+const sourceDir = "./build";
 
-createZip(zipFileName, sourceDir)
-    .then(uploadZip)
-    .catch(console.error);
+try {
+    const zipPath = await createZip(zipFileName, sourceDir);
+    console.log(`ZIP oluşturuldu: ${zipPath}`);
+    await uploadZip(zipPath);
+} catch (err) {
+    console.error("İşlem sırasında hata oluştu:", err);
+}
