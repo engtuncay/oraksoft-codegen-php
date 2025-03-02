@@ -3,9 +3,11 @@
 namespace codegen\ficols;
 
 use Engtuncay\Phputils8\Meta\FiCol;
-use Engtuncay\Phputils8\Meta\FiColList;
+use Engtuncay\Phputils8\Meta\FclList;
 use Engtuncay\Phputils8\Meta\FiKeybean;
+use Engtuncay\Phputils8\Meta\FiMeta;
 use Engtuncay\Phputils8\Meta\FkbList;
+use Engtuncay\Phputils8\Meta\FmtList;
 
 class CgmFiCol
 {
@@ -14,11 +16,11 @@ class CgmFiCol
    * UBOM Fkb yi FiCola çevir
    *
    * @param FkbList $fkbList
-   * @return FiColList
+   * @return FclList
    */
-  public static function getFiColListFromFkbList(FkbList $fkbList): FiColList
+  public static function getFiColListFromFkbList(FkbList $fkbList): FclList
   {
-    $ficols = new FiColList();
+    $ficols = new FclList();
 
     /**
      *
@@ -45,5 +47,35 @@ class CgmFiCol
     }
 
     return $ficols;
+  }
+
+  public static function getFiMetaListFromFkbList(FkbList $fkbList): FmtList
+  {
+
+    $fmtList = new FmtList();
+
+    /**
+     *
+     *
+     * @var FiKeybean $fkbItem
+     */
+    foreach ($fkbList->getItems() as $fkbItem) {
+
+      $fiMeta = new FiMeta();
+
+      $txFieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
+      $fiMeta->txKey = $txFieldName;
+
+      $txEntityName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxEntityName());
+      $fiMeta[FicFiCol::ofcTxEntityName()->getOfcTxFieldNameNtn()] = $txEntityName;
+
+//      $txHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
+//      $fiMeta->ofcTxHeader = $txHeader;
+
+      $fmtList->add($fiMeta);
+    }
+
+    return $fmtList;
+
   }
 }

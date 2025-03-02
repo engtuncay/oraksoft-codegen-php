@@ -2,12 +2,13 @@
 require 'fiAppImports.php';
 
 use codegen\ficols\FicFiCol;
+use codegen\ficols\FicFiMeta;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Excel\FiExcel;
 use Engtuncay\Phputils8\Log\FiLog;
 use Engtuncay\Phputils8\Meta\Fdr;
 use Engtuncay\Phputils8\Meta\FiCol;
-use Engtuncay\Phputils8\Meta\FiColList;
+use Engtuncay\Phputils8\Meta\FclList;
 use codegen\modals\CgmPhp;
 
 FiLog::initLogger('filog');
@@ -41,11 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 
   $inputFileName = $uploadedFile['tmp_name'];
 
-  $fiExcel = new FiExcel();
-
-  $fdrExcel = $fiExcel::readExcelFile($inputFileName, FicFiCol::GenTableCols());
-
-  $fkbListExcel = $fdrExcel->getFkbListInit();
 
   //print_r($fdr);
   //echo var_export($fdr->getFkbList(), true);
@@ -59,10 +55,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
   $formObject = (object)$formData;
 
   if ($formObject->selPhp == "1") {
-    $sbTxCodeGen->append("// Php FiCol Class Generating\n");
+    $fiExcel = new FiExcel();
+    $fdrExcel = $fiExcel::readExcelFile($inputFileName, FicFiCol::GenTableCols());
+    $fkbListExcel = $fdrExcel->getFkbListInit();
+
+    $sbTxCodeGen->append("// Php FiCol Class Generation v1\n");
     $sbTxCodeGen->append(CgmPhp::actGenFiColClassByFkbList($fkbListExcel));
     $sbTxCodeGen->append("\n");
     //$txCodeGenExtra .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
+  }
+
+  if ($formObject->selPhp == "2") {
+    $fiExcel = new FiExcel();
+    $cols = FicFiMeta::GenTableCols();
+    $cols->add(FicFiCol::ofcTxEntityName());
+    $fdrExcel = $fiExcel::readExcelFile($inputFileName, $cols);
+    $fkbListExcel = $fdrExcel->getFkbListInit();
+
+    $sbTxCodeGen->append("// Php FiMeta Class Generation v1\n");
+    $sbTxCodeGen->append(CgmPhp::actGenFiMetaClass($fkbListExcel));
+    $sbTxCodeGen->append("\n");
+    $txCodeGenExtra .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
   }
 
   // Nesne olarak verileri görüntüle

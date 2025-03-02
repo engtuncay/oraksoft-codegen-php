@@ -1,7 +1,6 @@
 //import { FiKeybean } from "./libs/oraksoft-ui.js";
 
 let elementById = document.getElementById("selCsharp");
-
 function addOption(element, value,textContent) {
     const option = document.createElement("option");
     option.value = value;
@@ -18,6 +17,7 @@ let eleSelPhp = document.getElementById("selPhp");
 
 addOption(eleSelPhp,txIdSeciniz,"Seçiniz");
 addOption(eleSelPhp,"1","FiCol Php Sınıf");
+addOption(eleSelPhp,"2","FiMeta Php Sınıf");
 
 let eleSelTs = document.getElementById("selTs");
 
