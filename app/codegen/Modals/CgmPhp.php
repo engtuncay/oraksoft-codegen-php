@@ -7,12 +7,9 @@ use codegen\ficols\FicFiMeta;
 use Engtuncay\Phputils8\Core\FiBool;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Core\FiTemplate;
-use Engtuncay\Phputils8\Log\FiLog;
 use Engtuncay\Phputils8\Meta\FiCol;
 use Engtuncay\Phputils8\Meta\FiKeybean;
-use Engtuncay\Phputils8\Meta\FiMeta;
 use Engtuncay\Phputils8\Meta\FkbList;
-use codegen\ficols\CgmFiCol;
 
 /**
  * Code Generator Modal for Php

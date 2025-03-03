@@ -1,9 +1,10 @@
 <?php
 
-namespace codegen\ficols;
+namespace codegen\modals;
 
-use Engtuncay\Phputils8\Meta\FiCol;
+use codegen\ficols\FicFiCol;
 use Engtuncay\Phputils8\Meta\FclList;
+use Engtuncay\Phputils8\Meta\FiCol;
 use Engtuncay\Phputils8\Meta\FiKeybean;
 use Engtuncay\Phputils8\Meta\FiMeta;
 use Engtuncay\Phputils8\Meta\FkbList;
