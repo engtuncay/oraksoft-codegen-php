@@ -354,5 +354,4 @@ EOD;
     return $templateMain;
   }
 
-
 }

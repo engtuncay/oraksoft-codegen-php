@@ -7,8 +7,6 @@ use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Excel\FiExcel;
 use Engtuncay\Phputils8\Log\FiLog;
 use Engtuncay\Phputils8\Meta\Fdr;
-use Engtuncay\Phputils8\Meta\FiCol;
-use Engtuncay\Phputils8\Meta\FclList;
 use codegen\modals\CgmPhp;
 
 FiLog::initLogger('filog');
@@ -95,7 +93,7 @@ endExcelOkuma:
 <html lang="tr">
 <head>
   <?php require 'fiHead.php'; ?>
-    <link rel="stylesheet" href="codeblock.css">
+<link rel="stylesheet" href="codeblock.css">
 </head>
 <body class="fibody">
 <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
