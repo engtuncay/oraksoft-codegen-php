@@ -3,6 +3,7 @@ require 'fiAppImports.php';
 
 use codegen\ficols\FicFiCol;
 use codegen\ficols\FicFiMeta;
+use codegen\modals\CgmCsharp;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Excel\FiExcel;
 use Engtuncay\Phputils8\Log\FiLog;
@@ -59,6 +60,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 
     $sbTxCodeGen->append("// Php FiCol Class Generation v1\n");
     $sbTxCodeGen->append(CgmPhp::actGenFiColClassByFkbList($fkbListExcel));
+    $sbTxCodeGen->append("\n");
+    //$txCodeGenExtra .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
+  }
+
+  if ($formObject->selCsharp == "1") {
+    $fiExcel = new FiExcel();
+    $fdrExcel = $fiExcel::readExcelFile($inputFileName, FicFiCol::GenTableCols());
+    $fkbListExcel = $fdrExcel->getFkbListInit();
+
+    $sbTxCodeGen->append("// Csharp FiCol Class Generation v1\n");
+    $sbTxCodeGen->append(CgmCsharp::actGenFiColClassByFkbList($fkbListExcel));
     $sbTxCodeGen->append("\n");
     //$txCodeGenExtra .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
   }
