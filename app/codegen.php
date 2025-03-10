@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
     $fkbListExcel = $fdrExcel->getFkbListInit();
 
     $sbTxCodeGen->append("// Csharp FiCol Class Generation v1\n");
-    $sbTxCodeGen->append(CgmCsharp::actGenFiColClassByFkbList($fkbListExcel));
+    $sbTxCodeGen->append(CgmCsharp::actGenFiColClassByFkbList2($fkbListExcel));
     $sbTxCodeGen->append("\n");
     //$txCodeGenExtra .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
   }
