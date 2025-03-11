@@ -35,7 +35,7 @@ EOD;
    * @param mixed $fieldName
    * @return string
    */
-  public static function getMethodNameByFieldName(string $fieldName): string
+  public static function checkMethodNameStd(string $fieldName): string
   {
     if (!FiString::hasLowercaseLetter($fieldName)) {
       $fieldName = strtolower($fieldName);
@@ -58,7 +58,7 @@ public class {{classPref}}{{entityName}} : IFiTableMeta
 
   public static string GetTxTableName()
   {
-    return "{{entityName}}";
+    return "{{tableName}}";
   }
   
   public string GetITxTableName()
@@ -117,7 +117,7 @@ EOD;
       //String
       $fieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
       //fkbFiColMethodBody.add("fieldMethodName", FiString.capitalizeFirstLetter(fieldName));
-      $fkbFiColMethodBody->add("fieldMethodName", self::getMethodNameByFieldName($fieldName));
+      $fkbFiColMethodBody->add("fieldMethodName", self::checkMethodNameStd($fieldName));
       $fkbFiColMethodBody->add("fieldName", $fieldName);
       $fkbFiColMethodBody->add("fieldHeader", $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader()));
       $fkbFiColMethodBody->add("fiColMethodBody", $sbFiColMethodBody->toString());
@@ -131,7 +131,7 @@ EOD;
 
       //
       $ofcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::ofcBoTransient()));
-      $methodName = self::getMethodNameByFieldName($fieldName);
+      $methodName = self::checkMethodNameStd($fieldName);
       if (!$ofcBoTransient === true) {
         $sbFclListBody->append("ficList.Add($methodName());\n");
         //sbFclListBody.append("\tfclList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
@@ -186,7 +186,8 @@ EOD;
     //
     $fkbParamsMain = new FiKeyBean();
     $fkbParamsMain->add("classPref", $classPref);
-    $fkbParamsMain->add("entityName", $txEntityName);
+    $fkbParamsMain->add("entityName", self::checkClassNameStd($txEntityName));
+    $fkbParamsMain->add("tableName", $txEntityName);
     $fkbParamsMain->add("classBody", $sbClassBody->toString());
 
     // String
@@ -340,7 +341,7 @@ EOD;
     //
     $fkbParamsClass = new FiKeyBean();
     $fkbParamsClass->add("classPref", $classPref);
-    $fkbParamsClass->add("entityName", $txEntityName);
+    $fkbParamsClass->add("entityName", self::checkClassNameStd($txEntityName));
     $fkbParamsClass->add("classBody", $sbClassBody->toString());
 
     // String
@@ -384,6 +385,19 @@ class {{entityName}} {
 EOD;
 
     return $templateMain;
+  }
+
+  /**
+   * @param mixed $txEntityName
+   * @return mixed
+   */
+  public static function checkClassNameStd(mixed $txEntityName): mixed
+  {
+    if (!FiString::hasLowercaseLetter($txEntityName)) {
+      $txEntityName = strtolower($txEntityName);
+    }
+
+    return ucfirst($txEntityName);
   }
 
 }
