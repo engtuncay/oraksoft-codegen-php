@@ -9,7 +9,6 @@ use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Core\FiString;
 use Engtuncay\Phputils8\Core\FiTemplate;
 use Engtuncay\Phputils8\FiCol\FicValue;
-use Engtuncay\Phputils8\Meta\FiCol;
 use Engtuncay\Phputils8\Meta\FiKeybean;
 use Engtuncay\Phputils8\Meta\FkbList;
 
@@ -23,7 +22,7 @@ class CgmCsharp
     return <<<EOD
 public static FiCol {{fieldMethodName}}()
 {
-  FiCol fiCol = new FiCol("{{fieldName}}", "{{fieldHeader}}");
+  FiCol fiCol = new FiCol("{{fieldName}}");
 {{fiColMethodBody}}
   return fiCol;
 }
@@ -205,6 +204,10 @@ EOD;
 
     //String
     //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::ofcTxFieldType()));
+
+    $ofcTxHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
+    if ($ofcTxHeader != null)
+      $sbFiColMethodBody->append(sprintf("fiCol.ofcTxHeader = \"%s\";\n", $ofcTxHeader));
 
     $ofcTxFieldType = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldType());
     if ($ofcTxFieldType != null)
