@@ -40,6 +40,7 @@ class FicFiCol implements IFiTableMeta
     $fiColList->add(self::ofcTxEntityName());
     $fiColList->add(self::ofcTxFieldType());
     $fiColList->add(self::ofcTxFieldName());
+    $fiColList->add(self::ofcTxDbField());
     $fiColList->add(self::ofcTxHeader());
     $fiColList->add(self::ofcTxIdType());
     $fiColList->add(self::ofcBoTransient());
@@ -88,6 +89,14 @@ class FicFiCol implements IFiTableMeta
 
     return $fiCol;
   }
+
+  public static function ofcTxDbField(): FiCol
+  {
+    $fiCol = new FiCol("ofcTxDbField", "ofcTxDbField");
+
+    return $fiCol;
+  }
+
 
   public static function ofcTxHeader(): FiCol
   {
@@ -190,3 +199,4 @@ class FicFiCol implements IFiTableMeta
 
 
 }
+
