@@ -36,11 +36,42 @@ EOD;
    */
   public static function checkMethodNameStd(string $fieldName): string
   {
+    // Başlangıçta eğer fieldName boşsa direkt döndür
+    if (empty($fieldName)) return $fieldName;
+
     if (!FiString::hasLowercaseLetter($fieldName)) {
       $fieldName = strtolower($fieldName);
+      return ucfirst($fieldName);
+    } else {
+
+      $characters = str_split($fieldName); // Dizeyi karakterlere böl
+      $result = ''; // Sonuç dizesi oluştur
+      $length = count($characters);
+
+      for ($i = 0; $i < $length; $i++) {
+        // İlk harf her zaman büyük kalacak
+        if ($i === 0) {
+          $result .= strtoupper($characters[$i]);
+          $characters[$i] = strtoupper($characters[$i]);
+          continue;
+        }
+
+        // Kendinden önceki küçükse, aynen ekle
+        if (ctype_lower($characters[$i - 1])) { // && ctype_lower($characters[$i])
+          $result .= $characters[$i];
+        } // Kendinden önceki büyükse küçült
+        else if (ctype_upper($characters[$i - 1])) {
+          $result .= strtolower($characters[$i]);
+        } else { // Kendinden önceki sayı vs ise büyült
+          $result .= strtoupper($characters[$i]);
+        }
+
+      }
+
+      return $result;
     }
 
-    return ucfirst($fieldName);
+
   }
 
 
@@ -114,7 +145,7 @@ EOD;
 
       //String
       $fieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
-      $ofcTxHeader =FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader()));
+      $ofcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader()));
 
       //fkbFiColMethodBody.add("fieldMethodName", FiString.capitalizeFirstLetter(fieldName));
       $fkbFiColMethodBody->add("fieldMethodName", self::checkMethodNameStd($fieldName));
