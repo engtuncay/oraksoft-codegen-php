@@ -105,6 +105,16 @@ public class {{classPref}}{{entityName}} : IFiTableMeta
   {
     return GenTableColsTrans();
   }
+  
+  public static string GetTxPrefix()
+  {
+    return "{{tablePrefix}}";
+  }
+
+  public string GetITxPrefix()
+  {
+    return GetTxPrefix();
+  }
 
 {{classBody}}
 
@@ -213,12 +223,15 @@ EOD;
     // URFIX entity name çekilecek
     // String
     $txEntityName = $fkbListExcel->get(0)?->getValueByFiCol(FicFiCol::ofcTxEntityName());
+
+    $txTablePrefix = $fkbListExcel->get(0)?->getValueByFiCol(FicFiCol::ofcTxPrefix());
     //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
     //
     $fkbParamsMain = new FiKeyBean();
     $fkbParamsMain->add("classPref", $classPref);
     $fkbParamsMain->add("entityName", self::checkClassNameStd($txEntityName));
     $fkbParamsMain->add("tableName", $txEntityName);
+    $fkbParamsMain->add("tablePrefix", $txTablePrefix);
     $fkbParamsMain->add("classBody", $sbClassBody->toString());
 
     // String

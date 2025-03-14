@@ -76,6 +76,13 @@ class FicFiCol implements IFiTableMeta
     return $fiCol;
   }
 
+  public static function ofcTxPrefix(): FiCol
+  {
+    $fiCol = new FiCol("ofcTxPrefix", "ofcTxPrefix");
+
+    return $fiCol;
+  }
+
   public static function ofcTxFieldType(): FiCol
   {
     $fiCol = new FiCol("ofcTxFieldType", "ofcTxFieldType");
