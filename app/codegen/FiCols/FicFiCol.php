@@ -55,6 +55,7 @@ class FicFiCol implements IFiTableMeta
     $fiColList->add(self::ofcTxTypeName());
     $fiColList->add(self::ofcBoFilterLike());
     $fiColList->add(self::ofcTxFieldDesc());
+    $fiColList->add(self::ofcTxPrefix());
 
     return $fiColList;
   }

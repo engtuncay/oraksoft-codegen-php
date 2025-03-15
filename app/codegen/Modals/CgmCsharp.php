@@ -83,7 +83,7 @@ using OrakYazilimLib.DbGeneric;
 using OrakYazilimLib.Util.Collection;
 using OrakYazilimLib.Util.ColStruct;
       
-public class {{classPref}}{{entityName}} : IFiTableMeta
+public class {{classPref}}{{entityName}}:IFiTableMeta
 {
 
   public static string GetTxTableName()
