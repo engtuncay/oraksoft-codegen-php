@@ -13,9 +13,9 @@ use Engtuncay\Phputils8\Meta\FiKeybean;
 use Engtuncay\Phputils8\Meta\FkbList;
 
 /**
- * Code Generator Modal for Csharp
+ * Code Generator Modal for Java
  */
-class CgmCsharp
+class CgmJava
 {
   private static function getTemplateFiColMethod(): string
   {

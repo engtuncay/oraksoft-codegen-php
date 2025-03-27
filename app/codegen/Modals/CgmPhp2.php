@@ -13,130 +13,10 @@ use Engtuncay\Phputils8\Meta\FiKeybean;
 use Engtuncay\Phputils8\Meta\FkbList;
 
 /**
- * Code Generator Modal for Csharp
+ * Code Generator Modal for Php2
  */
-class CgmCsharp
+class CgmPhp2
 {
-  private static function getTemplateFiColMethod(): string
-  {
-    return <<<EOD
-public static FiCol {{fieldMethodName}}()
-{
-  FiCol fiCol = new FiCol("{{fieldName}}");
-{{fiColMethodBody}}
-  return fiCol;
-}
-EOD;
-
-  }
-
-  private static function getTemplateFiColMethodExtra(): string
-  {
-    return <<<EOD
-public static FiCol {{fieldMethodName}}Ext()
-{
-  FiCol fiCol = {{fieldMethodName}}();
-{{fiColMethodBody}}
-  return fiCol;
-}
-EOD;
-
-  }
-
-  /**
-   * @param mixed $fieldName
-   * @return string
-   */
-  public static function checkMethodNameStd(string $fieldName): string
-  {
-    // Başlangıçta eğer fieldName boşsa direkt döndür
-    if (empty($fieldName)) return $fieldName;
-
-    if (!FiString::hasLowercaseLetter($fieldName)) {
-      $fieldName = strtolower($fieldName);
-      return ucfirst($fieldName);
-    } else {
-
-      $characters = str_split($fieldName); // Dizeyi karakterlere böl
-      $result = ''; // Sonuç dizesi oluştur
-      $length = count($characters);
-
-      for ($i = 0; $i < $length; $i++) {
-        // İlk harf her zaman büyük kalacak
-        if ($i === 0) {
-          $result .= strtoupper($characters[$i]);
-          $characters[$i] = strtoupper($characters[$i]);
-          continue;
-        }
-
-        // Kendinden önceki küçükse, aynen ekle
-        if (ctype_lower($characters[$i - 1])) { // && ctype_lower($characters[$i])
-          $result .= $characters[$i];
-        } // Kendinden önceki büyükse küçült
-        else if (ctype_upper($characters[$i - 1])) {
-          $result .= strtolower($characters[$i]);
-        } else { // Kendinden önceki sayı vs ise büyült
-          $result .= strtoupper($characters[$i]);
-        }
-
-      }
-
-      return $result;
-    }
-
-
-  }
-
-
-  public static function getTemplateFicClass(): string
-  {
-    //String
-    $templateMain = <<<EOD
-using OrakYazilimLib.DbGeneric;
-using OrakYazilimLib.Util.Collection;
-using OrakYazilimLib.Util.ColStruct;
-      
-public class {{classPref}}{{entityName}}:IFiTableMeta
-{
-
-  public static string GetTxTableName()
-  {
-    return "{{tableName}}";
-  }
-  
-  public string GetITxTableName()
-  {
-    return GetTxTableName();
-  }
-
-  public FiColList GenITableCols()
-  {
-    return GenTableCols();
-  }
-  
-  public FiColList GenITableColsTrans()
-  {
-    return GenTableColsTrans();
-  }
-  
-  public static string GetTxPrefix()
-  {
-    return "{{tablePrefix}}";
-  }
-
-  public string GetITxPrefix()
-  {
-    return GetTxPrefix();
-  }
-
-{{classBody}}
-
-}
-EOD;
-
-    return $templateMain;
-  }
-
   public static function actGenFiColClassByFkbList(FkbList $fkbListExcel): string
   {
 
@@ -200,7 +80,7 @@ EOD;
       $methodName = self::checkMethodNameStd($fieldName);
       if (!$ofcBoTransient === true) {
         $sbFclListBody->append("ficList.Add($methodName());\n");
-        $sbFclListBodyExtra->append("ficList.Add($methodName" ."Ext());\n");
+        $sbFclListBodyExtra->append("ficList.Add($methodName" . "Ext());\n");
         //sbFclListBody.append("\tfclList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
       } else {
         $sbFclListBodyTrans->append("ficList.Add($methodName());\n");
@@ -278,6 +158,32 @@ EOD;
     $txResult = FiTemplate::replaceParams($templateMain, $fkbParamsMain);
 
     return $txResult;
+  }
+
+  private static function getTemplateFiColMethod(): string
+  {
+    return <<<EOD
+public static FiCol {{fieldMethodName}}()
+{
+  FiCol fiCol = new FiCol("{{fieldName}}");
+{{fiColMethodBody}}
+  return fiCol;
+}
+EOD;
+
+  }
+
+  private static function getTemplateFiColMethodExtra(): string
+  {
+    return <<<EOD
+public static FiCol {{fieldMethodName}}Ext()
+{
+  FiCol fiCol = {{fieldMethodName}}();
+{{fiColMethodBody}}
+  return fiCol;
+}
+EOD;
+
   }
 
   private static function genFiColMethodBodyDetail(FiKeybean $fkbItem): FiStrbui
@@ -362,6 +268,50 @@ EOD;
     return $sbFiColMethodBody;
   }
 
+  /**
+   * @param mixed $fieldName
+   * @return string
+   */
+  public static function checkMethodNameStd(string $fieldName): string
+  {
+    // Başlangıçta eğer fieldName boşsa direkt döndür
+    if (empty($fieldName)) return $fieldName;
+
+    if (!FiString::hasLowercaseLetter($fieldName)) {
+      $fieldName = strtolower($fieldName);
+      return ucfirst($fieldName);
+    } else {
+
+      $characters = str_split($fieldName); // Dizeyi karakterlere böl
+      $result = ''; // Sonuç dizesi oluştur
+      $length = count($characters);
+
+      for ($i = 0; $i < $length; $i++) {
+        // İlk harf her zaman büyük kalacak
+        if ($i === 0) {
+          $result .= strtoupper($characters[$i]);
+          $characters[$i] = strtoupper($characters[$i]);
+          continue;
+        }
+
+        // Kendinden önceki küçükse, aynen ekle
+        if (ctype_lower($characters[$i - 1])) { // && ctype_lower($characters[$i])
+          $result .= $characters[$i];
+        } // Kendinden önceki büyükse küçült
+        else if (ctype_upper($characters[$i - 1])) {
+          $result .= strtolower($characters[$i]);
+        } else { // Kendinden önceki sayı vs ise büyült
+          $result .= strtoupper($characters[$i]);
+        }
+
+      }
+
+      return $result;
+    }
+
+
+  }
+
   private static function genFiColMethodBodyDetailExtra(FiKeybean $fkbItem): FiStrbui
   {
     //StringBuilder
@@ -369,10 +319,73 @@ EOD;
 
     $ofcTxFielDesc = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldDesc());
     //if ($ofcTxFielDesc != null)
-      $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxFieldDesc = \"%s\";\n", $ofcTxFielDesc));
+    $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxFieldDesc = \"%s\";\n", $ofcTxFielDesc));
 
     return $sbFiColMethodBody;
   }
+
+  /**
+   * @param mixed $txEntityName
+   * @return mixed
+   */
+  public static function checkClassNameStd(mixed $txEntityName): mixed
+  {
+    if (!FiString::hasLowercaseLetter($txEntityName)) {
+      $txEntityName = strtolower($txEntityName);
+    }
+
+    return ucfirst($txEntityName);
+  }
+
+  public static function getTemplateFicClass(): string
+  {
+    //String
+    $templateMain = <<<EOD
+using OrakYazilimLib.DbGeneric;
+using OrakYazilimLib.Util.Collection;
+using OrakYazilimLib.Util.ColStruct;
+      
+public class {{classPref}}{{entityName}}:IFiTableMeta
+{
+
+  public static string GetTxTableName()
+  {
+    return "{{tableName}}";
+  }
+  
+  public string GetITxTableName()
+  {
+    return GetTxTableName();
+  }
+
+  public FiColList GenITableCols()
+  {
+    return GenTableCols();
+  }
+  
+  public FiColList GenITableColsTrans()
+  {
+    return GenTableColsTrans();
+  }
+  
+  public static string GetTxPrefix()
+  {
+    return "{{tablePrefix}}";
+  }
+
+  public string GetITxPrefix()
+  {
+    return GetTxPrefix();
+  }
+
+{{classBody}}
+
+}
+EOD;
+
+    return $templateMain;
+  }
+
   public static function actGenFiMetaClass(FkbList $fkbListExcel): string
   {
     //if (FiCollection.isEmpty(fiCols)) return;
@@ -491,19 +504,6 @@ class {{entityName}} {
 EOD;
 
     return $templateMain;
-  }
-
-  /**
-   * @param mixed $txEntityName
-   * @return mixed
-   */
-  public static function checkClassNameStd(mixed $txEntityName): mixed
-  {
-    if (!FiString::hasLowercaseLetter($txEntityName)) {
-      $txEntityName = strtolower($txEntityName);
-    }
-
-    return ucfirst($txEntityName);
   }
 
 }
