@@ -47,25 +47,24 @@ EOD;
    * @param mixed $fieldName
    * @return string
    */
-  public static function checkMethodNameStd(string $fieldName): string
+  public static function checkMethodNameStdJava(string $fieldName): string
   {
     // Başlangıçta eğer fieldName boşsa direkt döndür
     if (empty($fieldName)) return $fieldName;
 
     if (!FiString::hasLowercaseLetter($fieldName)) {
       $fieldName = strtolower($fieldName);
-      return ucfirst($fieldName);
+      return $fieldName; // ucfirst($fieldName);
     } else {
-
       $characters = str_split($fieldName); // Dizeyi karakterlere böl
       $result = ''; // Sonuç dizesi oluştur
       $length = count($characters);
 
       for ($i = 0; $i < $length; $i++) {
-        // İlk harf her zaman büyük kalacak
+        // İlk harf her zaman küçük kalacak
         if ($i === 0) {
-          $result .= strtoupper($characters[$i]);
-          $characters[$i] = strtoupper($characters[$i]);
+          $result .= strtolower($characters[$i]);
+          $characters[$i] = strtolower($characters[$i]);
           continue;
         }
 
@@ -173,7 +172,7 @@ EOD;
       $ofcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader()));
 
       //fkbFiColMethodBody.add("fieldMethodName", FiString.capitalizeFirstLetter(fieldName));
-      $fkbFiColMethodBody->add("fieldMethodName", self::checkMethodNameStd($fieldName));
+      $fkbFiColMethodBody->add("fieldMethodName", self::checkMethodNameStdJava($fieldName));
       $fkbFiColMethodBody->add("fieldName", $fieldName);
       $fkbFiColMethodBody->add("fieldHeader", $ofcTxHeader);
       $fkbFiColMethodBody->add("fiColMethodBody", $sbFiColMethodBody->toString());
@@ -187,7 +186,7 @@ EOD;
 
       $sbFiColMethodBodyExtra = self::genFiColMethodBodyDetailExtra($fkbItem);
       $fkbFiColMethodBodyExtra = new FiKeybean();
-      $fkbFiColMethodBodyExtra->add("fieldMethodName", self::checkMethodNameStd($fieldName));
+      $fkbFiColMethodBodyExtra->add("fieldMethodName", self::checkMethodNameStdJava($fieldName));
       $fkbFiColMethodBodyExtra->add("fieldName", $fieldName);
       $fkbFiColMethodBodyExtra->add("fieldHeader", $ofcTxHeader);
       $fkbFiColMethodBodyExtra->add("fiColMethodBody", $sbFiColMethodBodyExtra->toString());
@@ -197,7 +196,7 @@ EOD;
 
       //
       $ofcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::ofcBoTransient()));
-      $methodName = self::checkMethodNameStd($fieldName);
+      $methodName = self::checkMethodNameStdJava($fieldName);
       if (!$ofcBoTransient === true) {
         $sbFclListBody->append("ficList.Add($methodName());\n");
         $sbFclListBodyExtra->append("ficList.Add($methodName" ."Ext());\n");
