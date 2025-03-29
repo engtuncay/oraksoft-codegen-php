@@ -84,11 +84,11 @@ class CgmFiColUtil
 
   /**
    * @param FkbList $fkbListExcel
-   * @return FiwArray<FiKeybean>
+   * @return array
    */
   public static function arrEntityFkbExcel(FkbList $fkbListExcel): array
   {
-    /** @var FiwArray<FiKeybean> $arrFkbEntity */
+    /** @var FiwArray<FkbList> $arrFkbEntity */
     $arrFkbEntity = new FiwArray();
 
     /** @var FiKeybean $fkbItem */
@@ -98,9 +98,9 @@ class CgmFiColUtil
 
       if($txEntityName!=null){
         if (!$arrFkbEntity->existKey($txEntityName)) {
-          $arrFkbEntity->put($txEntityName, []);
+          $arrFkbEntity->put($txEntityName, new FkbList());
         }
-        $arrFkbEntity->putInArray($txEntityName, $fkbItem);
+        $arrFkbEntity->putInFkbList($txEntityName, $fkbItem);
       }
     }
 

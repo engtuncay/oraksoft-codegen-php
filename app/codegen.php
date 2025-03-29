@@ -11,6 +11,7 @@ use codegen\modals\CgmJavaOld;
 use codegen\modals\CgmJavaTempsForFiColClass;
 use codegen\modals\DtoCodeGen;
 use Engtuncay\Phputils8\Core\FiStrbui;
+use Engtuncay\Phputils8\Core\FiString;
 use Engtuncay\Phputils8\Core\FiwArray;
 use Engtuncay\Phputils8\Excel\FiExcel;
 use Engtuncay\Phputils8\Log\FiLog;
@@ -79,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
     $fdrExcel = $fiExcel::readExcelFile($inputFileName, FicFiCol::GenTableCols());
     $fkbListExcel = $fdrExcel->getFkbListInit();
 
-    /** @var FiKeybean[] $arrFkbListExcel */
+    /** @var FkbList[] $arrFkbListExcel */
     $arrFkbListExcel = CgmFiColUtil::arrEntityFkbExcel($fkbListExcel);
     $txIdPref = "java";
     $lnForIndex = 0;
@@ -89,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();
       $sbTxCodeGen1->append("// Csharp FiCol Class Generation v1\n");
-      $sbTxCodeGen1->append(CgmFiColClass::actGenFiColClassByFkb($fkbListExcel, new CgmCsharpTempsForFiColClass()));
+      $sbTxCodeGen1->append(CgmFiColClass::actGenFiColClassByFkb($fkbExcel, new CgmCsharpTempsForFiColClass()));
       $sbTxCodeGen1->append("\n");
       $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
       $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
@@ -152,9 +153,9 @@ endExcelOkuma:
     <div class="container mt-3">
         <!--code blok -->
         <div class="position-relative">
-    <pre class="p-3 rounded"><code id="<?= $arrDtoGen->getDcgId() ?>"><?= $arrDtoGen->getSbCodeGen()->toString(); ?></code></pre>
+    <pre class="p-3 rounded"><code id="<?=$arrDtoGen->getDcgId()?>"><?= $arrDtoGen->getSbCodeGen()->toString(); ?></code></pre>
             <button class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-2 copy-btn"
-                    onclick="copyCode(<?= $arrDtoGen->getDcgId() ?>)">
+                    onclick="copyCode('<?=trim($arrDtoGen->getDcgId())?>')">
                 Copy
             </button>
         </div>
