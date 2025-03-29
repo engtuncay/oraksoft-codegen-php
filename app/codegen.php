@@ -4,17 +4,28 @@ require 'fiAppImports.php';
 use codegen\ficols\FicFiCol;
 use codegen\ficols\FicFiMeta;
 use codegen\modals\CgmCsharp;
+use codegen\modals\CgmCsharpTempsForFiColClass;
+use codegen\modals\CgmFiColClass;
+use codegen\modals\CgmFiColUtil;
+use codegen\modals\CgmJavaOld;
+use codegen\modals\CgmJavaTempsForFiColClass;
+use codegen\modals\DtoCodeGen;
 use Engtuncay\Phputils8\Core\FiStrbui;
+use Engtuncay\Phputils8\Core\FiwArray;
 use Engtuncay\Phputils8\Excel\FiExcel;
 use Engtuncay\Phputils8\Log\FiLog;
 use Engtuncay\Phputils8\Meta\Fdr;
 use codegen\modals\CgmPhp;
+use Engtuncay\Phputils8\Meta\FiKeybean;
+use Engtuncay\Phputils8\Meta\FkbList;
 
 FiLog::initLogger('filog');
 
 $fdrExcel = new Fdr();
 
 $txCodeGenExtra = "";
+/** @var DtoCodeGen[] $arrDtoCodeGen */
+$arrDtoCodeGen = [];
 $sbTxCodeGen = new FiStrbui();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
@@ -68,9 +79,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
     $fdrExcel = $fiExcel::readExcelFile($inputFileName, FicFiCol::GenTableCols());
     $fkbListExcel = $fdrExcel->getFkbListInit();
 
-    $sbTxCodeGen->append("// Csharp FiCol Class Generation v1\n");
-    $sbTxCodeGen->append(CgmCsharp::actGenFiColClassByFkbList($fkbListExcel));
-    $sbTxCodeGen->append("\n");
+    /** @var FiKeybean[] $arrFkbListExcel */
+    $arrFkbListExcel = CgmFiColUtil::arrEntityFkbExcel($fkbListExcel);
+    $txIdPref = "java";
+    $lnForIndex = 0;
+
+    foreach ($arrFkbListExcel as $fkbExcel) {
+      $lnForIndex++;
+      $dtoCodeGen = new DtoCodeGen();
+      $sbTxCodeGen1 = new FiStrbui();
+      $sbTxCodeGen1->append("// Csharp FiCol Class Generation v1\n");
+      $sbTxCodeGen1->append(CgmFiColClass::actGenFiColClassByFkb($fkbListExcel, new CgmCsharpTempsForFiColClass()));
+      $sbTxCodeGen1->append("\n");
+      $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
+      $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
+      $arrDtoCodeGen[] = $dtoCodeGen;
+    }
+
+//    $sbTxCodeGen->append("// Csharp FiCol Class Generation v1\n");
+//    //$sbTxCodeGen->append(CgmCsharp::actGenFiColClassByFkbList($fkbListExcel));
+//    $sbTxCodeGen->append(CgmFiColClass::actGenFiColClassByFkb($fkbListExcel,new CgmCsharpTempsForFiColClass()));
+//    $sbTxCodeGen->append("\n");
     //$txCodeGenExtra .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
   }
 
@@ -83,6 +112,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 
     $sbTxCodeGen->append("// Php FiMeta Class Generation v1\n");
     $sbTxCodeGen->append(CgmPhp::actGenFiMetaClass($fkbListExcel));
+    $sbTxCodeGen->append("\n");
+    $txCodeGenExtra .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
+  }
+
+  if ($formObject->selJava == "1") {
+    $fiExcel = new FiExcel();
+    $fdrExcel = $fiExcel::readExcelFile($inputFileName, FicFiCol::GenTableCols());
+    $fkbListExcel = $fdrExcel->getFkbListInit();
+
+    $sbTxCodeGen->append("// Java FiMeta Class Generation v1\n");
+    $sbTxCodeGen->append(CgmFiColClass::actGenFiColClassByFkb($fkbListExcel, new CgmJavaTempsForFiColClass()));
     $sbTxCodeGen->append("\n");
     $txCodeGenExtra .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
   }
@@ -104,21 +144,23 @@ endExcelOkuma:
 <html lang="tr">
 <head>
   <?php require 'fiHead.php'; ?>
-<link rel="stylesheet" href="codeblock.css">
+    <link rel="stylesheet" href="codeblock.css">
 </head>
 <body class="fibody">
 <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
-<div class="container mt-3">
-    <!--code blok -->
-    <div class="position-relative">
-    <pre class="p-3 rounded">
-        <code id="code-snippet"><?= $sbTxCodeGen->toString(); ?></code>
-    </pre>
-        <button class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-2 copy-btn" onclick="copyCode()">
-            Copy
-        </button>
+<?php foreach ($arrDtoCodeGen as $arrDtoGen) { ?>
+    <div class="container mt-3">
+        <!--code blok -->
+        <div class="position-relative">
+    <pre class="p-3 rounded"><code id="<?= $arrDtoGen->getDcgId() ?>"><?= $arrDtoGen->getSbCodeGen()->toString(); ?></code></pre>
+            <button class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-2 copy-btn"
+                    onclick="copyCode(<?= $arrDtoGen->getDcgId() ?>)">
+                Copy
+            </button>
+        </div>
     </div>
-</div>
+<?php } ?>
+
 
 <div class="container mt-3">
     <!--code blok -->
@@ -137,6 +179,13 @@ endExcelOkuma:
 
     function copyCode() {
         const code = document.getElementById("code-snippet").innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            //alert("Copied!");
+        });
+    }
+
+    function copyCode(txIdName) {
+        const code = document.getElementById(txIdName).innerText;
         navigator.clipboard.writeText(code).then(() => {
             //alert("Copied!");
         });

@@ -19,7 +19,7 @@ class CgmPhp
   public static function actGenFiColClassByFkbList(FkbList $fkbListExcel): string
   {
 
-    $fiCols = CgmFiCol::getFiColListFromFkbList($fkbListExcel);
+    $fiCols = CgmFiColUtil::getFiColListFromFkbList($fkbListExcel);
 
     //if (FiCollection.isEmpty(fiCols)) return;
 

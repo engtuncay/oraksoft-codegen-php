@@ -43,6 +43,11 @@ FiLog::initLogger('filog');
                                     <select class="form-select" aria-label="Php Operations" name="selPhp" id="selPhp">
                                     </select>
                                 </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="selJava" class="form-label">Java:</label>
+                                    <select class="form-select" aria-label="Java Operations" name="selJava" id="selJava">
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="mb-3">

@@ -1,6 +1,7 @@
 //import { FiKeybean } from "./libs/oraksoft-ui.js";
 
 let elementById = document.getElementById("selCsharp");
+
 function addOption(element, value,textContent) {
     const option = document.createElement("option");
     option.value = value;
@@ -23,6 +24,12 @@ let eleSelTs = document.getElementById("selTs");
 
 addOption(eleSelTs,txIdSeciniz,"Seçiniz");
 addOption(eleSelTs,"1","FiCol Ts Sınıf");
+
+let eleSelJava = document.getElementById("selJava");
+
+addOption(eleSelJava,txIdSeciniz,"Seçiniz");
+addOption(eleSelJava,"1","FiCol Java Sınıf");
+
 
 //let fkb = new Fikeybean();
 

@@ -15,7 +15,7 @@ use Engtuncay\Phputils8\Meta\FkbList;
 /**
  * Code Generator Modal for Java
  */
-class CgmJava
+class CgmJavaOld
 {
   private static function getTemplateFiColMethod(): string
   {
@@ -47,10 +47,10 @@ EOD;
    * @param mixed $fieldName
    * @return string
    */
-  public static function checkMethodNameStdJava(string $fieldName): string
+  public static function checkMethodNameStdJava(mixed $fieldName): string
   {
     // Başlangıçta eğer fieldName boşsa direkt döndür
-    if (empty($fieldName)) return $fieldName;
+    if (empty($fieldName)) return "";
 
     if (!FiString::hasLowercaseLetter($fieldName)) {
       $fieldName = strtolower($fieldName);
@@ -136,7 +136,7 @@ EOD;
     return $templateMain;
   }
 
-  public static function actGenFiColClassByFkbList(FkbList $fkbListExcel): string
+  public static function actGenFiColClassByFkb(FkbList $fkbListExcel): string
   {
 
     //if (FiCollection.isEmpty(fiCols)) return;

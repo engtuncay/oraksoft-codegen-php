@@ -3,6 +3,8 @@
 namespace codegen\modals;
 
 use codegen\ficols\FicFiCol;
+use Engtuncay\Phputils8\Core\FiArray;
+use Engtuncay\Phputils8\Core\FiwArray;
 use Engtuncay\Phputils8\Meta\FclList;
 use Engtuncay\Phputils8\Meta\FiCol;
 use Engtuncay\Phputils8\Meta\FiKeybean;
@@ -10,7 +12,7 @@ use Engtuncay\Phputils8\Meta\FiMeta;
 use Engtuncay\Phputils8\Meta\FkbList;
 use Engtuncay\Phputils8\Meta\FmtList;
 
-class CgmFiCol
+class CgmFiColUtil
 {
 
   /**
@@ -78,5 +80,30 @@ class CgmFiCol
 
     return $fmtList;
 
+  }
+
+  /**
+   * @param FkbList $fkbListExcel
+   * @return FiwArray<FiKeybean>
+   */
+  public static function arrEntityFkbExcel(FkbList $fkbListExcel): array
+  {
+    /** @var FiwArray<FiKeybean> $arrFkbEntity */
+    $arrFkbEntity = new FiwArray();
+
+    /** @var FiKeybean $fkbItem */
+    foreach ($fkbListExcel->getItems() as $fkbItem) {
+
+      $txEntityName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxEntityName());
+
+      if($txEntityName!=null){
+        if (!$arrFkbEntity->existKey($txEntityName)) {
+          $arrFkbEntity->put($txEntityName, []);
+        }
+        $arrFkbEntity->putInArray($txEntityName, $fkbItem);
+      }
+    }
+
+    return $arrFkbEntity->getArrValue();
   }
 }
