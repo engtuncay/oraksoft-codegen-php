@@ -4,13 +4,16 @@ namespace codegen\modals;
 
 use codegen\ficols\FicFiCol;
 use Engtuncay\Phputils8\Core\FiArray;
+use Engtuncay\Phputils8\Core\FiText;
 use Engtuncay\Phputils8\Core\FiwArray;
+use Engtuncay\Phputils8\Log\FiLog;
 use Engtuncay\Phputils8\Meta\FclList;
 use Engtuncay\Phputils8\Meta\FiCol;
 use Engtuncay\Phputils8\Meta\FiKeybean;
 use Engtuncay\Phputils8\Meta\FiMeta;
 use Engtuncay\Phputils8\Meta\FkbList;
 use Engtuncay\Phputils8\Meta\FmtList;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\F;
 
 class CgmFiColUtil
 {
@@ -88,22 +91,25 @@ class CgmFiColUtil
    */
   public static function arrEntityFkbExcel(FkbList $fkbListExcel): array
   {
-    /** @var FiwArray<FkbList> $arrFkbEntity */
-    $arrFkbEntity = new FiwArray();
+    /** @var FiwArray<FkbList> $fwarFkbEntity */$fwarFkbEntity = new FiwArray();
 
     /** @var FiKeybean $fkbItem */
-    foreach ($fkbListExcel->getItems() as $fkbItem) {
+    foreach ($fkbListExcel as $fkbItem) {
+
+      //FiLog::$log?->debug(implode(":", $fkbItem->getArr()));
 
       $txEntityName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxEntityName());
-
-      if($txEntityName!=null){
-        if (!$arrFkbEntity->existKey($txEntityName)) {
-          $arrFkbEntity->put($txEntityName, new FkbList());
+      //FiLog::$log?->debug("$txEntityName : ". $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName()));
+      if ($txEntityName != null) {
+        if (!$fwarFkbEntity->existKey($txEntityName)) {
+          $fwarFkbEntity->put($txEntityName, new FkbList());
         }
-        $arrFkbEntity->putInFkbList($txEntityName, $fkbItem);
+        $fwarFkbEntity->putInFkbList($txEntityName, $fkbItem);
       }
     }
 
-    return $arrFkbEntity->getArrValue();
+    //FiLog::$log?->debug(FiText::textArrayFkbList($fwarFkbEntity->getArrValue()));
+
+    return $fwarFkbEntity->getArrValue();
   }
 }
