@@ -145,6 +145,7 @@ endExcelOkuma:
 <html lang="tr">
 <head>
   <?php require 'fiHead.php'; ?>
+    <title>Orak Soft Code Generator</title>
     <link rel="stylesheet" href="codeblock.css">
 </head>
 <body class="fibody">
