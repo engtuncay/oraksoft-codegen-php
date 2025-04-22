@@ -6,7 +6,7 @@ use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Meta\FiKeybean;
 use Engtuncay\Phputils8\Meta\FkbList;
 
-interface ICodeGenTempsForFiColClass
+interface ICodeGenSpecs
 {
   public function getTemplateFiColMethod():string;
 
@@ -24,7 +24,7 @@ interface ICodeGenTempsForFiColClass
 
   public function getTempGenFiColsList(): string;
 
-  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, string $methodName, FiStrbui $sbFclListBodyExtra): void;
+  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, string $methodName): void; //, FiStrbui $sbFclListBodyExtra
 
   public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, string $methodName): void;
 
@@ -35,4 +35,7 @@ interface ICodeGenTempsForFiColClass
   public function genFiMetaMethodBodyFieldDefs(FiKeybean $fkb): FiStrbui;
 
   public static function getTemplateFiMetaClass(): string;
+
+  public function genFiColAddDescDetail(FiKeybean $fkbItem): FiStrbui;
+
 }

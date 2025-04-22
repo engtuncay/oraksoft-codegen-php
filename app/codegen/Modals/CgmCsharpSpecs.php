@@ -15,7 +15,7 @@ use Engtuncay\Phputils8\Meta\FkbList;
 /**
  * Java Templates For Code Generator
  */
-class CgmCsharpTempsForFiColClass implements ICodeGenTempsForFiColClass
+class CgmCsharpSpecs implements ICodeGenSpecs
 {
 
   public static function getTemplateFiMetaClass(): string
@@ -122,8 +122,7 @@ EOD;
     //String
     $templateMain = <<<EOD
 using OrakYazilimLib.DbGeneric;
-using OrakYazilimLib.Util.Collection;
-using OrakYazilimLib.Util.ColStruct;
+using OrakYazilimLib.Util;
       
 public class {{classPref}}{{entityName}}:IFiTableMeta
 {
@@ -156,6 +155,15 @@ public class {{classPref}}{{entityName}}:IFiTableMeta
   public string GetITxPrefix()
   {
     return GetTxPrefix();
+  }
+  
+  public static void AddFieldDesc(FiColList ficolList) {
+
+    foreach (FiCol fiCol in ficolList)
+    {
+        {{addFieldDescDetail}}
+    }
+    
   }
 
 {{classBody}}
@@ -332,10 +340,10 @@ EOD;
    * @param FiStrbui $sbFclListBodyExtra
    * @return void
    */
-  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, string $methodName, FiStrbui $sbFclListBodyExtra): void
-  {
+  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, string $methodName): void
+  { //, FiStrbui $sbFclListBodyExtra
     $sbFclListBody->append("ficList.Add($methodName());\n");
-    $sbFclListBodyExtra->append("ficList.Add($methodName" . "Ext());\n");
+    // $sbFclListBodyExtra->append("ficList.Add($methodName" . "Ext());\n");
   }
 
   /**
@@ -347,5 +355,29 @@ EOD;
   {
     $sbFclListBodyTrans->append("ficList.Add($methodName());\n");
   }
+
+  public function genFiColAddDescDetail(FiKeybean $fkbItem): FiStrbui
+  {
+    //StringBuilder
+    $sbText = new FiStrbui(); // new StringBuilder();
+
+    $ofcTxFielDesc = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldDesc());
+
+    if(!FiString::isEmpty($ofcTxFielDesc)) {
+      $methodNameStd = $this->checkMethodNameStd($fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName()));
+
+      $sbText->append(
+<<<EOD
+
+    if(FiString.Equals(fiCol.ofcTxFieldName,$methodNameStd().ofcTxFieldName)){
+      fiCol.ofcTxFieldDesc = "$ofcTxFielDesc";
+    }
+      
+EOD);
+    }
+
+    return $sbText;
+  }
+
 
 }

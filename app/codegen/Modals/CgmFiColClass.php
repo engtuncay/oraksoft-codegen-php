@@ -18,7 +18,7 @@ use Engtuncay\Phputils8\Meta\FkbList;
 class CgmFiColClass
 {
 
-  public static function actGenFiColClassByFkb(FkbList $fkbListExcel, ICodeGenTempsForFiColClass $iFiColClass = null): string
+  public static function actGenFiColClassByFkb(FkbList $fkbListExcel, ICodeGenSpecs $iFiColClass = null): string
   {
 
     if($iFiColClass==null) return "";
@@ -31,11 +31,12 @@ class CgmFiColClass
     //$index = 0;
 
     $sbFclListBody = new FiStrbui();
-    $sbFclListBodyExtra = new FiStrbui();
+    //$sbFclListBodyExtra = new FiStrbui();
     $sbFclListBodyTrans = new FiStrbui();
+    $sbFiColAddDescDetail = new FiStrbui();
 
     $templateFiColMethod = $iFiColClass->getTemplateFiColMethod();
-    $templateFiColMethodExtra = $iFiColClass->getTemplateFiColMethodExtra();
+    //$templateFiColMethodExtra = $iFiColClass->getTemplateFiColMethodExtra();
 
     /**
      * @var FiKeybean $fkbItem
@@ -46,6 +47,8 @@ class CgmFiColClass
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
        */
       $sbFiColMethodBody = $iFiColClass->genFiColMethodBodyDetail($fkbItem); //StringBuilder
+
+      $sbFiColAddDescDetail->append($iFiColClass->genFiColAddDescDetail($fkbItem)->toString());
 
       //FiKeyBean
       $fkbFiColMethodBody = new FiKeybean();
@@ -67,22 +70,22 @@ class CgmFiColClass
 
       $sbFiColMethodsBody->append($txFiColMethod)->append("\n\n");
 
-      $sbFiColMethodBodyExtra = $iFiColClass->genFiColMethodBodyDetailExtra($fkbItem);
-      $fkbFiColMethodBodyExtra = new FiKeybean();
-      $fkbFiColMethodBodyExtra->add("fieldMethodName", $iFiColClass->checkMethodNameStd($fieldName));
-      $fkbFiColMethodBodyExtra->add("fieldName", $fieldName);
-      $fkbFiColMethodBodyExtra->add("fieldHeader", $ofcTxHeader);
-      $fkbFiColMethodBodyExtra->add("fiColMethodBody", $sbFiColMethodBodyExtra->toString());
-      $txFiColMethodExtra = FiTemplate::replaceParams($templateFiColMethodExtra, $fkbFiColMethodBodyExtra);
+      //$sbFiColMethodBodyExtra = $iFiColClass->genFiColMethodBodyDetailExtra($fkbItem);
+//      $fkbFiColMethodBodyExtra = new FiKeybean();
+//      $fkbFiColMethodBodyExtra->add("fieldMethodName", $iFiColClass->checkMethodNameStd($fieldName));
+//      $fkbFiColMethodBodyExtra->add("fieldName", $fieldName);
+//      $fkbFiColMethodBodyExtra->add("fieldHeader", $ofcTxHeader);
+//      $fkbFiColMethodBodyExtra->add("fiColMethodBody", $sbFiColMethodBodyExtra->toString());
+//      $txFiColMethodExtra = FiTemplate::replaceParams($templateFiColMethodExtra, $fkbFiColMethodBodyExtra);
 
-      $sbFiColMethodsBody->append($txFiColMethodExtra)->append("\n\n");
+//      $sbFiColMethodsBody->append($txFiColMethodExtra)->append("\n\n");
 
       //
       $ofcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::ofcBoTransient()));
       $methodName = $iFiColClass->checkMethodNameStd($fieldName);
 
       if (!$ofcBoTransient === true) {
-        $iFiColClass->doNonTransientFieldOps($sbFclListBody, $methodName, $sbFclListBodyExtra);
+        $iFiColClass->doNonTransientFieldOps($sbFclListBody, $methodName);
         //sbFclListBody.append("\tfclList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
       } else {
         $iFiColClass->doTransientFieldOps($sbFclListBodyTrans, $methodName);
@@ -109,8 +112,8 @@ class CgmFiColClass
 
     $tempGenFiColsExt = $iFiColClass->getTempGenFiColsExtraList();
 
-    $txResGenTableColsMethodExtra = FiTemplate::replaceParams($tempGenFiColsExt, FiKeyBean::bui()->buiPut("ficListBodyExtra", $sbFclListBodyExtra->toString()));
-    $sbClassBody->append("\n")->append($txResGenTableColsMethodExtra)->append("\n");
+    //$txResGenTableColsMethodExtra = FiTemplate::replaceParams($tempGenFiColsExt, FiKeyBean::bui()->buiPut("ficListBodyExtra", $sbFclListBodyExtra->toString()));
+    //$sbClassBody->append("\n")->append($txResGenTableColsMethodExtra)->append("\n");
 
     $sbClassBody->append("\n");
     $sbClassBody->append($sbFiColMethodsBody->toString());
@@ -130,6 +133,7 @@ class CgmFiColClass
     $fkbParamsMain->add("tableName", $txEntityName);
     $fkbParamsMain->add("tablePrefix", $txTablePrefix);
     $fkbParamsMain->add("classBody", $sbClassBody->toString());
+    $fkbParamsMain->add("addFieldDescDetail", $sbFiColAddDescDetail->toString());
 
     // String
     $templateMain = $iFiColClass->getTemplateFicClass();

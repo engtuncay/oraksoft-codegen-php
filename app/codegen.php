@@ -3,10 +3,10 @@ require 'fiAppImports.php';
 
 use codegen\ficols\FicFiCol;
 use codegen\ficols\FicFiMeta;
-use codegen\modals\CgmCsharpTempsForFiColClass;
+use codegen\modals\CgmCsharpSpecs;
 use codegen\modals\CgmFiColClass;
 use codegen\modals\CgmFiColUtil;
-use codegen\modals\CgmJavaTempsForFiColClass;
+use codegen\modals\CgmJavaSpecs;
 use codegen\modals\DtoCodeGen;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Excel\FiExcel;
@@ -85,18 +85,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();
       $sbTxCodeGen1->append("// Csharp FiCol Class Generation v1\n");
-      $sbTxCodeGen1->append(CgmFiColClass::actGenFiColClassByFkb($fkbExcel, new CgmCsharpTempsForFiColClass()));
+      $sbTxCodeGen1->append(CgmFiColClass::actGenFiColClassByFkb($fkbExcel, new CgmCsharpSpecs()));
       $sbTxCodeGen1->append("\n");
       $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
       $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
       $arrDtoCodeGen[] = $dtoCodeGen;
     }
 
-//    $sbTxCodeGen->append("// Csharp FiCol Class Generation v1\n");
-//    //$sbTxCodeGen->append(CgmCsharp::actGenFiColClassByFkbList($fkbListExcel));
-//    $sbTxCodeGen->append(CgmFiColClass::actGenFiColClassByFkb($fkbListExcel,new CgmCsharpTempsForFiColClass()));
-//    $sbTxCodeGen->append("\n");
-    //$txCodeGenExtra .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
+    // $sbTxCodeGen->append("// Csharp FiCol Class Generation v1\n");
+    // //$sbTxCodeGen->append(CgmCsharp::actGenFiColClassByFkbList($fkbListExcel));
+    // $sbTxCodeGen->append(CgmFiColClass::actGenFiColClassByFkb($fkbListExcel,new CgmCsharpTempsForFiColClass()));
+    // $sbTxCodeGen->append("\n");
+    // $txCodeGenExtra .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
   }
 
   if ($formObject->selPhp == "2") {
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
     $fkbListExcel = $fdrExcel->getFkbListInit();
 
     $sbTxCodeGen->append("// Java FiMeta Class Generation v1\n");
-    $sbTxCodeGen->append(CgmFiColClass::actGenFiColClassByFkb($fkbListExcel, new CgmJavaTempsForFiColClass()));
+    $sbTxCodeGen->append(CgmFiColClass::actGenFiColClassByFkb($fkbListExcel, new CgmJavaSpecs()));
     $sbTxCodeGen->append("\n");
     $txCodeGenExtra .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
   }

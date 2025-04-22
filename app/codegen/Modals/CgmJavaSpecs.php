@@ -15,7 +15,7 @@ use Engtuncay\Phputils8\Meta\FkbList;
 /**
  * Java Templates For Code Generator
  */
-class CgmJavaTempsForFiColClass implements ICodeGenTempsForFiColClass
+class CgmJavaSpecs implements ICodeGenSpecs
 {
 
   /**
@@ -315,13 +315,12 @@ EOD;
   /**
    * @param FiStrbui $sbFclListBody
    * @param string $methodName
-   * @param FiStrbui $sbFclListBodyExtra
    * @return void
    */
-  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, string $methodName, FiStrbui $sbFclListBodyExtra): void
-  {
+  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, string $methodName): void
+  { //, FiStrbui $sbFclListBodyExtra
     $sbFclListBody->append("ficList.add($methodName());\n");
-    $sbFclListBodyExtra->append("ficList.add($methodName" . "Ext());\n");
+    //$sbFclListBodyExtra->append("ficList.add($methodName" . "Ext());\n");
   }
 
   /**
@@ -351,4 +350,10 @@ EOD;
     return $templateMain;
   }
 
+  public function genFiColAddDescDetail(FiKeybean $fkbItem): FiStrbui
+  {
+    // TODO: Implement genFiColAddDescBody() method.
+    $sbFiColAddDescBody = new FiStrbui();
+    return $sbFiColAddDescBody;
+  }
 }

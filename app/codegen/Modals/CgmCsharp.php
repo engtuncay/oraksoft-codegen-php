@@ -128,6 +128,15 @@ public class {{classPref}}{{entityName}}:IFiTableMeta
   {
     return GetTxPrefix();
   }
+  
+  public static void AddFieldDesc(FiColList ficolList) {
+
+    foreach (FiCol fiCol in ficolList)
+    {
+        {{addFieldDescDetail}}
+    }
+    
+  }
 
 {{classBody}}
 
@@ -144,16 +153,17 @@ EOD;
 
     $sbClassBody = new FiStrbui(); //new StringBuilder();
     $sbFiColMethodsBody = new FiStrbui(); //new StringBuilder();
+    $sbFiColAddDescBody = new FiStrbui(); //new StringBuilder();
 
     //int
     //$index = 0;
 
     $sbFclListBody = new FiStrbui();
-    $sbFclListBodyExtra = new FiStrbui();
+    //$sbFclListBodyExtra = new FiStrbui();
     $sbFclListBodyTrans = new FiStrbui();
 
     $templateFiColMethod = self::getTemplateFiColMethod();
-    $templateFiColMethodExtra = self::getTemplateFiColMethodExtra();
+    //$templateFiColMethodExtra = self::getTemplateFiColMethodExtra();
 
     /**
      * @var FiKeybean $fkbItem
@@ -185,22 +195,22 @@ EOD;
 
       $sbFiColMethodsBody->append($txFiColMethod)->append("\n\n");
 
-      $sbFiColMethodBodyExtra = self::genFiColMethodBodyDetailExtra($fkbItem);
-      $fkbFiColMethodBodyExtra = new FiKeybean();
-      $fkbFiColMethodBodyExtra->add("fieldMethodName", self::checkMethodNameStd($fieldName));
-      $fkbFiColMethodBodyExtra->add("fieldName", $fieldName);
-      $fkbFiColMethodBodyExtra->add("fieldHeader", $ofcTxHeader);
-      $fkbFiColMethodBodyExtra->add("fiColMethodBody", $sbFiColMethodBodyExtra->toString());
-      $txFiColMethodExtra = FiTemplate::replaceParams($templateFiColMethodExtra, $fkbFiColMethodBodyExtra);
+//      $sbFiColMethodBodyExtra = self::genFiColMethodBodyDetailExtra($fkbItem);
+//      $fkbFiColMethodBodyExtra = new FiKeybean();
+//      $fkbFiColMethodBodyExtra->add("fieldMethodName", self::checkMethodNameStd($fieldName));
+//      $fkbFiColMethodBodyExtra->add("fieldName", $fieldName);
+//      $fkbFiColMethodBodyExtra->add("fieldHeader", $ofcTxHeader);
+//      $fkbFiColMethodBodyExtra->add("fiColMethodBody", $sbFiColMethodBodyExtra->toString());
+//      $txFiColMethodExtra = FiTemplate::replaceParams($templateFiColMethodExtra, $fkbFiColMethodBodyExtra);
 
-      $sbFiColMethodsBody->append($txFiColMethodExtra)->append("\n\n");
+      //$sbFiColMethodsBody->append($txFiColMethodExtra)->append("\n\n");
 
       //
       $ofcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::ofcBoTransient()));
       $methodName = self::checkMethodNameStd($fieldName);
       if (!$ofcBoTransient === true) {
         $sbFclListBody->append("ficList.Add($methodName());\n");
-        $sbFclListBodyExtra->append("ficList.Add($methodName" ."Ext());\n");
+        //$sbFclListBodyExtra->append("ficList.Add($methodName" ."Ext());\n");
         //sbFclListBody.append("\tfclList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
       } else {
         $sbFclListBodyTrans->append("ficList.Add($methodName());\n");
@@ -241,18 +251,18 @@ EOD;
     $txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeyBean::bui()->buiPut("ficListBodyTrans", $sbFclListBodyTrans->toString()));
     $sbClassBody->append("\n")->append($txResGenTableColsMethodTrans)->append("\n");
 
-    $tempGenFiColsExt = <<<EOD
-public static FiColList GenTableColsExtra() {
-  FiColList ficList = new FiColList();
+//    $tempGenFiColsExt = <<<EOD
+//public static FiColList GenTableColsExtra() {
+//  FiColList ficList = new FiColList();
+//
+//  {{ficListBodyExtra}}
+//
+//  return ficList;
+//}
+//EOD;
 
-  {{ficListBodyExtra}}
-
-  return ficList;
-}
-EOD;
-
-    $txResGenTableColsMethodExtra = FiTemplate::replaceParams($tempGenFiColsExt, FiKeyBean::bui()->buiPut("ficListBodyExtra", $sbFclListBodyExtra->toString()));
-    $sbClassBody->append("\n")->append($txResGenTableColsMethodExtra)->append("\n");
+    //$txResGenTableColsMethodExtra = FiTemplate::replaceParams($tempGenFiColsExt, FiKeyBean::bui()->buiPut("ficListBodyExtra", $sbFclListBodyExtra->toString()));
+    //$sbClassBody->append("\n")->append($txResGenTableColsMethodExtra)->append("\n");
 
     $sbClassBody->append("\n");
     $sbClassBody->append($sbFiColMethodsBody->toString());
@@ -373,6 +383,28 @@ EOD;
 
     return $sbFiColMethodBody;
   }
+
+  private static function genFiColAddDescBody(FiKeybean $fkbItem): FiStrbui
+  {
+    //StringBuilder
+    $sbText = new FiStrbui(); // new StringBuilder();
+
+    $ofcTxFielDesc = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldDesc());
+
+    if(!FiString::isEmpty($ofcTxFielDesc)) {
+      $methodNameStd = self::checkMethodNameStd($fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName()));
+
+      $sbText->append(<<<EOD
+      if(FiString.Equals(fiCol.ofcTxFieldName,$methodNameStd().ofcTxFieldName)){
+        fiCol.ofcTxFieldDesc = "$ofcTxFielDesc";
+      }
+      EOD);
+    }
+
+    return $sbText;
+  }
+
+
   public static function actGenFiMetaClass(FkbList $fkbListExcel): string
   {
     //if (FiCollection.isEmpty(fiCols)) return;
