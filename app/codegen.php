@@ -3,21 +3,16 @@ require 'fiAppImports.php';
 
 use codegen\ficols\FicFiCol;
 use codegen\ficols\FicFiMeta;
-use codegen\modals\CgmCsharp;
 use codegen\modals\CgmCsharpTempsForFiColClass;
 use codegen\modals\CgmFiColClass;
 use codegen\modals\CgmFiColUtil;
-use codegen\modals\CgmJavaOld;
 use codegen\modals\CgmJavaTempsForFiColClass;
 use codegen\modals\DtoCodeGen;
 use Engtuncay\Phputils8\Core\FiStrbui;
-use Engtuncay\Phputils8\Core\FiString;
-use Engtuncay\Phputils8\Core\FiwArray;
 use Engtuncay\Phputils8\Excel\FiExcel;
 use Engtuncay\Phputils8\Log\FiLog;
 use Engtuncay\Phputils8\Meta\Fdr;
 use codegen\modals\CgmPhp;
-use Engtuncay\Phputils8\Meta\FiKeybean;
 use Engtuncay\Phputils8\Meta\FkbList;
 
 FiLog::initLogger('filog');
