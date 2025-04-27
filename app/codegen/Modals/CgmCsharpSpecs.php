@@ -123,6 +123,8 @@ EOD;
     $templateMain = <<<EOD
 using OrakYazilimLib.DbGeneric;
 using OrakYazilimLib.Util;
+using OrakYazilimLib.Util.Collection;
+using OrakYazilimLib.Util.ColStruct;
       
 public class {{classPref}}{{entityName}}:IFiTableMeta
 {
