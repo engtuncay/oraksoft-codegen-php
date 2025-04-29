@@ -75,6 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
     $fdrExcel = $fiExcel::readExcelFile($inputFileName, FicFiCol::GenTableCols());
     $fkbListExcel = $fdrExcel->getFkbListInit();
 
+    //echo var_export($fkbListExcel, true);
+
     /** @var FkbList[] $arrFkbListExcel */
     $arrFkbListExcel = CgmFiColUtil::arrEntityFkbExcel($fkbListExcel);
     $txIdPref = "java";
