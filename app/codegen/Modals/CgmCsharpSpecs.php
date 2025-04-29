@@ -82,7 +82,7 @@ EOD;
   public function checkMethodNameStd(mixed $fieldName): string
   {
     // Başlangıçta eğer fieldName boşsa direkt döndür
-    if (empty($fieldName)) return $fieldName;
+    if (FiString::isEmpty($fieldName)) return "";
 
     if (!FiString::hasLowercaseLetter($fieldName)) {
       $fieldName = strtolower($fieldName);
