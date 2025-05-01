@@ -6,7 +6,7 @@ namespace codegen\ficols;
 
 use Engtuncay\Phputils8\FiCol\IFiTableMeta;
 use Engtuncay\Phputils8\Meta\FiCol;
-use Engtuncay\Phputils8\Meta\FclList;
+use Engtuncay\Phputils8\Meta\FicList;
 
 class FicFiCol implements IFiTableMeta
 {
@@ -21,21 +21,21 @@ class FicFiCol implements IFiTableMeta
     return "FicFiCol";
   }
 
-  public function genITableCols(): FclList
+  public function genITableCols(): FicList
   {
     return self::GenTableCols();
   }
 
-  public function genITableColsTrans(): FclList
+  public function genITableColsTrans(): FicList
   {
     return self::GenTableColsTrans();
   }
 
 
-  public static function GenTableCols(): FclList
+  public static function GenTableCols(): FicList
   {
 
-    $fiColList = new FclList();
+    $fiColList = new FicList();
 
     $fiColList->add(self::ofcTxEntityName());
     $fiColList->add(self::ofcTxFieldType());
@@ -60,10 +60,10 @@ class FicFiCol implements IFiTableMeta
     return $fiColList;
   }
 
-  public static function GenTableColsTrans(): FclList
+  public static function GenTableColsTrans(): FicList
   {
 
-    $fiColList = new FclList();
+    $fiColList = new FicList();
 
 
 

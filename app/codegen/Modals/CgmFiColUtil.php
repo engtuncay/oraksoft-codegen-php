@@ -7,7 +7,7 @@ use Engtuncay\Phputils8\Core\FiArray;
 use Engtuncay\Phputils8\Core\FiText;
 use Engtuncay\Phputils8\Core\FiwArray;
 use Engtuncay\Phputils8\Log\FiLog;
-use Engtuncay\Phputils8\Meta\FclList;
+use Engtuncay\Phputils8\Meta\FicList;
 use Engtuncay\Phputils8\Meta\FiCol;
 use Engtuncay\Phputils8\Meta\FiKeybean;
 use Engtuncay\Phputils8\Meta\FiMeta;
@@ -22,11 +22,11 @@ class CgmFiColUtil
    * UBOM Fkb yi FiCola çevir
    *
    * @param FkbList $fkbList
-   * @return FclList
+   * @return FicList
    */
-  public static function getFiColListFromFkbList(FkbList $fkbList): FclList
+  public static function getFiColListFromFkbList(FkbList $fkbList): FicList
   {
-    $ficols = new FclList();
+    $ficols = new FicList();
 
     /**
      *
