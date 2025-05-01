@@ -18,7 +18,7 @@ use Engtuncay\Phputils8\Meta\FkbList;
 class CgmFiColClass
 {
 
-  public static function actGenFiColClassByFkb(FkbList $fkbListExcel, ICodeGenSpecs $iFiColClass = null): string
+  public static function actGenFiColClassByFkb(FkbList $fkbListExcel, ICogFicSpecs $iFiColClass = null): string
   {
 
     if($iFiColClass==null) return "";

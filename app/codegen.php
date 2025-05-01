@@ -3,7 +3,7 @@ require 'fiAppImports.php';
 
 use codegen\ficols\FicFiCol;
 use codegen\ficols\FicFiMeta;
-use codegen\modals\CgmCsharpSpecs;
+use codegen\modals\CogFicCsharpSpecs;
 use codegen\modals\CgmFiColClass;
 use codegen\modals\CgmFiColUtil;
 use codegen\modals\CgmJavaSpecs;
@@ -86,7 +86,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
       $fkbListData = $fdrData->getFkbListInit();
     }
 
-
     //echo var_export($fkbListExcel, true);
 
     /** @var FkbList[] $arrFkbListExcel */
@@ -99,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();
       $sbTxCodeGen1->append("// Csharp FiCol Class Generation v1\n");
-      $sbTxCodeGen1->append(CgmFiColClass::actGenFiColClassByFkb($fkbExcel, new CgmCsharpSpecs()));
+      $sbTxCodeGen1->append(CgmFiColClass::actGenFiColClassByFkb($fkbExcel, new CogFicCsharpSpecs()));
       $sbTxCodeGen1->append("\n");
       $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
       $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);

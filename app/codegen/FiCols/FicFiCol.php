@@ -56,6 +56,7 @@ class FicFiCol implements IFiTableMeta
     $fiColList->add(self::ofcBoFilterLike());
     $fiColList->add(self::ofcTxFieldDesc());
     $fiColList->add(self::ofcTxPrefix());
+    $fiColList->add(self::ofcTxRefField());
 
     return $fiColList;
   }
@@ -101,6 +102,13 @@ class FicFiCol implements IFiTableMeta
   public static function ofcTxDbField(): FiCol
   {
     $fiCol = new FiCol("ofcTxDbField", "ofcTxDbField");
+
+    return $fiCol;
+  }
+
+  public static function ofcTxRefField(): FiCol
+  {
+    $fiCol = new FiCol("ofcTxRefField", "ofcTxRefField");
 
     return $fiCol;
   }

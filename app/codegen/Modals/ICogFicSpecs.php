@@ -6,7 +6,10 @@ use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Meta\FiKeybean;
 use Engtuncay\Phputils8\Meta\FkbList;
 
-interface ICodeGenSpecs
+/**
+ * Intrf-Code-Generator-FiCol-Specs
+ */
+interface ICogFicSpecs
 {
   public function getTemplateFiColMethod():string;
 

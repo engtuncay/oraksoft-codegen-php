@@ -15,7 +15,7 @@ use Engtuncay\Phputils8\Meta\FkbList;
 /**
  * Java Templates For Code Generator
  */
-class CgmCsharpSpecs implements ICodeGenSpecs
+class CogFicCsharpSpecs implements ICogFicSpecs
 {
 
   public static function getTemplateFiMetaClass(): string
@@ -73,48 +73,6 @@ public static FiCol {{fieldMethodName}}Ext()
 }
 EOD;
 
-  }
-
-  /**
-   * @param mixed $fieldName
-   * @return string
-   */
-  public function checkMethodNameStd(mixed $fieldName): string
-  {
-    // Başlangıçta eğer fieldName boşsa direkt döndür
-    if (FiString::isEmpty($fieldName)) return "";
-
-    if (!FiString::hasLowercaseLetter($fieldName)) {
-      $fieldName = strtolower($fieldName);
-      return ucfirst($fieldName);
-    } else {
-
-      $characters = str_split($fieldName); // Dizeyi karakterlere böl
-      $result = ''; // Sonuç dizesi oluştur
-      $length = count($characters);
-
-      for ($i = 0; $i < $length; $i++) {
-        // İlk harf her zaman büyük kalacak
-        if ($i === 0) {
-          $result .= strtoupper($characters[$i]);
-          $characters[$i] = strtoupper($characters[$i]);
-          continue;
-        }
-
-        // Kendinden önceki küçükse, aynen ekle
-        if (ctype_lower($characters[$i - 1])) { // && ctype_lower($characters[$i])
-          $result .= $characters[$i];
-        } // Kendinden önceki büyükse küçült
-        else if (ctype_upper($characters[$i - 1])) {
-          $result .= strtolower($characters[$i]);
-        } else { // Kendinden önceki sayı vs ise büyült
-          $result .= strtoupper($characters[$i]);
-        }
-
-      }
-
-      return $result;
-    }
   }
 
   public function getTemplateFicClass(): string
@@ -195,6 +153,13 @@ EOD;
     $ofcTxDbField = $fkbItem->getValueByFiCol(FicFiCol::ofcTxDbField());
     if ($ofcTxDbField != null)
       $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxDbField = \"%s\";\n", $ofcTxDbField));
+
+    {
+      $ofcTxRefField = $fkbItem->getValueByFiCol(FicFiCol::ofcTxRefField());
+      if ($ofcTxRefField != null)
+        $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxRefField = \"%s\";\n", $ofcTxRefField));
+    }
+
 
     //$ofcTxIdType = $fiCol->ofcTxIdType;
     //CgmCodeGen::convertExcelIdentityTypeToFiColAttribute($fiCol->ofcTxIdType);
@@ -365,20 +330,63 @@ EOD;
 
     $ofcTxFielDesc = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldDesc());
 
-    if(!FiString::isEmpty($ofcTxFielDesc)) {
+    if (!FiString::isEmpty($ofcTxFielDesc)) {
       $methodNameStd = $this->checkMethodNameStd($fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName()));
 
       $sbText->append(
-<<<EOD
+        <<<EOD
 
     if(FiString.Equals(fiCol.ofcTxFieldName,$methodNameStd().ofcTxFieldName)){
       fiCol.ofcTxFieldDesc = "$ofcTxFielDesc";
     }
       
-EOD);
+EOD
+      );
     }
 
     return $sbText;
+  }
+
+  /**
+   * @param mixed $fieldName
+   * @return string
+   */
+  public function checkMethodNameStd(mixed $fieldName): string
+  {
+    // Başlangıçta eğer fieldName boşsa direkt döndür
+    if (FiString::isEmpty($fieldName)) return "";
+
+    if (!FiString::hasLowercaseLetter($fieldName)) {
+      $fieldName = strtolower($fieldName);
+      return ucfirst($fieldName);
+    } else {
+
+      $characters = str_split($fieldName); // Dizeyi karakterlere böl
+      $result = ''; // Sonuç dizesi oluştur
+      $length = count($characters);
+
+      for ($i = 0; $i < $length; $i++) {
+        // İlk harf her zaman büyük kalacak
+        if ($i === 0) {
+          $result .= strtoupper($characters[$i]);
+          $characters[$i] = strtoupper($characters[$i]);
+          continue;
+        }
+
+        // Kendinden önceki küçükse, aynen ekle
+        if (ctype_lower($characters[$i - 1])) { // && ctype_lower($characters[$i])
+          $result .= $characters[$i];
+        } // Kendinden önceki büyükse küçült
+        else if (ctype_upper($characters[$i - 1])) {
+          $result .= strtolower($characters[$i]);
+        } else { // Kendinden önceki sayı vs ise büyült
+          $result .= strtoupper($characters[$i]);
+        }
+
+      }
+
+      return $result;
+    }
   }
 
 

@@ -15,7 +15,7 @@ use Engtuncay\Phputils8\Meta\FkbList;
 /**
  * Java Templates For Code Generator
  */
-class CgmJavaSpecs implements ICodeGenSpecs
+class CgmJavaSpecs implements ICogFicSpecs
 {
 
   /**
