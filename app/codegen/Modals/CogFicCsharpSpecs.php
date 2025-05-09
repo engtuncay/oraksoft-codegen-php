@@ -97,12 +97,12 @@ public class {{classPref}}{{entityName}}:IFiTableMeta
     return GetTxTableName();
   }
 
-  public FiColList GenITableCols()
+  public FicList GenITableCols()
   {
     return GenTableCols();
   }
   
-  public FiColList GenITableColsTrans()
+  public FicList GenITableColsTrans()
   {
     return GenTableColsTrans();
   }
@@ -117,7 +117,7 @@ public class {{classPref}}{{entityName}}:IFiTableMeta
     return GetTxPrefix();
   }
   
-  public static void AddFieldDesc(FiColList ficolList) {
+  public static void AddFieldDesc(FicList ficolList) {
 
     foreach (FiCol fiCol in ficolList)
     {
@@ -259,8 +259,8 @@ EOD;
   public function getTempGenFiColsExtraList(): string
   {
     return <<<EOD
-public static FiColList GenTableColsExtra() {
-  FiColList ficList = new FiColList();
+public static FicList GenTableColsExtra() {
+  FicList ficList = new FicList();
 
   {{ficListBodyExtra}}
 
@@ -275,8 +275,8 @@ EOD;
   public function getTempGenGiColsTransList(): string
   {
     return <<<EOD
-public static FiColList GenTableColsTrans() {
-  FiColList ficList = new FiColList();
+public static FicList GenTableColsTrans() {
+  FicList ficList = new FicList();
   
   {{ficListBodyTrans}}
   
@@ -291,8 +291,8 @@ EOD;
   public function getTempGenFiColsList(): string
   {
     return <<<EOD
-public static FiColList GenTableCols() {
-  FiColList ficList = new FiColList();
+public static FicList GenTableCols() {
+  FicList ficList = new FicList();
 
   {{ficListBody}}
 
