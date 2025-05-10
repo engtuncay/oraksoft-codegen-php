@@ -54,7 +54,7 @@ class FicFiCol implements IFiTableMeta
     $fiColList->add(self::ofcTxCollation());
     $fiColList->add(self::ofcTxTypeName());
     $fiColList->add(self::ofcBoFilterLike());
-    $fiColList->add(self::ofcTxFieldDesc());
+    $fiColList->add(self::ofcTxDesc());
     $fiColList->add(self::ofcTxPrefix());
     $fiColList->add(self::ofcTxRefField());
 
@@ -121,9 +121,9 @@ class FicFiCol implements IFiTableMeta
     return $fiCol;
   }
 
-  public static function ofcTxFieldDesc(): FiCol
+  public static function ofcTxDesc(): FiCol
   {
-    $fiCol = new FiCol("ofcTxFieldDesc", "ofcTxFieldDesc");
+    $fiCol = new FiCol("ofcTxDesc", "ofcTxDesc");
     $fiCol->ofcBoTransient = true;
 
     return $fiCol;

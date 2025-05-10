@@ -53,7 +53,7 @@ EOD;
   {
     return <<<EOD
 public static FiCol {{fieldMethodName}}()
-{
+{ 
   FiCol fiCol = new FiCol("{{fieldName}}");
 {{fiColMethodBody}}
   return fiCol;
@@ -228,9 +228,9 @@ EOD;
     //StringBuilder
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
 
-    $ofcTxFielDesc = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldDesc());
-    //if ($ofcTxFielDesc != null)
-    $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxFieldDesc = \"%s\";\n", $ofcTxFielDesc));
+    $ofcTxDesc = $fkbItem->getValueByFiCol(FicFiCol::ofcTxDesc());
+    //if ($ofcTxDesc != null)
+    $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxDesc = \"%s\";\n", $ofcTxDesc));
 
     return $sbFiColMethodBody;
   }
@@ -328,7 +328,7 @@ EOD;
     //StringBuilder
     $sbText = new FiStrbui(); // new StringBuilder();
 
-    $ofcTxFielDesc = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldDesc());
+    $ofcTxFielDesc = $fkbItem->getValueByFiCol(FicFiCol::ofcTxDesc());
 
     if (!FiString::isEmpty($ofcTxFielDesc)) {
       $methodNameStd = $this->checkMethodNameStd($fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName()));

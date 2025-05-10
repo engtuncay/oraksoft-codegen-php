@@ -317,7 +317,7 @@ EOD;
     //StringBuilder
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
 
-    $ofcTxFielDesc = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldDesc());
+    $ofcTxFielDesc = $fkbItem->getValueByFiCol(FicFiCol::ofcTxDesc());
     //if ($ofcTxFielDesc != null)
     $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxFieldDesc = \"%s\";\n", $ofcTxFielDesc));
 
