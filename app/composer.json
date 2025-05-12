@@ -4,7 +4,7 @@
   "repositories": [
     {
       "type": "path",
-      "url": "Y:\\xampp\\htdocs\\phputils8"
+      "url": "Y:\\devrepo-oraksoft-web\\phputils8"
     }
   ],
   "require": {
