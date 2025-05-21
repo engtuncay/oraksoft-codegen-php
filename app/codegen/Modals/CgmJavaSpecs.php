@@ -83,7 +83,7 @@ EOD;
         }
 
         // Kendinden önceki küçükse veya büyükse, aynen ekle
-        if (ctype_lower($characters[$i - 1]) || ctype_upper($characters[$i - 1]) ) { // && ctype_lower($characters[$i])
+        if (ctype_lower($characters[$i - 1]) || ctype_upper($characters[$i - 1])) { // && ctype_lower($characters[$i])
           $result .= $characters[$i];
         } // Kendinden önceki büyükse, aynen ekle
 //        else if (ctype_upper($characters[$i - 1])) {
@@ -103,6 +103,8 @@ EOD;
 
   public function getTemplateFicClass(): string
   {
+    //FicFiCol::ofcTxHeader();
+
     //String
     $templateMain = <<<EOD
 import ozpasyazilim.utils.table.FiCol;
@@ -203,11 +205,6 @@ EOD;
     if (FiBool::isFalse($fkbItem->getValueAsBoolByFiCol(FicFiCol::ofcBoNullable()))) {
       $sbFiColMethodBody->append("  fiCol.setOfcBoNullable(false);\n");
     }
-
-    //
-//    if (FiBool::isTrue($fiCol->ofcBoNullable)) {
-//      $sbFiColMethodBody->append("fiCol.ofcBoNullable = true;\n");
-//    }
 
 //        if (FiBool.isTrue(fiCol.getOfcBoUnique())) {
 //          sbFiColMethodBody.append("\tfiCol.ofcBoUnique = true;\n");
