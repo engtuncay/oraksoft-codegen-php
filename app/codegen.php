@@ -8,6 +8,7 @@ use codegen\modals\CgmFiColClass;
 use codegen\modals\CgmFiColUtil;
 use codegen\modals\CgmJavaSpecs;
 use codegen\modals\DtoCodeGen;
+use codegen\modals\ICogFicSpecs;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Excel\FiExcel;
 use Engtuncay\Phputils8\FiCsv\FiCsv;
@@ -21,10 +22,55 @@ FiLog::initLogger('filog');
 $fdrData = new Fdr();
 
 $txCodeGenExtra = "";
-/** @var DtoCodeGen[] $arrDtoCodeGen */
-$arrDtoCodeGen = [];
+/** @var DtoCodeGen[] $arrDtoCodeGenPack */
+$arrDtoCodeGenPack = [];
 $sbTxCodeGen = new FiStrbui();
 $fkbListData = new FkbList();
+
+/**
+ * @param array|string $fileExtension
+ * @param mixed $inputFileName
+ * @param FkbList $fkbListData
+ * @param CogFicCsharpSpecs $IFiColClass
+ * @param array $arrDtoCodeGen
+ * @return array
+ */
+function generateDtoCodeFromFile(array|string $fileExtension, mixed $inputFileName, FkbList $fkbListData, ICogFicSpecs $IFiColClass, array $arrDtoCodeGen): array
+{
+
+  if ($fileExtension == "csv") {
+    $fiCsv = new FiCsv();
+    $fdrData = $fiCsv::read($inputFileName, FicFiCol::GenTableCols());
+    $fkbListData = $fdrData->getFkbListInit();
+  }
+
+  if ($fileExtension == "xlsx" || $fileExtension == "xls") {
+    $fiExcel = new FiExcel();
+    $fdrData = $fiExcel::readExcelFile($inputFileName, FicFiCol::GenTableCols());
+    $fkbListData = $fdrData->getFkbListInit();
+  }
+
+  //echo var_export($fkbListExcel, true);
+
+  /** @var FkbList[] $arrFkbListExcel */
+  $arrFkbListExcel = CgmFiColUtil::arrEntityFkbExcel($fkbListData);
+  $txIdPref = "java";
+  $lnForIndex = 0;
+
+  foreach ($arrFkbListExcel as $fkbExcel) {
+    $lnForIndex++;
+    $dtoCodeGen = new DtoCodeGen();
+    $sbTxCodeGen1 = new FiStrbui();
+    $sbTxCodeGen1->append("// FiCol Class Generation v1\n");
+    $sbTxCodeGen1->append(CgmFiColClass::actGenFiColClassByFkb($fkbExcel, $IFiColClass));
+    $sbTxCodeGen1->append("\n");
+    $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
+    $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
+    $arrDtoCodeGen[] = $dtoCodeGen;
+  }
+
+  return array($fdrData, $arrDtoCodeGen); //$fiExcel $fkbListData
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 
@@ -61,49 +107,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
   // stdClass nesnesine dönüştür
   $formObject = (object)$formData;
 
-  if ($formObject->selPhp == "1") {
-    $fiExcel = new FiExcel();
-    $fdrData = $fiExcel::readExcelFile($inputFileName, FicFiCol::GenTableCols());
-    $fkbListData = $fdrData->getFkbListInit();
-
-    $sbTxCodeGen->append("// Php FiCol Class Generation v1\n");
-    $sbTxCodeGen->append(CgmPhp::actGenFiColClassByFkbList($fkbListData));
-    $sbTxCodeGen->append("\n");
-    //$txCodeGenExtra .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
-  }
+//  if ($formObject->selPhp == "1") {
+//    $fiExcel = new FiExcel();
+//    $fdrData = $fiExcel::readExcelFile($inputFileName, FicFiCol::GenTableCols());
+//    $fkbListData = $fdrData->getFkbListInit();
+//
+//    $sbTxCodeGen->append("// Php FiCol Class Generation v1\n");
+//    $sbTxCodeGen->append(CgmPhp::actGenFiColClassByFkbList($fkbListData));
+//    $sbTxCodeGen->append("\n");
+//    //$txCodeGenExtra .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
+//  }
 
   if ($formObject->selCsharp == "1") {
 
-    if ($fileExtension == "csv") {
-      $fiCsv = new FiCsv();
-      $fdrData = $fiCsv::read($inputFileName, FicFiCol::GenTableCols());
-      $fkbListData = $fdrData->getFkbListInit();
-    }
+    $iFiColClass = new CogFicCsharpSpecs();
 
-    if ($fileExtension == "xlsx" || $fileExtension == "xls") {
-      $fiExcel = new FiExcel();
-      $fdrData = $fiExcel::readExcelFile($inputFileName, FicFiCol::GenTableCols());
-      $fkbListData = $fdrData->getFkbListInit();
-    }
-
-    //echo var_export($fkbListExcel, true);
-
-    /** @var FkbList[] $arrFkbListExcel */
-    $arrFkbListExcel = CgmFiColUtil::arrEntityFkbExcel($fkbListData);
-    $txIdPref = "java";
-    $lnForIndex = 0;
-
-    foreach ($arrFkbListExcel as $fkbExcel) {
-      $lnForIndex++;
-      $dtoCodeGen = new DtoCodeGen();
-      $sbTxCodeGen1 = new FiStrbui();
-      $sbTxCodeGen1->append("// Csharp FiCol Class Generation v1\n");
-      $sbTxCodeGen1->append(CgmFiColClass::actGenFiColClassByFkb($fkbExcel, new CogFicCsharpSpecs()));
-      $sbTxCodeGen1->append("\n");
-      $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
-      $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
-      $arrDtoCodeGen[] = $dtoCodeGen;
-    }
+    list($fdrData, $arrDtoCodeGenPack) = generateDtoCodeFromFile($fileExtension, $inputFileName, $fkbListData, $iFiColClass, $arrDtoCodeGenPack);
+    //$fkbListData
 
     // $sbTxCodeGen->append("// Csharp FiCol Class Generation v1\n");
     // //$sbTxCodeGen->append(CgmCsharp::actGenFiColClassByFkbList($fkbListExcel));
@@ -113,27 +133,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
   }
 
   if ($formObject->selPhp == "2") {
-    $fiExcel = new FiExcel();
-    $cols = FicFiMeta::GenTableCols();
-    $cols->add(FicFiCol::ofcTxEntityName());
-    $fdrData = $fiExcel::readExcelFile($inputFileName, $cols);
-    $fkbListData = $fdrData->getFkbListInit();
 
-    $sbTxCodeGen->append("// Php FiMeta Class Generation v1\n");
-    $sbTxCodeGen->append(CgmPhp::actGenFiMetaClass($fkbListData));
-    $sbTxCodeGen->append("\n");
-    $txCodeGenExtra .= json_encode($fdrData->getFkbListInit()->getAsMultiArray());
+    $iFiColClass = new CogFicCsharpSpecs();
+
+    list($fdrData, $arrDtoCodeGenPack) = generateDtoCodeFromFile($fileExtension, $inputFileName, $fkbListData, $iFiColClass, $arrDtoCodeGenPack);
+//$fkbListData
+
+//    $fiExcel = new FiExcel();
+//    $cols = FicFiMeta::GenTableCols();
+//    $cols->add(FicFiCol::ofcTxEntityName());
+//    $fdrData = $fiExcel::readExcelFile($inputFileName, $cols);
+//    $fkbListData = $fdrData->getFkbListInit();
+//
+//    $sbTxCodeGen->append("// Php FiMeta Class Generation v1\n");
+//    $sbTxCodeGen->append(CgmPhp::actGenFiMetaClass($fkbListData));
+//    $sbTxCodeGen->append("\n");
+//    $txCodeGenExtra .= json_encode($fdrData->getFkbListInit()->getAsMultiArray());
   }
 
   if ($formObject->selJava == "1") {
-    $fiExcel = new FiExcel();
-    $fdrData = $fiExcel::readExcelFile($inputFileName, FicFiCol::GenTableCols());
-    $fkbListData = $fdrData->getFkbListInit();
 
-    $sbTxCodeGen->append("// Java FiMeta Class Generation v1\n");
-    $sbTxCodeGen->append(CgmFiColClass::actGenFiColClassByFkb($fkbListData, new CgmJavaSpecs()));
-    $sbTxCodeGen->append("\n");
-    $txCodeGenExtra .= json_encode($fdrData->getFkbListInit()->getAsMultiArray());
+    $iFiColClass = new CgmJavaSpecs();
+
+    list($fdrData, $arrDtoCodeGenPack) = generateDtoCodeFromFile($fileExtension, $inputFileName, $fkbListData, $iFiColClass, $arrDtoCodeGenPack);
+    //$fkbListData
   }
 
   // Nesne olarak verileri görüntüle
@@ -158,7 +181,7 @@ endExcelOkuma:
 </head>
 <body class="fibody">
 <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
-<?php foreach ($arrDtoCodeGen as $arrDtoGen) { ?>
+<?php foreach ($arrDtoCodeGenPack as $arrDtoGen) { ?>
     <div class="container mt-3">
         <!--code blok -->
         <div class="position-relative">

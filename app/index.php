@@ -11,8 +11,8 @@ FiLog::initLogger('filog');
 <html lang="tr">
 <head>
     <?php require 'fiHead.php'; ?>
-    <!--    <link rel="stylesheet" href="codeblock.css">-->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
+    <!-- <link rel="stylesheet" href="codeblock.css"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 </head>
 <body class="fibody">
 <!---->
