@@ -13,7 +13,8 @@
     "pnpm-link-oraksoft-ui": "pnpm link --global oraksoft-ui",
     "pnpm-link-orak-util-ts": "pnpm link --global orak-util-ts",
     "pnpm-unlink-oraksoft-ui": "pnpm unlink --global oraksoft-ui",
-    "fideploy": "node ./fideploy.js"
+    "fideploy": "node ./fideploy.js",
+    "ocg-install": "pnpm install"
   },
   "devDependencies": {
     "@types/alpinejs": "^3.13.11",
@@ -28,9 +29,10 @@
     "alpinejs": "^3.14.8",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
-    "knockout": "^3.5.1"
+    "knockout": "^3.5.1",
+    "oraksoft-ui": "^0.0.10"
   },
-  "copyDepsLibFolder": "app/libs",
+  "copyDepsLibFolder": "ocg/public/libs",
   "copyDepsModulesToCopy": [
     {
       "name": "bootstrap",
