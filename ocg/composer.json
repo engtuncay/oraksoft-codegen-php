@@ -39,6 +39,6 @@
     },
     "scripts": {
         "test": "phpunit",
-        "spark-serve": "php spark serve"
+        "spark-serve-ocg": "php spark serve"
     }
 }
