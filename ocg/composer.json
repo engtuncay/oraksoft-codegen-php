@@ -32,13 +32,14 @@
             "Tests\\Support\\": "tests/_support"
         }
     },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true
-    },
     "scripts": {
         "test": "phpunit",
         "spark-serve-ocg": "php spark serve"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "process-timeout": 0
     }
 }
