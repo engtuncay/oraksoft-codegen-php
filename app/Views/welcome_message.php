@@ -1,5 +1,6 @@
 <?php
-require __DIR__ . '/fiAppImports.php';
+//require __DIR__ . '/fiAppImports.php';
+view('fiAppImports.php');
 
 //use Engtuncay\Phputils8\Log\FiLog;
 
@@ -8,76 +9,78 @@ require __DIR__ . '/fiAppImports.php';
 ?>
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
-    <?php require __DIR__ . '/fiHead.php'; ?>
-    <!-- <link rel="stylesheet" href="codeblock.css"> -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+  <?php //require __DIR__ . '/fiHead.php'; ?>
+  <?= view('fiHead.php') ?>
+  <!-- <link rel="stylesheet" href="codeblock.css"> -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 </head>
+
 <body class="fibody">
-<!---->
-<div class="container mt-5">
+  <!---->
+  <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="text-white card-header bg-primary">
-                    <h3 class="text-center card-title">Orak Soft Code Generator</h3>
-                </div>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="text-white card-header bg-primary">
+            <h3 class="text-center card-title">Orak Soft Code Generator</h3>
+          </div>
 
-                <div class="card-body">
-                    <form action="<?=base_url('codegen')?>" method="post" enctype="multipart/form-data">
-                        <div class="container">
-                            <div class="row">
-                                <div class="mb-3 col-md-4">
-                                    <label for="selCsharp" class="form-label">Csharp:</label>
-                                    <select name="selCsharp" id="selCsharp" class="form-select" aria-label="Csharp Operations" >
-                                    </select>
-                                    <!--          <div class="form-text">note.</div>-->
-                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <label for="selTs" class="form-label">Typescript:</label>
-                                    <select class="form-select" aria-label="Ts Operations" name="selTs" id="selTs"></select>
-                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <label for="selPhp" class="form-label">Php:</label>
-                                    <select class="form-select" aria-label="Php Operations" name="selPhp" id="selPhp">
-                                    </select>
-                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <label for="selJava" class="form-label">Java:</label>
-                                    <select class="form-select" aria-label="Java Operations" name="selJava" id="selJava">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="excelFile" class="form-label">Excel Dosyası Seçin:</label>
-                            <input type="file" class="form-control" name="excelFile" id="excelFile"
-                                   accept=".xlsx, .xls, .csv" required>
-                            <div class="form-text">Sadece .xlsx, .xls veya .csv dosyaları yükleyebilirsiniz.</div>
-                        </div>
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Generate Code</button>
-
-                        </div>
-                    </form>
+          <div class="card-body">
+            <form action="<?= base_url('codegen') ?>" method="post" enctype="multipart/form-data">
+              <div class="container">
+                <div class="row">
+                  <div class="mb-3 col-md-4">
+                    <label for="selCsharp" class="form-label">Csharp:</label>
+                    <select name="selCsharp" id="selCsharp" class="form-select" aria-label="Csharp Operations">
+                    </select>
+                    <!--          <div class="form-text">note.</div>-->
+                  </div>
+                  <div class="mb-3 col-md-4">
+                    <label for="selTs" class="form-label">Typescript:</label>
+                    <select class="form-select" aria-label="Ts Operations" name="selTs" id="selTs"></select>
+                  </div>
+                  <div class="mb-3 col-md-4">
+                    <label for="selPhp" class="form-label">Php:</label>
+                    <select class="form-select" aria-label="Php Operations" name="selPhp" id="selPhp">
+                    </select>
+                  </div>
+                  <div class="mb-3 col-md-4">
+                    <label for="selJava" class="form-label">Java:</label>
+                    <select class="form-select" aria-label="Java Operations" name="selJava" id="selJava">
+                    </select>
+                  </div>
                 </div>
-            </div>
+              </div>
+              <div class="mb-3">
+                <label for="excelFile" class="form-label">Excel Dosyası Seçin:</label>
+                <input type="file" class="form-control" name="excelFile" id="excelFile"
+                  accept=".xlsx, .xls, .csv" required>
+                <div class="form-text">Sadece .xlsx, .xls veya .csv dosyaları yükleyebilirsiniz.</div>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Generate Code</button>
+
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<!--<h2>Renk Seçin</h2>-->
-<!---->
-<!-- Select elementi -->
-<!--<select data-bind="options: colors, value: selectedColor, optionsText: 'name', optionsValue: 'code'">-->
-<!--</select>-->
-<!---->
-<!-- Seçilen rengi göster -->
-<!--<p>Seçilen Renk: <span data-bind="text: selectedColor"></span></p>-->
+  <!--<h2>Renk Seçin</h2>-->
+  <!---->
+  <!-- Select elementi -->
+  <!--<select data-bind="options: colors, value: selectedColor, optionsText: 'name', optionsValue: 'code'">-->
+  <!--</select>-->
+  <!---->
+  <!-- Seçilen rengi göster -->
+  <!--<p>Seçilen Renk: <span data-bind="text: selectedColor"></span></p>-->
 
 
-<script>
-
+  <script>
     // function copyCode() {
     //     const code = document.getElementById("code-snippet").innerText;
     //     navigator.clipboard.writeText(code).then(() => {
@@ -116,12 +119,13 @@ require __DIR__ . '/fiAppImports.php';
     // }
 
     // ko.applyBindings(new AppViewModel());
-</script>
-<script type="module" src="<?=base_url('assets/js/main.js')?>"></script>
-<script src="<?= base_url('libs/bootstrap.min.js')?>"></script>
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
-<!--<script type="module" src="./assets/main.js"></script>-->
+  </script>
+  <script type="module" src="<?=base_url('assets/js/main.js')?>"></script>
+  <script src="<?= base_url('libs/bootstrap.min.js') ?>"></script>
+  <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
+  <!--<script type="module" src="./assets/main.js"></script>-->
 </body>
+
 </html>
 
 
@@ -142,7 +146,7 @@ require __DIR__ . '/fiAppImports.php';
 <!-- SCRIPTS -->
 
 <!-- <script {csp-script-nonce}> -->
-    <!-- document.getElementById("menuToggle").addEventListener('click', toggleMenu);
+<!-- document.getElementById("menuToggle").addEventListener('click', toggleMenu);
     function toggleMenu() {
         var menuItems = document.getElementsByClassName('menu-item');
         for (var i = 0; i < menuItems.length; i++) {

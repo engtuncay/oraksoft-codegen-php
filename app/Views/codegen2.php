@@ -14,10 +14,9 @@ use Engtuncay\Phputils8\Excel\FiExcel;
 use Engtuncay\Phputils8\FiCsv\FiCsv;
 use Engtuncay\Phputils8\Log\FiLog;
 use Engtuncay\Phputils8\Meta\Fdr;
-use codegen\modals\CgmPhp;
 use Engtuncay\Phputils8\Meta\FkbList;
 
-FiLog::initLogger('filog');
+//FiLog::initLogger('filog');
 
 $fdrData = new Fdr();
 
