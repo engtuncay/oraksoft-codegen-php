@@ -1,6 +1,6 @@
 <?php
 
-namespace codegen\Modals;
+namespace Codegen\Modals;
 
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Meta\FiKeybean;

@@ -1,8 +1,8 @@
 <?php
 
-namespace codegen\Modals;
+namespace Codegen\Modals;
 
-use codegen\ficols\FicFiCol;
+use Codegen\ficols\FicFiCol;
 use Engtuncay\Phputils8\Core\FiArray;
 use Engtuncay\Phputils8\Core\FiText;
 use Engtuncay\Phputils8\Core\FiwArray;

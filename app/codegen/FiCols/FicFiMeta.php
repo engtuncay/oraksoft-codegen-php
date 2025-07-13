@@ -1,6 +1,6 @@
 <?php
 
-namespace codegen\FiCols;
+namespace Codegen\FiCols;
 
 // Php FiCol Class Generating
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace codegen\Modals;
+namespace Codegen\Modals;
 
-use codegen\ficols\FicFiCol;
-use codegen\ficols\FicFiMeta;
+use Codegen\ficols\FicFiCol;
+use Codegen\ficols\FicFiMeta;
 use Engtuncay\Phputils8\Core\FiBool;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Core\FiTemplate;

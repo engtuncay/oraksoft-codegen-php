@@ -1,6 +1,6 @@
 <?php
 
-namespace codegen\FiMetas;
+namespace Codegen\FiMetas;
 
 // Php FiMeta Class Generation v1
 

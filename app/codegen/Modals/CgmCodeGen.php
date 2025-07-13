@@ -1,6 +1,6 @@
 <?php
 
-namespace codegen\Modals;
+namespace Codegen\Modals;
 
 class CgmCodeGen
 {
