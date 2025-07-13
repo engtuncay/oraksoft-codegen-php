@@ -1,6 +1,6 @@
 <?php
 
-namespace codegen\modals;
+namespace codegen\Modals;
 
 use codegen\ficols\FicFiCol;
 use Engtuncay\Phputils8\Core\FiArray;
