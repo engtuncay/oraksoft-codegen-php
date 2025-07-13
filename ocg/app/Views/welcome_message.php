@@ -24,7 +24,7 @@ require __DIR__ . '/fiAppImports.php';
                 </div>
 
                 <div class="card-body">
-                    <form action="codegen.php" method="post" enctype="multipart/form-data">
+                    <form action="<?=base_url('codegen')?>" method="post" enctype="multipart/form-data">
                         <div class="container">
                             <div class="row">
                                 <div class="mb-3 col-md-4">
