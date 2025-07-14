@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b61dc7ab8024b722a1a72ac55793c248",
+    "content-hash": "902ec21092a74dd8db3414905bcbff7c",
     "packages": [
         {
             "name": "codeigniter4/framework",
@@ -161,17 +161,11 @@
         },
         {
             "name": "engtuncay/phputils8",
-            "version": "0.0.37",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/engtuncay/phputils8.git",
-                "reference": "4d8eb485a62beef8dec8100d115dd647f40da795"
-            },
+            "version": "0.0.38",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/engtuncay/phputils8/zipball/4d8eb485a62beef8dec8100d115dd647f40da795",
-                "reference": "4d8eb485a62beef8dec8100d115dd647f40da795",
-                "shasum": ""
+                "type": "path",
+                "url": "../phputils8",
+                "reference": "655dcd77b37056e1039580bdbf391ac21e66515b"
             },
             "require": {
                 "ext-pdo": "*",
@@ -188,7 +182,18 @@
                     "Engtuncay\\Phputils8\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "archive": {
+                "exclude": [
+                    ".git",
+                    ".gitignore",
+                    ".gitattributes",
+                    "tests",
+                    "phpunit.xml.dist",
+                    "*.md",
+                    "readme.md",
+                    "fi-logs"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -199,11 +204,9 @@
                 }
             ],
             "description": "Orak Yazılım Php Utility Classes (Php 8.1)",
-            "support": {
-                "issues": "https://github.com/engtuncay/phputils8/issues",
-                "source": "https://github.com/engtuncay/phputils8/tree/v0.0.37"
-            },
-            "time": "2025-07-11T12:21:23+00:00"
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "laminas/laminas-escaper",
@@ -2793,13 +2796,13 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1",
         "ext-pdo": "*"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }
