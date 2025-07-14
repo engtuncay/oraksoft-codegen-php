@@ -5,6 +5,7 @@ namespace App\Controllers;
 use Codegen\ficols\FicFiCol;
 use Codegen\modals\CgmFiColClass;
 use Codegen\modals\CgmFiColUtil;
+use Codegen\Modals\CgmJavaSpecs;
 use Codegen\Modals\CogFicCsharpSpecs;
 use Codegen\Modals\DtoCodeGen;
 use Codegen\Modals\ICogFicSpecs;
@@ -24,7 +25,7 @@ class CodegenCont extends BaseController
     // HTTP metod kontrolü için alternatif yöntemler:
     // Yöntem 1: getMethod() - büyük harfle döner
     if ($this->request->getMethod() === 'POST') {
-      log_message('info', 'Codegen form submitted.');
+      //log_message('info', 'Codegen form submitted.');
       return $this->processCodegen();
     }
 
@@ -48,7 +49,7 @@ class CodegenCont extends BaseController
 
   private function processCodegen()
   {
-    log_message('info', 'Codegen process started.');
+    log_message('info', 'processCodegen()');
     $fdrData = new Fdr();
 
     $txCodeGenExtra = "";
@@ -82,88 +83,40 @@ class CodegenCont extends BaseController
 
     // Dosya uzantısını al
     $fileExtension = pathinfo($uploadedFile->getClientPath(), PATHINFO_EXTENSION);
-    
-    log_message('info', 'file extension:' . $fileExtension);
+
+    //log_message('info', 'file extension:' . $fileExtension);
 
     $allowedExtensions = ['xlsx', 'xls', 'csv'];
 
     if (!in_array(strtolower($fileExtension), $allowedExtensions)) {
       $mess = 'Geçersiz dosya formatı. Sadece .xlsx, .xls veya .csv dosyaları yükleyebilirsiniz.';
-      //die($mess);
       $fdrData->setMessage($mess);
       goto endExcelOkuma;
     }
 
-    //$inputFileName = $uploadedFile['tmp_name'];
-
     //print_r($fdr);
     //echo var_export($fdr->getFkbList(), true);
     //echo PHP_EOL;
-    //print_r($fdr->getFkbList());
 
-    // Formdan gelen POST verilerini al
-    //$formData = $_POST;
-
-    // stdClass nesnesine dönüştür
+    //stdClass nesnesine dönüştür
     //$formObject = (object)$formData;
 
-    //if ($formObject->selPhp == "1") {
-    //  $fiExcel = new FiExcel();
-    //  $fdrData = $fiExcel::readExcelFile($inputFileName, FicFiCol::GenTableCols());
-    //  $fkbListData = $fdrData->getFkbListInit();
-    //
-    //  $sbTxCodeGen->append("// Php FiCol Class Generation v1\n");
-    //  $sbTxCodeGen->append(CgmPhp::actGenFiColClassByFkbList($fkbListData));
-    //  $sbTxCodeGen->append("\n");
-    //  //$txCodeGenExtra .= json_encode($fdrExcel->getFkbListInit()->getAsMultiArray());
-    //}
-
     if ($selCsharp == 1) {
-
       log_message('info', 'selCsharp');
-
       $cogSpecs = new CogFicCsharpSpecs();
-
       list($fdrData, $arrDtoCodeGenPack) = self::generateDtoCodeFromFile($fileExtension, $uploadedFile, $fkbListData, $cogSpecs, $arrDtoCodeGenPack);
-      
     }
 
-    // if ($formObject->selPhp == "2") {
+    if ($selPhp == 2) {
+      $iFiColClass = new CogFicCsharpSpecs();
+      list($fdrData, $arrDtoCodeGenPack) = self::generateDtoCodeFromFile($fileExtension, $uploadedFile, $fkbListData, $iFiColClass, $arrDtoCodeGenPack);
+    }
 
-    //   $iFiColClass = new CogFicCsharpSpecs();
+    if ($selJava == 1) {
+      $iFiColClass = new CgmJavaSpecs();
+      list($fdrData, $arrDtoCodeGenPack) = self::generateDtoCodeFromFile($fileExtension, $uploadedFile, $fkbListData, $iFiColClass, $arrDtoCodeGenPack);
+    }
 
-    //   list($fdrData, $arrDtoCodeGenPack) = generateDtoCodeFromFile($fileExtension, $inputFileName, $fkbListData, $iFiColClass, $arrDtoCodeGenPack);
-    //   //$fkbListData
-
-    //   //    $fiExcel = new FiExcel();
-    //   //    $cols = FicFiMeta::GenTableCols();
-    //   //    $cols->add(FicFiCol::ofcTxEntityName());
-    //   //    $fdrData = $fiExcel::readExcelFile($inputFileName, $cols);
-    //   //    $fkbListData = $fdrData->getFkbListInit();
-    //   //
-    //   //    $sbTxCodeGen->append("// Php FiMeta Class Generation v1\n");
-    //   //    $sbTxCodeGen->append(CgmPhp::actGenFiMetaClass($fkbListData));
-    //   //    $sbTxCodeGen->append("\n");
-    //   //    $txCodeGenExtra .= json_encode($fdrData->getFkbListInit()->getAsMultiArray());
-    // }
-
-    // if ($formObject->selJava == "1") {
-
-    //   $iFiColClass = new CgmJavaSpecs();
-
-    //   list($fdrData, $arrDtoCodeGenPack) = generateDtoCodeFromFile($fileExtension, $inputFileName, $fkbListData, $iFiColClass, $arrDtoCodeGenPack);
-    //   //$fkbListData
-    // }
-
-    // Nesne olarak verileri görüntüle
-    //  echo "Ad: " . $formObject->name . "\n";
-    //  echo("<br/>");
-    //  echo "Email: " . $formObject->email . "\n";
-    //  echo("<br/>");
-    //print_r($formObject);
-    //} else {
-    //$fdrData = new Fdr(false, "No Excel Upload File");
-    //}
     endExcelOkuma:
 
     $data = [
@@ -177,7 +130,6 @@ class CodegenCont extends BaseController
     return view('codegen', $data);
 
     // Dosya yükleme işlemi
-
 
     // if ($excelFile && $excelFile->isValid() && !$excelFile->hasMoved()) {
     //     // Dosya işleme mantığı burada olacak
@@ -230,7 +182,7 @@ class CodegenCont extends BaseController
     /** @var FkbList[] $arrFkbListExcel */
     $arrFkbListExcel = CgmFiColUtil::arrEntityFkbExcel($fkbListData);
 
-    log_message('info', 'arrFkbListExcel' . print_r($arrFkbListExcel,true));
+    log_message('info', 'arrFkbListExcel' . print_r($arrFkbListExcel, true));
     $txIdPref = "java";
     $lnForIndex = 0;
 
@@ -246,8 +198,8 @@ class CodegenCont extends BaseController
       $arrDtoCodeGen[] = $dtoCodeGen;
     }
 
-    log_message('info', 'arrDtoCodeGen: ' . print_r($arrDtoCodeGen,true));
-    log_message('info', 'fdrData: ' . print_r($fdrData,true));
+    log_message('info', 'arrDtoCodeGen: ' . print_r($arrDtoCodeGen, true));
+    log_message('info', 'fdrData: ' . print_r($fdrData, true));
 
     return array($fdrData, $arrDtoCodeGen); //$fiExcel $fkbListData
   }
