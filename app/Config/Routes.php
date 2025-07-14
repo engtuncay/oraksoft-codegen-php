@@ -7,4 +7,4 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 //$routes->post('/codegen', 'Codegen::index');
-$routes->match(['get', 'post'], 'codegen', 'CodegenCont::index');
+$routes->match(['GET', 'POST'], 'codegen', 'CodegenCont::index');

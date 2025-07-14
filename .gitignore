@@ -126,3 +126,7 @@ _modules/*
 /phpunit*.xml
 node_modules
 node_modules/
+
+
+# Custom OrakSoft
+filog.log

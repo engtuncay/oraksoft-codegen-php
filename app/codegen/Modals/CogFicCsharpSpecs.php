@@ -7,13 +7,11 @@ use Codegen\ficols\FicFiMeta;
 use Engtuncay\Phputils8\Core\FiBool;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Core\FiString;
-use Engtuncay\Phputils8\Core\FiTemplate;
 use Engtuncay\Phputils8\FiCol\FicValue;
 use Engtuncay\Phputils8\Meta\FiKeybean;
-use Engtuncay\Phputils8\Meta\FkbList;
 
 /**
- * Java Templates For Code Generator
+ * Csharp Templates For Code Generator
  */
 class CogFicCsharpSpecs implements ICogFicSpecs
 {
