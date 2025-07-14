@@ -6,7 +6,7 @@ use Codegen\ficols\FicFiCol;
 use Codegen\modals\CgmFiColClass;
 use Codegen\modals\CgmFiColUtil;
 use Codegen\Modals\CgmJavaSpecs;
-use Codegen\Modals\CogFicCsharpSpecs;
+use Codegen\Modals\CogCsharpSpecs;
 use Codegen\Modals\DtoCodeGen;
 use Codegen\Modals\ICogFicSpecs;
 use Engtuncay\Phputils8\Core\FiStrbui;
@@ -103,12 +103,17 @@ class CodegenCont extends BaseController
 
     if ($selCsharp == 1) {
       log_message('info', 'selCsharp');
-      $cogSpecs = new CogFicCsharpSpecs();
+      $cogSpecs = new CogCsharpSpecs();
       list($fdrData, $arrDtoCodeGenPack) = self::generateDtoCodeFromFile($fileExtension, $uploadedFile, $fkbListData, $cogSpecs, $arrDtoCodeGenPack);
     }
 
     if ($selPhp == 2) {
-      $iFiColClass = new CogFicCsharpSpecs();
+      $iFiColClass = new CogCsharpSpecs();
+      list($fdrData, $arrDtoCodeGenPack) = self::generateDtoCodeFromFile($fileExtension, $uploadedFile, $fkbListData, $iFiColClass, $arrDtoCodeGenPack);
+    }
+
+    if ($selPhp == 1) {
+      $iFiColClass = new CogCsharpSpecs();
       list($fdrData, $arrDtoCodeGenPack) = self::generateDtoCodeFromFile($fileExtension, $uploadedFile, $fkbListData, $iFiColClass, $arrDtoCodeGenPack);
     }
 
@@ -158,7 +163,7 @@ class CodegenCont extends BaseController
    * @param array|string $fileExtension
    * @param mixed $sourceFile
    * @param FkbList $fkbListData
-   * @param CogFicCsharpSpecs $IFiColClass
+   * @param CogCsharpSpecs $IFiColClass
    * @param array $arrDtoCodeGen
    * @return array
    */

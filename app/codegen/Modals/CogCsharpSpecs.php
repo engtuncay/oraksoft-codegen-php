@@ -13,7 +13,7 @@ use Engtuncay\Phputils8\Meta\FiKeybean;
 /**
  * Csharp Templates For Code Generator
  */
-class CogFicCsharpSpecs implements ICogFicSpecs
+class CogCsharpSpecs implements ICogFicSpecs
 {
 
   public static function getTemplateFiMetaClass(): string
