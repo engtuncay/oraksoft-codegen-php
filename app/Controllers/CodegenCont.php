@@ -7,6 +7,7 @@ use Codegen\modals\CgmFiColClass;
 use Codegen\modals\CgmFiColUtil;
 use Codegen\Modals\CgmJavaSpecs;
 use Codegen\Modals\CogCsharpSpecs;
+use Codegen\Modals\CogPhpSpecs;
 use Codegen\Modals\DtoCodeGen;
 use Codegen\Modals\ICogFicSpecs;
 use Engtuncay\Phputils8\Core\FiStrbui;
@@ -107,12 +108,12 @@ class CodegenCont extends BaseController
       list($fdrData, $arrDtoCodeGenPack) = self::generateDtoCodeFromFile($fileExtension, $uploadedFile, $fkbListData, $cogSpecs, $arrDtoCodeGenPack);
     }
 
-    if ($selPhp == 2) {
-      $iFiColClass = new CogCsharpSpecs();
+    if ($selPhp == 1) {
+      $iFiColClass = new CogPhpSpecs();
       list($fdrData, $arrDtoCodeGenPack) = self::generateDtoCodeFromFile($fileExtension, $uploadedFile, $fkbListData, $iFiColClass, $arrDtoCodeGenPack);
     }
 
-    if ($selPhp == 1) {
+    if ($selPhp == 2) {
       $iFiColClass = new CogCsharpSpecs();
       list($fdrData, $arrDtoCodeGenPack) = self::generateDtoCodeFromFile($fileExtension, $uploadedFile, $fkbListData, $iFiColClass, $arrDtoCodeGenPack);
     }
