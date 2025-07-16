@@ -35,6 +35,11 @@ EOD;
   }
 
   /**
+   * 
+   * Hepsi büyük harf ise, hepsini küçültür
+   * 
+   * İlk harf küçük olarak döner.
+   * 
    * @param mixed $txEntityName
    * @return mixed
    */
@@ -45,20 +50,19 @@ EOD;
       $txEntityName = strtolower($txEntityName);
     }
 
-    return ucfirst($txEntityName);
+    return lcfirst($txEntityName);
   }
 
   public function getTemplateFiColMethod(): string
   {
     return <<<EOD
-public static FiCol {{fieldMethodName}}()
+public static function {{fieldMethodName}}() : FiCol
 { 
-  FiCol fiCol = new FiCol("{{fieldName}}");
+  \$fiCol = new FiCol("{{fieldName}}");
 {{fiColMethodBody}}
-  return fiCol;
+  return \$fiCol;
 }
 EOD;
-
   }
 
   public function getTemplateFiColMethodExtra(): string
@@ -71,7 +75,6 @@ public static FiCol {{fieldMethodName}}Ext()
   return fiCol;
 }
 EOD;
-
   }
 
   public function getTemplateFicClass(): string
@@ -119,7 +122,7 @@ EOD;
     //if ($txKey != null) {
     //  $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txKey = '%s';\n", $txKey));
     //}
-    
+
     $ofcTxHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
     if ($ofcTxHeader != null)
       $sbFiColMethodBody->append(sprintf("  fiCol->ofcTxHeader = '%s';\n", $ofcTxHeader));
@@ -142,10 +145,10 @@ EOD;
     //$ofcTxIdType = $fiCol->ofcTxIdType;
     //CgmCodeGen::convertExcelIdentityTypeToFiColAttribute($fiCol->ofcTxIdType);
 
-// if (!FiString.isEmpty(ofiTxIdType)) {
-// sbFiColMethodBody.append("\tfiCol.boKeyIdField = true;\n");
-// sbFiColMethodBody.append(String.format("\tfiCol.ofiTxIdType = FiIdGenerationType.%s.toString();\n", ofiTxIdType));
-// }
+    // if (!FiString.isEmpty(ofiTxIdType)) {
+    // sbFiColMethodBody.append("\tfiCol.boKeyIdField = true;\n");
+    // sbFiColMethodBody.append(String.format("\tfiCol.ofiTxIdType = FiIdGenerationType.%s.toString();\n", ofiTxIdType));
+    // }
 
     // $ofcBoTransient = $fkbItem->getValueAsBoolByFiCol(FicFiCol::ofcBoTransient());
     // if ($ofcBoTransient) {
@@ -172,31 +175,31 @@ EOD;
     // }
 
     //
-//    if (FiBool::isTrue($fiCol->ofcBoNullable)) {
-//      $sbFiColMethodBody->append("fiCol.ofcBoNullable = true;\n");
-//    }
+    //    if (FiBool::isTrue($fiCol->ofcBoNullable)) {
+    //      $sbFiColMethodBody->append("fiCol.ofcBoNullable = true;\n");
+    //    }
 
-//        if (FiBool.isTrue(fiCol.getOfcBoUnique())) {
-//          sbFiColMethodBody.append("\tfiCol.ofcBoUnique = true;\n");
-//        }
-//
-//        if (FiBool.isTrue(fiCol.getOfcBoUniqGro1())) {
-//          sbFiColMethodBody.append("\tfiCol.ofcBoUniqGro1 = true;\n");
-//        }
-//
-//        if (FiBool.isTrue(fiCol.getOfcBoUtfSupport())) {
-//          sbFiColMethodBody.append("\tfiCol.ofcBoUtfSupport = true;\n");
-//        }
-//
-//        if (!FiString.isEmpty(fiCol.getOfcTxDefValue())) {
-//          sbFiColMethodBody.append(String.format("\tfiCol.ofcTxDefValue = \"%s\";\n", fiCol.getOfcTxDefValue()));
-//        }
-//
-//        if (FiBool.isTrue(fiCol.getBoFilterLike())) {
-//          sbFiColMethodBody.append("\tfiCol.ofcBoFilterLike = true;\n");
-//        }
-//
-//        // ofcTxCollation	ofcTxTypeName
+    //        if (FiBool.isTrue(fiCol.getOfcBoUnique())) {
+    //          sbFiColMethodBody.append("\tfiCol.ofcBoUnique = true;\n");
+    //        }
+    //
+    //        if (FiBool.isTrue(fiCol.getOfcBoUniqGro1())) {
+    //          sbFiColMethodBody.append("\tfiCol.ofcBoUniqGro1 = true;\n");
+    //        }
+    //
+    //        if (FiBool.isTrue(fiCol.getOfcBoUtfSupport())) {
+    //          sbFiColMethodBody.append("\tfiCol.ofcBoUtfSupport = true;\n");
+    //        }
+    //
+    //        if (!FiString.isEmpty(fiCol.getOfcTxDefValue())) {
+    //          sbFiColMethodBody.append(String.format("\tfiCol.ofcTxDefValue = \"%s\";\n", fiCol.getOfcTxDefValue()));
+    //        }
+    //
+    //        if (FiBool.isTrue(fiCol.getBoFilterLike())) {
+    //          sbFiColMethodBody.append("\tfiCol.ofcBoFilterLike = true;\n");
+    //        }
+    //
+    //        // ofcTxCollation	ofcTxTypeName
 
     return $sbFiColMethodBody;
   }
@@ -360,12 +363,9 @@ EOD
         } else { // Kendinden önceki sayı vs ise büyült
           $result .= strtoupper($characters[$i]);
         }
-
       }
 
       return $result;
     }
   }
-
-
 }
