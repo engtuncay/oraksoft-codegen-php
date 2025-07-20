@@ -38,7 +38,7 @@ EOD;
    * 
    * Hepsi büyük harf ise, hepsini küçültür
    * 
-   * İlk harf küçük olarak döner.
+   * İlk harf büyük olarak döner.
    * 
    * @param mixed $txEntityName
    * @return mixed
@@ -50,7 +50,8 @@ EOD;
       $txEntityName = strtolower($txEntityName);
     }
 
-    return lcfirst($txEntityName);
+    // Her zaman ilk harfi büyük yap
+    return ucfirst($txEntityName);
   }
 
   public function getTemplateFiColMethod(): string
@@ -83,7 +84,7 @@ EOD;
     $templateMain = <<<EOD
 use Engtuncay\Phputils8\FiCol\IFiTableMeta;
 use Engtuncay\Phputils8\Meta\FiCol;
-use Engtuncay\Phputils8\Meta\FclList;
+use Engtuncay\Phputils8\Meta\FicList;
 
 class {{entityName}} implements IFiTableMeta {
 
@@ -91,18 +92,18 @@ public function getITxTableName() : string {
   return self::GetTxTableName();
 }
 
-public static function  GetTxTableName() : string{
+public static function  getTxTableName() : string{
   return "{{entityName}}";
 }
 
 {{classBody}}
 
-public function genITableCols() : FclList {
-  return self::GenTableCols();
+public function genITableCols() : FicList {
+  return self::genTableCols();
 }
 
-public function genITableColsTrans():FclList {
-  return self::GenTableColsTrans();
+public function genITableColsTrans():FicList {
+  return self::genTableColsTrans();
 }
 
 }
@@ -174,7 +175,7 @@ EOD;
     //   $sbFiColMethodBody->append("  fiCol.ofcBoNullable = false;\n");
     // }
 
-    //
+
     //    if (FiBool::isTrue($fiCol->ofcBoNullable)) {
     //      $sbFiColMethodBody->append("fiCol.ofcBoNullable = true;\n");
     //    }
@@ -211,7 +212,7 @@ EOD;
 
     $ofcTxDesc = $fkbItem->getValueByFiCol(FicFiCol::ofcTxDesc());
     //if ($ofcTxDesc != null)
-    $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxDesc = \"%s\";\n", $ofcTxDesc));
+    $sbFiColMethodBody->append(sprintf("  fiCol->ofcTxDesc = \"%s\";\n", $ofcTxDesc));
 
     return $sbFiColMethodBody;
   }
@@ -240,12 +241,12 @@ EOD;
   public function getTempGenFiColsExtraList(): string
   {
     return <<<EOD
-public static FicList GenTableColsExtra() {
-  FicList ficList = new FicList();
+public static function genTableColsExtra() : FicList {
+    \$ficList = new FicList();
 
   {{ficListBodyExtra}}
 
-  return ficList;
+  return \$ficList;
 }
 EOD;
   }
@@ -256,12 +257,12 @@ EOD;
   public function getTempGenGiColsTransList(): string
   {
     return <<<EOD
-public static FicList GenTableColsTrans() {
-  FicList ficList = new FicList();
-  
+public static function genTableColsTrans() : FicList {
+  \$ficList = new FicList();
+
   {{ficListBodyTrans}}
-  
-  return ficList;
+
+  return \$ficList;
 }
 EOD;
   }
@@ -272,12 +273,12 @@ EOD;
   public function getTempGenFiColsList(): string
   {
     return <<<EOD
-public static FicList GenTableCols() {
-  FicList ficList = new FicList();
+public static function genTableCols() : FicList {
+  \$ficList = new FicList();
 
   {{ficListBody}}
 
-  return ficList;
+  return \$ficList;
 }
 EOD;
   }
@@ -290,7 +291,7 @@ EOD;
    */
   public function doNonTransientFieldOps(FiStrbui $sbFclListBody, string $methodName): void
   { //, FiStrbui $sbFclListBodyExtra
-    $sbFclListBody->append("ficList.Add($methodName());\n");
+    $sbFclListBody->append("\$ficList->add(self::$methodName());\n");
     // $sbFclListBodyExtra->append("ficList.Add($methodName" . "Ext());\n");
   }
 
@@ -301,7 +302,7 @@ EOD;
    */
   public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, string $methodName): void
   {
-    $sbFclListBodyTrans->append("ficList.Add($methodName());\n");
+    $sbFclListBodyTrans->append("ficList->add($methodName());\n");
   }
 
   public function genFiColAddDescDetail(FiKeybean $fkbItem): FiStrbui
@@ -334,12 +335,23 @@ EOD
    */
   public function checkMethodNameStd(mixed $fieldName): string
   {
+    return self::convertFieldNameToLowerCamelCase($fieldName);
+  }
+
+  /**
+   * Converts a field name to standard method name format.
+   *
+   * @param string $fieldName
+   * @return string
+   */
+  public static function convertFieldNameToLowerCamelCase(string $fieldName): string
+  {
     // Başlangıçta eğer fieldName boşsa direkt döndür
     if (FiString::isEmpty($fieldName)) return "";
 
     if (!FiString::hasLowercaseLetter($fieldName)) {
       $fieldName = strtolower($fieldName);
-      return ucfirst($fieldName);
+      return lcfirst($fieldName);
     } else {
 
       $characters = str_split($fieldName); // Dizeyi karakterlere böl
@@ -347,10 +359,10 @@ EOD
       $length = count($characters);
 
       for ($i = 0; $i < $length; $i++) {
-        // İlk harf her zaman büyük kalacak
+        // İlk harf her zaman küçük kalacak
         if ($i === 0) {
-          $result .= strtoupper($characters[$i]);
-          $characters[$i] = strtoupper($characters[$i]);
+          $result .= strtolower($characters[$i]);
+          $characters[$i] = strtolower($characters[$i]);
           continue;
         }
 

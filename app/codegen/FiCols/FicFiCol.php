@@ -13,10 +13,10 @@ class FicFiCol implements IFiTableMeta
 
   public function getITxTableName(): string
   {
-    return self::GetTxTableName();
+    return self::getTxTableName();
   }
 
-  public static function GetTxTableName(): string
+  public static function getTxTableName(): string
   {
     return "FicFiCol";
   }
