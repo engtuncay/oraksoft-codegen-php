@@ -66,6 +66,18 @@ public static function {{fieldMethodName}}() : FiCol
 EOD;
   }
 
+    public function getTemplateFiMetaMethod(): string
+  {
+    return <<<EOD
+public static function {{fmtMethodName}}() : FiCol
+{ 
+  \$fiMeta = new FiMeta("{{fmtTxKey}}");
+{{fmtMethodBody}}
+  return \$fiMeta;
+}
+EOD;
+  }
+
   public function getTemplateFiColMethodExtra(): string
   {
     return <<<EOD

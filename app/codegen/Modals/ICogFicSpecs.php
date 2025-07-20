@@ -13,6 +13,8 @@ interface ICogFicSpecs
 {
   public function getTemplateFiColMethod():string;
 
+  public function getTemplateFiMetaMethod():string;
+
   public function getTemplateFiColMethodExtra():string;
 
   public function checkMethodNameStd(mixed $fieldName): string;
