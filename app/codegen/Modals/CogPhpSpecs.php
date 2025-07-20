@@ -43,7 +43,7 @@ EOD;
    * @param mixed $txEntityName
    * @return mixed
    */
-  public static function checkClassNameStd(mixed $txEntityName): mixed
+  public function checkClassNameStd(mixed $txEntityName): string
   {
     // hiç küçük harf yoksa (hepsi büyükse), tüm harfleri küçük yap
     if (!FiString::hasLowercaseLetter($txEntityName)) {

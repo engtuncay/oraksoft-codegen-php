@@ -15,7 +15,9 @@ interface ICogFicSpecs
 
   public function getTemplateFiColMethodExtra():string;
 
-  public  function checkMethodNameStd(mixed $fieldName): string;
+  public function checkMethodNameStd(mixed $fieldName): string;
+
+  public function checkClassNameStd(mixed $entityName): string;
 
   public function getTemplateFicClass(): string;
 
