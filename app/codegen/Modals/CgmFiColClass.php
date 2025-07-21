@@ -142,6 +142,7 @@ class CgmFiColClass
     return $txResult;
   }
 
+  // UBOM FiMeta Class Oluşturma
   public static function actGenFiMetaClassByFkb(FkbList $fkbListExcel, ICogFicSpecs $iCogSpecs = null): string
   {
 
@@ -170,9 +171,9 @@ class CgmFiColClass
       /**
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
        */
-      $sbFiColMethodBody = $iCogSpecs->genFiColMethodBodyDetail($fkbItem); //StringBuilder
+      $sbFiColMethodBody = $iCogSpecs->genFiMetaMethodBodyDetail($fkbItem); //StringBuilder
 
-      $sbFiColAddDescDetail->append($iCogSpecs->genFiColAddDescDetail($fkbItem)->toString());
+      //$sbFiColAddDescDetail->append($iCogSpecs->genFiColAddDescDetail($fkbItem)->toString());
 
       //FiKeyBean
       $fkbFiColMethodBody = new FiKeybean();
@@ -195,16 +196,16 @@ class CgmFiColClass
       $sbFiColMethodsBody->append($txFiColMethod)->append("\n\n");
 
       
-      $ofcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::ofcBoTransient()));
-      $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
+      // $ofcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::ofcBoTransient()));
+      // $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
 
-      if (!$ofcBoTransient === true) {
-        $iCogSpecs->doNonTransientFieldOps($sbFclListBody, $methodName);
-        //sbFclListBody.append("\tfclList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
-      } else {
-        $iCogSpecs->doTransientFieldOps($sbFclListBodyTrans, $methodName);
-        //sbFclListBodyTrans.append("\tfclList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
-      }
+      // if (!$ofcBoTransient === true) {
+      //   $iCogSpecs->doNonTransientFieldOps($sbFclListBody, $methodName);
+      //   //sbFclListBody.append("\tfclList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
+      // } else {
+      //   $iCogSpecs->doTransientFieldOps($sbFclListBodyTrans, $methodName);
+      //   //sbFclListBodyTrans.append("\tfclList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
+      // }
 
       //$index++;
     }
