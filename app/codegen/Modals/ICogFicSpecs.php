@@ -7,7 +7,7 @@ use Engtuncay\Phputils8\Meta\FiKeybean;
 use Engtuncay\Phputils8\Meta\FkbList;
 
 /**
- * Intrf-Code-Generator-FiCol-Specs
+ * Interface-Code-Generator-FiCol-Specs
  */
 interface ICogFicSpecs
 {
