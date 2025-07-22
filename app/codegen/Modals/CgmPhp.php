@@ -45,7 +45,7 @@ class CgmPhp
        */
       $sbFiColMethodBody = self::genFiColMethodBodyDetail($fiCol); //StringBuilder
 
-      //FiKeyBean
+      //FiKeybean
       $fkbFiColMethodBody = new FiKeybean();
 
       //String
@@ -99,7 +99,7 @@ public static function GenTableColsTrans() : FclList  {
 EOD;
 
     //    String
-    $txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeyBean::bui()->buiPut("fclListBodyTrans", $sbFclListBodyTrans->toString()));
+    $txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeybean::bui()->buiPut("fclListBodyTrans", $sbFclListBodyTrans->toString()));
     $sbClassBody->append("\n")->append($txResGenTableColsMethodTrans)->append("\n");
 
     $sbClassBody->append("\n");
@@ -112,7 +112,7 @@ EOD;
     $txEntityName = $fiCols->get(0)?->getOfcTxEntityNameNtn();
     //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
     //
-    $fkbParamsMain = new FiKeyBean();
+    $fkbParamsMain = new FiKeybean();
     $fkbParamsMain->add("classPref", $classPref);
     $fkbParamsMain->add("entityName", $txEntityName);
     $fkbParamsMain->add("classBody", $sbClassBody->toString());
@@ -262,7 +262,7 @@ EOD;
        */
       $sbFmtMethodBodyFieldDefs = self::genFiMetaMethodBodyFieldDefs($fkb); //StringBuilder
 
-      //FiKeyBean
+      //FiKeybean
       $fkbFiMetaMethodBody = new FiKeybean();
 
       //String
@@ -306,7 +306,7 @@ EOD;
     $txEntityName = $fkbListExcel->get(0)?->getValueByFiCol(FicFiCol::ofcTxEntityName());
     //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
     //
-    $fkbParamsClass = new FiKeyBean();
+    $fkbParamsClass = new FiKeybean();
     $fkbParamsClass->add("classPref", $classPref);
     $fkbParamsClass->add("entityName", $txEntityName);
     $fkbParamsClass->add("classBody", $sbClassBody->toString());

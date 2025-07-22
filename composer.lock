@@ -165,7 +165,7 @@
             "dist": {
                 "type": "path",
                 "url": "../phputils8",
-                "reference": "655dcd77b37056e1039580bdbf391ac21e66515b"
+                "reference": "207ad4e63959485fc78b2c71d0c2c9c43f2ca205"
             },
             "require": {
                 "ext-pdo": "*",
@@ -2796,13 +2796,13 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1",
         "ext-pdo": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

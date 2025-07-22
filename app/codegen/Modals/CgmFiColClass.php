@@ -3,8 +3,6 @@
 namespace Codegen\Modals;
 
 use Codegen\ficols\FicFiCol;
-use Codegen\ficols\FicFiMeta;
-use Engtuncay\Phputils8\Core\FiBool;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Core\FiString;
 use Engtuncay\Phputils8\Core\FiTemplate;
@@ -13,12 +11,12 @@ use Engtuncay\Phputils8\Meta\FiKeybean;
 use Engtuncay\Phputils8\Meta\FkbList;
 
 /**
- * Code Generator Modal for FiColClass (For All Languages)
+ * Code Generator Modal (Cgm) for FiColClass ve FiMetaClass (For All Languages)
  */
 class CgmFiColClass
 {
 
-  public static function actGenFiColClassByFkb(FkbList $fkbListExcel, ICogFicSpecs $iCogSpecs = null): string
+  public static function actGenFiColClassByFkb(FkbList $fkbList, ICogFicSpecs $iCogSpecs = null): string
   {
 
     if($iCogSpecs==null) return "";
@@ -41,7 +39,7 @@ class CgmFiColClass
     /**
      * @var FiKeybean $fkbItem
      */
-    foreach ($fkbListExcel as $fkbItem) {
+    foreach ($fkbList as $fkbItem) {
 
       /**
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
@@ -50,7 +48,7 @@ class CgmFiColClass
 
       $sbFiColAddDescDetail->append($iCogSpecs->genFiColAddDescDetail($fkbItem)->toString());
 
-      //FiKeyBean
+      //FiKeybean
       $fkbFiColMethodBody = new FiKeybean();
 
       //String
@@ -107,12 +105,12 @@ class CgmFiColClass
     $tempGenFiColsTrans = $iCogSpecs->getTempGenGiColsTransList();
 
     //    String
-    $txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeyBean::bui()->buiPut("ficListBodyTrans", $sbFclListBodyTrans->toString()));
+    $txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeybean::bui()->buiPut("ficListBodyTrans", $sbFclListBodyTrans->toString()));
     $sbClassBody->append("\n")->append($txResGenTableColsMethodTrans)->append("\n");
 
     $tempGenFiColsExt = $iCogSpecs->getTempGenFiColsExtraList();
 
-    //$txResGenTableColsMethodExtra = FiTemplate::replaceParams($tempGenFiColsExt, FiKeyBean::bui()->buiPut("ficListBodyExtra", $sbFclListBodyExtra->toString()));
+    //$txResGenTableColsMethodExtra = FiTemplate::replaceParams($tempGenFiColsExt, FiKeybean::bui()->buiPut("ficListBodyExtra", $sbFclListBodyExtra->toString()));
     //$sbClassBody->append("\n")->append($txResGenTableColsMethodExtra)->append("\n");
 
     $sbClassBody->append("\n");
@@ -122,12 +120,12 @@ class CgmFiColClass
     $classPref = "Fic";
     // URFIX entity name çekilecek
     // String
-    $txEntityName = $fkbListExcel->get(0)?->getValueByFiCol(FicFiCol::ofcTxEntityName());
+    $txEntityName = $fkbList->get(0)?->getValueByFiCol(FicFiCol::ofcTxEntityName());
 
-    $txTablePrefix = $fkbListExcel->get(0)?->getValueByFiCol(FicFiCol::ofcTxPrefix());
+    $txTablePrefix = $fkbList->get(0)?->getValueByFiCol(FicFiCol::ofcTxPrefix());
     //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
     //
-    $fkbParamsMain = new FiKeyBean();
+    $fkbParamsMain = new FiKeybean();
     $fkbParamsMain->add("classPref", $classPref);
     $fkbParamsMain->add("entityName", $iCogSpecs->checkClassNameStd($txEntityName));
     $fkbParamsMain->add("tableName", $txEntityName);
@@ -143,7 +141,7 @@ class CgmFiColClass
   }
 
   // UBOM FiMeta Class Oluşturma
-  public static function actGenFiMetaClassByFkb(FkbList $fkbListExcel, ICogFicSpecs $iCogSpecs = null): string
+  public static function actGenFiMetaClassByFkb(FkbList $fkbList, ICogFicSpecs $iCogSpecs = null): string
   {
 
     if($iCogSpecs==null) return "";
@@ -166,7 +164,7 @@ class CgmFiColClass
     /**
      * @var FiKeybean $fkbItem
      */
-    foreach ($fkbListExcel as $fkbItem) {
+    foreach ($fkbList as $fkbItem) {
 
       /**
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
@@ -175,7 +173,7 @@ class CgmFiColClass
 
       //$sbFiColAddDescDetail->append($iCogSpecs->genFiColAddDescDetail($fkbItem)->toString());
 
-      //FiKeyBean
+      //FiKeybean
       $fkbFiColMethodBody = new FiKeybean();
 
       //String
@@ -222,12 +220,12 @@ class CgmFiColClass
     $tempGenFiColsTrans = $iCogSpecs->getTempGenGiColsTransList();
 
     // String
-    $txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeyBean::bui()->buiPut("ficListBodyTrans", $sbFclListBodyTrans->toString()));
+    $txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeybean::bui()->buiPut("ficListBodyTrans", $sbFclListBodyTrans->toString()));
     $sbClassBody->append("\n")->append($txResGenTableColsMethodTrans)->append("\n");
 
     $tempGenFiColsExt = $iCogSpecs->getTempGenFiColsExtraList();
 
-    //$txResGenTableColsMethodExtra = FiTemplate::replaceParams($tempGenFiColsExt, FiKeyBean::bui()->buiPut("ficListBodyExtra", $sbFclListBodyExtra->toString()));
+    //$txResGenTableColsMethodExtra = FiTemplate::replaceParams($tempGenFiColsExt, FiKeybean::bui()->buiPut("ficListBodyExtra", $sbFclListBodyExtra->toString()));
     //$sbClassBody->append("\n")->append($txResGenTableColsMethodExtra)->append("\n");
 
     $sbClassBody->append("\n");
@@ -237,12 +235,12 @@ class CgmFiColClass
     $classPref = "Fic";
     // URFIX entity name çekilecek
     // String
-    $txEntityName = $fkbListExcel->get(0)?->getValueByFiCol(FicFiCol::ofcTxEntityName());
+    $txEntityName = $fkbList->get(0)?->getValueByFiCol(FicFiCol::ofcTxEntityName());
 
-    $txTablePrefix = $fkbListExcel->get(0)?->getValueByFiCol(FicFiCol::ofcTxPrefix());
+    $txTablePrefix = $fkbList->get(0)?->getValueByFiCol(FicFiCol::ofcTxPrefix());
     //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
     //
-    $fkbParamsMain = new FiKeyBean();
+    $fkbParamsMain = new FiKeybean();
     $fkbParamsMain->add("classPref", $classPref);
     $fkbParamsMain->add("entityName", $iCogSpecs->checkClassNameStd($txEntityName));
     $fkbParamsMain->add("tableName", $txEntityName);
@@ -285,7 +283,7 @@ class CgmFiColClass
 //        */
 //       $sbFmtMethodBodyFieldDefs = self::genFiMetaMethodBodyFieldDefs($fkb); //StringBuilder
 
-//       //FiKeyBean
+//       //FiKeybean
 //       $fkbFiMetaMethodBody = new FiKeybean();
 
 //       //String
@@ -329,7 +327,7 @@ class CgmFiColClass
 //     $txEntityName = $fkbListExcel->get(0)?->getValueByFiCol(FicFiCol::ofcTxEntityName());
 //     //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
 //     //
-//     $fkbParamsClass = new FiKeyBean();
+//     $fkbParamsClass = new FiKeybean();
 //     $fkbParamsClass->add("classPref", $classPref);
 //     $fkbParamsClass->add("entityName", self::checkClassNameStd($txEntityName));
 //     $fkbParamsClass->add("classBody", $sbClassBody->toString());

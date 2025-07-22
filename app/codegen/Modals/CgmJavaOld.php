@@ -164,7 +164,7 @@ EOD;
        */
       $sbFiColMethodBody = self::genFiColMethodBodyDetail($fkbItem); //StringBuilder
 
-      //FiKeyBean
+      //FiKeybean
       $fkbFiColMethodBody = new FiKeybean();
 
       //String
@@ -237,7 +237,7 @@ public static FiColList GenTableColsTrans() {
 EOD;
 
     //    String
-    $txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeyBean::bui()->buiPut("ficListBodyTrans", $sbFclListBodyTrans->toString()));
+    $txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeybean::bui()->buiPut("ficListBodyTrans", $sbFclListBodyTrans->toString()));
     $sbClassBody->append("\n")->append($txResGenTableColsMethodTrans)->append("\n");
 
     $tempGenFiColsExt = <<<EOD
@@ -250,7 +250,7 @@ public static FiColList GenTableColsExtra() {
 }
 EOD;
 
-    $txResGenTableColsMethodExtra = FiTemplate::replaceParams($tempGenFiColsExt, FiKeyBean::bui()->buiPut("ficListBodyExtra", $sbFclListBodyExtra->toString()));
+    $txResGenTableColsMethodExtra = FiTemplate::replaceParams($tempGenFiColsExt, FiKeybean::bui()->buiPut("ficListBodyExtra", $sbFclListBodyExtra->toString()));
     $sbClassBody->append("\n")->append($txResGenTableColsMethodExtra)->append("\n");
 
     $sbClassBody->append("\n");
@@ -265,7 +265,7 @@ EOD;
     $txTablePrefix = $fkbListExcel->get(0)?->getValueByFiCol(FicFiCol::ofcTxPrefix());
     //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
     //
-    $fkbParamsMain = new FiKeyBean();
+    $fkbParamsMain = new FiKeybean();
     $fkbParamsMain->add("classPref", $classPref);
     $fkbParamsMain->add("entityName", self::checkClassNameStd($txEntityName));
     $fkbParamsMain->add("tableName", $txEntityName);
@@ -400,7 +400,7 @@ EOD;
        */
       $sbFmtMethodBodyFieldDefs = self::genFiMetaMethodBodyFieldDefs($fkb); //StringBuilder
 
-      //FiKeyBean
+      //FiKeybean
       $fkbFiMetaMethodBody = new FiKeybean();
 
       //String
@@ -444,7 +444,7 @@ EOD;
     $txEntityName = $fkbListExcel->get(0)?->getValueByFiCol(FicFiCol::ofcTxEntityName());
     //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
     //
-    $fkbParamsClass = new FiKeyBean();
+    $fkbParamsClass = new FiKeybean();
     $fkbParamsClass->add("classPref", $classPref);
     $fkbParamsClass->add("entityName", self::checkClassNameStd($txEntityName));
     $fkbParamsClass->add("classBody", $sbClassBody->toString());
