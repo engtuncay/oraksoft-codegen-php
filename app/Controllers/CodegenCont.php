@@ -5,6 +5,7 @@ namespace App\Controllers;
 use Codegen\ficols\FicFiCol;
 use Codegen\modals\CgmFiColClass;
 use Codegen\modals\CgmFiColUtil;
+use Codegen\Modals\CgmFkbColClass;
 use Codegen\Modals\CgmJavaSpecs;
 use Codegen\Modals\CogCsharpSpecs;
 use Codegen\Modals\CogPhpSpecs;
@@ -21,7 +22,7 @@ class CodegenCont extends BaseController
 
   public function index()
   {
-    log_message('info', 'Codegen index method called.');
+    log_message('info', 'Codegen Controller index method called.');
 
     // HTTP metod kontrolü için alternatif yöntemler:
     // Yöntem 1: getMethod() - büyük harfle döner
@@ -57,7 +58,7 @@ class CodegenCont extends BaseController
     /** @var DtoCodeGen[] $arrDtoCodeGenPack */
     $arrDtoCodeGenPack = [];
     $sbTxCodeGen = new FiStrbui();
-    $fkbListData = new FkbList();
+    //$fkbListData = new FkbList();
 
     // Form verilerini al
     $selCsharp = $this->request->getPost('selCsharp');
@@ -105,22 +106,27 @@ class CodegenCont extends BaseController
     if ($selCsharp == 1) {
       log_message('info', 'selCsharp');
       $cogSpecs = new CogCsharpSpecs();
-      list($fdrData, $arrDtoCodeGenPack) = self::generateDtoCodeFromFile($fileExtension, $uploadedFile, $fkbListData, $cogSpecs, $arrDtoCodeGenPack);
+      list($fdrData, $arrDtoCodeGenPack) = self::generateDtoCodeFromFile($uploadedFile, $cogSpecs);
     }
 
     if ($selPhp == 1) {
-      $iFiColClass = new CogPhpSpecs();
-      list($fdrData, $arrDtoCodeGenPack) = self::generateDtoCodeFromFile($fileExtension, $uploadedFile, $fkbListData, $iFiColClass, $arrDtoCodeGenPack);
+      $cogSpecs = new CogPhpSpecs();
+      list($fdrData, $arrDtoCodeGenPack) = self::generateDtoCodeFromFile($uploadedFile, $cogSpecs);
     }
 
     if ($selPhp == 2) {
-      $iFiColClass = new CogPhpSpecs();
-      list($fdrData, $arrDtoCodeGenPack) = self::generateCodeFiMetaFromFile($fileExtension, $uploadedFile, $fkbListData, $iFiColClass, $arrDtoCodeGenPack);
+      $cogSpecs = new CogPhpSpecs();
+      list($fdrData, $arrDtoCodeGenPack) = self::generateCodeFiMetaFromFile($uploadedFile, $cogSpecs);
+    }
+
+    if ($selPhp == 3) {
+      $cogSpecs = new CogPhpSpecs();
+      list($fdrData, $arrDtoCodeGenPack) = self::generateFkbColFromFile($uploadedFile, $cogSpecs);
     }
 
     if ($selJava == 1) {
-      $iFiColClass = new CgmJavaSpecs();
-      list($fdrData, $arrDtoCodeGenPack) = self::generateDtoCodeFromFile($fileExtension, $uploadedFile, $fkbListData, $iFiColClass, $arrDtoCodeGenPack);
+      $cogSpecs = new CgmJavaSpecs();
+      list($fdrData, $arrDtoCodeGenPack) = self::generateDtoCodeFromFile($uploadedFile, $cogSpecs);
     }
 
     endExcelOkuma:
@@ -161,32 +167,20 @@ class CodegenCont extends BaseController
   }
 
   /**
-   * @param array|string $fileExtension
+   * 
    * @param mixed $sourceFile
-   * @param FkbList $fkbListData
-   * @param CogCsharpSpecs $IFiColClass
-   * @param array $arrDtoCodeGen
+   * @param ICogFicSpecs $iCogSpecs
    * @return array
    */
-  public function generateDtoCodeFromFile(array|string $fileExtension, mixed $sourceFile, FkbList $fkbListData, ICogFicSpecs $iCogSpecs, array $arrDtoCodeGen): array
+  public function generateDtoCodeFromFile(mixed $sourceFile, ICogFicSpecs $iCogSpecs): array
   {
-
-    if ($fileExtension == "csv") {
-      $fiCsv = new FiCsv();
-      $fdrData = $fiCsv::read($sourceFile, FicFiCol::GenTableCols());
-      $fkbListData = $fdrData->getFkbListInit();
-    }
-
-    if ($fileExtension == "xlsx" || $fileExtension == "xls") {
-      $fiExcel = new FiExcel();
-      $fdrData = $fiExcel::readExcelFile($sourceFile, FicFiCol::GenTableCols());
-      $fkbListData = $fdrData->getFkbListInit();
-    }
-
+    
+    $fdrData = self::convertFileToFkbList($sourceFile);
+    $fkbListData = $fdrData->getFkbListInit();
     //echo var_export($fkbListExcel, true);
 
     /** @var FkbList[] $arrFkbListExcel */
-    $arrFkbListExcel = CgmFiColUtil::arrEntityFkbExcel($fkbListData);
+    $arrFkbListExcel = CgmFiColUtil::mapEntityToFkbList($fkbListData);
 
     log_message('info', 'arrFkbListExcel' . print_r($arrFkbListExcel, true));
     $txIdPref = "java";
@@ -210,44 +204,33 @@ class CodegenCont extends BaseController
     return array($fdrData, $arrDtoCodeGen); //$fiExcel $fkbListData
   }
 
-  /**
-   * @param array|string $fileExtension
+    /**
+   * 
    * @param mixed $sourceFile
-   * @param FkbList $fkbListData
-   * @param CogCsharpSpecs $IFiColClass
-   * @param array $arrDtoCodeGen
+   * @param ICogFicSpecs $iCogSpecs
    * @return array
    */
-  public function generateCodeFiMetaFromFile(array|string $fileExtension, mixed $sourceFile, FkbList $fkbListData, ICogFicSpecs $iCogSpecs, array $arrDtoCodeGen): array
+  public function generateFkbColFromFile(mixed $sourceFile, ICogFicSpecs $iCogSpecs): array
   {
-
-    if ($fileExtension == "csv") {
-      $fiCsv = new FiCsv();
-      $fdrData = $fiCsv::read($sourceFile, FicFiCol::GenTableCols());
-      $fkbListData = $fdrData->getFkbListInit();
-    }
-
-    if ($fileExtension == "xlsx" || $fileExtension == "xls") {
-      $fiExcel = new FiExcel();
-      $fdrData = $fiExcel::readExcelFile($sourceFile, FicFiCol::GenTableCols());
-      $fkbListData = $fdrData->getFkbListInit();
-    }
-
+    
+    $fdrData = self::convertFileToFkbList($sourceFile);
+    $fkbListData = $fdrData->getFkbListInit();
     //echo var_export($fkbListExcel, true);
 
     /** @var FkbList[] $arrFkbListExcel */
-    $arrFkbListExcel = CgmFiColUtil::arrEntityFkbExcel($fkbListData);
+    $arrFkbListExcel = CgmFiColUtil::mapEntityToFkbList($fkbListData);
 
     log_message('info', 'arrFkbListExcel' . print_r($arrFkbListExcel, true));
-    $txIdPref = "java";
+    $txIdPref = "codegen";
     $lnForIndex = 0;
 
-    foreach ($arrFkbListExcel as $fkbExcel) {
+    // fkbList, Excelde bir entity için tanımlanmış alanların listesi
+    foreach ($arrFkbListExcel as $fkbList) {
       $lnForIndex++;
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();
-      $sbTxCodeGen1->append("// FiCol Class Generation v1\n");
-      $sbTxCodeGen1->append(CgmFiColClass::actGenFiMetaClassByFkb($fkbExcel, $iCogSpecs));
+      $sbTxCodeGen1->append("// Codegen v2\n");
+      $sbTxCodeGen1->append(CgmFkbColClass::actGenClassByFkbList($fkbList, $iCogSpecs));
       $sbTxCodeGen1->append("\n");
       $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
       $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
@@ -260,5 +243,71 @@ class CodegenCont extends BaseController
     return array($fdrData, $arrDtoCodeGen); //$fiExcel $fkbListData
   }
 
+  /**
+   * @param mixed $sourceFile
+   * @return Fdr
+   */
+  public function convertFileToFkbList(mixed $sourceFile): Fdr
+  {
+    $fileExtension = pathinfo($sourceFile->getClientPath(), PATHINFO_EXTENSION);
 
+    if ($fileExtension == "csv") {
+      $fiCsv = new FiCsv();
+      $fdrData = $fiCsv::read($sourceFile, FicFiCol::GenTableCols());
+      $fkbListData = $fdrData->getFkbListInit();
+      return $fdrData;
+    }
+
+    if ($fileExtension == "xlsx" || $fileExtension == "xls") {
+      $fiExcel = new FiExcel();
+      $fdrData = $fiExcel::readExcelFile($sourceFile, FicFiCol::GenTableCols());
+      $fkbListData = $fdrData->getFkbListInit();
+      return $fdrData;
+    }
+
+    $fdrData = new Fdr();
+    $fdrData->setMessage("Geçersiz dosya formatı. Sadece .xlsx, .xls veya .csv dosyaları yükleyebilirsiniz.");
+    $fdrData->setFkbList(new FkbList());
+
+    return $fdrData; // Boş FkbList döndür
+  }
+
+  /**
+   * @param mixed $sourceFile
+   * @param ICogFicSpecs $iCogSpecs
+   * @return array
+   */
+  public function generateCodeFiMetaFromFile(mixed $sourceFile, ICogFicSpecs $iCogSpecs): array
+  { 
+    //array|string $fileExtension,
+
+    $fdrData = self::convertFileToFkbList($sourceFile);
+    $fkbListData = $fdrData->getFkbListInit();
+
+    //echo var_export($fkbListExcel, true);
+    
+    /** @var FkbList[] $mapEntityToFkbList */
+    $mapEntityToFkbList = CgmFiColUtil::mapEntityToFkbList($fkbListData);
+
+    log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
+    $txIdPref = "java";
+    $lnForIndex = 0;
+
+    foreach ($mapEntityToFkbList as $fkbList) {
+      $lnForIndex++;
+      $dtoCodeGen = new DtoCodeGen();
+      $sbTxCodeGen1 = new FiStrbui();
+      $sbTxCodeGen1->append("// Codegen v2\n");
+      $sbTxCodeGen1->append(CgmFiColClass::actGenFiMetaClassByFkb($fkbList, $iCogSpecs));
+      $sbTxCodeGen1->append("\n");
+      $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
+      $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
+      $arrDtoCodeGen[] = $dtoCodeGen;
+    }
+
+    log_message('info', 'arrDtoCodeGen: ' . print_r($arrDtoCodeGen, true));
+    log_message('info', 'fdrData: ' . print_r($fdrData, true));
+
+    return array($fdrData, $arrDtoCodeGen); //$fiExcel $fkbListData
+  }
 }

@@ -75,26 +75,31 @@ class CgmFiColUtil
       $txEntityName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxEntityName());
       $fiMeta[FicFiCol::ofcTxEntityName()->getOfcTxFieldNameNtn()] = $txEntityName;
 
-//      $txHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
-//      $fiMeta->ofcTxHeader = $txHeader;
+      //      $txHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
+      //      $fiMeta->ofcTxHeader = $txHeader;
 
       $fmtList->add($fiMeta);
     }
 
     return $fmtList;
-
   }
 
   /**
-   * @param FkbList $fkbListExcel
+   * key: txEntityName
+   * value: FkbList
+   * 
+   * Excel/Csv'den gelen listeyi entity'lere göre grupla
+   * 
+   * @param FkbList $fkbListData
    * @return array
    */
-  public static function arrEntityFkbExcel(FkbList $fkbListExcel): array
+  public static function mapEntityToFkbList(FkbList $fkbListData): array
   {
-    /** @var FiwArray<FkbList> $fwarFkbEntity */$fwarFkbEntity = new FiwArray();
+    /** @var FiwArray<FkbList> $fwarFkbEntity */
+    $fwarFkbEntity = new FiwArray();
 
     /** @var FiKeybean $fkbItem */
-    foreach ($fkbListExcel as $fkbItem) {
+    foreach ($fkbListData as $fkbItem) {
 
       //FiLog::$log?->debug(implode(":", $fkbItem->getArr()));
 

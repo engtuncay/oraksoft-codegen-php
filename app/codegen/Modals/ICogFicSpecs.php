@@ -13,6 +13,8 @@ interface ICogFicSpecs
 {
   public function getTemplateFiColMethod():string;
 
+  public function getTemplateFkbColMethod():string;
+
   public function getTemplateFiMetaMethod():string;
 
   public function getTemplateFiColMethodExtra():string;
@@ -22,6 +24,8 @@ interface ICogFicSpecs
   public function checkClassNameStd(mixed $entityName): string;
 
   public function getTemplateFicClass(): string;
+
+  public function getTemplateFkbColClass(): string;
 
   //public function actGenFiColClassByFkb(FkbList $fkbListExcel): string;
 
@@ -41,10 +45,15 @@ interface ICogFicSpecs
 
   public function genFiColMethodBodyDetailExtra(FiKeybean $fkbItem): FiStrbui;
 
+  public function genFkbColMethodBodyDetail(FiKeybean $fkbItem): FiStrbui;
+
   public function genFiMetaMethodBodyFieldDefs(FiKeybean $fkb): FiStrbui;
 
   public static function getTemplateFiMetaClass(): string;
 
   public function genFiColAddDescDetail(FiKeybean $fkbItem): FiStrbui;
 
+  public function getTempGenFkbColsList(): string;
+
+  public function getTempGenFkbColsTransList(): string;
 }

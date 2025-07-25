@@ -19,6 +19,7 @@ let eleSelPhp = document.getElementById("selPhp");
 addOption(eleSelPhp,txIdSeciniz,"Seçiniz");
 addOption(eleSelPhp,"1","FiCol Php Sınıf");
 addOption(eleSelPhp,"2","FiMeta Php Sınıf");
+addOption(eleSelPhp,"3","FkbCol Php Sınıf"); 
 
 let eleSelTs = document.getElementById("selTs");
 
