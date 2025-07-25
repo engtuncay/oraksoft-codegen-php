@@ -138,11 +138,11 @@ EOD;
 
     $ofcTxHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
     if ($ofcTxHeader != null)
-      $sbFiColMethodBody->append(sprintf("  fiCol->ofcTxHeader = '%s';\n", $ofcTxHeader));
+      $sbFiColMethodBody->append(sprintf("  \$fiCol->ofcTxHeader = '%s';\n", $ofcTxHeader));
 
     $ofcTxFieldType = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldType());
     if ($ofcTxFieldType != null)
-      $sbFiColMethodBody->append(sprintf("  fiCol->ofcTxFieldType = '%s';\n", $ofcTxFieldType));
+      $sbFiColMethodBody->append(sprintf("  \$fiCol->ofcTxFieldType = '%s';\n", $ofcTxFieldType));
 
     // $ofcTxDbField = $fkbItem->getValueByFiCol(FicFiCol::ofcTxDbField());
     // if ($ofcTxDbField != null)
@@ -151,7 +151,7 @@ EOD;
     // {
     //   $ofcTxRefField = $fkbItem->getValueByFiCol(FicFiCol::ofcTxRefField());
     //   if ($ofcTxRefField != null)
-    //     $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxRefField = \"%s\";\n", $ofcTxRefField));
+    //     $sbFiColMethodBody->append(sprintf("  \$fiCol->ofcTxRefField = \"%s\";\n", $ofcTxRefField));
     // }
 
 
@@ -231,11 +231,11 @@ EOD;
 
     $ofcTxHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
     if ($ofcTxHeader != null)
-      $sbFiColMethodBody->append(sprintf("  fiCol->ofcTxHeader = '%s';\n", $ofcTxHeader));
+      $sbFiColMethodBody->append(sprintf(" \$fiCol->ofcTxHeader = '%s';\n", $ofcTxHeader));
 
     $ofcTxFieldType = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldType());
     if ($ofcTxFieldType != null)
-      $sbFiColMethodBody->append(sprintf("  fiCol->ofcTxFieldType = '%s';\n", $ofcTxFieldType));
+      $sbFiColMethodBody->append(sprintf("  \$fiCol->ofcTxFieldType = '%s';\n", $ofcTxFieldType));
 
     // $ofcTxDbField = $fkbItem->getValueByFiCol(FicFiCol::ofcTxDbField());
     // if ($ofcTxDbField != null)
@@ -317,7 +317,7 @@ EOD;
 
     $ofcTxDesc = $fkbItem->getValueByFiCol(FicFiCol::ofcTxDesc());
     //if ($ofcTxDesc != null)
-    $sbFiColMethodBody->append(sprintf("  fiCol->ofcTxDesc = \"%s\";\n", $ofcTxDesc));
+    $sbFiColMethodBody->append(sprintf("  \$fiCol->ofcTxDesc = \"%s\";\n", $ofcTxDesc));
 
     return $sbFiColMethodBody;
   }
