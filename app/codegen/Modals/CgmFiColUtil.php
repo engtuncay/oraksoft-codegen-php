@@ -86,7 +86,7 @@ class CgmFiColUtil
 
   /**
    * key: txEntityName
-   * value: FkbList
+   * value: FkbList (entity'ye ait alanlar)
    * 
    * Excel/Csv'den gelen listeyi entity'lere göre grupla
    * 
