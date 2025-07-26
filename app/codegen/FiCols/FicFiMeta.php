@@ -5,8 +5,8 @@ namespace Codegen\FiCols;
 // Php FiCol Class Generating
 
 use Engtuncay\Phputils8\FiCol\IFiTableMeta;
-use Engtuncay\Phputils8\Meta\FiCol;
-use Engtuncay\Phputils8\Meta\FicList;
+use Engtuncay\Phputils8\FiDto\FiCol;
+use Engtuncay\Phputils8\FiDto\FicList;
 
 class FicFiMeta implements IFiTableMeta {
 

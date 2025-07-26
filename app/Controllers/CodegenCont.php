@@ -16,8 +16,8 @@ use Codegen\Modals\ICogFicSpecs;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Excel\FiExcel;
 use Engtuncay\Phputils8\FiCsv\FiCsv;
-use Engtuncay\Phputils8\Meta\Fdr;
-use Engtuncay\Phputils8\Meta\FkbList;
+use Engtuncay\Phputils8\FiDto\Fdr;
+use Engtuncay\Phputils8\FiDto\FkbList;
 
 class CodegenCont extends BaseController
 {

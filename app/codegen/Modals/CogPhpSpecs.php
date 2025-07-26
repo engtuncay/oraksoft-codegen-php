@@ -6,7 +6,7 @@ use Codegen\ficols\FicFiCol;
 use Codegen\ficols\FicFiMeta;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Core\FiString;
-use Engtuncay\Phputils8\Meta\FiKeybean;
+use Engtuncay\Phputils8\FiDto\FiKeybean;
 
 /**
  * Csharp Templates For Code Generator
@@ -19,8 +19,8 @@ class CogPhpSpecs implements ICogFicSpecs
     //String
     $templateMain = <<<EOD
       
-use Engtuncay\Phputils8\Meta\FiMeta;
-use Engtuncay\Phputils8\Meta\FmtList;
+use Engtuncay\Phputils8\FiDto\FiMeta;
+use Engtuncay\Phputils8\FiDto\FmtList;
 
 class {{entityName}} {
 
@@ -107,8 +107,8 @@ EOD;
     //String
     $templateMain = <<<EOD
 use Engtuncay\Phputils8\FiCol\IFiTableMeta;
-use Engtuncay\Phputils8\Meta\FiCol;
-use Engtuncay\Phputils8\Meta\FicList;
+use Engtuncay\Phputils8\FiDto\FiCol;
+use Engtuncay\Phputils8\FiDto\FicList;
 
 class {{entityName}} implements IFiTableMeta {
 
@@ -143,8 +143,8 @@ public function getTemplateFkbColClass(): string
 
 use Engtuncay\Phputils8\FiCol\FicFiCol;
 use Engtuncay\Phputils8\FiCol\IFkbTableMeta;
-use Engtuncay\Phputils8\Meta\FiKeybean;
-use Engtuncay\Phputils8\Meta\FkbList;
+use Engtuncay\Phputils8\FiDto\FiKeybean;
+use Engtuncay\Phputils8\FiDto\FkbList;
 
 class {{entityName}} implements IFkbTableMeta {
 

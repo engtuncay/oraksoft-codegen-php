@@ -7,12 +7,12 @@ use Engtuncay\Phputils8\Core\FiArray;
 use Engtuncay\Phputils8\Core\FiText;
 use Engtuncay\Phputils8\Core\FiwArray;
 use Engtuncay\Phputils8\Log\FiLog;
-use Engtuncay\Phputils8\Meta\FicList;
-use Engtuncay\Phputils8\Meta\FiCol;
-use Engtuncay\Phputils8\Meta\FiKeybean;
-use Engtuncay\Phputils8\Meta\FiMeta;
-use Engtuncay\Phputils8\Meta\FkbList;
-use Engtuncay\Phputils8\Meta\FmtList;
+use Engtuncay\Phputils8\FiDto\FicList;
+use Engtuncay\Phputils8\FiDto\FiCol;
+use Engtuncay\Phputils8\FiDto\FiKeybean;
+use Engtuncay\Phputils8\FiDto\FiMeta;
+use Engtuncay\Phputils8\FiDto\FkbList;
+use Engtuncay\Phputils8\FiDto\FmtList;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\F;
 
 class CgmFiColUtil
@@ -70,13 +70,13 @@ class CgmFiColUtil
       $fiMeta = new FiMeta();
 
       $txFieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
-      $fiMeta->txKey = $txFieldName;
+      $fiMeta->ofmTxKey = $txFieldName;
 
       $txEntityName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxEntityName());
       $fiMeta[FicFiCol::ofcTxEntityName()->getOfcTxFieldNameNtn()] = $txEntityName;
 
-      //      $txHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
-      //      $fiMeta->ofcTxHeader = $txHeader;
+      // $txHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
+      // $fiMeta->ofcTxHeader = $txHeader;
 
       $fmtList->add($fiMeta);
     }

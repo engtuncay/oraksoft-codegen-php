@@ -8,13 +8,43 @@ use Engtuncay\Phputils8\Core\FiBool;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Core\FiString;
 use Engtuncay\Phputils8\FiCol\FicValue;
-use Engtuncay\Phputils8\Meta\FiKeybean;
+use Engtuncay\Phputils8\FiDto\FiKeybean;
 
 /**
  * Csharp Templates For Code Generator
  */
 class CogCsharpSpecs implements ICogFicSpecs
 {
+  public function getTemplateFkbColMethod(): string
+  {
+    return "";
+  }
+
+  public function getTemplateFkbColClass(): string
+  {
+    return "";
+  }
+
+  public function genFiMetaMethodBody(FiKeybean $fkbItem): FiStrbui
+  {
+    return new FiStrbui();
+  }
+
+  public function genFkbColMethodBodyDetail(FiKeybean $fkbItem): FiStrbui
+  {
+    return new FiStrbui();
+  }
+
+  public function getTempGenFkbColsList(): string
+  {
+    return "";
+  }
+
+  public function getTempGenFkbColsTransList(): string
+  {
+    return "";
+  }
+
   public function getTemplateFiMetaMethod(): string
   {
     return "";
@@ -25,8 +55,8 @@ class CogCsharpSpecs implements ICogFicSpecs
     //String
     $templateMain = <<<EOD
       
-use Engtuncay\Phputils8\Meta\FiMeta;
-use Engtuncay\Phputils8\Meta\FmtList;
+use Engtuncay\Phputils8\FiDto\FiMeta;
+use Engtuncay\Phputils8\FiDto\FmtList;
 
 class {{entityName}} {
 

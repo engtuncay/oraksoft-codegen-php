@@ -4,8 +4,8 @@ namespace Codegen\FiMetas;
 
 // Php FiMeta Class Generation v1
 
-use Engtuncay\Phputils8\Meta\FiMeta;
-use Engtuncay\Phputils8\Meta\FmtList;
+use Engtuncay\Phputils8\FiDto\FiMeta;
+use Engtuncay\Phputils8\FiDto\FmtList;
 
 class FimFiMeta
 {
@@ -24,8 +24,8 @@ class FimFiMeta
   public static function txKey(): FiMeta
   {
     $fiMeta = new FiMeta();
-    $fiMeta->txKey = 'txKey';
-    $fiMeta->txValue = 'txKey';
+    $fiMeta->ofmTxKey = 'txKey';
+    $fiMeta->ofmTxValue = 'txKey';
 
     return $fiMeta;
   }
@@ -33,8 +33,8 @@ class FimFiMeta
   public static function txValue(): FiMeta
   {
     $fiMeta = new FiMeta();
-    $fiMeta->txKey = 'txValue';
-    $fiMeta->txValue = 'txValue';
+    $fiMeta->ofmTxKey = 'txValue';
+    $fiMeta->ofmTxValue = 'txValue';
 
     return $fiMeta;
   }
@@ -42,8 +42,8 @@ class FimFiMeta
   public static function lnKey(): FiMeta
   {
     $fiMeta = new FiMeta();
-    $fiMeta->txKey = 'lnKey';
-    $fiMeta->txValue = 'lnKey';
+    $fiMeta->ofmTxKey = 'lnKey';
+    $fiMeta->ofmTxValue = 'lnKey';
 
     return $fiMeta;
   }
@@ -51,8 +51,8 @@ class FimFiMeta
   public static function txLabel(): FiMeta
   {
     $fiMeta = new FiMeta();
-    $fiMeta->txKey = 'txLabel';
-    $fiMeta->txValue = 'txLabel';
+    $fiMeta->ofmTxKey = 'txLabel';
+    $fiMeta->ofmTxValue = 'txLabel';
 
     return $fiMeta;
   }

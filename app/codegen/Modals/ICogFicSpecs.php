@@ -3,8 +3,8 @@
 namespace Codegen\Modals;
 
 use Engtuncay\Phputils8\Core\FiStrbui;
-use Engtuncay\Phputils8\Meta\FiKeybean;
-use Engtuncay\Phputils8\Meta\FkbList;
+use Engtuncay\Phputils8\FiDto\FiKeybean;
+use Engtuncay\Phputils8\FiDto\FkbList;
 
 /**
  * Interface-Code-Generator-FiCol-Specs
