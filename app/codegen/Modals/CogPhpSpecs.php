@@ -4,10 +4,8 @@ namespace Codegen\Modals;
 
 use Codegen\ficols\FicFiCol;
 use Codegen\ficols\FicFiMeta;
-use Engtuncay\Phputils8\Core\FiBool;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Core\FiString;
-use Engtuncay\Phputils8\FiCol\FicValue;
 use Engtuncay\Phputils8\Meta\FiKeybean;
 
 /**
@@ -83,10 +81,10 @@ EOD;
   public function getTemplateFiMetaMethod(): string
   {
     return <<<EOD
-public static function {{fmtMethodName}}() : FiCol
+public static function {{fieldMethodName}}() : FiMeta
 { 
-  \$fiMeta = new FiMeta("{{fmtTxKey}}");
-{{fmtMethodBody}}
+  \$fiMeta = new FiMeta("{{fieldName}}");
+{{fiMethodBody}}
   return \$fiMeta;
 }
 EOD;
@@ -367,7 +365,7 @@ EOD;
     return $sbFiColMethodBody;
   }
 
-  public function genFiMetaMethodBodyDetail(FiKeybean $fkbItem): FiStrbui
+  public function genFiMetaMethodBody(FiKeybean $fkbItem): FiStrbui
   {
     //StringBuilder
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
@@ -379,13 +377,13 @@ EOD;
     //  $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txKey = '%s';\n", $txKey));
     //}
 
-    $ofcTxHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
-    if ($ofcTxHeader != null)
-      $sbFiColMethodBody->append(sprintf(" \$fiCol->ofcTxHeader = '%s';\n", $ofcTxHeader));
+    // $ofcTxHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
+    // if ($ofcTxHeader != null)
+    //   $sbFiColMethodBody->append(sprintf(" \$fiCol->ofcTxHeader = '%s';\n", $ofcTxHeader));
 
-    $ofcTxFieldType = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldType());
-    if ($ofcTxFieldType != null)
-      $sbFiColMethodBody->append(sprintf("  \$fiCol->ofcTxFieldType = '%s';\n", $ofcTxFieldType));
+    // $ofcTxFieldType = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldType());
+    // if ($ofcTxFieldType != null)
+    //   $sbFiColMethodBody->append(sprintf("  \$fiCol->ofcTxFieldType = '%s';\n", $ofcTxFieldType));
 
     // $ofcTxDbField = $fkbItem->getValueByFiCol(FicFiCol::ofcTxDbField());
     // if ($ofcTxDbField != null)
@@ -477,12 +475,12 @@ EOD;
     //StringBuilder
     $sbFmtMethodBodyFieldDefs = new FiStrbui();
 
-    $txKey = $fkb->getValueByFiCol(FicFiMeta::txKey());
+    $txKey = $fkb->getValueByFiCol(FicFiMeta::ofmTxKey());
     if ($txKey != null) {
       $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txKey = '%s';\n", $txKey));
     }
 
-    $txValue = $fkb->getValueByFiCol(FicFiMeta::txValue());
+    $txValue = $fkb->getValueByFiCol(FicFiMeta::ofmTxValue());
     if ($txValue != null) {
       $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txValue = '%s';\n", $txValue));
     }

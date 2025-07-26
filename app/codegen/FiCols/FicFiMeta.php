@@ -21,10 +21,10 @@ class FicFiMeta implements IFiTableMeta {
 
   public static function GenTableCols() : FicList {
     $fclList = new FicList();
-    $fclList->add(self::txKey());
-    $fclList->add(self::txValue());
-    $fclList->add(self::lnKey());
-    $fclList->add(self::txLabel());
+    $fclList->add(self::ofmTxKey());
+    $fclList->add(self::ofmTxValue());
+    $fclList->add(self::ofmLnKey());
+    $fclList->add(self::ofmTxLabel());
 
     return $fclList;
   }
@@ -35,26 +35,26 @@ class FicFiMeta implements IFiTableMeta {
     return $fclList;
   }
 
-  public static function txKey () : FiCol {
-    $fiCol = new FiCol("txKey", "txKey");
+  public static function ofmTxKey () : FiCol {
+    $fiCol = new FiCol("ofmTxKey", "ofmTxKey");
 
     return $fiCol;
   }
 
-  public static function txValue () : FiCol {
-    $fiCol = new FiCol("txValue", "txValue");
+  public static function ofmTxValue () : FiCol {
+    $fiCol = new FiCol("ofmTxValue", "ofmTxValue");
 
     return $fiCol;
   }
 
-  public static function lnKey () : FiCol {
-    $fiCol = new FiCol("lnKey", "lnKey");
+  public static function ofmLnKey () : FiCol {
+    $fiCol = new FiCol("ofmLnKey", "ofmLnKey");
 
     return $fiCol;
   }
 
-  public static function txLabel () : FiCol {
-    $fiCol = new FiCol("txLabel", "txLabel");
+  public static function ofmTxLabel () : FiCol {
+    $fiCol = new FiCol("ofmTxLabel", "ofmTxLabel");
 
     return $fiCol;
   }

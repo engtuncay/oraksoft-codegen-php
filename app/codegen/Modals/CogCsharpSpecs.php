@@ -238,12 +238,12 @@ EOD;
     //StringBuilder
     $sbFmtMethodBodyFieldDefs = new FiStrbui();
 
-    $txKey = $fkb->getValueByFiCol(FicFiMeta::txKey());
+    $txKey = $fkb->getValueByFiCol(FicFiMeta::ofmTxKey());
     if ($txKey != null) {
       $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txKey = '%s';\n", $txKey));
     }
 
-    $txValue = $fkb->getValueByFiCol(FicFiMeta::txValue());
+    $txValue = $fkb->getValueByFiCol(FicFiMeta::ofmTxValue());
     if ($txValue != null) {
       $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txValue = '%s';\n", $txValue));
     }

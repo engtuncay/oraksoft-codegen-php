@@ -3,8 +3,10 @@
 namespace App\Controllers;
 
 use Codegen\ficols\FicFiCol;
+use Codegen\FiCols\FicFiMeta;
 use Codegen\modals\CgmFiColClass;
 use Codegen\modals\CgmFiColUtil;
+use Codegen\Modals\CgmFiMetaClass;
 use Codegen\Modals\CgmFkbColClass;
 use Codegen\Modals\CgmJavaSpecs;
 use Codegen\Modals\CogCsharpSpecs;
@@ -253,7 +255,9 @@ class CodegenCont extends BaseController
 
     if ($fileExtension == "csv") {
       $fiCsv = new FiCsv();
-      $fdrData = $fiCsv::read($sourceFile, FicFiCol::GenTableCols());
+      $fiCols = FicFiCol::GenTableCols();
+      $fiCols->add(FicFiMeta::ofmTxKey());
+      $fdrData = $fiCsv::read($sourceFile, $fiCols);
       $fkbListData = $fdrData->getFkbListInit();
       return $fdrData;
     }
@@ -290,7 +294,7 @@ class CodegenCont extends BaseController
     $mapEntityToFkbList = CgmFiColUtil::mapEntityToFkbList($fkbListData);
 
     log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
-    $txIdPref = "java";
+    $txIdPref = "codegen";
     $lnForIndex = 0;
 
     foreach ($mapEntityToFkbList as $fkbList) {
@@ -298,7 +302,7 @@ class CodegenCont extends BaseController
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();
       $sbTxCodeGen1->append("// Codegen v2\n");
-      $sbTxCodeGen1->append(CgmFiColClass::actGenFiMetaClassByFkb($fkbList, $iCogSpecs));
+      $sbTxCodeGen1->append(CgmFiMetaClass::actGenFiMetaClassByFkb($fkbList, $iCogSpecs));
       $sbTxCodeGen1->append("\n");
       $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
       $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);

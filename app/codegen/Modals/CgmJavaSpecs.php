@@ -17,12 +17,39 @@ use Engtuncay\Phputils8\Meta\FkbList;
  */
 class CgmJavaSpecs implements ICogFicSpecs
 {
+    public function getTemplateFkbColMethod(): string {
+      return "";
+     }
+
+    public function getTemplateFiMetaMethod(): string { 
+      return "";
+    }
+
+    public function getTemplateFkbColClass(): string {
+      return "";
+     }
+
+    public function genFiMetaMethodBody(FiKeybean $fkbItem): FiStrbui { 
+      return new FiStrbui();
+    }
+
+    public function genFkbColMethodBodyDetail(FiKeybean $fkbItem): FiStrbui { 
+      return new FiStrbui();
+    }
+
+    public function getTempGenFkbColsList(): string {
+      return "";
+     }
+
+    public function getTempGenFkbColsTransList(): string { 
+      return "";
+    }
 
   /**
    * @param mixed $txEntityName
    * @return mixed
    */
-  public static function checkClassNameStd(mixed $txEntityName): mixed
+  public function checkClassNameStd(mixed $txEntityName): string
   {
     if (!FiString::hasLowercaseLetter($txEntityName)) {
       $txEntityName = strtolower($txEntityName);
@@ -248,12 +275,12 @@ EOD;
     //StringBuilder
     $sbFmtMethodBodyFieldDefs = new FiStrbui();
 
-    $txKey = $fkb->getValueByFiCol(FicFiMeta::txKey());
+    $txKey = $fkb->getValueByFiCol(FicFiMeta::ofmTxKey());
     if ($txKey != null) {
       $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txKey = '%s';\n", $txKey));
     }
 
-    $txValue = $fkb->getValueByFiCol(FicFiMeta::txValue());
+    $txValue = $fkb->getValueByFiCol(FicFiMeta::ofmTxValue());
     if ($txValue != null) {
       $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txValue = '%s';\n", $txValue));
     }
