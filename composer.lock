@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ab2019926744daa45b2519ac14334f1",
+    "content-hash": "5e858c36902dea1fa99efa3d3f2e8fa9",
     "packages": [
         {
             "name": "codeigniter4/framework",
@@ -161,11 +161,11 @@
         },
         {
             "name": "engtuncay/phputils8",
-            "version": "0.0.41",
+            "version": "0.0.42",
             "dist": {
                 "type": "path",
                 "url": "../phputils8",
-                "reference": "883285bb39908eafb8d898a001337492768af443"
+                "reference": "3b699bf5883c1e25852b6663e05c510174af618c"
             },
             "require": {
                 "ext-pdo": "*",
