@@ -33,7 +33,7 @@ interface ICogFicSpecs
 
   public function getTempGenFiColsExtraList(): string;
 
-  public function getTempGenFiColsList(): string;
+  public function getTempGenFiColsMethod(): string;
 
   public function doNonTransientFieldOps(FiStrbui $sbFclListBody, string $methodName): void; //, FiStrbui $sbFclListBodyExtra
 

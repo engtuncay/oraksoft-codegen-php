@@ -91,7 +91,7 @@ class CgmFiMetaClass
     }
 
     // String
-    $tempGenFiCols = $iCogSpecs->getTempGenFiColsList();
+    $tempGenFiCols = $iCogSpecs->getTempGenFiColsMethod();
 
     // String
     $txResGenTableColsMethod = FiTemplate::replaceParams($tempGenFiCols, FiKeybean::bui()->buiPut("ficListBody", $sbFclListBody->toString()));

@@ -539,7 +539,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTempGenFiColsList(): string
+  public function getTempGenFiColsMethod(): string
   {
     return <<<EOD
 public static function genTableCols() : FicList {
