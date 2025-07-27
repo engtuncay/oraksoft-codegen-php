@@ -38,7 +38,7 @@
   },
   "scripts": {
     "test": "phpunit",
-    "spark-serve-ocg": "php spark serve --port=8181"
+    "spark-serve-ocg": "php spark serve --port=8081"
   },
   "config": {
     "optimize-autoloader": true,
