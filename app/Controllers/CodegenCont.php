@@ -256,9 +256,9 @@ class CodegenCont extends BaseController
 
     if ($fileExtension == "csv") {
       $fiCsv = new FiCsv();
-      $fiCols = FicFiCol::GenTableCols();
-      $fiCols->add(FicFiMeta::ofmTxKey());
-      $fdrData = $fiCsv::read($sourceFile, $fiCols);
+      //$fiCols = FicFiCol::GenTableCols();
+      //$fiCols->add(FicFiMeta::ofmTxKey());
+      $fdrData = $fiCsv::readByFirstRowHeader($sourceFile);
       $fkbListData = $fdrData->getFkbListInit();
       return $fdrData;
     }
