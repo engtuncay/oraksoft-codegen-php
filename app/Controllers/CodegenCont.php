@@ -187,6 +187,7 @@ class CodegenCont extends BaseController
     log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
     $txIdPref = "java";
     $lnForIndex = 0;
+    $arrDtoCodeGen = [];
 
     foreach ($mapEntityToFkbList as $fkbList) {
       $lnForIndex++;
