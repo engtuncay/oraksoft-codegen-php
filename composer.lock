@@ -165,7 +165,7 @@
             "dist": {
                 "type": "path",
                 "url": "../phputils8",
-                "reference": "16c910397b6b64a8b7dfdbc52b5fa38273adb598"
+                "reference": "4bf064fb1d91ae3208ed07597554fd65eeb3378e"
             },
             "require": {
                 "ext-pdo": "*",

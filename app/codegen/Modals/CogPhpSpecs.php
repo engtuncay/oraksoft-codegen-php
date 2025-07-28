@@ -141,10 +141,10 @@ public function getTemplateFkbColClass(): string
     //String
     $templateMain = <<<EOD
 
-use Engtuncay\Phputils8\FiCol\FicFiCol;
 use Engtuncay\Phputils8\FiCol\IFkbTableMeta;
 use Engtuncay\Phputils8\FiDto\FiKeybean;
 use Engtuncay\Phputils8\FiDto\FkbList;
+use Engtuncay\Phputils8\FiMeta\FimFiCol;
 
 class {{entityName}} implements IFkbTableMeta {
 
