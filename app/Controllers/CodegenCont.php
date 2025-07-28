@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use Codegen\ficols\FicFiCol;
-use Codegen\FiCols\FicFiMeta;
 use Codegen\modals\CgmFiColClass;
 use Codegen\modals\CgmFiColUtil;
 use Codegen\Modals\CgmFiMetaClass;
