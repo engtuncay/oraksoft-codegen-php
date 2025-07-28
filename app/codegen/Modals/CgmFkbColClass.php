@@ -124,8 +124,8 @@ class CgmFkbColClass
     $sbClassBody->append("\n");
     $sbClassBody->append($sbFiColMethodsBody->toString());
 
-    //
-    $classPref = "Fic";
+    // Fkc: FiKeybean Col
+    $classPref = "Fkc";
     // URFIX entity name çekilecek
     // String
     $txEntityName = $fkbList->get(0)?->getValueByFiCol(FicFiCol::ofcTxEntityName());

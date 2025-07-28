@@ -146,7 +146,7 @@ use Engtuncay\Phputils8\FiDto\FiKeybean;
 use Engtuncay\Phputils8\FiDto\FkbList;
 use Engtuncay\Phputils8\FiMeta\FimFiCol;
 
-class {{entityName}} implements IFkbTableMeta {
+class {{classPref}}{{entityName}} implements IFkbTableMeta {
 
 public function getITxTableName() : string {
   return self::GetTxTableName();
