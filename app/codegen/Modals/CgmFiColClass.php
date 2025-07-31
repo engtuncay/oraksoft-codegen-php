@@ -16,6 +16,13 @@ use Engtuncay\Phputils8\FiDto\FkbList;
 class CgmFiColClass
 {
 
+  /**
+   * Undocumented function
+   *
+   * @param FkbList $fkbList
+   * @param CogPhpSpecs|null $iCogSpecs
+   * @return string
+   */
   public static function actGenFiColClassByFkb(FkbList $fkbList, ICogFicSpecs $iCogSpecs = null): string
   {
 

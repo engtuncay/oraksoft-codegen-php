@@ -110,7 +110,7 @@ use Engtuncay\Phputils8\FiCol\IFiTableMeta;
 use Engtuncay\Phputils8\FiDto\FiCol;
 use Engtuncay\Phputils8\FiDto\FicList;
 
-class {{entityName}} implements IFiTableMeta {
+class {{classPref}}{{entityName}} implements IFiTableMeta {
 
 public function getITxTableName() : string {
   return self::GetTxTableName();
@@ -652,12 +652,14 @@ EOD
         }
 
         // Kendinden önceki küçükse, aynen ekle
-        if (ctype_lower($characters[$i - 1])) { // && ctype_lower($characters[$i])
+        if (ctype_lower($characters[$i-1])) { // && ctype_lower($characters[$i])
           $result .= $characters[$i];
         } // Kendinden önceki büyükse küçült
-        else if (ctype_upper($characters[$i - 1])) {
+        else if (ctype_upper($characters[$i-1])) {
           $result .= strtolower($characters[$i]);
-        } else { // Kendinden önceki sayı vs ise büyült
+        } else if ($characters[$i-1]=='_') { 
+          $result .= strtolower($characters[$i]);
+        } else {  // Kendinden önceki sayı vs (_ dışında karakterse) ise büyült
           $result .= strtoupper($characters[$i]);
         }
       }
