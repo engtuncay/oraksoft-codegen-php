@@ -22,7 +22,7 @@ class CogPhpSpecs implements ICogFicSpecs
 use Engtuncay\Phputils8\FiDto\FiMeta;
 use Engtuncay\Phputils8\FiDto\FmtList;
 
-class {{entityName}} {
+class {{classPref}}{{entityName}} {
 
 {{classBody}}
 
@@ -523,6 +523,22 @@ EOD;
     /**
    * @return string
    */
+  public function getTempGenFmtColsTransList(): string
+  {
+    return <<<EOD
+public static function genTableColsTrans() : FmtList {
+  \$fmtList = new FmtList();
+
+  {{fmtListBodyTrans}}
+
+  return \$fmtList;
+}
+EOD;
+  }
+
+    /**
+   * @return string
+   */
   public function getTempGenFkbColsTransList(): string
   {
     return <<<EOD
@@ -548,6 +564,22 @@ public static function genTableCols() : FicList {
   {{ficListBody}}
 
   return \$ficList;
+}
+EOD;
+  }
+
+    /**
+   * @return string
+   */
+  public function getTempGenFmtColsMethod(): string
+  {
+    return <<<EOD
+public static function genTableCols() : FmtList {
+  \$fmtList = new FmtList();
+
+  {{fmtListBody}}
+
+  return \$fmtList;
 }
 EOD;
   }
@@ -626,7 +658,7 @@ EOD
   /**
    * Converts a field name to standard method name format.
    *
-   * @param string $fieldName
+   * @param string|null $fieldName
    * @return string
    */
   public static function convertFieldNameToLowerCamelCase(string $fieldName): string

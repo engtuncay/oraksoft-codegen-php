@@ -32,6 +32,12 @@ addOption(eleSelJava,txIdSeciniz,"Seçiniz");
 addOption(eleSelJava,"1","FiCol Java Sınıf");
 
 
+let eleSelSql = document.getElementById("selSql");
+
+addOption(eleSelSql,txIdSeciniz,"Seçiniz");
+addOption(eleSelSql,"1","Sql Create Table");
+
+
 //let fkb = new Fikeybean();
 
 //import { Fdr } from './libs/oraksoft-ui.js';

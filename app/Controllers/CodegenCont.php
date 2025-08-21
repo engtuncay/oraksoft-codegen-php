@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\codegen\Modals\CgmCdgSqlserver;
 use Codegen\ficols\FicFiCol;
 use Codegen\modals\CgmFiColClass;
 use Codegen\modals\CgmFiColUtil;
@@ -66,8 +67,14 @@ class CodegenCont extends BaseController
     $selTs = $this->request->getPost('selTs');
     $selPhp = $this->request->getPost('selPhp');
     $selJava = $this->request->getPost('selJava');
+    $selSql = $this->request->getPost('selSql');
 
-    log_message('info', 'Selected options: Csharp: ' . $selCsharp . ', Ts: ' . $selTs . ', Php: ' . $selPhp . ', Java: ' . $selJava);
+    log_message('info', 'Selected Options:');
+    log_message('info', 'Csharp: ' . $selCsharp);
+    log_message('info', 'Ts: ' . $selTs);
+    log_message('info', 'Php: ' . $selPhp);
+    log_message('info', 'Java: ' . $selJava);
+    log_message('info', 'Sql: ' . $selSql);
 
     //$excelFile = $this->request->getFile('excelFile');
 
@@ -130,6 +137,23 @@ class CodegenCont extends BaseController
       list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs);
     }
 
+    if ($selSql == 1) {
+      $fdrData = self::convertFileToFkbList($uploadedFile); 
+      $fdrCdgSql = CgmCdgSqlserver::actGenSqlCreateTable($fdrData->getFkbListInit());
+
+       $data = [
+      'fdrData' => $fdrCdgSql,
+      'arrDtoCodeGenPack' => $fdrCdgSql->getFkbValue()->getParams(),
+      'sbTxCodeGen' => $sbTxCodeGen,
+      'txCodeGenExtra' => $txCodeGenExtra,
+      'formData' => $formObject ?? null
+    ];
+
+    // (codegen)[../Views/codegen.php] 
+    return view('codegen', $data);
+      
+    }
+
     endExcelOkuma:
 
     $data = [
@@ -139,7 +163,8 @@ class CodegenCont extends BaseController
       'txCodeGenExtra' => $txCodeGenExtra,
       'formData' => $formObject ?? null
     ];
-    // [[../Views/codegen.php]] 
+
+    // (codegen)[../Views/codegen.php] 
     return view('codegen', $data);
 
     // Dosya yükleme işlemi
@@ -206,7 +231,7 @@ class CodegenCont extends BaseController
     return array($fdrData, $arrDtoCodeGen); //$fiExcel $fkbListData
   }
 
-    /**
+  /**
    * 
    * @param mixed $sourceFile
    * @param ICogFicSpecs $iCogSpecs

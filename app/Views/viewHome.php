@@ -12,6 +12,7 @@ view('fiAppImports.php');
 
 <head>
   <?php //require __DIR__ . '/fiHead.php'; ?>
+  <?php // (fiHead)[./fiHead.php] // link to a file ?>
   <?= view('fiHead.php') ?>
   <!-- <link rel="stylesheet" href="codeblock.css"> -->
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -32,23 +33,28 @@ view('fiAppImports.php');
               <div class="container">
                 <div class="row">
                   <div class="mb-3 col-md-4">
-                    <label for="selCsharp" class="form-label">Csharp:</label>
+                    <label for="selCsharp" class="form-label">Csharp</label>
                     <select name="selCsharp" id="selCsharp" class="form-select" aria-label="Csharp Operations">
                     </select>
                     <!--          <div class="form-text">note.</div>-->
                   </div>
                   <div class="mb-3 col-md-4">
-                    <label for="selTs" class="form-label">Typescript:</label>
+                    <label for="selTs" class="form-label">Typescript</label>
                     <select class="form-select" aria-label="Ts Operations" name="selTs" id="selTs"></select>
                   </div>
                   <div class="mb-3 col-md-4">
-                    <label for="selPhp" class="form-label">Php:</label>
+                    <label for="selPhp" class="form-label">Php</label>
                     <select class="form-select" aria-label="Php Operations" name="selPhp" id="selPhp">
                     </select>
                   </div>
                   <div class="mb-3 col-md-4">
-                    <label for="selJava" class="form-label">Java:</label>
+                    <label for="selJava" class="form-label">Java</label>
                     <select class="form-select" aria-label="Java Operations" name="selJava" id="selJava">
+                    </select>
+                  </div>
+                  <div class="mb-3 col-md-4">
+                    <label for="selSql" class="form-label">Sql</label>
+                    <select class="form-select" aria-label="Sql Operations" name="selSql" id="selSql">
                     </select>
                   </div>
                 </div>
@@ -120,6 +126,7 @@ view('fiAppImports.php');
 
     // ko.applyBindings(new AppViewModel());
   </script>
+  <?php // (mainJs)[../../public/assets/js/main.js] // link to a file ?>
   <script type="module" src="<?=base_url('assets/js/main.js')?>"></script>
   <script src="<?= base_url('libs/bootstrap.min.js') ?>"></script>
   <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
