@@ -17,33 +17,40 @@ use Engtuncay\Phputils8\FiDto\FkbList;
  */
 class CgmJavaSpecs implements ICogFicSpecs
 {
-    public function getTemplateFkbColMethod(): string {
-      return "";
-     }
+  public function getTemplateFkbColMethod(): string
+  {
+    return "";
+  }
 
-    public function getTemplateFiMetaMethod(): string { 
-      return "";
-    }
+  public function getTemplateFiMetaMethod(): string
+  {
+    return "";
+  }
 
-    public function getTemplateFkbColClass(): string {
-      return "";
-     }
+  public function getTemplateFkbColClass(): string
+  {
+    return "";
+  }
 
-    public function genFiMetaMethodBody(FiKeybean $fkbItem): FiStrbui { 
-      return new FiStrbui();
-    }
+  public function genFiMetaMethodBody(FiKeybean $fkbItem): FiStrbui
+  {
+    return new FiStrbui();
+  }
 
-    public function genFkbColMethodBodyDetail(FiKeybean $fkbItem): FiStrbui { 
-      return new FiStrbui();
-    }
+  public function genFkbColMethodBodyDetail(FiKeybean $fkbItem): FiStrbui
+  {
+    return new FiStrbui();
+  }
 
-    public function getTempGenFkbColsList(): string {
-      return "";
-     }
+  public function getTempGenFkbColsList(): string
+  {
+    return "";
+  }
 
-    public function getTempGenFkbColsTransList(): string { 
-      return "";
-    }
+  public function getTempGenFkbColsTransList(): string
+  {
+    return "";
+  }
 
   /**
    * @param mixed $txEntityName
@@ -68,7 +75,6 @@ public static FiCol {{fieldMethodName}}()
   return fiCol;
 }
 EOD;
-
   }
 
   public function getTemplateFiColMethodExtra(): string
@@ -81,7 +87,6 @@ public static FiCol {{fieldMethodName}}Ext()
   return fiCol;
 }
 EOD;
-
   }
 
   /**
@@ -113,19 +118,16 @@ EOD;
         if (ctype_lower($characters[$i - 1]) || ctype_upper($characters[$i - 1])) { // && ctype_lower($characters[$i])
           $result .= $characters[$i];
         } // Kendinden önceki büyükse, aynen ekle
-//        else if (ctype_upper($characters[$i - 1])) {
-//          $result .= $characters[$i];
-//        }
+        //        else if (ctype_upper($characters[$i - 1])) {
+        //          $result .= $characters[$i];
+        //        }
         else { // Kendinden önceki sayı vs ise büyült
           $result .= strtoupper($characters[$i]);
         }
-
       }
 
       return $result;
     }
-
-
   }
 
   public function getTemplateFicClass(): string
@@ -199,15 +201,15 @@ EOD;
 
     $ofcTxDbField = $fkbItem->getValueByFiCol(FicFiCol::ofcTxDbField());
     if ($ofcTxDbField != null)
-      $sbFiColMethodBody->append(sprintf("  fiCol.setOfcTxDbField (\"%s\");\n", $ofcTxDbField));
+      $sbFiColMethodBody->append(" fiCol.setOfcTxDbField (\"$ofcTxDbField\");\n");
 
     //$ofcTxIdType = $fiCol->ofcTxIdType;
     //CgmCodeGen::convertExcelIdentityTypeToFiColAttribute($fiCol->ofcTxIdType);
 
-// if (!FiString.isEmpty(ofiTxIdType)) {
-// sbFiColMethodBody.append("\tfiCol.boKeyIdField = true;\n");
-// sbFiColMethodBody.append(String.format("\tfiCol.ofiTxIdType = FiIdGenerationType.%s.toString();\n", ofiTxIdType));
-// }
+    // if (!FiString.isEmpty(ofiTxIdType)) {
+    // sbFiColMethodBody.append("\tfiCol.boKeyIdField = true;\n");
+    // sbFiColMethodBody.append(String.format("\tfiCol.ofiTxIdType = FiIdGenerationType.%s.toString();\n", ofiTxIdType));
+    // }
 
     $ofcBoTransient = $fkbItem->getValueAsBoolByFiCol(FicFiCol::ofcBoTransient());
     if ($ofcBoTransient) {
@@ -233,27 +235,27 @@ EOD;
       $sbFiColMethodBody->append("  fiCol.setOfcBoNullable(false);\n");
     }
 
-//        if (FiBool.isTrue(fiCol.getOfcBoUnique())) {
-//          sbFiColMethodBody.append("\tfiCol.ofcBoUnique = true;\n");
-//        }
-//
-//        if (FiBool.isTrue(fiCol.getOfcBoUniqGro1())) {
-//          sbFiColMethodBody.append("\tfiCol.ofcBoUniqGro1 = true;\n");
-//        }
-//
-//        if (FiBool.isTrue(fiCol.getOfcBoUtfSupport())) {
-//          sbFiColMethodBody.append("\tfiCol.ofcBoUtfSupport = true;\n");
-//        }
-//
-//        if (!FiString.isEmpty(fiCol.getOfcTxDefValue())) {
-//          sbFiColMethodBody.append(String.format("\tfiCol.ofcTxDefValue = \"%s\";\n", fiCol.getOfcTxDefValue()));
-//        }
-//
-//        if (FiBool.isTrue(fiCol.getBoFilterLike())) {
-//          sbFiColMethodBody.append("\tfiCol.ofcBoFilterLike = true;\n");
-//        }
-//
-//        // ofcTxCollation	ofcTxTypeName
+    //        if (FiBool.isTrue(fiCol.getOfcBoUnique())) {
+    //          sbFiColMethodBody.append("\tfiCol.ofcBoUnique = true;\n");
+    //        }
+    //
+    //        if (FiBool.isTrue(fiCol.getOfcBoUniqGro1())) {
+    //          sbFiColMethodBody.append("\tfiCol.ofcBoUniqGro1 = true;\n");
+    //        }
+    //
+    //        if (FiBool.isTrue(fiCol.getOfcBoUtfSupport())) {
+    //          sbFiColMethodBody.append("\tfiCol.ofcBoUtfSupport = true;\n");
+    //        }
+    //
+    //        if (!FiString.isEmpty(fiCol.getOfcTxDefValue())) {
+    //          sbFiColMethodBody.append(String.format("\tfiCol.ofcTxDefValue = \"%s\";\n", fiCol.getOfcTxDefValue()));
+    //        }
+    //
+    //        if (FiBool.isTrue(fiCol.getBoFilterLike())) {
+    //          sbFiColMethodBody.append("\tfiCol.ofcBoFilterLike = true;\n");
+    //        }
+    //
+    //        // ofcTxCollation	ofcTxTypeName
 
     return $sbFiColMethodBody;
   }
