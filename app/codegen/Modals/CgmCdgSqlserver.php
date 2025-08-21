@@ -72,13 +72,6 @@ class CgmCdgSqlserver
       $sbColDef = new FiStrbui();
       $sbColDef->append($fkbFieldName . ' ' . $sqlTypeDef . ",\n");
 
-      //$sbColDef->append($fkbFieldName . ' ');
-
-      // $sqlTemplate = str_replace(
-      //   FimOksCoding::oscTxTableFields()->getTxKeyAsTemp(),
-      //   $field->getOfcTxFieldName() . ' ' . $field->getSqlFieldDefinition(),
-      //   $sqlTemplate
-      // );
       $sbColDefs->append($sbColDef->toString());
     }
 
@@ -121,7 +114,8 @@ EOD;
   {
     $fkbType = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxFieldType());
     $fkbLength = $fkbItem->getValueByFiMeta(FimFiCol::ofcLnLength());
-
+    $fkbIdType = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxIdType());
+    
     $sbTypeDef = new FiStrbui();
 
     if($fkbType == 'string'){
@@ -129,16 +123,22 @@ EOD;
       if(FiString::isEmpty($fkbLength)){
         $fkbLength = 50;
       } 
-      $sbTypeDef->append("varchar($fkbLength)");
+      $sbTypeDef->append(" varchar($fkbLength)");
     }
 
     if($fkbType == 'int'){
-      $sbTypeDef->append("int");
+      $sbTypeDef->append(" int");
     }
 
     if($fkbType == 'datetime'){
-      $sbTypeDef->append("datetime");
+      $sbTypeDef->append(" datetime");
     }
+
+    if($fkbIdType == 'identity'){
+      $sbTypeDef->append(" IDENTITY(1,1) NOT NULL PRIMARY KEY");
+    }
+
+
 
     return $sbTypeDef->toString();
   }
