@@ -13,7 +13,7 @@ use Engtuncay\Phputils8\FiDto\FiKeybean;
 /**
  * Csharp Templates For Code Generator
  */
-class CogCsharpSpecs implements ICogFicSpecs
+class CgmSpecsCsharp implements ICogFicSpecs
 {
   public function getTemplateFkbColMethod(): string
   {

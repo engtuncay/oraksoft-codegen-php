@@ -5,12 +5,12 @@ namespace App\Controllers;
 use App\codegen\Modals\CgmCdgSqlserver;
 use Codegen\ficols\FicFiCol;
 use Codegen\modals\CgmFiColClass;
-use Codegen\modals\CgmFiColUtil;
+use Codegen\modals\CgmUtils;
 use Codegen\Modals\CgmFiMetaClass;
 use Codegen\Modals\CgmFkbColClass;
-use Codegen\Modals\CgmJavaSpecs;
-use Codegen\Modals\CogCsharpSpecs;
-use Codegen\Modals\CogPhpSpecs;
+use Codegen\Modals\CgmSpecsJava;
+use Codegen\Modals\CgmSpecsCsharp;
+use Codegen\Modals\CgmSpecsPhp;
 use Codegen\Modals\DtoCodeGen;
 use Codegen\Modals\ICogFicSpecs;
 use Engtuncay\Phputils8\Core\FiStrbui;
@@ -113,27 +113,27 @@ class CodegenCont extends BaseController
 
     if ($selCsharp == 1) {
       log_message('info', 'selCsharp');
-      $cogSpecs = new CogCsharpSpecs();
+      $cogSpecs = new CgmSpecsCsharp();
       list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs);
     }
 
     if ($selPhp == 1) {
-      $cogSpecs = new CogPhpSpecs();
+      $cogSpecs = new CgmSpecsPhp();
       list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs);
     }
 
     if ($selPhp == 2) {
-      $cogSpecs = new CogPhpSpecs();
+      $cogSpecs = new CgmSpecsPhp();
       list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassesFromFile($uploadedFile, $cogSpecs);
     }
 
     if ($selPhp == 3) {
-      $cogSpecs = new CogPhpSpecs();
+      $cogSpecs = new CgmSpecsPhp();
       list($fdrData, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($uploadedFile, $cogSpecs);
     }
 
     if ($selJava == 1) {
-      $cogSpecs = new CgmJavaSpecs();
+      $cogSpecs = new CgmSpecsJava();
       list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs);
     }
 
@@ -206,7 +206,7 @@ class CodegenCont extends BaseController
     //echo var_export($fkbListExcel, true);
 
     /** @var FkbList[] $mapEntityToFkbList */
-    $mapEntityToFkbList = CgmFiColUtil::mapEntityToFkbList($fkbListData);
+    $mapEntityToFkbList = CgmUtils::mapEntityToFkbList($fkbListData);
 
     log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
     $txIdPref = "java";
@@ -245,7 +245,7 @@ class CodegenCont extends BaseController
     //echo var_export($fkbListExcel, true);
 
     /** @var FkbList[] $mapEntityToFkbList */
-    $mapEntityToFkbList = CgmFiColUtil::mapEntityToFkbList($fkbListData);
+    $mapEntityToFkbList = CgmUtils::mapEntityToFkbList($fkbListData);
 
     log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
     $txIdPref = "codegen";
@@ -316,7 +316,7 @@ class CodegenCont extends BaseController
     //echo var_export($fkbListExcel, true);
     
     /** @var FkbList[] $mapEntityToFkbList */
-    $mapEntityToFkbList = CgmFiColUtil::mapEntityToFkbList($fkbListData);
+    $mapEntityToFkbList = CgmUtils::mapEntityToFkbList($fkbListData);
 
     log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
     $txIdPref = "codegen";

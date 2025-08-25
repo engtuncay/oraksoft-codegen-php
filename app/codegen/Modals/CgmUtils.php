@@ -3,7 +3,6 @@
 namespace Codegen\Modals;
 
 use Codegen\ficols\FicFiCol;
-use Engtuncay\Phputils8\Core\FiArray;
 use Engtuncay\Phputils8\Core\FiText;
 use Engtuncay\Phputils8\Core\FiwArray;
 use Engtuncay\Phputils8\Log\FiLog;
@@ -13,9 +12,9 @@ use Engtuncay\Phputils8\FiDto\FiKeybean;
 use Engtuncay\Phputils8\FiDto\FiMeta;
 use Engtuncay\Phputils8\FiDto\FkbList;
 use Engtuncay\Phputils8\FiDto\FmtList;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\F;
 
-class CgmFiColUtil
+
+class CgmUtils
 {
 
   /**

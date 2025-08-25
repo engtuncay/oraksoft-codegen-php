@@ -19,10 +19,10 @@ class CgmFiMetaClass
    * Generate FiMeta Class from FkbList
    *
    * @param FkbList $fkbList
-   * @param CogPhpSpecs| null $iCogSpecs
+   * @param CgmSpecsPhp| null $iCogSpecs
    * @return string
    */
-  public static function actGenFiMetaClassByFkb(FkbList $fkbList, CogPhpSpecs $iCogSpecs = null): string
+  public static function actGenFiMetaClassByFkb(FkbList $fkbList, CgmSpecsPhp $iCogSpecs = null): string
   {
 
     if ($iCogSpecs == null) return "";

@@ -20,7 +20,7 @@ class CgmFiColClass
    * Undocumented function
    *
    * @param FkbList $fkbList
-   * @param CogPhpSpecs|null $iCogSpecs
+   * @param CgmSpecsPhp|null $iCogSpecs
    * @return string
    */
   public static function actGenFiColClassByFkb(FkbList $fkbList, ICogFicSpecs $iCogSpecs = null): string

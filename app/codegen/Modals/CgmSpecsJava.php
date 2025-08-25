@@ -15,7 +15,7 @@ use Engtuncay\Phputils8\FiDto\FkbList;
 /**
  * Java Templates For Code Generator
  */
-class CgmJavaSpecs implements ICogFicSpecs
+class CgmSpecsJava implements ICogFicSpecs
 {
     public function getTemplateFkbColMethod(): string {
       return "";

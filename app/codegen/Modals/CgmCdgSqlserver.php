@@ -2,7 +2,7 @@
 
 namespace App\codegen\Modals;
 
-use Codegen\Modals\CgmFiColUtil;
+use Codegen\Modals\CgmUtils;
 use Codegen\Modals\DtoCodeGen;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Core\FiString;
@@ -13,6 +13,9 @@ use Engtuncay\Phputils8\FiDto\FkbList;
 use Engtuncay\Phputils8\FiMeta\FimFiCol;
 use Engtuncay\Phputils8\FiMeta\FimOksCoding;
 
+/**
+ * SQL Server Code Generation (Cdg)
+ */
 class CgmCdgSqlserver
 {
   public static function actGenSqlCreateTable(FkbList $fkbList): Fdr
@@ -20,7 +23,7 @@ class CgmCdgSqlserver
     $fdrMain = new Fdr();
 
     /** @var FkbList[] $arrFkbListByEntity */
-    $arrFkbListByEntity = CgmFiColUtil::mapEntityToFkbList($fkbList);
+    $arrFkbListByEntity = CgmUtils::mapEntityToFkbList($fkbList);
 
     //log_message('info', 'arrFkbListExcel' . print_r($arrFkbListByEntity, true));
     $txIdPref = "sql";
