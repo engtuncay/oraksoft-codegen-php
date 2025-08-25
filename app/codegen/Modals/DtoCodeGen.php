@@ -5,7 +5,7 @@ namespace Codegen\Modals;
 use Engtuncay\Phputils8\Core\FiStrbui;
 
 /**
- * Her bir Entity için Dto Sınıfı
+ * Her bir Entity için Data Sınıfı
  */
 class DtoCodeGen
 {
