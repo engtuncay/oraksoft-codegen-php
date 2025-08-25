@@ -56,4 +56,5 @@ interface ICogFicSpecs
   public function getTempGenFkbColsList(): string;
 
   public function getTempGenFkbColsTransList(): string;
+  
 }

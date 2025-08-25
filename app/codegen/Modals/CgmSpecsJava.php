@@ -4,11 +4,14 @@ namespace Codegen\Modals;
 
 use Codegen\ficols\FicFiCol;
 use Codegen\ficols\FicFiMeta;
+use Codegen\Modals\SpecsJavaFiCol;
+use Codegen\Modals\SpecsJavaFiMeta;
 use Engtuncay\Phputils8\Core\FiBool;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Core\FiString;
 use Engtuncay\Phputils8\FiCol\FicValue;
 use Engtuncay\Phputils8\FiDto\FiKeybean;
+
 
 /**
  * Java Templates For Code Generator
@@ -22,7 +25,7 @@ class CgmSpecsJava implements ICogFicSpecs
 
   public function getTemplateFiMetaMethod(): string
   {
-    return "";
+    return SpecsJavaFiMeta::getTemplateFiMetaMethod();
   }
 
   public function getTemplateFkbColClass(): string
@@ -65,26 +68,12 @@ class CgmSpecsJava implements ICogFicSpecs
 
   public function getTemplateFiColMethod(): string
   {
-    return <<<EOD
-public static FiCol {{fieldMethodName}}()
-{
-  FiCol fiCol = new FiCol("{{fieldName}}");
-{{fiColMethodBody}}
-  return fiCol;
-}
-EOD;
+    return SpecsJavaFiCol::getTemplateFiColMethod();
   }
 
   public function getTemplateFiColMethodExtra(): string
   {
-    return <<<EOD
-public static FiCol {{fieldMethodName}}Ext()
-{
-  FiCol fiCol = {{fieldMethodName}}();
-{{fiColMethodBody}}
-  return fiCol;
-}
-EOD;
+    return SpecsJavaFiCol::getTemplateFiColMethodExtra();
   }
 
   /**
@@ -128,57 +117,14 @@ EOD;
     }
   }
 
+  /**
+   * FicEntity Class -> FiCols
+   *
+   * @return string
+   */
   public function getTemplateFicClass(): string
   {
-    //FicFiCol::ofcTxHeader();
-
-    //String
-    $templateMain = <<<EOD
-import ozpasyazilim.utils.table.FiCol;
-import ozpasyazilim.utils.table.OzColType;
-import ozpasyazilim.utils.table.FiColList;
-import ozpasyazilim.utils.fidbanno.FiIdGenerationType;
-import ozpasyazilim.utils.fidborm.IFiTableMeta;
-      
-public class {{classPref}}{{entityName}} implements IFiTableMeta
-{
-
-  public static String getTxTableName()
-  {
-    return "{{tableName}}";
-  }
-  
-  public String getITxTableName()
-  {
-    return getTxTableName();
-  }
-
-  public FiColList genITableCols()
-  {
-    return genTableCols();
-  }
-  
-  public FiColList genITableColsTrans()
-  {
-    return genTableColsTrans();
-  }
-  
-  public static String getTxPrefix()
-  {
-    return "{{tablePrefix}}";
-  }
-
-  public String getITxPrefix()
-  {
-    return getTxPrefix();
-  }
-
-{{classBody}}
-
-}
-EOD;
-
-    return $templateMain;
+    return SpecsJavaFiCol::getTemplateFicClass();
   }
 
   public function genFiColMethodBodyDetail(FiKeybean $fkbItem): FiStrbui
