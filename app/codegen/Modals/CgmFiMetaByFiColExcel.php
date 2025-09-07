@@ -10,6 +10,8 @@ use Engtuncay\Phputils8\FiDto\FkbList;
 
 /**
  * Code Generator Modal (Cgm) for FiMetaClass (For All Languages)
+ * 
+ * FiCol excelini kullanır. FieldName key, Header da value gösterir. 
  */
 class CgmFiMetaClass
 {
@@ -22,7 +24,7 @@ class CgmFiMetaClass
    * @param CogSpecsPhp| null $iCogSpecs
    * @return string
    */
-  public static function actGenFiMetaClassByFkb(FkbList $fkbList, CogSpecsPhp $iCogSpecs = null): string
+  public static function actGenFiMetaClassByFkb(FkbList $fkbList, ICogFicSpecs $iCogSpecs = null): string
   {
 
     if ($iCogSpecs == null) return "";
@@ -50,7 +52,7 @@ class CgmFiMetaClass
       /**
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
        */
-      $sbFiColMethodBody = $iCogSpecs->genFiMetaMethodBody($fkbItem); //StringBuilder
+      $sbFiColMethodBody = self::genFiMetaMethodBody($fkbItem); //StringBuilder
 
       //$sbFiColAddDescDetail->append($iCogSpecs->genFiColAddDescDetail($fkbItem)->toString());
 
@@ -135,5 +137,15 @@ class CgmFiMetaClass
 
     return $txResult;
   }
+
+
+	public static function genFiMetaMethodBody($fkbItem) : FiStrbui
+	{
+    $sb = new FiStrbui();
+
+
+
+		return $sb;
+	}
 
 }

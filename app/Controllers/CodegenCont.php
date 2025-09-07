@@ -8,9 +8,9 @@ use Codegen\modals\CgmFiColClass;
 use Codegen\modals\CgmUtils;
 use Codegen\Modals\CgmFiMetaClass;
 use Codegen\Modals\CgmFkbColClass;
-use Codegen\Modals\CgmSpecsJava;
-use Codegen\Modals\CgmSpecsCsharp;
-use Codegen\Modals\CgmSpecsPhp;
+use Codegen\Modals\CogSpecsJava;
+use Codegen\Modals\CogSpecsCsharp;
+use Codegen\Modals\CogSpecsPhp;
 use Codegen\Modals\DtoCodeGen;
 use Codegen\Modals\ICogFicSpecs;
 use Engtuncay\Phputils8\Core\FiStrbui;
@@ -113,27 +113,27 @@ class CodegenCont extends BaseController
 
     if ($selCsharp == 1) {
       log_message('info', 'selCsharp');
-      $cogSpecs = new CgmSpecsCsharp();
+      $cogSpecs = new CogSpecsCsharp();
       list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs);
     }
 
     if ($selPhp == 1) {
-      $cogSpecs = new CgmSpecsPhp();
+      $cogSpecs = new CogSpecsPhp();
       list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs);
     }
 
     if ($selPhp == 2) {
-      $cogSpecs = new CgmSpecsPhp();
+      $cogSpecs = new CogSpecsPhp();
       list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassesFromFile($uploadedFile, $cogSpecs);
     }
 
     if ($selPhp == 3) {
-      $cogSpecs = new CgmSpecsPhp();
+      $cogSpecs = new CogSpecsPhp();
       list($fdrData, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($uploadedFile, $cogSpecs);
     }
 
     if ($selJava == 1) {
-      $cogSpecs = new CgmSpecsJava();
+      $cogSpecs = new CogSpecsJava();
       list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs);
     }
 

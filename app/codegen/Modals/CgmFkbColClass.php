@@ -22,7 +22,7 @@ class CgmFkbColClass
    * FkbList'ten FkbColClass oluşturur.
    *
    * @param FkbList $fkbList
-   * @param CgmSpecsPhp|null $iCogSpecs
+   * @param CogSpecsPhp|null $iCogSpecs
    * @return string
    */
   public static function actGenClassByFkbList(FkbList $fkbList, ICogFicSpecs $iCogSpecs = null): string

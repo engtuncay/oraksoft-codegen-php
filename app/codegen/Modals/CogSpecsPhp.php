@@ -11,7 +11,7 @@ use Engtuncay\Phputils8\FiDto\FiKeybean;
 /**
  * Csharp Templates For Code Generator
  */
-class CgmSpecsPhp implements ICogFicSpecs
+class CogSpecsPhp implements ICogFicSpecs
 {
 
   public static function getTemplateFiMetaClass(): string
