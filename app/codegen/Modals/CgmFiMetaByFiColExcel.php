@@ -16,7 +16,7 @@ use Engtuncay\Phputils8\FiDto\FkbList;
 class CgmFiMetaClass
 {
 
-  
+
   /**
    * Generate FiMeta Class from FkbList
    *
@@ -52,7 +52,7 @@ class CgmFiMetaClass
       /**
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
        */
-      $sbFiColMethodBody = self::genFiMetaMethodBody($fkbItem); //StringBuilder
+      $sbFiColMethodBody = $iCogSpecs->genFiMetaMethodBodyByFiColTemp($fkbItem); //StringBuilder
 
       //$sbFiColAddDescDetail->append($iCogSpecs->genFiColAddDescDetail($fkbItem)->toString());
 
@@ -62,12 +62,12 @@ class CgmFiMetaClass
       //String
       $fieldName = $fkbItem->getValue('ofmTxKey');
       //$ofcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader()));
-      
+
       $fkbFiColMethodBody->add("fieldMethodName", $iCogSpecs->checkMethodNameStd($fieldName));
       $fkbFiColMethodBody->add("fieldName", $fieldName);
       $fkbFiColMethodBody->add("fiMethodBody", $sbFiColMethodBody->toString());
       //$fkbFiColMethodBody->add("fieldHeader", $ofcTxHeader);
-      
+
 
       /**
        * @var string $txFiColMethod
@@ -138,14 +138,5 @@ class CgmFiMetaClass
     return $txResult;
   }
 
-
-	public static function genFiMetaMethodBody($fkbItem) : FiStrbui
-	{
-    $sb = new FiStrbui();
-
-
-
-		return $sb;
-	}
 
 }

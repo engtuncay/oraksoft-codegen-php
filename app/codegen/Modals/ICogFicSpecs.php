@@ -49,6 +49,8 @@ interface ICogFicSpecs
 
   public function genFiMetaMethodBodyFieldDefs(FiKeybean $fkb): FiStrbui;
 
+  public function genFiMetaMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui;
+
   public static function getTemplateFiMetaClass(): string;
 
   public function genFiColAddDescDetail(FiKeybean $fkbItem): FiStrbui;

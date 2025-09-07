@@ -15,6 +15,9 @@ use Engtuncay\Phputils8\FiDto\FiKeybean;
  */
 class CogSpecsCsharp implements ICogFicSpecs
 {
+
+
+
   public function getTemplateFkbColMethod(): string
   {
     return "";
@@ -414,5 +417,16 @@ EOD
 
       return $result;
     }
+  }
+
+
+  public function genFiMetaMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui
+  {
+
+    $sb = new FiStrbui();
+
+
+
+    return $sb;
   }
 }
