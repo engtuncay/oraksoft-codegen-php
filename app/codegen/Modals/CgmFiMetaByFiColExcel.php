@@ -21,7 +21,7 @@ class CgmFiMetaClass
    * Generate FiMeta Class from FkbList
    *
    * @param FkbList $fkbList
-   * @param CogSpecsPhp| null $iCogSpecs
+   * @param CogSpecsCsharp| null $iCogSpecs
    * @return string
    */
   public static function actGenFiMetaClassByFkb(FkbList $fkbList, ICogFicSpecs $iCogSpecs = null): string
