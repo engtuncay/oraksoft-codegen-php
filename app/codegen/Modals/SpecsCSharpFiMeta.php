@@ -9,6 +9,8 @@ class SpecsCsharpFiMeta implements ISpecsFiMeta
         //String
     $template = <<<EOD
 
+using OrakYazilimLib.Util.core;
+
 public class {{classPref}}{{entityName}}
 {
 {{classBody}}
@@ -23,7 +25,7 @@ EOD;
     //String
     $template = <<<EOD
 
-public static function {{fieldMethodName}}() : FiMeta
+public static FiMeta {{fieldMethodName}}()
 { 
   FiMeta fiMeta = new FiMeta("{{fieldName}}");
 {{fiMethodBody}}

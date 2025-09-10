@@ -14,7 +14,7 @@ use Engtuncay\Phputils8\FiDto\FkbList;
 /**
  * Code Generator Modal for Php
  */
-class CgmPhp
+class CgmPhpOld
 {
   public static function actGenFiColClassByFkbList(FkbList $fkbListExcel): string
   {
