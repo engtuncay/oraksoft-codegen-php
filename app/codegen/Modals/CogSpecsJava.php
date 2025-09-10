@@ -253,7 +253,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTempGenGiColsTransList(): string
+  public function getTempGenFiColsTransList(): string
   {
     return <<<EOD
 public static FiColList genTableColsTrans() {

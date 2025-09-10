@@ -13,6 +13,7 @@ let txIdSeciniz = "-1";
 
 addOption(elementById,txIdSeciniz,"Seçiniz");
 addOption(elementById,"1","FiCol Csharp Sınıf");
+addOption(elementById,"2","FiMeta By FiCol Template");
 
 let eleSelPhp = document.getElementById("selPhp");
 

@@ -7,12 +7,15 @@ use Codegen\ficols\FicFiCol;
 use Codegen\modals\CgmFiColClass;
 use Codegen\modals\CgmUtils;
 use Codegen\Modals\CgmFiMetaClass;
+use Codegen\Modals\CgmFiMetaClassByFiColTemp;
 use Codegen\Modals\CgmFkbColClass;
 use Codegen\Modals\CogSpecsJava;
 use Codegen\Modals\CogSpecsCsharp;
 use Codegen\Modals\CogSpecsPhp;
 use Codegen\Modals\DtoCodeGen;
 use Codegen\Modals\ICogFicSpecs;
+use Codegen\Modals\ISpecsFiMeta;
+use Codegen\Modals\SpecsCsharpFiMeta;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\FiExcel\FiExcel;
 use Engtuncay\Phputils8\FiCsv\FiCsv;
@@ -57,6 +60,7 @@ class CodegenCont extends BaseController
     $fdrData = new Fdr();
 
     $txCodeGenExtra = "";
+
     /** @var DtoCodeGen[] $arrDtoCodeGenPack */
     $arrDtoCodeGenPack = [];
     $sbTxCodeGen = new FiStrbui();
@@ -69,12 +73,12 @@ class CodegenCont extends BaseController
     $selJava = $this->request->getPost('selJava');
     $selSql = $this->request->getPost('selSql');
 
-    log_message('info', 'Selected Options:');
-    log_message('info', 'Csharp: ' . $selCsharp);
-    log_message('info', 'Ts: ' . $selTs);
-    log_message('info', 'Php: ' . $selPhp);
-    log_message('info', 'Java: ' . $selJava);
-    log_message('info', 'Sql: ' . $selSql);
+    // log_message('info', 'Selected Options:');
+    // log_message('info', 'Csharp: ' . $selCsharp);
+    // log_message('info', 'Ts: ' . $selTs);
+    // log_message('info', 'Php: ' . $selPhp);
+    // log_message('info', 'Java: ' . $selJava);
+    // log_message('info', 'Sql: ' . $selSql);
 
     //$excelFile = $this->request->getFile('excelFile');
 
@@ -115,6 +119,13 @@ class CodegenCont extends BaseController
       log_message('info', 'selCsharp');
       $cogSpecs = new CogSpecsCsharp();
       list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs);
+    }
+
+    if ($selCsharp == 2) {
+      log_message('info', 'selCsharp-2');
+      $cogSpecs = new CogSpecsCsharp();
+      $specsCsharpFiMeta = new SpecsCsharpFiMeta();
+      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassByFiColTempFromFile($uploadedFile, $cogSpecs, $specsCsharpFiMeta);
     }
 
     if ($selPhp == 1) {
@@ -328,6 +339,46 @@ class CodegenCont extends BaseController
       $sbTxCodeGen1 = new FiStrbui();
       $sbTxCodeGen1->append("// Codegen v2\n");
       $sbTxCodeGen1->append(CgmFiMetaClass::actGenFiMetaClassByFkb($fkbList, $iCogSpecs));
+      $sbTxCodeGen1->append("\n");
+      $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
+      $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
+      $arrDtoCodeGen[] = $dtoCodeGen;
+    }
+
+    log_message('info', 'arrDtoCodeGen: ' . print_r($arrDtoCodeGen, true));
+    log_message('info', 'fdrData: ' . print_r($fdrData, true));
+
+    return array($fdrData, $arrDtoCodeGen); //$fiExcel $fkbListData
+  }
+
+
+  /**
+   * @param mixed $sourceFile
+   * @param ICogFicSpecs $iCogSpecs
+   * @return array
+   */
+  public function genFiMetaClassByFiColTempFromFile(mixed $sourceFile, ICogFicSpecs $iCogSpecs, ISpecsFiMeta $iSpecsFiMeta): array
+  { 
+    //array|string $fileExtension,
+
+    $fdrData = self::convertFileToFkbList($sourceFile);
+    $fkbListData = $fdrData->getFkbListInit();
+
+    //echo var_export($fkbListExcel, true);
+    
+    /** @var FkbList[] $mapEntityToFkbList */
+    $mapEntityToFkbList = CgmUtils::mapEntityToFkbList($fkbListData);
+
+    log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
+    $txIdPref = "codegen";
+    $lnForIndex = 0;
+
+    foreach ($mapEntityToFkbList as $fkbList) {
+      $lnForIndex++;
+      $dtoCodeGen = new DtoCodeGen();
+      $sbTxCodeGen1 = new FiStrbui();
+      $sbTxCodeGen1->append("// Codegen v2\n");
+      $sbTxCodeGen1->append(CgmFiMetaClassByFiColTemp::actGenFiMetaClassByFkbList($fkbList, $iCogSpecs, $iSpecsFiMeta));
       $sbTxCodeGen1->append("\n");
       $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
       $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);

@@ -109,7 +109,7 @@ class CgmFiColClass
     $sbClassBody->append("\n")->append($txResGenTableColsMethod)->append("\n");
 
     // String
-    $tempGenFiColsTrans = $iCogSpecs->getTempGenGiColsTransList();
+    $tempGenFiColsTrans = $iCogSpecs->getTempGenFiColsTransList();
 
     //    String
     $txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeybean::bui()->buiPut("ficListBodyTrans", $sbFclListBodyTrans->toString()));
@@ -224,7 +224,7 @@ class CgmFiColClass
     $sbClassBody->append("\n")->append($txResGenTableColsMethod)->append("\n");
 
     // String
-    $tempGenFiColsTrans = $iCogSpecs->getTempGenGiColsTransList();
+    $tempGenFiColsTrans = $iCogSpecs->getTempGenFiColsTransList();
 
     // String
     $txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeybean::bui()->buiPut("ficListBodyTrans", $sbFclListBodyTrans->toString()));

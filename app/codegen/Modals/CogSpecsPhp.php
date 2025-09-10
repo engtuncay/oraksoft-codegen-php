@@ -14,6 +14,11 @@ use Engtuncay\Phputils8\FiDto\FiKeybean;
 class CogSpecsPhp implements ICogFicSpecs
 {
 
+  public function genFiMetaMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui
+  {
+    return new FiStrbui();
+  }
+
   public static function getTemplateFiMetaClass(): string
   {
     //String
@@ -62,7 +67,6 @@ public static function {{fieldMethodName}}() : FiCol
   return \$fiCol;
 }
 EOD;
-
   }
 
   public function getTemplateFkbColMethod(): string
@@ -75,7 +79,6 @@ public static function {{fieldMethodName}}() : FiKeybean
   return \$fkbCol;
 }
 EOD;
-
   }
 
   public function getTemplateFiMetaMethod(): string
@@ -136,7 +139,7 @@ EOD;
     return $templateMain;
   }
 
-public function getTemplateFkbColClass(): string
+  public function getTemplateFkbColClass(): string
   {
     //String
     $templateMain = <<<EOD
@@ -265,7 +268,7 @@ EOD;
     return $sbFiColMethodBody;
   }
 
-    public function genFkbColMethodBodyDetail(FiKeybean $fkbItem): FiStrbui
+  public function genFkbColMethodBodyDetail(FiKeybean $fkbItem): FiStrbui
   {
     //StringBuilder
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
@@ -507,7 +510,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTempGenGiColsTransList(): string
+  public function getTempGenFiColsTransList(): string
   {
     return <<<EOD
 public static function genTableColsTrans() : FicList {
@@ -520,7 +523,7 @@ public static function genTableColsTrans() : FicList {
 EOD;
   }
 
-    /**
+  /**
    * @return string
    */
   public function getTempGenFmtColsTransList(): string
@@ -536,7 +539,7 @@ public static function genTableColsTrans() : FmtList {
 EOD;
   }
 
-    /**
+  /**
    * @return string
    */
   public function getTempGenFkbColsTransList(): string
@@ -568,7 +571,7 @@ public static function genTableCols() : FicList {
 EOD;
   }
 
-    /**
+  /**
    * @return string
    */
   public function getTempGenFmtColsMethod(): string
@@ -584,7 +587,7 @@ public static function genTableCols() : FmtList {
 EOD;
   }
 
-    /**
+  /**
    * @return string
    */
   public function getTempGenFkbColsList(): string
@@ -684,12 +687,12 @@ EOD
         }
 
         // Kendinden önceki küçükse, aynen ekle
-        if (ctype_lower($characters[$i-1])) { // && ctype_lower($characters[$i])
+        if (ctype_lower($characters[$i - 1])) { // && ctype_lower($characters[$i])
           $result .= $characters[$i];
         } // Kendinden önceki büyükse küçült
-        else if (ctype_upper($characters[$i-1])) {
+        else if (ctype_upper($characters[$i - 1])) {
           $result .= strtolower($characters[$i]);
-        } else if ($characters[$i-1]=='_') { 
+        } else if ($characters[$i - 1] == '_') {
           $result .= strtolower($characters[$i]);
         } else {  // Kendinden önceki sayı vs (_ dışında karakterse) ise büyült
           $result .= strtoupper($characters[$i]);

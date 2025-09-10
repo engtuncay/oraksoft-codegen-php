@@ -33,6 +33,24 @@ class CogSpecsCsharp implements ICogFicSpecs
     return new FiStrbui();
   }
 
+  /**
+   * FiMeta key alanı hariç diğer alanlarının tanımı
+   *
+   * @param FiKeybean $fkb
+   * @return FiStrbui
+   */
+  public function genFiMetaMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui
+  {
+    $sb = new FiStrbui();
+
+    $ofcTxHeader = $fkb->getValueByFiCol(FicFiCol::ofcTxHeader());
+    if ($ofcTxHeader != null){
+      $sb->append(sprintf("  fiMeta.txValue = \"%s\";\n", $ofcTxHeader));
+    }
+
+    return $sb;
+  }
+
   public function genFkbColMethodBodyDetail(FiKeybean $fkbItem): FiStrbui
   {
     return new FiStrbui();
@@ -50,7 +68,19 @@ class CogSpecsCsharp implements ICogFicSpecs
 
   public function getTemplateFiMetaMethod(): string
   {
-    return "";
+        //String
+    $template = <<<EOD
+use Engtuncay\Phputils8\FiDto\FiMeta;
+use Engtuncay\Phputils8\FiDto\FmtList;
+
+class {{classPref}}{{entityName}} {
+
+{{classBody}}
+
+}
+EOD;
+
+    return $template;
   }
 
   public static function getTemplateFiMetaClass(): string
@@ -112,13 +142,7 @@ EOD;
   {
     //String
     $templateMain = <<<EOD
-using OrakYazilimLib.DbGeneric;
-using OrakYazilimLib.Util;
-using OrakYazilimLib.Util.Collection;
-using OrakYazilimLib.Util.ColStruct;
-      
-public class {{classPref}}{{entityName}}:IFiTableMeta
-{
+
 
   public static string GetTxTableName()
   {
@@ -303,7 +327,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTempGenGiColsTransList(): string
+  public function getTempGenFiColsTransList(): string
   {
     return <<<EOD
 public static FicList GenTableColsTrans() {
@@ -417,16 +441,5 @@ EOD
 
       return $result;
     }
-  }
-
-
-  public function genFiMetaMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui
-  {
-
-    $sb = new FiStrbui();
-
-
-
-    return $sb;
   }
 }
