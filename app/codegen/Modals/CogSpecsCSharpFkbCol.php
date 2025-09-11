@@ -2,8 +2,30 @@
 
 namespace Codegen\Modals;
 
+use Engtuncay\Phputils8\FiDto\FiKeybean;
+use Engtuncay\Phputils8\Core\FiStrbui;
+
 class CogSpecsCSharpFkbCol implements ICogSpecsFkbCol
 {
+  public function getTempGenFkbColsList(): string
+  {
+    return "";
+  }
+
+  public function getTempGenFkbColsTransList(): string
+  {
+    return "";
+  }
+
+  public function genFkbColMethodBodyDetail(FiKeybean $fkbItem): FiStrbui
+  {
+    return new FiStrbui();
+  }
+
+  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, string $methodName): void {}
+
+  public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, string $methodName): void {}
+  
   public function getTemplateFkbColClass(): string
   {
     //String

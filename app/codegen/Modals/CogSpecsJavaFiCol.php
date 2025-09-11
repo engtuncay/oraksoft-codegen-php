@@ -1,8 +1,7 @@
 <?php
-
 namespace Codegen\Modals;
 
-use Codegen\FiCols\FicFiMeta;
+
 use Engtuncay\Phputils8\Core\FiBool;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\Core\FiString;
@@ -10,20 +9,10 @@ use Engtuncay\Phputils8\FiCol\FicFiCol;
 use Engtuncay\Phputils8\FiCol\FicValue;
 use Engtuncay\Phputils8\FiDto\FiKeybean;
 
-class SpecsJavaFkbCol implements ICogSpecsFkbCol
+class CogSpecsJavaFiCol implements ICogSpecsFiCol
 {
-  
-  public function getTempGenFkbColsList(): string
-  {
-    return "";
-  }
-
-  public function genFkbColMethodBodyDetail(FiKeybean $fkbItem): FiStrbui
-  {
-    return new FiStrbui();
-  }
-
-  public function getTemplateFkbColMethod(): string
+  // 
+    public function getTemplateFiColMethod(): string
   {
     return <<<EOD
 public static FiCol {{fieldMethodName}}()
@@ -36,7 +25,7 @@ EOD;
   }
 
 
-  public function getTemplateFiColMethodExtra(): string
+    public function getTemplateFiColMethodExtra(): string
   {
     return <<<EOD
 public static FiCol {{fieldMethodName}}Ext()
@@ -48,14 +37,12 @@ public static FiCol {{fieldMethodName}}Ext()
 EOD;
   }
 
-  /**
+    /**
    * FicEntity Class -> FiCols
-   * 
-   * FiCol dan FkbCol'a çevrilecek
    *
    * @return string
    */
-  public function getTemplateFkbColClass(): string
+  public function getTemplateFicClass(): string
   {
     //FicFiCol::ofcTxHeader();
 
@@ -199,28 +186,12 @@ EOD;
     return $sbFiColMethodBody;
   }
 
-  public function genFiMetaMethodBodyFieldDefs(FiKeybean $fkb): FiStrbui
-  {
-    //StringBuilder
-    $sbFmtMethodBodyFieldDefs = new FiStrbui();
 
-    $txKey = $fkb->getValueByFiCol(FicFiMeta::ofmTxKey());
-    if ($txKey != null) {
-      $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txKey = '%s';\n", $txKey));
-    }
-
-    $txValue = $fkb->getValueByFiCol(FicFiMeta::ofmTxValue());
-    if ($txValue != null) {
-      $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txValue = '%s';\n", $txValue));
-    }
-
-    return $sbFmtMethodBodyFieldDefs;
-  }
 
   /**
    * @return string
    */
-  public function getTempGenFkbColsExtraList(): string
+  public function getTempGenFiColsExtraList(): string
   {
     return <<<EOD
 public static FiColList genTableColsExtra() {
@@ -236,7 +207,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTempGenFkbColsTransList(): string
+  public function getTempGenFiColsTransList(): string
   {
     return <<<EOD
 public static FiColList genTableColsTrans() {
@@ -252,7 +223,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTempGenFkbColsMethod(): string
+  public function getTempGenFiColsMethod(): string
   {
     return <<<EOD
 public static FiColList genTableCols() {
@@ -286,27 +257,13 @@ EOD;
     $sbFclListBodyTrans->append("ficList.add($methodName());\n");
   }
 
-  public static function getTemplateFiMetaClass(): string
-  {
-    //String
-    $templateMain = <<<EOD
-use Engtuncay\Phputils8\FiDto\FiMeta;
-use Engtuncay\Phputils8\FiDto\FmtList;
 
-class {{entityName}} {
-
-{{classBody}}
-
-}
-EOD;
-
-    return $templateMain;
-  }
-
-  public function genFiColAddDescDetail(FiKeybean $fkbItem, ICogSpecs $cogFicSpecs): FiStrbui
+  public function genFiColAddDescDetail(FiKeybean $fkbItem,ICogSpecs $cogFicSpecs): FiStrbui
   {
     // TODO: Implement genFiColAddDescBody() method.
     $sbFiColAddDescBody = new FiStrbui();
     return $sbFiColAddDescBody;
   }
+
+
 }

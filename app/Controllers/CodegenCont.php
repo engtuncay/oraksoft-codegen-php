@@ -13,9 +13,9 @@ use Codegen\Modals\CogSpecsJava;
 use Codegen\Modals\CogSpecsCsharp;
 use Codegen\Modals\CogSpecsPhp;
 use Codegen\Modals\DtoCodeGen;
-use Codegen\Modals\ICogFicSpecs;
-use Codegen\Modals\ISpecsFiMeta;
-use Codegen\Modals\SpecsCsharpFiMeta;
+use Codegen\Modals\ICogSpecs;
+use Codegen\Modals\ICogSpecsFiMeta;
+use Codegen\Modals\CogSpecsCsharpFiMeta;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\FiExcel\FiExcel;
 use Engtuncay\Phputils8\FiCsv\FiCsv;
@@ -124,7 +124,7 @@ class CodegenCont extends BaseController
     if ($selCsharp == 2) {
       log_message('info', 'selCsharp-2');
       $cogSpecs = new CogSpecsCsharp();
-      $specsCsharpFiMeta = new SpecsCsharpFiMeta();
+      $specsCsharpFiMeta = new CogSpecsCsharpFiMeta();
       list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassByFiColTempFromFile($uploadedFile, $cogSpecs, $specsCsharpFiMeta);
     }
 
@@ -206,10 +206,10 @@ class CodegenCont extends BaseController
   /**
    * 
    * @param mixed $sourceFile
-   * @param ICogFicSpecs $iCogSpecs
+   * @param ICogSpecs $iCogSpecs
    * @return array
    */
-  public function genFiColClassesFromFile(mixed $sourceFile, ICogFicSpecs $iCogSpecs): array
+  public function genFiColClassesFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs): array
   {
     
     $fdrData = self::convertFileToFkbList($sourceFile);
@@ -245,10 +245,10 @@ class CodegenCont extends BaseController
   /**
    * 
    * @param mixed $sourceFile
-   * @param ICogFicSpecs $iCogSpecs
+   * @param ICogSpecs $iCogSpecs
    * @return array
    */
-  public function genFkbColClassesFromFile(mixed $sourceFile, ICogFicSpecs $iCogSpecs): array
+  public function genFkbColClassesFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs): array
   {
     
     $fdrData = self::convertFileToFkbList($sourceFile);
@@ -314,10 +314,10 @@ class CodegenCont extends BaseController
 
   /**
    * @param mixed $sourceFile
-   * @param ICogFicSpecs $iCogSpecs
+   * @param ICogSpecs $iCogSpecs
    * @return array
    */
-  public function genFiMetaClassesFromFile(mixed $sourceFile, ICogFicSpecs $iCogSpecs): array
+  public function genFiMetaClassesFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs): array
   { 
     //array|string $fileExtension,
 
@@ -354,10 +354,10 @@ class CodegenCont extends BaseController
 
   /**
    * @param mixed $sourceFile
-   * @param ICogFicSpecs $iCogSpecs
+   * @param ICogSpecs $iCogSpecs
    * @return array
    */
-  public function genFiMetaClassByFiColTempFromFile(mixed $sourceFile, ICogFicSpecs $iCogSpecs, ISpecsFiMeta $iSpecsFiMeta): array
+  public function genFiMetaClassByFiColTempFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs, ICogSpecsFiMeta $iSpecsFiMeta): array
   { 
     //array|string $fileExtension,
 

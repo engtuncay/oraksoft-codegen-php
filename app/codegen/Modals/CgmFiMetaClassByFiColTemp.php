@@ -24,11 +24,11 @@ class CgmFiMetaClassByFiColTemp
    * Generate FiMeta Class from FkbList
    *
    * @param FkbList $fkbList
-   * @param CogSpecsCsharp| null $iCogSpecs
-   * @param SpecsCsharpFiMeta| null $iSpecsFiMeta
+   * @param CogSpecsCsharp| null $iCogSpecs sadece className ve methodName standartları için kullanılır
+   * @param CogSpecsCsharpFiMeta| null $iSpecsFiMeta
    * @return string
    */
-  public static function actGenFiMetaClassByFkbList(FkbList $fkbList, ICogFicSpecs $iCogSpecs = null, ISpecsFiMeta $iSpecsFiMeta = null): string
+  public static function actGenFiMetaClassByFkbList(FkbList $fkbList, ICogSpecs $iCogSpecs = null, ICogSpecsFiMeta $iSpecsFiMeta = null): string
   {
 
     if ($iCogSpecs == null) return "";
@@ -55,7 +55,7 @@ class CgmFiMetaClassByFiColTemp
       /**
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
        */
-      $sbFiColMethodBody = $iCogSpecs->genFiMetaMethodBodyByFiColTemp($fkbItem); //StringBuilder
+      $sbFiColMethodBody = $iSpecsFiMeta->genFiMetaMethodBodyByFiColTemp($fkbItem); //StringBuilder
 
       //$sbFiColAddDescDetail->append($iCogSpecs->genFiColAddDescDetail($fkbItem)->toString());
 

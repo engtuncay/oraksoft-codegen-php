@@ -22,7 +22,7 @@ class CgmFiMetaClass
    * @param CogSpecsPhp| null $iCogSpecs
    * @return string
    */
-  public static function actGenFiMetaClassByFkb(FkbList $fkbList, CogSpecsPhp $iCogSpecs = null): string
+  public static function actGenFiMetaClassByFkb(FkbList $fkbList, CogSpecsPhp $iCogSpecs = null, ICogSpecsFiMeta $iSpecsFiMeta = null): string
   {
 
     if ($iCogSpecs == null) return "";
@@ -39,7 +39,7 @@ class CgmFiMetaClass
     $sbFclListBodyTrans = new FiStrbui();
     $sbFiColAddDescDetail = new FiStrbui();
 
-    $templateMethod = $iCogSpecs->getTemplateFiMetaMethod();
+    $templateMethod = $iSpecsFiMeta->getTemplateFiMetaMethod();
     //$templateFiColMethodExtra = $iFiColClass->getTemplateFiColMethodExtra();
 
     /**
@@ -50,7 +50,7 @@ class CgmFiMetaClass
       /**
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
        */
-      $sbFiColMethodBody = $iCogSpecs->genFiMetaMethodBody($fkbItem); //StringBuilder
+      $sbFiColMethodBody = $iSpecsFiMeta->genFiMetaMethodBody($fkbItem); //StringBuilder
 
       //$sbFiColAddDescDetail->append($iCogSpecs->genFiColAddDescDetail($fkbItem)->toString());
 
@@ -90,19 +90,19 @@ class CgmFiMetaClass
     }
 
     // String
-    $tempGenFiCols = $iCogSpecs->getTempGenFmtColsMethod();
+    //$tempGenFiCols = $iSpecsFiMeta->getTempGenFmtColsMethod();
 
     // String
-    $txResGenTableColsMethod = FiTemplate::replaceParams($tempGenFiCols, FiKeybean::bui()->buiPut("fmtListBody", $sbFclListBody->toString()));
+    //$txResGenTableColsMethod = FiTemplate::replaceParams($tempGenFiCols, FiKeybean::bui()->buiPut("fmtListBody", $sbFclListBody->toString()));
 
-    $sbClassBody->append("\n")->append($txResGenTableColsMethod)->append("\n");
-
-    // String
-    $tempGenFiColsTrans = $iCogSpecs->getTempGenFmtColsTransList();
+    //$sbClassBody->append("\n")->append($txResGenTableColsMethod)->append("\n");
 
     // String
-    $txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeybean::bui()->buiPut("fmtListBodyTrans", $sbFclListBodyTrans->toString()));
-    $sbClassBody->append("\n")->append($txResGenTableColsMethodTrans)->append("\n");
+    //$tempGenFiColsTrans = $iSpecsFiMeta->getTempGenFmtColsTransList();
+
+    // String
+    //$txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeybean::bui()->buiPut("fmtListBodyTrans", $sbFclListBodyTrans->toString()));
+    //$sbClassBody->append("\n")->append($txResGenTableColsMethodTrans)->append("\n");
 
     //$tempGenFiColsExt = $iCogSpecs->getTempGenFiColsExtraList();
 
@@ -130,7 +130,7 @@ class CgmFiMetaClass
     $fkbParamsMain->add("addFieldDescDetail", $sbFiColAddDescDetail->toString());
 
     // String
-    $templateMain = $iCogSpecs->getTemplateFiMetaClass();
+    $templateMain = $iSpecsFiMeta->getTemplateFiMetaClass();
     $txResult = FiTemplate::replaceParams($templateMain, $fkbParamsMain);
 
     return $txResult;
