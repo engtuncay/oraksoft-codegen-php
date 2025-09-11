@@ -11,7 +11,7 @@ use Engtuncay\Phputils8\FiDto\FiKeybean;
 use Engtuncay\Phputils8\FiDto\FkbList;
 
 /**
- * Code Generator Modal (Cgm) for FiColClass ve FiMetaClass (For All Languages)
+ * Code Generator Modal (Cgm) for FiColClass (For All Languages)
  */
 class CgmFiColClass
 {
