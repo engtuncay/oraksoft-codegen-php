@@ -12,21 +12,6 @@ use Engtuncay\Phputils8\FiDto\FiKeybean;
 class CogSpecsCSharpFiCol implements ICogSpecsFiCol
 {
 
-  public function getTemplateFiColClass(): string
-  {
-    //String
-    $template = <<<EOD
-using OrakYazilimLib.Util.core;
-
-public class {{classPref}}{{entityName}}
-{
-{{classBody}}
-}
-EOD;
-
-    return $template;
-  }
-
   public function getTemplateFiColMethod(): string
   {
     return <<<EOD
@@ -55,7 +40,10 @@ EOD;
   {
     //String
     $templateMain = <<<EOD
+using OrakYazilimLib.Util.core;
 
+public class {{classPref}}{{entityName}}
+{
 
   public static string GetTxTableName()
   {

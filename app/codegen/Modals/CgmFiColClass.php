@@ -21,7 +21,7 @@ class CgmFiColClass
    *
    * @param FkbList $fkbList
    * @param CogSpecsPhp|null $iCogSpecs
-   * @param CogSpecsPhpFiCol|null $iCogSpecsFiCol
+   * @param CogSpecsCSharpFiCol|null $iCogSpecsFiCol
    * @return string
    */
   public static function actGenFiColClassByFkb(FkbList $fkbList, ICogSpecs $iCogSpecs = null, ICogSpecsFiCol $iCogSpecsFiCol = null): string

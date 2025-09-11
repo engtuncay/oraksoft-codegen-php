@@ -11,11 +11,16 @@ use Codegen\Modals\CgmFiMetaClassByFiColTemp;
 use Codegen\Modals\CgmFkbColClass;
 use Codegen\Modals\CogSpecsJava;
 use Codegen\Modals\CogSpecsCsharp;
+use Codegen\Modals\CogSpecsCSharpFiCol;
 use Codegen\Modals\CogSpecsPhp;
 use Codegen\Modals\DtoCodeGen;
 use Codegen\Modals\ICogSpecs;
 use Codegen\Modals\ICogSpecsFiMeta;
 use Codegen\Modals\CogSpecsCsharpFiMeta;
+use Codegen\Modals\CogSpecsJavaFiCol;
+use Codegen\Modals\CogSpecsPhpFiCol;
+use Codegen\Modals\CogSpecsPhpFiMeta;
+use Codegen\Modals\ICogSpecsFiCol;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\FiExcel\FiExcel;
 use Engtuncay\Phputils8\FiCsv\FiCsv;
@@ -118,24 +123,27 @@ class CodegenCont extends BaseController
     if ($selCsharp == 1) {
       log_message('info', 'selCsharp');
       $cogSpecs = new CogSpecsCsharp();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs);
+      $cogSpecsFiCol = new CogSpecsCSharpFiCol();
+      list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs,$cogSpecsFiCol);
     }
 
     if ($selCsharp == 2) {
       log_message('info', 'selCsharp-2');
       $cogSpecs = new CogSpecsCsharp();
-      $specsCsharpFiMeta = new CogSpecsCsharpFiMeta();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassByFiColTempFromFile($uploadedFile, $cogSpecs, $specsCsharpFiMeta);
+      $cogSpecsFiMeta = new CogSpecsCsharpFiMeta();
+      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassByFiColTempFromFile($uploadedFile, $cogSpecs, $cogSpecsFiMeta);
     }
 
     if ($selPhp == 1) {
       $cogSpecs = new CogSpecsPhp();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs);
+      $cogSpecsFiCol = new CogSpecsPhpFiCol();
+      list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs,$cogSpecsFiCol);
     }
 
     if ($selPhp == 2) {
       $cogSpecs = new CogSpecsPhp();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassesFromFile($uploadedFile, $cogSpecs);
+      $cogSpecsFiMeta = new CogSpecsPhpFiMeta();
+      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassesFromFile($uploadedFile, $cogSpecs, $cogSpecsFiMeta);
     }
 
     if ($selPhp == 3) {
@@ -145,7 +153,8 @@ class CodegenCont extends BaseController
 
     if ($selJava == 1) {
       $cogSpecs = new CogSpecsJava();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs);
+      $cogSpecsFiCol = new CogSpecsJavaFiCol();
+      list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs, $cogSpecsFiCol);
     }
 
     if ($selSql == 1) {
@@ -206,10 +215,11 @@ class CodegenCont extends BaseController
   /**
    * 
    * @param mixed $sourceFile
-   * @param ICogSpecs $iCogSpecs
+   * @param CogSpecsCsharp|null $iCogSpecs
+   * @param CogSpecsCSharpFiCol|null $iCogSpecsFiCol
    * @return array
    */
-  public function genFiColClassesFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs): array
+  public function genFiColClassesFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs, ICogSpecsFiCol $iCogSpecsFiCol): array
   {
     
     $fdrData = self::convertFileToFkbList($sourceFile);
@@ -229,7 +239,7 @@ class CodegenCont extends BaseController
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();
       $sbTxCodeGen1->append("// FiCol Class Generation v1\n");
-      $sbTxCodeGen1->append(CgmFiColClass::actGenFiColClassByFkb($fkbList, $iCogSpecs));
+      $sbTxCodeGen1->append(CgmFiColClass::actGenFiColClassByFkb($fkbList, $iCogSpecs, $iCogSpecsFiCol));
       $sbTxCodeGen1->append("\n");
       $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
       $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
@@ -317,7 +327,7 @@ class CodegenCont extends BaseController
    * @param ICogSpecs $iCogSpecs
    * @return array
    */
-  public function genFiMetaClassesFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs): array
+  public function genFiMetaClassesFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs,ICogSpecsFiMeta $iCogSpecsFiMeta): array
   { 
     //array|string $fileExtension,
 
@@ -338,7 +348,7 @@ class CodegenCont extends BaseController
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();
       $sbTxCodeGen1->append("// Codegen v2\n");
-      $sbTxCodeGen1->append(CgmFiMetaClass::actGenFiMetaClassByFkb($fkbList, $iCogSpecs));
+      $sbTxCodeGen1->append(CgmFiMetaClass::actGenFiMetaClassByFkb($fkbList, $iCogSpecs, $iCogSpecsFiMeta));
       $sbTxCodeGen1->append("\n");
       $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
       $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
