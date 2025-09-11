@@ -10,7 +10,7 @@ use Engtuncay\Phputils8\FiCol\FicFiCol;
 use Engtuncay\Phputils8\FiCol\FicValue;
 use Engtuncay\Phputils8\FiDto\FiKeybean;
 
-class SpecsJavaFkbCol implements ICogSpecsFkbCol
+class CogSpecsJavaFkbCol implements ICogSpecsFkbCol
 {
   
   public function getTempGenFkbColsList(): string
