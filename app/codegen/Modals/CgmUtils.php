@@ -124,7 +124,7 @@ class CgmUtils
    * @param string|null $fieldName
    * @return string
    */
-  public static function convertFieldNameToLowerCamelCase(string $fieldName): string
+  public static function convertToLowerCamelCase(string $fieldName): string
   {
     // Başlangıçta eğer fieldName boşsa direkt döndür
     if (FiString::isEmpty($fieldName)) return "";

@@ -30,40 +30,43 @@ class CogSpecsJava implements ICogSpecs
    */
   public function checkMethodNameStd(mixed $fieldName): string
   {
-    // Başlangıçta eğer fieldName boşsa direkt döndür
-    if (empty($fieldName)) return "";
+    return CgmUtils::convertToLowerCamelCase($fieldName);
+    
+    // // Başlangıçta eğer fieldName boşsa direkt döndür
+    // if (empty($fieldName)) return "";
 
-    if (!FiString::hasLowercaseLetter($fieldName)) {
-      $fieldName = strtolower($fieldName);
-      return $fieldName; // ucfirst($fieldName);
-    } else {
-      $characters = str_split($fieldName); // Dizeyi karakterlere böl
-      $result = ''; // Sonuç dizesi oluştur
-      $length = count($characters);
+    // if (!FiString::hasLowercaseLetter($fieldName)) {
+    //   $fieldName = strtolower($fieldName);
+    //   return $fieldName; // ucfirst($fieldName);
+    // } else {
+    //   $characters = str_split($fieldName); // Dizeyi karakterlere böl
+    //   $result = ''; // Sonuç dizesi oluştur
+    //   $length = count($characters);
 
-      for ($i = 0; $i < $length; $i++) {
-        // İlk harf her zaman küçük kalacak
-        if ($i === 0) {
-          $result .= strtolower($characters[$i]);
-          $characters[$i] = strtolower($characters[$i]);
-          continue;
-        }
+    //   for ($i = 0; $i < $length; $i++) {
+    //     // İlk harf her zaman küçük kalacak
+    //     if ($i === 0) {
+    //       $result .= strtolower($characters[$i]);
+    //       $characters[$i] = strtolower($characters[$i]);
+    //       continue;
+    //     }
 
-        // Kendinden önceki küçükse veya büyükse, aynen ekle
-        if (ctype_lower($characters[$i - 1]) || ctype_upper($characters[$i - 1])) { // && ctype_lower($characters[$i])
-          $result .= $characters[$i];
-        } // Kendinden önceki büyükse, aynen ekle
-        //        else if (ctype_upper($characters[$i - 1])) {
-        //          $result .= $characters[$i];
-        //        }
-        else { // Kendinden önceki sayı vs ise büyült
-          $result .= strtoupper($characters[$i]);
-        }
-      }
+    //     // Kendinden önceki küçükse veya büyükse, aynen ekle
+    //     if (ctype_lower($characters[$i - 1]) || ctype_upper($characters[$i - 1])) { // && ctype_lower($characters[$i])
+    //       $result .= $characters[$i];
+    //     } // Kendinden önceki büyükse, aynen ekle
+    //     //        else if (ctype_upper($characters[$i - 1])) {
+    //     //          $result .= $characters[$i];
+    //     //        }
+    //     else { // Kendinden önceki sayı vs ise büyült
+    //       $result .= strtoupper($characters[$i]);
+    //     }
+    //   }
 
-      return $result;
-    }
+    //   return $result;
+    //}
   }
+
 
 
   
