@@ -68,37 +68,12 @@ class CogSpecsCsharp implements ICogFicSpecs
 
   public function getTemplateFiMetaMethod(): string
   {
-        //String
-    $template = <<<EOD
-use Engtuncay\Phputils8\FiDto\FiMeta;
-use Engtuncay\Phputils8\FiDto\FmtList;
-
-class {{classPref}}{{entityName}} {
-
-{{classBody}}
-
-}
-EOD;
-
-    return $template;
+    return "";
   }
 
   public static function getTemplateFiMetaClass(): string
   {
-    //String
-    $templateMain = <<<EOD
-      
-use Engtuncay\Phputils8\FiDto\FiMeta;
-use Engtuncay\Phputils8\FiDto\FmtList;
-
-class {{entityName}} {
-
-{{classBody}}
-
-}
-EOD;
-
-    return $templateMain;
+    return "";
   }
 
   /**
