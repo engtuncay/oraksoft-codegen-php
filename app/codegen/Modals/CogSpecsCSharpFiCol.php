@@ -279,7 +279,7 @@ EOD;
     $sbFclListBodyTrans->append("ficList.Add($methodName());\n");
   }
 
-  public function genFiColAddDescDetail(FiKeybean $fkbItem, ICogSpecs $iCogFicSpecs): FiStrbui
+  public function genFiColAddDescDetail(FiKeybean $fkbItem, ICogSpecs $iCogSpecs): FiStrbui
   {
     //StringBuilder
     $sbText = new FiStrbui(); // new StringBuilder();
@@ -287,7 +287,7 @@ EOD;
     $ofcTxFielDesc = $fkbItem->getValueByFiCol(FicFiCol::ofcTxDesc());
 
     if (!FiString::isEmpty($ofcTxFielDesc)) {
-      $methodNameStd = $iCogFicSpecs->checkMethodNameStd($fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName()));
+      $methodNameStd = $iCogSpecs->checkMethodNameStd($fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName()));
 
       $sbText->append(
         <<<EOD
