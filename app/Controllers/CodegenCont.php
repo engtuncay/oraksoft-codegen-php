@@ -122,11 +122,30 @@ class CodegenCont extends BaseController
     //stdClass nesnesine dönüştür
     //$formObject = (object)$formData;
 
+    $cogSpecs = null;
+    $cogSpecsFiCol = null;
+    $cogSpecsFiMeta = null;
+    $cogSpecsFkbCol = null;
+
     if ($selCsharp == 1) {
-      log_message('info', 'selCsharp');
+      //log_message('info', 'selCsharp');
       $cogSpecs = new CogSpecsCsharp();
       $cogSpecsFiCol = new CogSpecsCSharpFiCol();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs,$cogSpecsFiCol);
+    }
+
+    if ($selPhp == 1) {
+      $cogSpecs = new CogSpecsPhp();
+      $cogSpecsFiCol = new CogSpecsPhpFiCol();
+    }
+
+    if ($selJava == 1) {
+      $cogSpecs = new CogSpecsJava();
+      $cogSpecsFiCol = new CogSpecsJavaFiCol();
+    }
+
+    // FiColClass üretimi (C#, Java, Php)
+    if ($selPhp == 1 || $selJava == 1 || $selCsharp == 1) {
+      list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs, $cogSpecsFiCol);
     }
 
     if ($selCsharp == 2) {
@@ -134,12 +153,6 @@ class CodegenCont extends BaseController
       $cogSpecs = new CogSpecsCsharp();
       $cogSpecsFiMeta = new CogSpecsCsharpFiMeta();
       list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassByFiColTempFromFile($uploadedFile, $cogSpecs, $cogSpecsFiMeta);
-    }
-
-    if ($selPhp == 1) {
-      $cogSpecs = new CogSpecsPhp();
-      $cogSpecsFiCol = new CogSpecsPhpFiCol();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs,$cogSpecsFiCol);
     }
 
     if ($selPhp == 2) {
@@ -151,30 +164,23 @@ class CodegenCont extends BaseController
     if ($selPhp == 3) {
       $cogSpecs = new CogSpecsPhp();
       $cogSpecsFkbCol = new CogSpecsPhpFkbCol();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($uploadedFile, $cogSpecs,$cogSpecsFkbCol);
-    }
-
-    if ($selJava == 1) {
-      $cogSpecs = new CogSpecsJava();
-      $cogSpecsFiCol = new CogSpecsJavaFiCol();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs, $cogSpecsFiCol);
+      list($fdrData, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($uploadedFile, $cogSpecs, $cogSpecsFkbCol);
     }
 
     if ($selSql == 1) {
-      $fdrData = self::convertFileToFkbList($uploadedFile); 
+      $fdrData = self::convertFileToFkbList($uploadedFile);
       $fdrCdgSql = CgmCdgSqlserver::actGenSqlCreateTable($fdrData->getFkbListInit());
 
-       $data = [
-      'fdrData' => $fdrCdgSql,
-      'arrDtoCodeGenPack' => $fdrCdgSql->getFkbValue()->getParams(),
-      'sbTxCodeGen' => $sbTxCodeGen,
-      'txCodeGenExtra' => $txCodeGenExtra,
-      'formData' => $formObject ?? null
-    ];
+      $data = [
+        'fdrData' => $fdrCdgSql,
+        'arrDtoCodeGenPack' => $fdrCdgSql->getFkbValue()->getParams(),
+        'sbTxCodeGen' => $sbTxCodeGen,
+        'txCodeGenExtra' => $txCodeGenExtra,
+        'formData' => $formObject ?? null
+      ];
 
-    // (codegen)[../Views/codegen.php] 
-    return view('codegen', $data);
-      
+      // (codegen)[../Views/codegen.php] 
+      return view('codegen', $data);
     }
 
     endExcelOkuma:
@@ -224,7 +230,7 @@ class CodegenCont extends BaseController
    */
   public function genFiColClassesFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs, ICogSpecsFiCol $iCogSpecsFiCol): array
   {
-    
+
     $fdrData = self::convertFileToFkbList($sourceFile);
     $fkbListData = $fdrData->getFkbListInit();
     //echo var_export($fkbListExcel, true);
@@ -263,7 +269,7 @@ class CodegenCont extends BaseController
    */
   public function genFkbColClassesFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs, ICogSpecsFkbCol $iCogSpecsFkbCol): array
   {
-    
+
     $fdrData = self::convertFileToFkbList($sourceFile);
     $fkbListData = $fdrData->getFkbListInit();
     //echo var_export($fkbListExcel, true);
@@ -330,15 +336,15 @@ class CodegenCont extends BaseController
    * @param ICogSpecs $iCogSpecs
    * @return array
    */
-  public function genFiMetaClassesFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs,ICogSpecsFiMeta $iCogSpecsFiMeta): array
-  { 
+  public function genFiMetaClassesFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs, ICogSpecsFiMeta $iCogSpecsFiMeta): array
+  {
     //array|string $fileExtension,
 
     $fdrData = self::convertFileToFkbList($sourceFile);
     $fkbListData = $fdrData->getFkbListInit();
 
     //echo var_export($fkbListExcel, true);
-    
+
     /** @var FkbList[] $mapEntityToFkbList */
     $mapEntityToFkbList = CgmUtils::mapEntityToFkbList($fkbListData);
 
@@ -371,14 +377,14 @@ class CodegenCont extends BaseController
    * @return array
    */
   public function genFiMetaClassByFiColTempFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs, ICogSpecsFiMeta $iSpecsFiMeta): array
-  { 
+  {
     //array|string $fileExtension,
 
     $fdrData = self::convertFileToFkbList($sourceFile);
     $fkbListData = $fdrData->getFkbListInit();
 
     //echo var_export($fkbListExcel, true);
-    
+
     /** @var FkbList[] $mapEntityToFkbList */
     $mapEntityToFkbList = CgmUtils::mapEntityToFkbList($fkbListData);
 
