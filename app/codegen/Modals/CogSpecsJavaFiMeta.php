@@ -8,20 +8,11 @@ use Engtuncay\Phputils8\FiDto\FiKeybean;
 
 class CogSpecsJavaFiMeta implements ICogSpecsFiMeta
 {
-  public function genFiMetaMethodBody(FiKeybean $fkb): FiStrbui
-  {
-    return new FiStrbui();
-  }
 
-  public function genFiMetaMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui
-  {
-    return new FiStrbui();
-  }
   public function getTemplateFiMetaClass(): string
   {
     //String
     $template = <<<EOD
-
 public class {{classPref}}{{entityName}} {
 
 {{classBody}}
@@ -45,7 +36,7 @@ EOD;
     return $template;
   }
 
-  public function genFiMetaMethodBodyFieldDefs(FiKeybean $fkb): FiStrbui
+  public function genFiMetaMethodBody(FiKeybean $fkb): FiStrbui
   {
     //StringBuilder
     $sbFmtMethodBodyFieldDefs = new FiStrbui();
@@ -61,5 +52,10 @@ EOD;
     }
 
     return $sbFmtMethodBodyFieldDefs;
+  }
+
+  public function genFiMetaMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui
+  {
+    return new FiStrbui();
   }
 }

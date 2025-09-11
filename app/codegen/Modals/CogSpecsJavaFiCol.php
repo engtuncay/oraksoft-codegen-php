@@ -1,4 +1,5 @@
 <?php
+
 namespace Codegen\Modals;
 
 
@@ -11,33 +12,8 @@ use Engtuncay\Phputils8\FiDto\FiKeybean;
 
 class CogSpecsJavaFiCol implements ICogSpecsFiCol
 {
-  // 
-    public function getTemplateFiColMethod(): string
-  {
-    return <<<EOD
-public static FiCol {{fieldMethodName}}()
-{
-  FiCol fiCol = new FiCol("{{fieldName}}");
-{{fiColMethodBody}}
-  return fiCol;
-}
-EOD;
-  }
 
-
-    public function getTemplateFiColMethodExtra(): string
-  {
-    return <<<EOD
-public static FiCol {{fieldMethodName}}Ext()
-{
-  FiCol fiCol = {{fieldMethodName}}();
-{{fiColMethodBody}}
-  return fiCol;
-}
-EOD;
-  }
-
-    /**
+  /**
    * FicEntity Class -> FiCols
    *
    * @return string
@@ -95,6 +71,34 @@ EOD;
 
     return $templateMain;
   }
+
+  // 
+  public function getTemplateFiColMethod(): string
+  {
+    return <<<EOD
+public static FiCol {{fieldMethodName}}()
+{
+  FiCol fiCol = new FiCol("{{fieldName}}");
+{{fiColMethodBody}}
+  return fiCol;
+}
+EOD;
+  }
+
+
+  public function getTemplateFiColMethodExtra(): string
+  {
+    return <<<EOD
+public static FiCol {{fieldMethodName}}Ext()
+{
+  FiCol fiCol = {{fieldMethodName}}();
+{{fiColMethodBody}}
+  return fiCol;
+}
+EOD;
+  }
+
+
 
 
   public function genFiColMethodBodyDetail(FiKeybean $fkbItem): FiStrbui
@@ -258,12 +262,10 @@ EOD;
   }
 
 
-  public function genFiColAddDescDetail(FiKeybean $fkbItem,ICogSpecs $cogFicSpecs): FiStrbui
+  public function genFiColAddDescDetail(FiKeybean $fkbItem, ICogSpecs $iCogSpecs): FiStrbui
   {
     // TODO: Implement genFiColAddDescBody() method.
     $sbFiColAddDescBody = new FiStrbui();
     return $sbFiColAddDescBody;
   }
-
-
 }

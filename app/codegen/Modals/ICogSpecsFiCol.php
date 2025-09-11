@@ -13,11 +13,11 @@ interface ICogSpecsFiCol
 
   //public function getTemplateFiColClass():string;
 
+  public function getTemplateFicClass(): string;
+
   public function getTemplateFiColMethod():string;
 
   public function getTemplateFiColMethodExtra(): string;
-
-  public function getTemplateFicClass(): string;
 
   public function getTempGenFiColsTransList(): string;
 
