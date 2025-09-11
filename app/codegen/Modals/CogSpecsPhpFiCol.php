@@ -13,7 +13,7 @@ use Engtuncay\Phputils8\FiDto\FiKeybean;
 class CogSpecsPhpFiCol implements ICogSpecsFiCol
 {
   //
-    public function genFiMetaMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui
+  public function genFiMetaMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui
   {
     return new FiStrbui();
   }
@@ -36,7 +36,7 @@ EOD;
     return $templateMain;
   }
 
-  
+
 
   public function getTemplateFiColMethod(): string
   {
@@ -629,8 +629,4 @@ EOD
 
     return $sbText;
   }
- 
-
-
-
 }

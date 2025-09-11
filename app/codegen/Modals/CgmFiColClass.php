@@ -21,9 +21,10 @@ class CgmFiColClass
    *
    * @param FkbList $fkbList
    * @param CogSpecsPhp|null $iCogSpecs
+   * @param CogSpecsPhpFiCol|null $iCogSpecsFiCol
    * @return string
    */
-  public static function actGenFiColClassByFkb(FkbList $fkbList, ICogSpecs $iCogSpecs = null, ICogSpecsFiCol $iSpecsFiCol = null): string
+  public static function actGenFiColClassByFkb(FkbList $fkbList, ICogSpecs $iCogSpecs = null, ICogSpecsFiCol $iCogSpecsFiCol = null): string
   {
 
     if($iCogSpecs==null) return "";
@@ -40,7 +41,7 @@ class CgmFiColClass
     $sbFclListBodyTrans = new FiStrbui();
     $sbFiColAddDescDetail = new FiStrbui();
 
-    $templateFiColMethod = $iSpecsFiCol->getTemplateFiColMethod();
+    $templateFiColMethod = $iCogSpecsFiCol->getTemplateFiColMethod();
     //$templateFiColMethodExtra = $iFiColClass->getTemplateFiColMethodExtra();
 
     /**
@@ -51,9 +52,9 @@ class CgmFiColClass
       /**
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
        */
-      $sbFiColMethodBody = $iSpecsFiCol->genFiColMethodBodyDetail($fkbItem); //StringBuilder
+      $sbFiColMethodBody = $iCogSpecsFiCol->genFiColMethodBodyDetail($fkbItem); //StringBuilder
 
-      $sbFiColAddDescDetail->append($iSpecsFiCol->genFiColAddDescDetail($fkbItem,$iCogSpecs)->toString());
+      $sbFiColAddDescDetail->append($iCogSpecsFiCol->genFiColAddDescDetail($fkbItem,$iCogSpecs)->toString());
 
       //FiKeybean
       $fkbFiColMethodBody = new FiKeybean();
@@ -90,10 +91,10 @@ class CgmFiColClass
       $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
 
       if (!$ofcBoTransient === true) {
-        $iSpecsFiCol->doNonTransientFieldOps($sbFclListBody, $methodName);
+        $iCogSpecsFiCol->doNonTransientFieldOps($sbFclListBody, $methodName);
         //sbFclListBody.append("\tfclList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
       } else {
-        $iSpecsFiCol->doTransientFieldOps($sbFclListBodyTrans, $methodName);
+        $iCogSpecsFiCol->doTransientFieldOps($sbFclListBodyTrans, $methodName);
         //sbFclListBodyTrans.append("\tfclList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
       }
 
@@ -101,7 +102,7 @@ class CgmFiColClass
     }
 
     // String
-    $tempGenFiCols = $iSpecsFiCol->getTempGenFiColsMethod();
+    $tempGenFiCols = $iCogSpecsFiCol->getTempGenFiColsMethod();
 
     // String
     $txResGenTableColsMethod = FiTemplate::replaceParams($tempGenFiCols, FiKeybean::bui()->buiPut("ficListBody", $sbFclListBody->toString()));
@@ -109,13 +110,13 @@ class CgmFiColClass
     $sbClassBody->append("\n")->append($txResGenTableColsMethod)->append("\n");
 
     // String
-    $tempGenFiColsTrans = $iSpecsFiCol->getTempGenFiColsTransList();
+    $tempGenFiColsTrans = $iCogSpecsFiCol->getTempGenFiColsTransList();
 
     //    String
     $txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeybean::bui()->buiPut("ficListBodyTrans", $sbFclListBodyTrans->toString()));
     $sbClassBody->append("\n")->append($txResGenTableColsMethodTrans)->append("\n");
 
-    $tempGenFiColsExt = $iSpecsFiCol->getTempGenFiColsExtraList();
+    $tempGenFiColsExt = $iCogSpecsFiCol->getTempGenFiColsExtraList();
 
     //$txResGenTableColsMethodExtra = FiTemplate::replaceParams($tempGenFiColsExt, FiKeybean::bui()->buiPut("ficListBodyExtra", $sbFclListBodyExtra->toString()));
     //$sbClassBody->append("\n")->append($txResGenTableColsMethodExtra)->append("\n");
@@ -141,7 +142,7 @@ class CgmFiColClass
     $fkbParamsMain->add("addFieldDescDetail", $sbFiColAddDescDetail->toString());
 
     // String
-    $templateMain = $iSpecsFiCol->getTemplateFicClass();
+    $templateMain = $iCogSpecsFiCol->getTemplateFicClass();
     $txResult = FiTemplate::replaceParams($templateMain, $fkbParamsMain);
 
     return $txResult;
