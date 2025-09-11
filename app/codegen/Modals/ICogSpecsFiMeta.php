@@ -17,13 +17,6 @@ interface ICogSpecsFiMeta
 
   public function genFiMetaMethodBody(FiKeybean $fkb): FiStrbui;
 
-  //public function genFiMetaMethodBody(FiKeybean $fkbItem): FiStrbui;
-
-  // public function genFiMetaMethodBodyFieldDefs(FiKeybean $fkb): FiStrbui;
-
   public function genFiMetaMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui;
-
-  // cogspecs içinde 
-  //public function genFiMetaMethodBody(FiKeybean $fkbItem): FiStrbui;
 
 }

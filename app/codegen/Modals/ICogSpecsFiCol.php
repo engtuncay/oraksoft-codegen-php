@@ -35,7 +35,4 @@ interface ICogSpecsFiCol
 
   public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, string $methodName): void;
 
-  // cogspecs içinde
-  //public function genFiColMethodBody(FiKeybean $fkbItem): FiStrbui;
-
 }
