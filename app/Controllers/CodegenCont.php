@@ -20,7 +20,9 @@ use Codegen\Modals\CogSpecsCsharpFiMeta;
 use Codegen\Modals\CogSpecsJavaFiCol;
 use Codegen\Modals\CogSpecsPhpFiCol;
 use Codegen\Modals\CogSpecsPhpFiMeta;
+use Codegen\Modals\CogSpecsPhpFkbCol;
 use Codegen\Modals\ICogSpecsFiCol;
+use Codegen\Modals\ICogSpecsFkbCol;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\FiExcel\FiExcel;
 use Engtuncay\Phputils8\FiCsv\FiCsv;
@@ -148,7 +150,8 @@ class CodegenCont extends BaseController
 
     if ($selPhp == 3) {
       $cogSpecs = new CogSpecsPhp();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($uploadedFile, $cogSpecs);
+      $cogSpecsFkbCol = new CogSpecsPhpFkbCol();
+      list($fdrData, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($uploadedFile, $cogSpecs,$cogSpecsFkbCol);
     }
 
     if ($selJava == 1) {
@@ -258,7 +261,7 @@ class CodegenCont extends BaseController
    * @param ICogSpecs $iCogSpecs
    * @return array
    */
-  public function genFkbColClassesFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs): array
+  public function genFkbColClassesFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs, ICogSpecsFkbCol $iCogSpecsFkbCol): array
   {
     
     $fdrData = self::convertFileToFkbList($sourceFile);
@@ -278,7 +281,7 @@ class CodegenCont extends BaseController
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();
       $sbTxCodeGen1->append("// Codegen v2\n");
-      $sbTxCodeGen1->append(CgmFkbColClass::actGenClassByFkbList($fkbList, $iCogSpecs));
+      $sbTxCodeGen1->append(CgmFkbColClass::actGenClassByFkbList($fkbList, $iCogSpecs, $iCogSpecsFkbCol));
       $sbTxCodeGen1->append("\n");
       $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
       $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
