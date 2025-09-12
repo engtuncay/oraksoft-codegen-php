@@ -92,7 +92,7 @@ EOD;
     return $templateMain;
   }
 
-  public function genFiColMethodBodyDetail(FiKeybean $fkbItem): FiStrbui
+  public function genFiColMethodBody(FiKeybean $fkbItem): FiStrbui
   {
     //StringBuilder
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
@@ -212,7 +212,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTempGenFiColsExtraList(): string
+  public function getTemplateFiColsExtraListMethod(): string
   {
     return <<<EOD
 public static FicList GenTableColsExtra() {
@@ -228,7 +228,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTempGenFiColsTransList(): string
+  public function getTemplateFiColsTransListMethod(): string
   {
     return <<<EOD
 public static FicList GenTableColsTrans() {
@@ -244,7 +244,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTempGenFiColsMethod(): string
+  public function getTemplateFiColsListMethod(): string
   {
     return <<<EOD
 public static FicList GenTableCols() {

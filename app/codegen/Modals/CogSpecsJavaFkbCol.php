@@ -13,12 +13,12 @@ use Engtuncay\Phputils8\FiDto\FiKeybean;
 class CogSpecsJavaFkbCol implements ICogSpecsFkbCol
 {
   
-  public function getTempGenFkbColsList(): string
+  public function getTemplateFkbColsListMethod(): string
   {
     return "";
   }
 
-  public function genFkbColMethodBodyDetail(FiKeybean $fkbItem): FiStrbui
+  public function genFkbColMethodBody(FiKeybean $fkbItem): FiStrbui
   {
     return new FiStrbui();
   }
@@ -236,7 +236,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTempGenFkbColsTransList(): string
+  public function getTemplateFkbColsListTransMethod(): string
   {
     return <<<EOD
 public static FiColList genTableColsTrans() {

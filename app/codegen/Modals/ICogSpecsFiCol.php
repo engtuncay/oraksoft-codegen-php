@@ -19,15 +19,15 @@ interface ICogSpecsFiCol
 
   public function getTemplateFiColMethodExtra(): string;
 
-  public function getTempGenFiColsTransList(): string;
+  public function getTemplateFiColsTransListMethod(): string;
 
-  public function getTempGenFiColsExtraList(): string;
+  public function getTemplateFiColsExtraListMethod(): string;
 
-  public function getTempGenFiColsMethod(): string;
+  public function getTemplateFiColsListMethod(): string;
 
   public function genFiColMethodBodyDetailExtra(FiKeybean $fkbItem): FiStrbui;
 
-  public function genFiColMethodBodyDetail(FiKeybean $fkbItem): FiStrbui;
+  public function genFiColMethodBody(FiKeybean $fkbItem): FiStrbui;
 
   public function genFiColAddDescDetail(FiKeybean $fkbItem, ICogSpecs $iCogSpecs): FiStrbui;
 

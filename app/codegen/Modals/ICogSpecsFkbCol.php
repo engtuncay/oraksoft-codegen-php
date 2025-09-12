@@ -15,11 +15,11 @@ interface ICogSpecsFkbCol
 
   public function getTemplateFkbColMethod(): string;
 
-  public function getTempGenFkbColsList(): string;
+  public function getTemplateFkbColsListMethod(): string;
 
-  public function getTempGenFkbColsTransList(): string;
+  public function getTemplateFkbColsListTransMethod(): string;
 
-  public function genFkbColMethodBodyDetail(FiKeybean $fkbItem): FiStrbui;
+  public function genFkbColMethodBody(FiKeybean $fkbItem): FiStrbui;
 
   public function doNonTransientFieldOps(FiStrbui $sbFclListBody, string $methodName): void; //, FiStrbui $sbFclListBodyExtra
 

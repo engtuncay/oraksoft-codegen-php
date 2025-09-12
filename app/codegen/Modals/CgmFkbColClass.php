@@ -52,7 +52,7 @@ class CgmFkbColClass
       /**
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
        */
-      $sbFiColMethodBody = $iSpecsFkbCol->genFkbColMethodBodyDetail($fkbItem); //StringBuilder
+      $sbFiColMethodBody = $iSpecsFkbCol->genFkbColMethodBody($fkbItem); //StringBuilder
 
       //$sbFiColAddDescDetail->append($iCogSpecs->genFiColAddDescDetail($fkbItem)->toString());
 
@@ -102,7 +102,7 @@ class CgmFkbColClass
     }
 
     // String
-    $tempGenFiCols = $iSpecsFkbCol->getTempGenFkbColsList();
+    $tempGenFiCols = $iSpecsFkbCol->getTemplateFkbColsListMethod();
 
     // String
     $txResGenTableColsMethod = FiTemplate::replaceParams($tempGenFiCols, FiKeybean::bui()->buiPut("ficListBody", $sbFclListBody->toString()));
@@ -110,7 +110,7 @@ class CgmFkbColClass
     $sbClassBody->append("\n")->append($txResGenTableColsMethod)->append("\n");
 
     // String
-    $tempGenFiColsTrans = $iSpecsFkbCol->getTempGenFkbColsTransList();
+    $tempGenFiColsTrans = $iSpecsFkbCol->getTemplateFkbColsListTransMethod();
 
     // String
     $txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeybean::bui()->buiPut("ficListBodyTrans", $sbFclListBodyTrans->toString()));
