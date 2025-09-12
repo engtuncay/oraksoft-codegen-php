@@ -30,7 +30,7 @@ EOD;
 public static FkbCol {{fieldMethodName}}Ext()
 {
   FkbCol fkbCol = {{fieldMethodName}}();
-{{fkbColMethodBody}}
+{{fkbColMethodExtraBody}}
   return fkbCol;
 }
 EOD;
