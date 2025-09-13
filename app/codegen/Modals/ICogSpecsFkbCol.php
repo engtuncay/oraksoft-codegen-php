@@ -21,7 +21,7 @@ interface ICogSpecsFkbCol
 
   public function genFkbColMethodBody(FiKeybean $fkbItem): FiStrbui;
 
-  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, string $methodName): void; //, FiStrbui $sbFclListBodyExtra
+  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, string $methodName): void;
 
   public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, string $methodName): void;
 
