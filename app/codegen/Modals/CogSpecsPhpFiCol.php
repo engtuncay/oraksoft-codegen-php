@@ -606,7 +606,7 @@ EOD;
     $sbFclListBodyTrans->append("ficList->add($methodName());\n");
   }
 
-  public function genFiColAddDescDetail(FiKeybean $fkbItem, ICogSpecs $iCogSpecs): FiStrbui
+  public function genFiColAddDescMethodBody(FiKeybean $fkbItem, ICogSpecs $iCogSpecs): FiStrbui
   {
     //StringBuilder
     $sbText = new FiStrbui(); // new StringBuilder();

@@ -29,7 +29,7 @@ interface ICogSpecsFiCol
 
   public function genFiColMethodBody(FiKeybean $fkbItem): FiStrbui;
 
-  public function genFiColAddDescDetail(FiKeybean $fkbItem, ICogSpecs $iCogSpecs): FiStrbui;
+  public function genFiColAddDescMethodBody(FiKeybean $fkbItem, ICogSpecs $iCogSpecs): FiStrbui;
 
   public function doNonTransientFieldOps(FiStrbui $sbFclListBody, string $methodName): void; //, FiStrbui $sbFclListBodyExtra
 

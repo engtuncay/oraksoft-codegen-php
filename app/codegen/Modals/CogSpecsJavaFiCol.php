@@ -262,7 +262,7 @@ EOD;
   }
 
 
-  public function genFiColAddDescDetail(FiKeybean $fkbItem, ICogSpecs $iCogSpecs): FiStrbui
+  public function genFiColAddDescMethodBody(FiKeybean $fkbItem, ICogSpecs $iCogSpecs): FiStrbui
   {
     // TODO: Implement genFiColAddDescBody() method.
     $sbFiColAddDescBody = new FiStrbui();

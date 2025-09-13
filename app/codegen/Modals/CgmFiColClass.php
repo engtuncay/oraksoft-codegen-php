@@ -54,7 +54,7 @@ class CgmFiColClass
        */
       $sbFiColMethodBody = $iCogSpecsFiCol->genFiColMethodBody($fkbItem); //StringBuilder
 
-      $sbFiColAddDescDetail->append($iCogSpecsFiCol->genFiColAddDescDetail($fkbItem,$iCogSpecs)->toString());
+      $sbFiColAddDescDetail->append($iCogSpecsFiCol->genFiColAddDescMethodBody($fkbItem,$iCogSpecs)->toString());
 
       //FiKeybean
       $fkbFiColMethodBody = new FiKeybean();
