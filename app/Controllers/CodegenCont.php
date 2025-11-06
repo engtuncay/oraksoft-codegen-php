@@ -340,6 +340,7 @@ class CodegenCont extends BaseController
   /**
    * @param mixed $sourceFile
    * @param ICogSpecs $iCogSpecs
+   * @param ICogSpecs $iCogSpecs
    * @return array
    */
   public function genFiMetaClassesFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs, ICogSpecsFiMeta $iCogSpecsFiMeta): array
