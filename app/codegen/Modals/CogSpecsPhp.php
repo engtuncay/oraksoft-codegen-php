@@ -39,7 +39,4 @@ class CogSpecsPhp implements ICogSpecs
   {
     return CgmUtils::convertToLowerCamelCase($fieldName);
   }
-
-
-  
 }

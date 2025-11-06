@@ -21,6 +21,7 @@ addOption(eleSelPhp,txIdSeciniz,"Seçiniz");
 addOption(eleSelPhp,"1","FiCol Php Sınıf");
 addOption(eleSelPhp,"2","FiMeta Php Sınıf");
 addOption(eleSelPhp,"3","FkbCol Php Sınıf"); 
+addOption(eleSelPhp,"4","FiMeta By FiCol Template");
 
 let eleSelTs = document.getElementById("selTs");
 

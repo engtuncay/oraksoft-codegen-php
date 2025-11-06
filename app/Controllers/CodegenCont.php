@@ -167,6 +167,12 @@ class CodegenCont extends BaseController
       list($fdrData, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($uploadedFile, $cogSpecs, $cogSpecsFkbCol);
     }
 
+    if ($selPhp == 4) {
+      $cogSpecs = new CogSpecsPhp();
+      $cogSpecsFiMeta = new CogSpecsPhpFiMeta();
+      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassByFiColTempFromFile($uploadedFile, $cogSpecs, $cogSpecsFiMeta);
+    }
+
     if ($selSql == 1) {
       $fdrData = self::convertFileToFkbList($uploadedFile);
       $fdrCdgSql = CgmCdgSqlserver::actGenSqlCreateTable($fdrData->getFkbListInit());
@@ -388,7 +394,7 @@ class CodegenCont extends BaseController
     /** @var FkbList[] $mapEntityToFkbList */
     $mapEntityToFkbList = CgmUtils::mapEntityToFkbList($fkbListData);
 
-    log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
+    //log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
     $txIdPref = "codegen";
     $lnForIndex = 0;
 
@@ -404,8 +410,8 @@ class CodegenCont extends BaseController
       $arrDtoCodeGen[] = $dtoCodeGen;
     }
 
-    log_message('info', 'arrDtoCodeGen: ' . print_r($arrDtoCodeGen, true));
-    log_message('info', 'fdrData: ' . print_r($fdrData, true));
+    //log_message('info', 'arrDtoCodeGen: ' . print_r($arrDtoCodeGen, true));
+    //log_message('info', 'fdrData: ' . print_r($fdrData, true));
 
     return array($fdrData, $arrDtoCodeGen); //$fiExcel $fkbListData
   }
