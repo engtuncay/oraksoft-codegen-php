@@ -11,8 +11,10 @@ view('fiAppImports.php');
 <html lang="tr">
 
 <head>
-  <?php //require __DIR__ . '/fiHead.php'; ?>
-  <?php // (fiHead)[./fiHead.php] // link to a file ?>
+  <?php //require __DIR__ . '/fiHead.php'; 
+  ?>
+  <?php // (fiHead)[./fiHead.php] // link to a file 
+  ?>
   <?= view('fiHead.php') ?>
   <!-- <link rel="stylesheet" href="codeblock.css"> -->
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -67,7 +69,12 @@ view('fiAppImports.php');
               </div>
               <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Generate Code</button>
-
+                <div class="form-check mt-1">
+                  <input class="form-check-input" type="checkbox" value="" id="chkEnableDb" name="chkEnableDb">
+                  <label class="form-check-label" for="chkEnableDb">
+                    Veritabanı Aktif
+                  </label>
+                </div>
               </div>
             </form>
           </div>
@@ -126,8 +133,9 @@ view('fiAppImports.php');
 
     // ko.applyBindings(new AppViewModel());
   </script>
-  <?php // (mainJs)[../../public/assets/js/main.js] // link to a file ?>
-  <script type="module" src="<?=base_url('assets/js/main.js')?>"></script>
+  <?php // (mainJs)[../../public/assets/js/main.js] // link to a file 
+  ?>
+  <script type="module" src="<?= base_url('assets/js/main.js') ?>"></script>
   <script src="<?= base_url('libs/bootstrap.min.js') ?>"></script>
   <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
   <!--<script type="module" src="./assets/main.js"></script>-->
