@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "orak-copy-deps": "orak-copy-deps",
-    "pnpm-install": "pnpm install",
-    "pnpm-update": "pnpm update",
+    "pn-install": "pnpm install",
+    "pn-update": "pnpm update",
     "orak-deploy-zip": "orak-env-change production & orak-deploy-zip",
     "orak-deploy-ftp": "orak-env-change production & orak-deploy-zip & orak-deploy-ftp",
     "orak-deploy-zip-test": "orak-env-change test & orak-deploy-zip"
@@ -18,13 +18,13 @@
     "jquery": "^3.7.1",
     "jquery-migrate": "^3.5.2",
     "notiflix": "^3.2.8",
-    "oraksoft-ui": "^0.0.13"
+    "oraksoft-ui": "~0.0.21"
   },
   "devDependencies": {
     "archiver": "^7.0.1",
     "basic-ftp": "^5.0.5",
     "fast-glob": "^3.3.3",
     "path": "^0.12.7",
-    "tar": "^7.5.1"
+    "tar": "^7.5.2"
   }
 }

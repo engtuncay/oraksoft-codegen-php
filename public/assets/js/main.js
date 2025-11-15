@@ -1,5 +1,7 @@
 //import { FiKeybean } from "./libs/oraksoft-ui.js";
 
+//const { greetOrakSoftUi } = require("oraksoft-ui");
+
 let elementById = document.getElementById("selCsharp");
 
 function addOption(element, value,textContent) {
@@ -39,9 +41,13 @@ let eleSelSql = document.getElementById("selSql");
 addOption(eleSelSql,txIdSeciniz,"Seçiniz");
 addOption(eleSelSql,"1","Sql Create Table");
 
+import { fiBsModal, testOrakSoftUi } from '../../orak_modules/oraksoft-ui/oraksoft-ui.js';
+
+fiBsModal(`<p>OrakSoft UI modülü başarıyla yüklendi!</p><p>Bu modal, fiBsModal fonksiyonu kullanılarak oluşturuldu.</p>`, "orakSoftUiModal",false);
 
 //let fkb = new Fikeybean();
 
 //import { Fdr } from './libs/oraksoft-ui.js';
-//console.log(greet("dünya"));
+
+console.log(testOrakSoftUi("dünya"));
 //let fiCol = new FiCol();
