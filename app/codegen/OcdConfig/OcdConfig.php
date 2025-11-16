@@ -30,10 +30,11 @@ class OcdConfig implements IFiConfigManager
   {
     $fiConnConfig  = new FiConnConfig;
 
-    $host = getenv('database.default.hostname');
-    $username = getenv('database.default.username') ?: 'kullanici_adi';
-    $password = getenv('database.default.password') ?: 'sifre';
-    $dbName = getenv('database.default.database') ?: 'veritabani_adi';
+    // getenv ile de alabilirsiniz
+    $host = env('database.default.hostname');
+    $username = env('database.default.username') ?: 'kullanici_adi';
+    $password = env('database.default.password') ?: 'sifre';
+    $dbName = env('database.default.database') ?: 'veritabani_adi';
 
     $fiConnConfig->setTxServer($host);
     $fiConnConfig->setTxDatabase($dbName);

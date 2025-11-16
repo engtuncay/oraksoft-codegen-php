@@ -87,6 +87,9 @@ class CodegenCont extends BaseController
     // log_message('info', 'Java: ' . $selJava);
     // log_message('info', 'Sql: ' . $selSql);
 
+    log_message('info', 'Db Active Checkbox: ' . $this->request->getPost('chkEnableDb'));
+    log_message('info', 'Request Object: ' . print_r($this->request, true));
+
     //$excelFile = $this->request->getFile('excelFile');
 
     $uploadedFile = $this->request->getFile('excelFile'); // $_FILES['excelFile'];
