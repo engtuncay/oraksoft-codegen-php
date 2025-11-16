@@ -72,7 +72,7 @@ view('fiAppImports.php');
                 <div class="form-check mt-1">
                   <input class="form-check-input" type="checkbox" value="" id="chkEnableDb" name="chkEnableDb">
                   <label class="form-check-label" for="chkEnableDb">
-                    Veritabanı Aktif
+                    Db Active
                   </label>
                 </div>
               </div>

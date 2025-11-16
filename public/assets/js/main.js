@@ -43,7 +43,7 @@ addOption(eleSelSql,"1","Sql Create Table");
 
 import { fiBsModal, testOrakSoftUi } from '../../orak_modules/oraksoft-ui/oraksoft-ui.js';
 
-fiBsModal(`<p>OrakSoft UI modülü başarıyla yüklendi!</p><p>Bu modal, fiBsModal fonksiyonu kullanılarak oluşturuldu.</p>`, "orakSoftUiModal",false);
+//fiBsModal(`<p>OrakSoft UI modülü başarıyla yüklendi!</p><p>Bu modal, fiBsModal fonksiyonu kullanılarak oluşturuldu.</p>`, "orakSoftUiModal",false);
 
 //let fkb = new Fikeybean();
 
