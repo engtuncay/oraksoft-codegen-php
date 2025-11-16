@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Eğer istenen dosya veya dizin mevcutsa yönlendirme yapma
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Tüm istekleri public dizinine yönlendir
+RewriteRule ^(.*)$ public/$1 [L]

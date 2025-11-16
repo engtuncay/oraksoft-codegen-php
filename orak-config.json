@@ -40,9 +40,12 @@
   "copyDepsLibFolder": "public/orak_modules",
   "copyDepsLibFolderEmpty": true,
   "fiDeployZipContent": [
-    "src/",
+    "app/",
     "public/",
-    "package.json"
+    "writable/",
+    "vendor/",
+    ".htaccess",
+    ".env"
   ],
   "fiEnvChangeStatus": "dev"
 }

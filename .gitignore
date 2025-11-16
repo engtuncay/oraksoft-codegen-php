@@ -133,3 +133,4 @@ orak_modules/
 
 # Custom OrakSoft
 filog.log
+env.production
