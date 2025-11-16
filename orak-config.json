@@ -39,6 +39,7 @@
   ],
   "copyDepsLibFolder": "public/orak_modules",
   "copyDepsLibFolderEmpty": true,
+  "fiDeployZipFile" : "oraksoft_codegen_php",
   "fiDeployZipContent": [
     "app/",
     "public/",
