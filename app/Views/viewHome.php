@@ -67,6 +67,10 @@ view('fiAppImports.php');
                   accept=".xlsx, .xls, .csv" required>
                 <div class="form-text">Sadece .xlsx, .xls veya .csv dosyaları yükleyebilirsiniz.</div>
               </div>
+              <div class="mb-3">
+                <label for="txActiveEntity" class="form-label">Active Entity</label>
+                <input type="text" class="form-control" id="txActiveEntity" name="txActiveEntity" placeholder="active entity">
+              </div>
               <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Generate Code</button>
                 <div class="form-check mt-1">
@@ -135,8 +139,8 @@ view('fiAppImports.php');
   </script>
   <?php // (mainJs)[../../public/assets/js/main.js] // link to a file 
   ?>
-  <script type="module" src="<?= base_url('assets/js/main.js') ?>"></script>
   <script src="<?= base_url('orak_modules/bootstrap/bootstrap.min.js') ?>"></script>
+  <script type="module" src="<?= base_url('assets/js/main.js') ?>"></script>
   <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
   <!--<script type="module" src="./assets/main.js"></script>-->
 </body>

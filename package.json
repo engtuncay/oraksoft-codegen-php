@@ -9,7 +9,8 @@
     "pn-update": "pnpm update",
     "orak-deploy-zip": "orak-env-change production & orak-deploy-zip",
     "orak-deploy-ftp": "orak-env-change production & orak-deploy-zip & orak-deploy-ftp",
-    "orak-deploy-zip-test": "orak-env-change test & orak-deploy-zip"
+    "orak-deploy-zip-test": "orak-env-change test & orak-deploy-zip",
+    "orak-env-local": "orak-env-change local"
   },
   "dependencies": {
     "bootstrap": "^5.3.8",
