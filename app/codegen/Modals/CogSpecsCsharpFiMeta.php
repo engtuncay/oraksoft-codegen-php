@@ -11,7 +11,7 @@ class CogSpecsCsharpFiMeta implements ICogSpecsFiMeta
 {
   public function getTemplateFiMetaClass(): string
   {
-        //String
+    //String
     $template = <<<EOD
 using OrakYazilimLib.Util.core;
 
@@ -40,28 +40,31 @@ EOD;
     return $template;
   }
 
-    public function genFiMetaMethodBody(FiKeybean $fkb): FiStrbui
+  public function genFiMetaMethodBody(FiKeybean $fkb): FiStrbui
   {
     //StringBuilder
     $sbFmtMethodBodyFieldDefs = new FiStrbui();
 
-    $txKey = $fkb->getValueByFiCol(FicFiMeta::ofmTxKey());
-    if ($txKey != null) {
-      $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txKey = '%s';\n", $txKey));
-    }
+    // constructor'da tanımlanmış
+    // $txKey = $fkb->getValueByFiCol(FicFiMeta::ofmTxKey());
+    // if ($txKey != null) {
+    //   $sbFmtMethodBodyFieldDefs->append(sprintf(" fiMeta.txKey = \"%s\";\n", $txKey));
+    // }
 
     $txValue = $fkb->getValueByFiCol(FicFiMeta::ofmTxValue());
     if ($txValue != null) {
-      $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txValue = '%s';\n", $txValue));
+      $sbFmtMethodBodyFieldDefs->append(sprintf(" fiMeta.txValue = \"%s\";\n", $txValue));
     }
 
     return $sbFmtMethodBodyFieldDefs;
   }
 
-    /**
-   * FiMeta key alanı hariç diğer alanlarının tanımı
+  /**
+   * FiMeta üreten metodun gövdesinin FiCol Template üzerinden dolduruldu
+   * 
+   * value olarak ofcTxHeader kullanıldı
    *
-   * @param FiKeybean $fkb
+   * @param FiKeybean $fkb alan bilgisi (row)
    * @return FiStrbui
    */
   public function genFiMetaMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui
@@ -69,12 +72,10 @@ EOD;
     $sb = new FiStrbui();
 
     $ofcTxHeader = $fkb->getValueByFiCol(FicFiCol::ofcTxHeader());
-    if ($ofcTxHeader != null){
+    if ($ofcTxHeader != null) {
       $sb->append(sprintf("  fiMeta.txValue = \"%s\";\n", $ofcTxHeader));
     }
 
     return $sb;
   }
-
-
 }

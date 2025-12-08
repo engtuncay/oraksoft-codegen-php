@@ -17,6 +17,7 @@ use Codegen\Modals\ICogSpecsFkbCol;
 use Codegen\Modals\CogSpecsCsharp;
 use Codegen\Modals\CogSpecsCSharpFiCol;
 use Codegen\Modals\CogSpecsCsharpFiMeta;
+use Codegen\Modals\CogSpecsCSharpFkbCol;
 use Codegen\Modals\CogSpecsJava;
 use Codegen\Modals\CogSpecsJavaFiCol;
 use Codegen\Modals\CogSpecsPhp;
@@ -94,7 +95,7 @@ class CodegenCont extends BaseController
 
     $uploadedFile = $this->request->getFile('excelFile'); // $_FILES['excelFile'];
 
-    log_message('info', 'File uploaded: ' . print_r($uploadedFile, true));
+    //log_message('info', 'File uploaded: ' . print_r($uploadedFile, true));
 
     // Dosya geçici olarak kaydediliyor
     // $_SESSION["uploaded_file"] = $_FILES["excelFile"]["name"];
@@ -127,7 +128,7 @@ class CodegenCont extends BaseController
 
     $cogSpecs = null;
     $cogSpecsFiCol = null;
-    $cogSpecsFiMeta = null;
+    $cogSpecs2 = null;
     $cogSpecsFkbCol = null;
 
     if ($selCsharp == 1) {
@@ -151,17 +152,31 @@ class CodegenCont extends BaseController
       list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs, $cogSpecsFiCol);
     }
 
+    // genFiMetaClassByFiColTempFromFile
     if ($selCsharp == 2) {
-      log_message('info', 'selCsharp-2');
+      //log_message('info', 'selCsharp-2');
       $cogSpecs = new CogSpecsCsharp();
-      $cogSpecsFiMeta = new CogSpecsCsharpFiMeta();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassByFiColTempFromFile($uploadedFile, $cogSpecs, $cogSpecsFiMeta);
+      $cogSpecs2 = new CogSpecsCsharpFiMeta();
+      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassByFiColTempFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
+    }
+
+    // genFkbColClassesFromFile
+    if ($selCsharp == 3) {
+      $cogSpecs = new CogSpecsCsharp();
+      $cogSpecs2 = new CogSpecsCSharpFkbCol();
+      list($fdrData, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
+    }
+
+    if ($selCsharp == 4) {
+      $cogSpecs = new CogSpecsCsharp();
+      $cogSpecs2 = new CogSpecsCsharpFiMeta();
+      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassesFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
     }
 
     if ($selPhp == 2) {
       $cogSpecs = new CogSpecsPhp();
-      $cogSpecsFiMeta = new CogSpecsPhpFiMeta();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassesFromFile($uploadedFile, $cogSpecs, $cogSpecsFiMeta);
+      $cogSpecs2 = new CogSpecsPhpFiMeta();
+      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassesFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
     }
 
     if ($selPhp == 3) {
@@ -172,8 +187,8 @@ class CodegenCont extends BaseController
 
     if ($selPhp == 4) {
       $cogSpecs = new CogSpecsPhp();
-      $cogSpecsFiMeta = new CogSpecsPhpFiMeta();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassByFiColTempFromFile($uploadedFile, $cogSpecs, $cogSpecsFiMeta);
+      $cogSpecs2 = new CogSpecsPhpFiMeta();
+      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassByFiColTempFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
     }
 
     if ($selSql == 1) {

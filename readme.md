@@ -1,3 +1,34 @@
+
+**Oraksoft CodeGen App Readme**
+
+
+➖ Interface Tanımları 
+
+ICogSpecsFiCol : FiCol sınıfı üretecek metodlar için arayüz tanımı
+
+Örneğin CogSpecsCSharpFiCol sınıfı bu arayüzü implemente eder. Csharp için FiCol sınıf kodunu üretecek metodları barındırır.
+
+CgmFiColClass sınıfı, ICogSpecsFiCol arayüzünü implemente eden sınıfları kullanarak FiCol sınıf kodunu üretir (dile bağımlı olmadan).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # CodeIgniter 4 Application Starter
 
 ## What is CodeIgniter?
