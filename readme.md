@@ -1,15 +1,18 @@
 
 **Oraksoft CodeGen App Readme**
 
+Kod üretimi için 4 ana sınıf
 
-➖ Interface Tanımları 
+➖ CodegenCont , ana yönlendirmeyi yapan sınıf
 
-ICogSpecsFiCol : FiCol sınıfı üretecek metodlar için arayüz tanımı
+➖ ICogSpecs , diller için genel metodlar (metodAdı,sınıf ismi gibi) bulunur. Örnek implemente CogSpecsCsharp,CogSpecsPhp gibi
 
-Örneğin CogSpecsCSharpFiCol sınıfı bu arayüzü implemente eder. Csharp için FiCol sınıf kodunu üretecek metodları barındırır.
+➖ ICogSpecsFiCol, FiCol sınıfı üretecek metodlar için arayüz tanımı, örneğin CogSpecsCsharpFiCol, Csharp için FiCol sınıfını üretecek metodlara sahip. Diger örnekler: CogSpecsPhpFiCol. Bunun dışında ICogSpecsFiMeta ve ICogSpecsFkbCol da ilgili sınıfları üretecek metodlar barındırır. Örnek : CogSpecsCsharpFiMeta,CogSpecsCsharpFkbCol 
 
-CgmFiColClass sınıfı, ICogSpecsFiCol arayüzünü implemente eden sınıfları kullanarak FiCol sınıf kodunu üretir (dile bağımlı olmadan).
+➖ CgmFiColClass sınıfı, ICogSpecsFiCol ve ICogSpecs arayüzünü implemente eden sınıfları kullanarak FiCol sınıf kodunu üretir.
 
+➖ Aynı şekilde CgmFiMetaClass ve CgmFkbColClass sınıfları da ilgili sınıfları üretir.
+  
 
 
 

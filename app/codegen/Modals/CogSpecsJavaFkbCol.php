@@ -270,8 +270,10 @@ EOD;
    * @param string $methodName
    * @return void
    */
-  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, string $methodName): void
+  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
   { //, FiStrbui $sbFclListBodyExtra
+    $fieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
+    $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
     $sbFclListBody->append("ficList.add($methodName());\n");
     //$sbFclListBodyExtra->append("ficList.add($methodName" . "Ext());\n");
   }
@@ -281,8 +283,10 @@ EOD;
    * @param string $methodName
    * @return void
    */
-  public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, string $methodName): void
+  public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
   {
+    $fieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
+    $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
     $sbFclListBodyTrans->append("ficList.add($methodName());\n");
   }
 

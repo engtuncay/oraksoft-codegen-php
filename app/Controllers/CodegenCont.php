@@ -24,6 +24,9 @@ use Codegen\Modals\CogSpecsPhp;
 use Codegen\Modals\CogSpecsPhpFiCol;
 use Codegen\Modals\CogSpecsPhpFiMeta;
 use Codegen\Modals\CogSpecsPhpFkbCol;
+use Codegen\Modals\CogSpecsTsFiMeta;
+use Codegen\Modals\CogSpecsTsFkbCol;
+use Codegen\Modals\CogSpecsTypescript;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\FiExcel\FiExcel;
 use Engtuncay\Phputils8\FiCsv\FiCsv;
@@ -189,6 +192,18 @@ class CodegenCont extends BaseController
       $cogSpecs = new CogSpecsPhp();
       $cogSpecs2 = new CogSpecsPhpFiMeta();
       list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassByFiColTempFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
+    }
+
+    if ($selTs == 2) {
+      $cogSpecs = new CogSpecsTypescript();
+      $cogSpecs2 = new CogSpecsTsFiMeta();
+      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassesFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
+    }
+
+    if ($selTs == 3) {
+      $cogSpecs = new CogSpecsTypescript();
+      $cogSpecs2 = new CogSpecsTsFkbCol();
+      list($fdrData, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
     }
 
     if ($selSql == 1) {

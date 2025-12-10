@@ -30,6 +30,8 @@ let eleSelTs = document.getElementById("selTs");
 
 addOption(eleSelTs,txIdSeciniz,"Seçiniz");
 addOption(eleSelTs,"1","FiCol Ts Sınıf");
+addOption(eleSelTs,"2","FiMeta Ts Sınıf");
+addOption(eleSelTs,"3","FkbCol Ts Sınıf");
 
 let eleSelJava = document.getElementById("selJava");
 
