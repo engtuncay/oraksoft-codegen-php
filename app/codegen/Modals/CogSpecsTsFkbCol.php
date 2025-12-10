@@ -21,31 +21,31 @@ import { FiKeybean, FkbList, FimFiCol } from 'orak-util-ts';
 
 export class {{classPref}}{{entityName}} {
 
-  public static GetTxTableName(): string {
+  public static getTxTableName(): string {
     return "{{tableName}}";
   }
   
-  public GetITxTableName(): string {
-    return {{classPref}}{{entityName}}.GetTxTableName();
+  public getITxTableName(): string {
+    return {{classPref}}{{entityName}}.getTxTableName();
   }
 
-  public GenITableCols(): FkbList {
-    return {{classPref}}{{entityName}}.GenTableCols();
+  public genITableCols(): FkbList {
+    return {{classPref}}{{entityName}}.genTableCols();
   }
 
-  public GenITableColsTrans(): FkbList {
-    return {{classPref}}{{entityName}}.GenTableColsTrans();
+  public genITableColsTrans(): FkbList {
+    return {{classPref}}{{entityName}}.genTableColsTrans();
   }
 
-  public static GetTxPrefix(): string {
+  public static getTxPrefix(): string {
     return "{{tablePrefix}}";
   }
 
-  public GetITxPrefix(): string {
-    return {{classPref}}{{entityName}}.GetTxPrefix();
+  public getITxPrefix(): string {
+    return {{classPref}}{{entityName}}.getTxPrefix();
   }
 
-  public static AddFieldDesc(fkbList: FkbList) {
+  public static addFieldDesc(fkbList: FkbList) {
 
     for (const fkb of fkbList.getArray()) {
 {{addFieldDescDetail}}
@@ -272,7 +272,9 @@ EOD;
   { //, FiStrbui $sbFclListBodyExtra
     $fieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
     $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
-    $sbFclListBody->append("fkbList.add($methodName());\n");
+    $className = $iCogSpecs->checkClassNameStd($fkbItem->getValueByFiMeta(FimFiCol::ofcTxEntityName()));
+    // URFIX Fkc dinamik olarak alınmalı
+    $sbFclListBody->append("fkbList.add(Fkc$className.$methodName());\n");
     // $sbFclListBodyExtra->append("ficList.Add($methodName" . "Ext());\n");
   }
 
@@ -285,7 +287,9 @@ EOD;
   {
     $fieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
     $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
-    $sbFclListBodyTrans->append("fkbList.add($methodName());\n");
+    $className = $iCogSpecs->checkClassNameStd($fkbItem->getValueByFiMeta(FimFiCol::ofcTxEntityName()));
+    // URFIX Fkc dinamik olarak alınmalı
+    $sbFclListBodyTrans->append("fkbList.add(Fkc$className.$methodName());\n");
   }
 
   public function genFiColAddDescDetail(FiKeybean $fkbItem, ICogSpecs $iCogSpecs): FiStrbui

@@ -88,13 +88,13 @@ class CgmFkbColClass
 
       //
       $ofcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::ofcBoTransient()));
-      $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
+      //$methodName = $iCogSpecs->checkMethodNameStd($fieldName);
 
       if (!$ofcBoTransient === true) {
-        $iSpecsFkbCol->doNonTransientFieldOps($sbFclListBody, $methodName);
+        $iSpecsFkbCol->doNonTransientFieldOps($sbFclListBody,  $fkbItem, $iCogSpecs);
         //sbFclListBody.append("\tfclList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
       } else {
-        $iSpecsFkbCol->doTransientFieldOps($sbFclListBodyTrans, $methodName);
+        $iSpecsFkbCol->doTransientFieldOps($sbFclListBodyTrans, $fkbItem, $iCogSpecs);
         //sbFclListBodyTrans.append("\tfclList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
       }
 
