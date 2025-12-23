@@ -165,6 +165,11 @@ EOD;
       $sbFkbColMethodBody->append("  fkbCol.AddFieldBy(FimFiCol.OfcBoNullable(), false);\n");
     }
 
+    $ofcLnId = FicValue::toInt($fkbItem->getValueByFiMeta(FimFiCol::ofcLnId()));
+    if ($ofcLnId != null) {
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.OfcLnId(), %s);\n", $ofcLnId));
+    }
+
     //
     //    if (FiBool::isTrue($fiCol->ofcBoNullable)) {
     //      $sbFiColMethodBody->append("fiCol.ofcBoNullable = true;\n");
