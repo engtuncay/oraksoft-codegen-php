@@ -27,10 +27,12 @@ use Codegen\Modals\CogSpecsPhpFkbCol;
 use Codegen\Modals\CogSpecsTsFiMeta;
 use Codegen\Modals\CogSpecsTsFkbCol;
 use Codegen\Modals\CogSpecsTypescript;
+use Codegen\OcdConfig\OcgLogger;
 use Engtuncay\Phputils8\Core\FiStrbui;
 use Engtuncay\Phputils8\FiExcel\FiExcel;
 use Engtuncay\Phputils8\FiCsv\FiCsv;
 use Engtuncay\Phputils8\FiDto\Fdr;
+use Engtuncay\Phputils8\FiDto\FiKeybean;
 use Engtuncay\Phputils8\FiDto\FkbList;
 
 class CodegenCont extends BaseController
@@ -91,8 +93,8 @@ class CodegenCont extends BaseController
     // log_message('info', 'Java: ' . $selJava);
     // log_message('info', 'Sql: ' . $selSql);
 
-    log_message('info', 'Db Active Checkbox: ' . $this->request->getPost('chkEnableDb'));
-    log_message('info', 'Request Object: ' . print_r($this->request, true));
+    //log_message('info', 'Db Active Checkbox: ' . $this->request->getPost('chkEnableDb'));
+    //log_message('info', 'Request Object: ' . print_r($this->request, true));
 
     //$excelFile = $this->request->getFile('excelFile');
 
@@ -281,14 +283,14 @@ class CodegenCont extends BaseController
     //echo var_export($fkbListExcel, true);
 
     /** @var FkbList[] $mapEntityToFkbList */
-    $mapEntityToFkbList = CgmUtils::mapEntityToFkbList($fkbListData);
+    $mapEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
 
     log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
     $txIdPref = "java";
     $lnForIndex = 0;
     $arrDtoCodeGen = [];
 
-    foreach ($mapEntityToFkbList as $fkbList) {
+    foreach ($mapEntityToFkbList as $entity => $fkbList) {
       $lnForIndex++;
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();
@@ -317,17 +319,23 @@ class CodegenCont extends BaseController
 
     $fdrData = self::convertFileToFkbList($sourceFile);
     $fkbListData = $fdrData->getFkbListInit();
-    //echo var_export($fkbListExcel, true);
+    
+    // OcgLogger::info("fkbListData:" . print_r($fkbListData->getItems(), true));
 
-    /** @var FkbList[] $mapEntityToFkbList */
-    $mapEntityToFkbList = CgmUtils::mapEntityToFkbList($fkbListData);
+    /** @var FiKeybean $fkbEntityToFkbList */
+    $fkbEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
 
-    log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
+    //log_message('info', 'arrFkbListExcel' . print_r($fkbEntityToFkbList, true));
     $txIdPref = "codegen";
     $lnForIndex = 0;
 
+    OcgLogger::info("fkblist count:" . count($fkbListData->getAsMultiArray()));
+    OcgLogger::info("fkbEntityToFkbList count:" . count($fkbEntityToFkbList->getParams()));
     // fkbList, Excelde bir entity için tanımlanmış alanların listesi
-    foreach ($mapEntityToFkbList as $fkbList) {
+    
+    $arrDtoCodeGen =  [];
+    
+    foreach ($fkbEntityToFkbList as $entity => $fkbList) {
       $lnForIndex++;
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();
@@ -336,11 +344,11 @@ class CodegenCont extends BaseController
       $sbTxCodeGen1->append("\n");
       $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
       $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
-      $arrDtoCodeGen[] = $dtoCodeGen;
+      array_push($arrDtoCodeGen, $dtoCodeGen);
     }
 
-    log_message('info', 'arrDtoCodeGen: ' . print_r($arrDtoCodeGen, true));
-    log_message('info', 'fdrData: ' . print_r($fdrData, true));
+    //log_message('info', 'arrDtoCodeGen: ' . print_r($arrDtoCodeGen, true));
+    //log_message('info', 'fdrData: ' . print_r($fdrData, true));
 
     return array($fdrData, $arrDtoCodeGen); //$fiExcel $fkbListData
   }
@@ -392,13 +400,13 @@ class CodegenCont extends BaseController
     //echo var_export($fkbListExcel, true);
 
     /** @var FkbList[] $mapEntityToFkbList */
-    $mapEntityToFkbList = CgmUtils::mapEntityToFkbList($fkbListData);
+    $mapEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
 
     log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
     $txIdPref = "codegen";
     $lnForIndex = 0;
 
-    foreach ($mapEntityToFkbList as $fkbList) {
+    foreach ($mapEntityToFkbList as $entity => $fkbList) {
       $lnForIndex++;
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();
@@ -432,13 +440,13 @@ class CodegenCont extends BaseController
     //echo var_export($fkbListExcel, true);
 
     /** @var FkbList[] $mapEntityToFkbList */
-    $mapEntityToFkbList = CgmUtils::mapEntityToFkbList($fkbListData);
+    $mapEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
 
     //log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
     $txIdPref = "codegen";
     $lnForIndex = 0;
 
-    foreach ($mapEntityToFkbList as $fkbList) {
+    foreach ($mapEntityToFkbList as $entity => $fkbList) {
       $lnForIndex++;
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();

@@ -22,8 +22,7 @@ class CgmCdgSqlserver
   {
     $fdrMain = new Fdr();
 
-    /** @var FkbList[] $arrFkbListByEntity */
-    $arrFkbListByEntity = CgmUtils::mapEntityToFkbList($fkbList);
+    $arrFkbListByEntity = CgmUtils::genFkbAsEntityToFkbList($fkbList);
 
     //log_message('info', 'arrFkbListExcel' . print_r($arrFkbListByEntity, true));
     $txIdPref = "sql";
@@ -32,7 +31,7 @@ class CgmCdgSqlserver
 
     $fkbDtoCodeGen = new FiKeybean();
 
-    foreach ($arrFkbListByEntity as $fkbList) {
+    foreach ($arrFkbListByEntity as $entity => $fkbList) {
       $lnForIndex++;
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();

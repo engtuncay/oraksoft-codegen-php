@@ -1,3 +1,6 @@
+<?php
+use Codegen\OcdConfig\OcgLogger;
+?>
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -6,6 +9,7 @@
   ?>
   <?php
   // (fihead)[./fiHead.php]
+
   ?>
   <?= view('fiHead.php') ?>
   <title>Orak Soft Code Generator</title>
@@ -18,6 +22,7 @@
   // Değişkenlerin tanımlı olup olmadığını kontrol et
   $arrDtoCodeGenPack = $arrDtoCodeGenPack ?? [];
   $txCodeGenExtra = $txCodeGenExtra ?? '';
+  //OcgLogger::info('arrDtoCodeGenPack count:' . count($arrDtoCodeGenPack))
   ?>
 
   <?php foreach ($arrDtoCodeGenPack as $arrDtoCdg) { ?>

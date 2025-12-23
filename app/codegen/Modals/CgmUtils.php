@@ -13,7 +13,8 @@ use Engtuncay\Phputils8\FiDto\FiKeybean;
 use Engtuncay\Phputils8\FiDto\FiMeta;
 use Engtuncay\Phputils8\FiDto\FkbList;
 use Engtuncay\Phputils8\FiDto\FmtList;
-
+use Engtuncay\Phputils8\FiMeta\FimFiCol;
+use Codegen\OcdConfig\OcgLogger;
 
 class CgmUtils
 {
@@ -93,29 +94,31 @@ class CgmUtils
    * @param FkbList $fkbListData
    * @return array
    */
-  public static function mapEntityToFkbList(FkbList $fkbListData): array
+  public static function genFkbAsEntityToFkbList(FkbList $fkbListData): FiKeybean
   {
-    /** @var FiwArray<FkbList> $fwarFkbEntity */
-    $fwarFkbEntity = new FiwArray();
+    $fkbMap = new FiKeybean();
+
+    //OcgLogger::info("Generating FkbMap from FkbListData:\n". print_r($fkbListData->getItems(), true) );
+    //OcgLogger::info("Generating FkbMap from FkbListData , total item count:" . count($fkbListData->getItems()));  
 
     /** @var FiKeybean $fkbItem */
     foreach ($fkbListData as $fkbItem) {
-
+      //OcgLogger::info("Processing FkbItem: " . print_r($fkbItem->getArr(), true));
+      //OcgLogger::info("Processing FkbItem EntityName: " . $fkbItem->getFimValue(FimFiCol::ofcTxEntityName()));
+      //OcgLogger::info("Processing FkbItem EntityName: " . $fkbItem->getArr()[FimFiCol::ofcTxEntityName()->getTxKey()]);
       //FiLog::$log?->debug(implode(":", $fkbItem->getArr()));
-
-      $txEntityName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxEntityName());
+      $txEntityName = $fkbItem->getFimValue(FimFiCol::ofcTxEntityName());
       //FiLog::$log?->debug("$txEntityName : ". $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName()));
       if ($txEntityName != null) {
-        if (!$fwarFkbEntity->existKey($txEntityName)) {
-          $fwarFkbEntity->put($txEntityName, new FkbList());
-        }
-        $fwarFkbEntity->putInFkbList($txEntityName, $fkbItem);
+        //OcgLogger::info("Adding FkbItem to entity:$txEntityName , field:" . $fkbItem->getOfcTxFn());
+        $txEntityName = trim($txEntityName);
+        $fkbMap->putInFkbList($txEntityName, $fkbItem);
       }
     }
 
-    //FiLog::$log?->debug(FiText::textArrayFkbList($fwarFkbEntity->getArrValue()));
+    //FiLog::$log?->debug(FiText::textArrayFkbList($fkbMap->getArr()));
 
-    return $fwarFkbEntity->getArrValue();
+    return $fkbMap; //->getArr();
   }
 
   /**
