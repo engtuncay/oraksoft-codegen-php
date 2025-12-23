@@ -13,7 +13,7 @@ class CogSpecsTsFiMeta implements ICogSpecsFiMeta
   {
     //String
     $template = <<<EOD
-import { FiMeta } from "../fiDtc/FiMeta";
+import { FiMeta } from "orak-util-ts";
 
 export class {{classPref}}{{entityName}}
 {

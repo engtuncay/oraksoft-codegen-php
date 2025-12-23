@@ -206,6 +206,12 @@ class CodegenCont extends BaseController
       list($fdrData, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
     }
 
+    if ($selTs == 4) {
+      $cogSpecs = new CogSpecsTypescript();
+      $cogSpecs2 = new CogSpecsTsFiMeta();
+      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassByFiColTempFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
+    }
+
     if ($selSql == 1) {
       $fdrData = self::convertFileToFkbList($uploadedFile);
       $fdrCdgSql = CgmCdgSqlserver::actGenSqlCreateTable($fdrData->getFkbListInit());

@@ -47,6 +47,5 @@
     "vendor/",
     ".htaccess",
     ".env"
-  ],
-  "fiEnvChangeStatus": "dev"
+  ]
 }
