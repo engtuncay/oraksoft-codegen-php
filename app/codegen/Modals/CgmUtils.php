@@ -3,9 +3,9 @@
 namespace Codegen\Modals;
 
 use Codegen\ficols\FicFiCol;
-use Engtuncay\Phputils8\Core\FiString;
-use Engtuncay\Phputils8\Core\FiText;
-use Engtuncay\Phputils8\Core\FiwArray;
+use Engtuncay\Phputils8\FiCores\FiString;
+use Engtuncay\Phputils8\FiCores\FiText;
+use Engtuncay\Phputils8\FiCores\FiwArray;
 use Engtuncay\Phputils8\Log\FiLog;
 use Engtuncay\Phputils8\FiDto\FicList;
 use Engtuncay\Phputils8\FiDto\FiCol;

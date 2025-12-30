@@ -3,9 +3,9 @@
 namespace Codegen\Modals;
 
 use Codegen\ficols\FicFiCol;
-use Engtuncay\Phputils8\Core\FiStrbui;
-use Engtuncay\Phputils8\Core\FiString;
-use Engtuncay\Phputils8\Core\FiTemplate;
+use Engtuncay\Phputils8\FiCores\FiStrbui;
+use Engtuncay\Phputils8\FiCores\FiString;
+use Engtuncay\Phputils8\FiCores\FiTemplate;
 use Engtuncay\Phputils8\FiCol\FicValue;
 use Engtuncay\Phputils8\FiDto\FiKeybean;
 use Engtuncay\Phputils8\FiDto\FkbList;

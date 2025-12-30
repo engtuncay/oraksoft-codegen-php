@@ -2,7 +2,7 @@
 
 namespace Codegen\Modals;
 
-use Engtuncay\Phputils8\Core\FiStrbui;
+use Engtuncay\Phputils8\FiCores\FiStrbui;
 
 /**
  * Her bir Entity için Data Sınıfı

@@ -2,7 +2,7 @@
 
 namespace Codegen\Modals;
 
-use Engtuncay\Phputils8\Core\FiString;
+use Engtuncay\Phputils8\FiCores\FiString;
 
 
 /**

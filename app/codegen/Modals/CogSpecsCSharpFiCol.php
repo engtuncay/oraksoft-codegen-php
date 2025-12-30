@@ -2,9 +2,9 @@
 
 namespace Codegen\Modals;
 
-use Engtuncay\Phputils8\Core\FiBool;
-use Engtuncay\Phputils8\Core\FiStrbui;
-use Engtuncay\Phputils8\Core\FiString;
+use Engtuncay\Phputils8\FiCores\FiBool;
+use Engtuncay\Phputils8\FiCores\FiStrbui;
+use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCol\FicFiCol;
 use Engtuncay\Phputils8\FiCol\FicValue;
 use Engtuncay\Phputils8\FiDto\FiKeybean;

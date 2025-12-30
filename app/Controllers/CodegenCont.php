@@ -28,7 +28,7 @@ use Codegen\Modals\CogSpecsTsFiMeta;
 use Codegen\Modals\CogSpecsTsFkbCol;
 use Codegen\Modals\CogSpecsTypescript;
 use Codegen\OcdConfig\OcgLogger;
-use Engtuncay\Phputils8\Core\FiStrbui;
+use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiExcel\FiExcel;
 use Engtuncay\Phputils8\FiCsv\FiCsv;
 use Engtuncay\Phputils8\FiDto\Fdr;
