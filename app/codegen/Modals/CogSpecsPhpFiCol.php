@@ -6,9 +6,9 @@ use Codegen\FiCols\FicFiMeta;
 use Engtuncay\Phputils8\FiCores\FiBool;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
-use Engtuncay\Phputils8\FiCol\FicFiCol;
-use Engtuncay\Phputils8\FiCol\FicValue;
-use Engtuncay\Phputils8\FiDto\FiKeybean;
+use Engtuncay\Phputils8\FiCols\FicFiCol;
+use Engtuncay\Phputils8\FiCols\FicValue;
+use Engtuncay\Phputils8\FiDtos\FiKeybean;
 
 class CogSpecsPhpFiCol implements ICogSpecsFiCol
 {
@@ -23,8 +23,8 @@ class CogSpecsPhpFiCol implements ICogSpecsFiCol
     //String
     $templateMain = <<<EOD
       
-use Engtuncay\Phputils8\FiDto\FiMeta;
-use Engtuncay\Phputils8\FiDto\FmtList;
+use Engtuncay\Phputils8\FiDtos\FiMeta;
+use Engtuncay\Phputils8\FiDtos\FmtList;
 
 class {{classPref}}{{entityName}} {
 
@@ -90,9 +90,9 @@ EOD;
   {
     //String
     $templateMain = <<<EOD
-use Engtuncay\Phputils8\FiCol\IFiTableMeta;
-use Engtuncay\Phputils8\FiDto\FiCol;
-use Engtuncay\Phputils8\FiDto\FicList;
+use Engtuncay\Phputils8\FiCols\IFiTableMeta;
+use Engtuncay\Phputils8\FiDtos\FiCol;
+use Engtuncay\Phputils8\FiDtos\FicList;
 
 class {{classPref}}{{entityName}} implements IFiTableMeta {
 
@@ -125,9 +125,9 @@ EOD;
     //String
     $templateMain = <<<EOD
 
-use Engtuncay\Phputils8\FiCol\IFkbTableMeta;
-use Engtuncay\Phputils8\FiDto\FiKeybean;
-use Engtuncay\Phputils8\FiDto\FkbList;
+use Engtuncay\Phputils8\FiCols\IFkbTableMeta;
+use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMeta\FimFiCol;
 
 class {{classPref}}{{entityName}} implements IFkbTableMeta {

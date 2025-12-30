@@ -5,8 +5,8 @@ namespace Codegen\Modals;
 use Codegen\ficols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
-use Engtuncay\Phputils8\FiDto\FiKeybean;
-use Engtuncay\Phputils8\FiDto\FkbList;
+use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\FkbList;
 
 /**
  * Code Generator Modal (Cgm) for FiMetaClass (For All Languages)

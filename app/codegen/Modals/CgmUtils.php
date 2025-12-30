@@ -7,12 +7,12 @@ use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiText;
 use Engtuncay\Phputils8\FiCores\FiwArray;
 use Engtuncay\Phputils8\Log\FiLog;
-use Engtuncay\Phputils8\FiDto\FicList;
-use Engtuncay\Phputils8\FiDto\FiCol;
-use Engtuncay\Phputils8\FiDto\FiKeybean;
-use Engtuncay\Phputils8\FiDto\FiMeta;
-use Engtuncay\Phputils8\FiDto\FkbList;
-use Engtuncay\Phputils8\FiDto\FmtList;
+use Engtuncay\Phputils8\FiDtos\FicList;
+use Engtuncay\Phputils8\FiDtos\FiCol;
+use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\FiMeta;
+use Engtuncay\Phputils8\FiDtos\FkbList;
+use Engtuncay\Phputils8\FiDtos\FmtList;
 use Engtuncay\Phputils8\FiMeta\FimFiCol;
 use Codegen\OcdConfig\OcgLogger;
 

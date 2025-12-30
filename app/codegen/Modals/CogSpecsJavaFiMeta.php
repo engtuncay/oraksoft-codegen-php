@@ -4,7 +4,7 @@ namespace Codegen\Modals;
 
 use Codegen\FiCols\FicFiMeta;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
-use Engtuncay\Phputils8\FiDto\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\FiKeybean;
 
 class CogSpecsJavaFiMeta implements ICogSpecsFiMeta
 {

@@ -3,7 +3,7 @@
 namespace Codegen\Modals;
 
 use Engtuncay\Phputils8\FiCores\FiStrbui;
-use Engtuncay\Phputils8\FiDto\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\FiKeybean;
 
 /**
  * Interface for FiCol Specs (Csharp, Java ...)

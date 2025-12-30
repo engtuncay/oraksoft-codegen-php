@@ -2,13 +2,13 @@
 
 namespace Codegen\Modals;
 
-use Codegen\ficols\FicFiCol;
+use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
-use Engtuncay\Phputils8\FiCol\FicValue;
-use Engtuncay\Phputils8\FiDto\FiKeybean;
-use Engtuncay\Phputils8\FiDto\FkbList;
+use Engtuncay\Phputils8\FiCols\FicValue;
+use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\FkbList;
 
 /**
  * Code Generator Modal (Cgm) for FiColClass (For All Languages)

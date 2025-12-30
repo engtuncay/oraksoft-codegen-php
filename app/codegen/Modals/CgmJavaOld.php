@@ -8,9 +8,9 @@ use Engtuncay\Phputils8\FiCores\FiBool;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
-use Engtuncay\Phputils8\FiCol\FicValue;
-use Engtuncay\Phputils8\FiDto\FiKeybean;
-use Engtuncay\Phputils8\FiDto\FkbList;
+use Engtuncay\Phputils8\FiCols\FicValue;
+use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\FkbList;
 
 /**
  * Code Generator Modal for Java
@@ -479,8 +479,8 @@ EOD;
     //String
     $templateMain = <<<EOD
       
-use Engtuncay\Phputils8\FiDto\FiMeta;
-use Engtuncay\Phputils8\FiDto\FmtList;
+use Engtuncay\Phputils8\FiDtos\FiMeta;
+use Engtuncay\Phputils8\FiDtos\FmtList;
 
 class {{entityName}} {
 

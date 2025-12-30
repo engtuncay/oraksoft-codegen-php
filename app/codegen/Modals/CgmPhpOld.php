@@ -7,9 +7,9 @@ use Codegen\ficols\FicFiMeta;
 use Engtuncay\Phputils8\FiCores\FiBool;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
-use Engtuncay\Phputils8\FiDto\FiCol;
-use Engtuncay\Phputils8\FiDto\FiKeybean;
-use Engtuncay\Phputils8\FiDto\FkbList;
+use Engtuncay\Phputils8\FiDtos\FiCol;
+use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\FkbList;
 
 /**
  * Code Generator Modal for Php
@@ -205,9 +205,9 @@ EOD;
     //String
     $templateMain = <<<EOD
       
-use Engtuncay\Phputils8\FiCol\IFiTableMeta;
-use Engtuncay\Phputils8\FiDto\FiCol;
-use Engtuncay\Phputils8\FiDto\FclList;
+use Engtuncay\Phputils8\FiCols\IFiTableMeta;
+use Engtuncay\Phputils8\FiDtos\FiCol;
+use Engtuncay\Phputils8\FiDtos\FclList;
 
 class {{entityName}} implements IFiTableMeta {
 
@@ -341,8 +341,8 @@ EOD;
     //String
     $templateMain = <<<EOD
       
-use Engtuncay\Phputils8\FiDto\FiMeta;
-use Engtuncay\Phputils8\FiDto\FmtList;
+use Engtuncay\Phputils8\FiDtos\FiMeta;
+use Engtuncay\Phputils8\FiDtos\FmtList;
 
 class {{entityName}} {
 

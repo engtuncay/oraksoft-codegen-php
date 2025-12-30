@@ -31,9 +31,9 @@ use Codegen\OcdConfig\OcgLogger;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiExcel\FiExcel;
 use Engtuncay\Phputils8\FiCsv\FiCsv;
-use Engtuncay\Phputils8\FiDto\Fdr;
-use Engtuncay\Phputils8\FiDto\FiKeybean;
-use Engtuncay\Phputils8\FiDto\FkbList;
+use Engtuncay\Phputils8\FiDtos\Fdr;
+use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\FkbList;
 
 class CodegenCont extends BaseController
 {
