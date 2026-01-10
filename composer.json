@@ -38,8 +38,10 @@
   },
   "scripts": {
     "test": "phpunit",
-    "spark-serve-ocg": "php spark serve --port 8181",
-    "fi-spark-serve": "php spark serve --port 8181"
+    "spark-serve": "php spark serve --port 8181",
+    "fi-spark-serve": "php spark serve --port 8181",
+    "comp-install": "composer install"
+
   },
   "config": {
     "optimize-autoloader": true,

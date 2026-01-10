@@ -1,8 +1,8 @@
 <?php
 namespace App\Codegen\OcdConfig;
 
-use Engtuncay\Phputils8\FiConfig\IFiConfigManager;
-use Engtuncay\Phputils8\FiDb\FiConnConfig;
+use Engtuncay\Phputils8\FiConfigs\IFiConfigManager;
+use Engtuncay\Phputils8\FiDbs\FiConnConfig;
 
 class OcdConfig implements IFiConfigManager
 {

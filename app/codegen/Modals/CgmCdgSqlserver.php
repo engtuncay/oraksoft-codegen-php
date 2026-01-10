@@ -10,8 +10,8 @@ use Engtuncay\Phputils8\FiCores\FiTemplate;
 use Engtuncay\Phputils8\FiDtos\Fdr;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
-use Engtuncay\Phputils8\FiMeta\FimFiCol;
-use Engtuncay\Phputils8\FiMeta\FimOksCoding;
+use Engtuncay\Phputils8\FiMetas\FimFiCol;
+use Engtuncay\Phputils8\FiMetas\FimOksCoding;
 
 /**
  * SQL Server Code Generation (Cdg)

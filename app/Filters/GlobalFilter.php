@@ -5,7 +5,7 @@ use App\Codegen\OcdConfig\OcdConfig;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Filters\FilterInterface;
-use Engtuncay\Phputils8\FiApp\FiAppConfig;
+use Engtuncay\Phputils8\FiApps\FiAppConfig;
 
 class GlobalFilter implements FilterInterface
 {

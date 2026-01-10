@@ -8,7 +8,7 @@ use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
-use Engtuncay\Phputils8\FiMeta\FimFiCol;
+use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 /**
  * Code Generator Modal (Cgm) for FiMetaClass (For All Languages)

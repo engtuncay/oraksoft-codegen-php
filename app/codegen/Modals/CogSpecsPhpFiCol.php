@@ -128,7 +128,7 @@ EOD;
 use Engtuncay\Phputils8\FiCols\IFkbTableMeta;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
-use Engtuncay\Phputils8\FiMeta\FimFiCol;
+use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 class {{classPref}}{{entityName}} implements IFkbTableMeta {
 

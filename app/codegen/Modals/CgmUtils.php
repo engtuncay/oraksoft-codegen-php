@@ -13,7 +13,7 @@ use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FiMeta;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiDtos\FmtList;
-use Engtuncay\Phputils8\FiMeta\FimFiCol;
+use Engtuncay\Phputils8\FiMetas\FimFiCol;
 use Codegen\OcdConfig\OcgLogger;
 
 class CgmUtils

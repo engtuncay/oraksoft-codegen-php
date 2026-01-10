@@ -2,7 +2,7 @@
 
 namespace Codegen\Modals;
 
-use Codegen\ficols\FicFiCol;
+use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiTemplate;

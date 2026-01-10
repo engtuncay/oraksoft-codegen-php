@@ -2,12 +2,11 @@
 
 namespace Codegen\Modals;
 
-use Engtuncay\Phputils8\FiCores\FiBool;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
-use Engtuncay\Phputils8\FiCols\FicValue;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 class CogSpecsPhpFkbCol implements ICogSpecsFkbCol
 {
@@ -18,7 +17,7 @@ class CogSpecsPhpFkbCol implements ICogSpecsFkbCol
 public static function {{fieldMethodName}}() : FiKeybean
 { 
   \$fkbCol = new FiKeybean();
-{{fiColMethodBody}}
+{{fkbColMethodBody}}
   return \$fkbCol;
 }
 EOD;
@@ -33,7 +32,7 @@ EOD;
 use Engtuncay\Phputils8\FiCols\IFkbTableMeta;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
-use Engtuncay\Phputils8\FiMeta\FimFiCol;
+use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 class {{classPref}}{{entityName}} implements IFkbTableMeta {
 
@@ -169,11 +168,11 @@ EOD;
   {
     return <<<EOD
 public static function genTableColsTrans() : FkbList {
-  \$ficList = new FkbList();
+  \$fkbList = new FkbList();
 
-  {{ficListBodyTrans}}
+  {{fkbListBodyTrans}}
 
-  return \$ficList;
+  return \$fkbList;
 }
 EOD;
   }
@@ -186,11 +185,11 @@ EOD;
   {
     return <<<EOD
 public static function genTableCols() : FkbList {
-  \$ficList = new FkbList();
+  \$fkbList = new FkbList();
 
-  {{ficListBody}}
+  {{fkbListBody}}
 
-  return \$ficList;
+  return \$fkbList;
 }
 EOD;
   }
@@ -201,21 +200,26 @@ EOD;
    * @param FiStrbui $sbFclListBodyExtra
    * @return void
    */
-  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, string $methodName): void
-  { //, FiStrbui $sbFclListBodyExtra
-    $sbFclListBody->append("\$ficList->add(self::$methodName());\n");
-    // $sbFclListBodyExtra->append("ficList.Add($methodName" . "Ext());\n");
+  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void //, string $methodName
+  {
+    $fieldName = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxFieldName());
+    $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
+    $sbFclListBody->append("\$fkbList->add(self::$methodName());\n");
   }
+
 
   /**
    * @param FiStrbui $sbFclListBodyTrans
    * @param string $methodName
    * @return void
    */
-  public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, string $methodName): void
+  public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
   {
-    $sbFclListBodyTrans->append("ficList->add($methodName());\n");
+    $fieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
+    $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
+    $sbFclListBodyTrans->append("fkbList->add($methodName());\n");
   }
+
 
   public function genFiColAddDescDetail(FiKeybean $fkbItem, ICogSpecs $iCogSpecs): FiStrbui
   {
