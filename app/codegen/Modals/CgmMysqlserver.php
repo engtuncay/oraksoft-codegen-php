@@ -14,9 +14,9 @@ use Engtuncay\Phputils8\FiMetas\FimFiCol;
 use Engtuncay\Phputils8\FiMetas\FimOksCoding;
 
 /**
- * SQL Server Code Generation (Cdg)
+ * Mysql-MariaDb Code Generation Model
  */
-class CgmCdgSqlserver
+class CgmMysqlserver
 {
   public static function actGenSqlCreateTable(FkbList $fkbList): Fdr
   {
@@ -36,7 +36,7 @@ class CgmCdgSqlserver
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();
       $sbTxCodeGen1->append("-- Sql Create Table Code Gen v1\n");
-      $sbTxCodeGen1->append(CgmCdgSqlserver::actGenSqlCreate($fkbList));
+      $sbTxCodeGen1->append(CgmMssqlserver::actGenSqlCreate($fkbList));
       $sbTxCodeGen1->append("\n");
       $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
       $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
@@ -117,26 +117,26 @@ EOD;
     $fkbType = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxFieldType());
     $fkbLength = $fkbItem->getValueByFiMeta(FimFiCol::ofcLnLength());
     $fkbIdType = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxIdType());
-    
+
     $sbTypeDef = new FiStrbui();
 
-    if($fkbType == 'string'){
-      
-      if(FiString::isEmpty($fkbLength)){
+    if ($fkbType == 'string') {
+
+      if (FiString::isEmpty($fkbLength)) {
         $fkbLength = 50;
-      } 
+      }
       $sbTypeDef->append(" varchar($fkbLength)");
     }
 
-    if($fkbType == 'int'){
+    if ($fkbType == 'int') {
       $sbTypeDef->append(" int");
     }
 
-    if($fkbType == 'datetime'){
+    if ($fkbType == 'datetime') {
       $sbTypeDef->append(" datetime");
     }
 
-    if($fkbIdType == 'identity'){
+    if ($fkbIdType == 'identity') {
       $sbTypeDef->append(" IDENTITY(1,1) NOT NULL PRIMARY KEY");
     }
 
@@ -144,5 +144,4 @@ EOD;
 
     return $sbTypeDef->toString();
   }
-
 }

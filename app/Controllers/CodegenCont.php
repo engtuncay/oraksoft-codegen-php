@@ -2,8 +2,7 @@
 
 namespace App\Controllers;
 
-use App\codegen\Modals\CgmCdgSqlserver;
-use Codegen\ficols\FicFiCol;
+use Codegen\Modals\CgmMssqlserver;
 use Codegen\modals\CgmFiColClass;
 use Codegen\modals\CgmUtils;
 use Codegen\Modals\CgmFiMetaClass;
@@ -28,8 +27,9 @@ use Codegen\Modals\CogSpecsTsFiMeta;
 use Codegen\Modals\CogSpecsTsFkbCol;
 use Codegen\Modals\CogSpecsTypescript;
 use Codegen\OcdConfig\OcgLogger;
+use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
-use Engtuncay\Phputils8\FiExcel\FiExcel;
+use Engtuncay\Phputils8\FiExcels\FiExcel;
 use Engtuncay\Phputils8\FiCsvs\FiCsv;
 use Engtuncay\Phputils8\FiDtos\Fdr;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
@@ -216,7 +216,7 @@ class CodegenCont extends BaseController
 
     if ($selSql == 1) {
       $fdrData = self::convertFileToFkbList($uploadedFile);
-      $fdrCdgSql = CgmCdgSqlserver::actGenSqlCreateTable($fdrData->getFkbListInit());
+      $fdrCdgSql = CgmMssqlserver::actGenSqlCreateTable($fdrData->getFkbListInit());
 
       $data = [
         'fdrData' => $fdrCdgSql,
