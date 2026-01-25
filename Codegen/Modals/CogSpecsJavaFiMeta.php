@@ -13,6 +13,8 @@ class CogSpecsJavaFiMeta implements ICogSpecsFiMeta
   {
     //String
     $template = <<<EOD
+import ozpasyazilim.utils.datatypes.FiMeta;
+
 public class {{classPref}}{{entityName}} {
 
 {{classBody}}
@@ -30,7 +32,12 @@ EOD;
   {
     //String
     $template = <<<EOD
-
+public static FiMeta {{fieldMethodName}}()
+{
+  FiMeta fimeta = new FiMeta("{{fieldName}}");
+{{fiMethodBody}}
+  return fimeta;
+}
 EOD;
 
     return $template;
@@ -43,12 +50,12 @@ EOD;
 
     $txKey = $fkb->getValueByFiCol(FicFiMeta::ofmTxKey());
     if ($txKey != null) {
-      $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txKey = '%s';\n", $txKey));
+      $sbFmtMethodBodyFieldDefs->append(sprintf(" fiMeta.setTxKey('%s');\n", $txKey));
     }
 
     $txValue = $fkb->getValueByFiCol(FicFiMeta::ofmTxValue());
     if ($txValue != null) {
-      $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txValue = '%s';\n", $txValue));
+      $sbFmtMethodBodyFieldDefs->append(sprintf(" fiMeta.setTxValue('%s');\n", $txValue));
     }
 
     return $sbFmtMethodBodyFieldDefs;
@@ -56,6 +63,9 @@ EOD;
 
   public function genFiMetaMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui
   {
+
+
+
     return new FiStrbui();
   }
 }

@@ -102,7 +102,7 @@ class CgmFkbColClass
     }
 
     // String
-    $tempGenFiCols = $iSpecsFkbCol->getTemplateFkbColsListMethod();
+    $tempGenFiCols = $iSpecsFkbCol->getTemplateGenTableColsMethod();
 
     // String
     $txResGenTableColsMethod = FiTemplate::replaceParams($tempGenFiCols, FiKeybean::bui()->buiPut("fkbListBody", $sbFclListBody->toString()));

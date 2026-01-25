@@ -1,7 +1,7 @@
 <?php
 namespace App\Filters;
 
-use App\Codegen\OcdConfig\OcdConfig;
+use Codegen\OcdConfig\OcdConfig;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Filters\FilterInterface;

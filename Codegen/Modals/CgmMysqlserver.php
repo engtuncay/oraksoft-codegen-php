@@ -1,6 +1,6 @@
 <?php
 
-namespace App\codegen\Modals;
+namespace Codegen\Modals;
 
 use Codegen\Modals\CgmUtils;
 use Codegen\Modals\DtoCodeGen;

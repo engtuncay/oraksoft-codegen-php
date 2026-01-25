@@ -181,7 +181,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTemplateFkbColsListMethod(): string
+  public function getTemplateGenTableColsMethod(): string
   {
     return <<<EOD
 public static function genTableCols() : FkbList {

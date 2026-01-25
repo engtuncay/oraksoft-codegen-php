@@ -1,5 +1,5 @@
 <?php
-namespace App\Codegen\OcdConfig;
+namespace Codegen\OcdConfig;
 
 use Engtuncay\Phputils8\FiConfigs\IFiConfigManager;
 use Engtuncay\Phputils8\FiDbs\FiConnConfig;

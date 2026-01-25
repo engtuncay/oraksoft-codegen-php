@@ -15,7 +15,7 @@ interface ICogSpecsFkbCol
 
   public function getTemplateFkbColMethod(): string;
 
-  public function getTemplateFkbColsListMethod(): string;
+  public function getTemplateGenTableColsMethod(): string;
 
   public function getTemplateFkbColsListTransMethod(): string;
 

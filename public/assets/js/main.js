@@ -13,31 +13,34 @@ function addOption(element, value,textContent) {
 let txIdSeciniz = "-1";
 
 addOption(elementById,txIdSeciniz,"Seçiniz");
-addOption(elementById,"1","FiCol Csharp Sınıf");
-addOption(elementById,"2","FiMeta By FiCol Template");
-addOption(elementById,"3","FkbCol Csharp Sınıf");
-addOption(elementById,"4","FiMeta Csharp Sınıf");
+addOption(elementById,"1","FiCol Sınıf");
+addOption(elementById,"2","FiMeta By DML Template");
+addOption(elementById,"3","FkbCol Sınıf");
+addOption(elementById,"4","FiMeta Sınıf");
 
 let eleSelPhp = document.getElementById("selPhp");
 
 addOption(eleSelPhp,txIdSeciniz,"Seçiniz");
-addOption(eleSelPhp,"1","FiCol Php Sınıf");
-addOption(eleSelPhp,"2","FiMeta Php Sınıf");
-addOption(eleSelPhp,"3","FkbCol Php Sınıf"); 
-addOption(eleSelPhp,"4","FiMeta By FiCol Template");
+addOption(eleSelPhp,"1","FiCol Sınıf");
+addOption(eleSelPhp,"2","FiMeta By DML Template");
+addOption(eleSelPhp,"3","FkbCol Sınıf"); 
+addOption(eleSelPhp,"4","FiMeta Sınıf");
 
 let eleSelTs = document.getElementById("selTs");
 
 addOption(eleSelTs,txIdSeciniz,"Seçiniz");
-addOption(eleSelTs,"1","FiCol Ts Sınıf");
-addOption(eleSelTs,"2","FiMeta Ts Sınıf");
-addOption(eleSelTs,"3","FkbCol Ts Sınıf");
-addOption(eleSelTs,"4","FiMeta By FiCol Template");
+addOption(eleSelTs,"1","FiCol Sınıf");
+addOption(eleSelTs,"2","FiMeta By DML Template");
+addOption(eleSelTs,"3","FkbCol Sınıf");
+addOption(eleSelTs,"4","FiMeta Sınıf");
 
 let eleSelJava = document.getElementById("selJava");
 
 addOption(eleSelJava,txIdSeciniz,"Seçiniz");
-addOption(eleSelJava,"1","FiCol Java Sınıf");
+addOption(eleSelJava,"1","FiCol Sınıf");
+addOption(eleSelJava,"2","FiMeta By DML Template");
+addOption(eleSelJava,"3","FkbCol Sınıf"); 
+// addOption(eleSelJava,"2","FiMeta Sınıf");
 
 let eleSelSql = document.getElementById("selSql");
 

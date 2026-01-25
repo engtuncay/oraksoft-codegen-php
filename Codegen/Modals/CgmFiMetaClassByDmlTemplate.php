@@ -2,7 +2,7 @@
 
 namespace Codegen\Modals;
 
-use Codegen\ficols\FicFiCol;
+use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
@@ -16,7 +16,7 @@ use Engtuncay\Phputils8\FiMetas\FimFiCol;
  * FiCol excelini kullanarak FiMeta class oluşturur. ofcTxFieldName key, ofcTxHeader da value gösterir. 
  * 
  */
-class CgmFiMetaClassByFiColTemp
+class CgmFiMetaClassByDmlTemplate
 {
 
 
@@ -24,8 +24,8 @@ class CgmFiMetaClassByFiColTemp
    * Generate FiMeta Class from FkbList
    *
    * @param FkbList $fkbList
-   * @param CogSpecsCsharp| null $iCogSpecs sadece className ve methodName standartları için kullanılır
-   * @param CogSpecsCsharpFiMeta| null $iSpecsFiMeta
+   * @param CogSpecsJava| null $iCogSpecs sadece className ve methodName standartları için kullanılır
+   * @param CogSpecsJavaFiMeta| null $iSpecsFiMeta
    * @return string
    */
   public static function actGenFiMetaClassByFkbList(FkbList $fkbList, ICogSpecs $iCogSpecs = null, ICogSpecsFiMeta $iSpecsFiMeta = null): string
@@ -40,7 +40,7 @@ class CgmFiMetaClassByFiColTemp
     //int
     //$index = 0;
 
-    $sbFclListBody = new FiStrbui();
+    //$sbFclListBody = new FiStrbui();
     //$sbFclListBodyExtra = new FiStrbui();
     //$sbFclListBodyTrans = new FiStrbui();
     //$sbFiColAddDescDetail = new FiStrbui();
@@ -55,7 +55,7 @@ class CgmFiMetaClassByFiColTemp
       /**
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
        */
-      $sbFiColMethodBody = $iSpecsFiMeta->genFiMetaMethodBodyByFiColTemp($fkbItem); //StringBuilder
+      $sbFiColMethodBody = $iSpecsFiMeta->genFiMetaMethodBodyByFiColTemp($fkbItem); 
 
       //$sbFiColAddDescDetail->append($iCogSpecs->genFiColAddDescDetail($fkbItem)->toString());
 

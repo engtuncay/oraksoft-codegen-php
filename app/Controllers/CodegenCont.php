@@ -6,7 +6,7 @@ use Codegen\Modals\CgmMssqlserver;
 use Codegen\modals\CgmFiColClass;
 use Codegen\modals\CgmUtils;
 use Codegen\Modals\CgmFiMetaClass;
-use Codegen\Modals\CgmFiMetaClassByFiColTemp;
+use Codegen\Modals\CgmFiMetaClassByDmlTemplate;
 use Codegen\Modals\CgmFkbColClass;
 use Codegen\Modals\DtoCodeGen;
 use Codegen\Modals\ICogSpecs;
@@ -19,6 +19,8 @@ use Codegen\Modals\CogSpecsCsharpFiMeta;
 use Codegen\Modals\CogSpecsCSharpFkbCol;
 use Codegen\Modals\CogSpecsJava;
 use Codegen\Modals\CogSpecsJavaFiCol;
+use Codegen\Modals\CogSpecsJavaFiMeta;
+use Codegen\Modals\CogSpecsJavaFkbCol;
 use Codegen\Modals\CogSpecsPhp;
 use Codegen\Modals\CogSpecsPhpFiCol;
 use Codegen\Modals\CogSpecsPhpFiMeta;
@@ -119,100 +121,111 @@ class CodegenCont extends BaseController
     $allowedExtensions = ['xlsx', 'xls', 'csv'];
 
     if (!in_array(strtolower($fileExtension), $allowedExtensions)) {
-      $mess = 'Geçersiz dosya formatı. Sadece .xlsx, .xls veya .csv dosyaları yükleyebilirsiniz.';
+      $mess = 'Geçersiz dosya formatı. Sadece csv dosyaları yükleyebilirsiniz.';
       $fdrData->setMessage($mess);
       goto endExcelOkuma;
     }
 
-    //print_r($fdr);
-    //echo var_export($fdr->getFkbList(), true);
-    //echo PHP_EOL;
+    $fdrData = self::convertFileToFkbList($uploadedFile);
+    $fkbListData = $fdrData->getFkbListInit();
+
+    // print_r($fdr);
+    // echo var_export($fdr->getFkbList(), true);
+    // echo PHP_EOL;
 
     //stdClass nesnesine dönüştür
     //$formObject = (object)$formData;
 
     $cogSpecs = null;
     $cogSpecsFiCol = null;
-    $cogSpecs2 = null;
     $cogSpecsFkbCol = null;
+    $cogSpecsFiMeta = null;
 
+    // FiCol
     if ($selCsharp == 1) {
-      //log_message('info', 'selCsharp');
       $cogSpecs = new CogSpecsCsharp();
       $cogSpecsFiCol = new CogSpecsCSharpFiCol();
     }
+
+    // genFiMetaClassByFiColTempFromFile
+    if ($selCsharp == 2 || $selCsharp == 4) {
+      $cogSpecs = new CogSpecsCsharp();
+      $cogSpecsFiMeta = new CogSpecsCsharpFiMeta();
+    }
+
+    // FkbCol
+    if ($selCsharp == 3) {
+      $cogSpecs = new CogSpecsCsharp();
+      $cogSpecsFkbCol = new CogSpecsCSharpFkbCol();
+    }
+
+    #region Php CogSpecs
 
     if ($selPhp == 1) {
       $cogSpecs = new CogSpecsPhp();
       $cogSpecsFiCol = new CogSpecsPhpFiCol();
     }
 
-    if ($selJava == 1) {
-      $cogSpecs = new CogSpecsJava();
-      $cogSpecsFiCol = new CogSpecsJavaFiCol();
-    }
-
-    // FiColClass üretimi (C#, Java, Php)
-    if ($selPhp == 1 || $selJava == 1 || $selCsharp == 1) {
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($uploadedFile, $cogSpecs, $cogSpecsFiCol);
-    }
-
-    // genFiMetaClassByFiColTempFromFile
-    if ($selCsharp == 2) {
-      //log_message('info', 'selCsharp-2');
-      $cogSpecs = new CogSpecsCsharp();
-      $cogSpecs2 = new CogSpecsCsharpFiMeta();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassByFiColTempFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
-    }
-
-    // genFkbColClassesFromFile
-    if ($selCsharp == 3) {
-      $cogSpecs = new CogSpecsCsharp();
-      $cogSpecs2 = new CogSpecsCSharpFkbCol();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
-    }
-
-    if ($selCsharp == 4) {
-      $cogSpecs = new CogSpecsCsharp();
-      $cogSpecs2 = new CogSpecsCsharpFiMeta();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassesFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
-    }
-
-    if ($selPhp == 2) {
+    if ($selPhp == 2 || $selPhp == 4) {
       $cogSpecs = new CogSpecsPhp();
-      $cogSpecs2 = new CogSpecsPhpFiMeta();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassesFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
+      $cogSpecsFiMeta = new CogSpecsPhpFiMeta();
     }
 
     if ($selPhp == 3) {
       $cogSpecs = new CogSpecsPhp();
       $cogSpecsFkbCol = new CogSpecsPhpFkbCol();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($uploadedFile, $cogSpecs, $cogSpecsFkbCol);
     }
 
-    if ($selPhp == 4) {
-      $cogSpecs = new CogSpecsPhp();
-      $cogSpecs2 = new CogSpecsPhpFiMeta();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassByFiColTempFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
+    #endregion
+
+    if ($selJava == 1) {
+      $cogSpecs = new CogSpecsJava();
+      $cogSpecsFiCol = new CogSpecsJavaFiCol();
     }
 
-    if ($selTs == 2) {
-      $cogSpecs = new CogSpecsTypescript();
-      $cogSpecs2 = new CogSpecsTsFiMeta();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassesFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
+    if ($selJava == 2) {
+      $cogSpecs = new CogSpecsJava();
+      $cogSpecsFiMeta = new CogSpecsJavaFiMeta();
     }
+
+    if ($selJava == 3) {
+      $cogSpecs = new CogSpecsJava();
+      $cogSpecsFkbCol = new CogSpecsJavaFkbCol();
+    }
+
+    //---- Typescript
 
     if ($selTs == 3) {
       $cogSpecs = new CogSpecsTypescript();
-      $cogSpecs2 = new CogSpecsTsFkbCol();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
+      $cogSpecsFkbCol = new CogSpecsTsFkbCol();
     }
 
-    if ($selTs == 4) {
+    if ($selTs == 2 ||  $selTs == 4) {
       $cogSpecs = new CogSpecsTypescript();
-      $cogSpecs2 = new CogSpecsTsFiMeta();
-      list($fdrData, $arrDtoCodeGenPack) = self::genFiMetaClassByFiColTempFromFile($uploadedFile, $cogSpecs, $cogSpecs2);
+      $cogSpecsFiMeta = new CogSpecsTsFiMeta();
     }
+
+    //---- Code Üretimi
+
+    // FiColClass üretimi (C#, Java, Php)
+    if ($selPhp == 1 || $selJava == 1 || $selCsharp == 1 || $selTs == 1) {
+      list($fdrData2, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($fkbListData, $cogSpecs, $cogSpecsFiCol);
+    }
+
+    if ($selPhp == 2 || $selJava == 2 || $selCsharp == 2 || $selTs == 2) {
+      list($fdrData2, $arrDtoCodeGenPack) = self::genFiMetaClassByDmlTemplateFromFile($fkbListData, $cogSpecs, $cogSpecsFiMeta);
+    }
+
+    // FkbColClass üretimi
+    if ($selPhp == 3 || $selJava == 3 || $selCsharp == 3 || $selTs == 3) {
+      list($fdrData2, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($fkbListData, $cogSpecs, $cogSpecsFkbCol);
+    }
+
+    if ($selPhp == 4 || $selJava == 4 || $selCsharp == 4 || $selTs == 4) {
+      list($fdrData2, $arrDtoCodeGenPack) = self::genFiMetaClassesFromFile($fkbListData, $cogSpecs, $cogSpecsFiMeta);
+    }
+
+    //------ Diger
 
     if ($selSql == 1) {
       $fdrData = self::convertFileToFkbList($uploadedFile);
@@ -226,7 +239,7 @@ class CodegenCont extends BaseController
         'formData' => $formObject ?? null
       ];
 
-      // (codegen)[../Views/codegen.php] 
+      // (codegen)[../Views/codegen.php]
       return view('codegen', $data);
     }
 
@@ -275,11 +288,12 @@ class CodegenCont extends BaseController
    * @param CogSpecsCSharpFiCol|null $iCogSpecsFiCol
    * @return array
    */
-  public function genFiColClassesFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs, ICogSpecsFiCol $iCogSpecsFiCol): array
+  public function genFiColClassesFromFile(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsFiCol $iCogSpecsFiCol): array
   {
+    $fdrData = new Fdr();
 
-    $fdrData = self::convertFileToFkbList($sourceFile);
-    $fkbListData = $fdrData->getFkbListInit();
+    // $fdrData = self::convertFileToFkbList($sourceFile);
+    // $fkbListData = $fdrData->getFkbListInit();
     //echo var_export($fkbListExcel, true);
 
     /** @var FkbList[] $mapEntityToFkbList */
@@ -314,11 +328,12 @@ class CodegenCont extends BaseController
    * @param ICogSpecs $iCogSpecs
    * @return array
    */
-  public function genFkbColClassesFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs, ICogSpecsFkbCol $iCogSpecsFkbCol): array
+  public function genFkbColClassesFromFile(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsFkbCol $iCogSpecsFkbCol): array
   {
 
-    $fdrData = self::convertFileToFkbList($sourceFile);
-    $fkbListData = $fdrData->getFkbListInit();
+    $fdrData = new Fdr();
+    // $fdrData = self::convertFileToFkbList($sourceFile);
+    // $fkbListData = $fdrData->getFkbListInit();
     
     // OcgLogger::info("fkbListData:" . print_r($fkbListData->getItems(), true));
 
@@ -332,14 +347,15 @@ class CodegenCont extends BaseController
     OcgLogger::info("fkblist count:" . count($fkbListData->getAsMultiArray()));
     OcgLogger::info("fkbEntityToFkbList count:" . count($fkbEntityToFkbList->getParams()));
     // fkbList, Excelde bir entity için tanımlanmış alanların listesi
-    
+
     $arrDtoCodeGen =  [];
-    
+    $txVer = $this->getTxVer();
+
     foreach ($fkbEntityToFkbList as $entity => $fkbList) {
       $lnForIndex++;
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();
-      $sbTxCodeGen1->append("// Codegen v2\n");
+      $sbTxCodeGen1->append("// Codegen " . $txVer . "\n");
       $sbTxCodeGen1->append(CgmFkbColClass::actGenClassByFkbList($fkbList, $iCogSpecs, $iCogSpecsFkbCol));
       $sbTxCodeGen1->append("\n");
       $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
@@ -390,12 +406,13 @@ class CodegenCont extends BaseController
    * @param ICogSpecs $iCogSpecs
    * @return array
    */
-  public function genFiMetaClassesFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs, ICogSpecsFiMeta $iCogSpecsFiMeta): array
+  public function genFiMetaClassesFromFile(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsFiMeta $iCogSpecsFiMeta): array
   {
+    $fdrData = new Fdr();
     //array|string $fileExtension,
 
-    $fdrData = self::convertFileToFkbList($sourceFile);
-    $fkbListData = $fdrData->getFkbListInit();
+    // $fdrData = self::convertFileToFkbList($sourceFile);
+    // $fkbListData = $fdrData->getFkbListInit();
 
     //echo var_export($fkbListExcel, true);
 
@@ -406,11 +423,14 @@ class CodegenCont extends BaseController
     $txIdPref = "codegen";
     $lnForIndex = 0;
 
+    $txVer = $this->getTxVer();
+
     foreach ($mapEntityToFkbList as $entity => $fkbList) {
       $lnForIndex++;
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();
-      $sbTxCodeGen1->append("// Codegen v2\n");
+      $sbTxCodeGen1->append("// Codegen " . $txVer . "\n");
+
       $sbTxCodeGen1->append(CgmFiMetaClass::actGenFiMetaClassByFkb($fkbList, $iCogSpecs, $iCogSpecsFiMeta));
       $sbTxCodeGen1->append("\n");
       $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
@@ -430,12 +450,13 @@ class CodegenCont extends BaseController
    * @param ICogSpecs $iCogSpecs
    * @return array
    */
-  public function genFiMetaClassByFiColTempFromFile(mixed $sourceFile, ICogSpecs $iCogSpecs, ICogSpecsFiMeta $iSpecsFiMeta): array
+  public function genFiMetaClassByDmlTemplateFromFile(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsFiMeta $iSpecsFiMeta): array
   {
+    $fdrData = new Fdr();
     //array|string $fileExtension,
 
-    $fdrData = self::convertFileToFkbList($sourceFile);
-    $fkbListData = $fdrData->getFkbListInit();
+    // $fdrData = self::convertFileToFkbList($sourceFile);
+    // $fkbListData = $fdrData->getFkbListInit();
 
     //echo var_export($fkbListExcel, true);
 
@@ -446,12 +467,14 @@ class CodegenCont extends BaseController
     $txIdPref = "codegen";
     $lnForIndex = 0;
 
+    $txVer = $this->getTxVer();
+
     foreach ($mapEntityToFkbList as $entity => $fkbList) {
       $lnForIndex++;
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();
-      $sbTxCodeGen1->append("// Codegen v2\n");
-      $sbTxCodeGen1->append(CgmFiMetaClassByFiColTemp::actGenFiMetaClassByFkbList($fkbList, $iCogSpecs, $iSpecsFiMeta));
+      $sbTxCodeGen1->append("// Codegen " . $txVer . "\n");
+      $sbTxCodeGen1->append(CgmFiMetaClassByDmlTemplate::actGenFiMetaClassByFkbList($fkbList, $iCogSpecs, $iSpecsFiMeta));
       $sbTxCodeGen1->append("\n");
       $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
       $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
@@ -462,5 +485,10 @@ class CodegenCont extends BaseController
     //log_message('info', 'fdrData: ' . print_r($fdrData, true));
 
     return array($fdrData, $arrDtoCodeGen); //$fiExcel $fkbListData
+  }
+
+  public function getTxVer()
+  {
+    return "v0.3";
   }
 }
