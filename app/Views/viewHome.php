@@ -80,6 +80,9 @@ view('fiAppImports.php');
                   </label>
                 </div>
               </div>
+              <div class="d-grid">
+                <button class="btn btn-info" onclick="readDml(event)">Dml Oku</button>
+              </div>
             </form>
           </div>
         </div>
@@ -98,6 +101,40 @@ view('fiAppImports.php');
 
 
   <script>
+    /**
+     * @param {Event} event - The event object triggered by the user interaction.
+     */
+    function readDml(event) {
+      event.preventDefault();
+      //alert("Dml Oku clicked!");
+
+      async function readDml() {
+
+        const {
+          testOrakSoftUi,
+          fiPostJson,
+          fiBsModal
+        } = await import('/orak_modules/oraksoft-ui/oraksoft-ui.js');
+        //alert(testOrakSoftUi("Dml Oku"));
+        fiPostJson('/testpost', {
+            veri: 'örnek'
+          })
+          .then((result) => {
+            console.log(result);
+            return result.json();
+          })
+          .then((data) => {
+            console.log(data);
+            //fiBsModal('<pre>' + data.result.refValue + '</pre>');
+          }).catch((err) => {
+            alert('Hata: ' + err);
+          });
+
+      }
+      readDml();
+    }
+
+
     // function copyCode() {
     //     const code = document.getElementById("code-snippet").innerText;
     //     navigator.clipboard.writeText(code).then(() => {
@@ -137,6 +174,16 @@ view('fiAppImports.php');
 
     // ko.applyBindings(new AppViewModel());
   </script>
+
+  <script type="module">
+    import {
+      testOrakSoftUi
+    } from '/orak_modules/oraksoft-ui/oraksoft-ui.js';
+
+    //alert(testOrakSoftUi("Home Page"));
+  </script>
+
+
   <?php // (mainJs)[../../public/assets/js/main.js] // link to a file 
   ?>
   <script src="<?= base_url('orak_modules/bootstrap/bootstrap.min.js') ?>"></script>
