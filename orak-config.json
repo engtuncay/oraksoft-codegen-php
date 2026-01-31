@@ -35,6 +35,14 @@
     {
       "name": "oraksoft-ui",
       "file": "dist/oraksoft-ui.js"
+    },
+    {
+      "name": "oraksoft-ui",
+      "file": "dist/oraksoft-ui.d.ts"
+    },
+    {
+      "name": "oraksoft-ui",
+      "file": "dist/oraksoft-ui.js.map"
     }
   ],
   "copyDepsLibFolder": "public/orak_modules",

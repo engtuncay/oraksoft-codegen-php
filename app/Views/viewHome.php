@@ -3,7 +3,6 @@
 view('fiAppImports.php');
 
 //use Engtuncay\Phputils8\Log\FiLog;
-
 //FiLog::initLogger('filog');
 
 ?>
@@ -81,7 +80,9 @@ view('fiAppImports.php');
                 </div>
               </div>
               <div class="d-grid">
-                <button class="btn btn-info" onclick="readDml(event)">Dml Oku</button>
+                <button class="btn btn-info" data-action="readDml">Dml</button>
+                <button class="btn btn-info" data-action="readEntities">Entity Oku</button>
+                <button class="btn btn-info" data-action="test">Test</button>
               </div>
             </form>
           </div>
@@ -101,40 +102,6 @@ view('fiAppImports.php');
 
 
   <script>
-    /**
-     * @param {Event} event - The event object triggered by the user interaction.
-     */
-    function readDml(event) {
-      event.preventDefault();
-      //alert("Dml Oku clicked!");
-
-      async function readDml() {
-
-        const {
-          testOrakSoftUi,
-          fiPostJson,
-          fiBsModal
-        } = await import('/orak_modules/oraksoft-ui/oraksoft-ui.js');
-        //alert(testOrakSoftUi("Dml Oku"));
-        fiPostJson('/testpost', {
-            veri: 'örnek'
-          })
-          .then((result) => {
-            console.log(result);
-            return result.json();
-          })
-          .then((data) => {
-            console.log(data);
-            //fiBsModal('<pre>' + data.result.refValue + '</pre>');
-          }).catch((err) => {
-            alert('Hata: ' + err);
-          });
-
-      }
-      readDml();
-    }
-
-
     // function copyCode() {
     //     const code = document.getElementById("code-snippet").innerText;
     //     navigator.clipboard.writeText(code).then(() => {
@@ -143,7 +110,8 @@ view('fiAppImports.php');
     // }
 
     // @flow
-    // let elementById1 = document.getElementById("#txaOutput");
+    //let elementById1 = document.getElementById("#txaOutput");
+
 
     // Butonun tıklanmasıyla fonksiyonu çalıştır
     //document.getElementById("copy-btn").addEventListener("click", copyCode);
@@ -176,18 +144,50 @@ view('fiAppImports.php');
   </script>
 
   <script type="module">
+    // import {
+    //   fiPostFormData,
+    //   fiBsModal,
+    //   testOrakSoftUi,
+    // } from './orak_modules/oraksoft-ui/oraksoft-ui.js';
+
     import {
-      testOrakSoftUi
-    } from '/orak_modules/oraksoft-ui/oraksoft-ui.js';
+      actReadDml,
+      actReadEntities,
+    } from '<?= base_url('assets/js/home-mod.js') ?>';
 
-    //alert(testOrakSoftUi("Home Page"));
+
+    const actions = {
+      readDml() {
+        actReadDml();
+      },
+      readEntities() {
+        actReadEntities();
+      },
+      test() {
+        alert('Test clicked!');
+      }
+    };
+
+      // Attach click handlers only to buttons with data-action
+      document.querySelectorAll('button[data-action]').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const action = btn.dataset.action;
+          if (action && actions[action]) {
+            actions[action]();
+          }
+        });
+      });
   </script>
-
 
   <?php // (mainJs)[../../public/assets/js/main.js] // link to a file 
   ?>
+
   <script src="<?= base_url('orak_modules/bootstrap/bootstrap.min.js') ?>"></script>
   <script type="module" src="<?= base_url('assets/js/main.js') ?>"></script>
+  <script src="<?= base_url('assets/js/home.js') ?>"></script>
+  <script type="module" src="<?= base_url('assets/js/home-mod.js') ?>"></script>
+
   <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
   <!--<script type="module" src="./assets/main.js"></script>-->
 </body>
