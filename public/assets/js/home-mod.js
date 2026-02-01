@@ -43,12 +43,6 @@ export function actReadEntityList() {
     });
 }
 
-// export function actReadEntities() {
-//   console.log("actReadEntities method called");
-// }
-
-
-
 export function actReadDmlTestPost() {
   console.log("actReadDmlTestPost method called");
 

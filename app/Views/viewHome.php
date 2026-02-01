@@ -164,9 +164,6 @@ view('fiAppImports.php');
       readEntityList() {
         actReadEntityList();
       },
-      readEntities() {
-        actReadEntities();
-      },
       test() {
         alert('Test clicked!');
       }
