@@ -58,8 +58,14 @@ view('fiAppImports.php');
                     <select class="form-select" aria-label="Sql Operations" name="selSql" id="selSql">
                     </select>
                   </div>
+                  
                 </div>
               </div>
+              <div class="mb-3">
+                    <label for="selEntities" class="form-label">Entities</label>
+                    <select class="form-select" aria-label="Entities Operations" name="selEntities" id="selEntities">
+                    </select>
+                  </div>
               <div class="mb-3">
                 <label for="excelFile" class="form-label">Excel Dosyası Seçin:</label>
                 <input type="file" class="form-control" name="excelFile" id="excelFile"
@@ -80,9 +86,9 @@ view('fiAppImports.php');
                 </div>
               </div>
               <div class="d-grid">
-                <button class="btn btn-info" data-action="readDml">Dml</button>
-                <button class="btn btn-info" data-action="readEntities">Entity Oku</button>
-                <button class="btn btn-info" data-action="test">Test</button>
+                <button class="btn btn-info m-1" data-action="readDml">Dml</button>
+                <button class="btn btn-info m-1" data-action="readEntities">Entity Oku</button>
+                <button class="btn btn-info m-1" data-action="test">Test</button>
               </div>
             </form>
           </div>
