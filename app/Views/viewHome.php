@@ -26,7 +26,7 @@ view('fiAppImports.php');
       <div class="col-md-12">
         <div class="card">
           <div class="text-white card-header bg-primary">
-            <h3 class="text-center card-title">Orak Soft Code Generator</h3>
+            <h3 class="text-center card-title">Oraksoft Code Generator</h3>
           </div>
 
           <div class="card-body">
