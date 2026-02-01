@@ -1,10 +1,11 @@
-import { FiKeybean, fiPostFormData, testOrakSoftUi, fiPostJson } from "../../orak_modules/oraksoft-ui/oraksoft-ui.js";
+import { FiKeybean, fiPostFormData, fiPostJson, testOrakSoftUi } from "../../orak_modules/oraksoft-ui/oraksoft-ui.js";
 
 
 //let fkb = new FiKeybean;
 //fkb.fiPut("a", "value");
 
-console.log(testOrakSoftUi("dünya"));
+//console.log(testOrakSoftUi("dünya"));
+
 
 
 export function actReadDmlTestPost() {
@@ -24,6 +25,7 @@ export function actReadDmlTestPost() {
       alert('Hata: ' + err);
     });
 }
+
 
 
 export function actReadDml() {

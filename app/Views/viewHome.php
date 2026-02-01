@@ -155,7 +155,6 @@ view('fiAppImports.php');
       actReadEntities,
     } from '<?= base_url('assets/js/home-mod.js') ?>';
 
-
     const actions = {
       readDml() {
         actReadDml();
@@ -168,16 +167,16 @@ view('fiAppImports.php');
       }
     };
 
-      // Attach click handlers only to buttons with data-action
-      document.querySelectorAll('button[data-action]').forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          const action = btn.dataset.action;
-          if (action && actions[action]) {
-            actions[action]();
-          }
-        });
+    // Attach click handlers only to buttons with data-action
+    document.querySelectorAll('button[data-action]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const action = btn.dataset.action;
+        if (action && actions[action]) {
+          actions[action]();
+        }
       });
+    });
   </script>
 
   <?php // (mainJs)[../../public/assets/js/main.js] // link to a file 
