@@ -67,15 +67,16 @@ view('fiAppImports.php');
                     </select>
                   </div>
               <div class="mb-3">
+                <script type="module"></script>
                 <label for="excelFile" class="form-label">Excel Dosyası Seçin:</label>
                 <input type="file" class="form-control" name="excelFile" id="excelFile"
                   accept=".xlsx, .xls, .csv" required>
                 <div class="form-text">Sadece .xlsx, .xls veya .csv dosyaları yükleyebilirsiniz.</div>
               </div>
-              <div class="mb-3">
+              <!-- <div class="mb-3">
                 <label for="txActiveEntity" class="form-label">Active Entity</label>
                 <input type="text" class="form-control" id="txActiveEntity" name="txActiveEntity" placeholder="active entity">
-              </div>
+              </div> -->
               <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Generate Code</button>
                 <div class="form-check mt-1">
