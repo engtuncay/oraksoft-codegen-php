@@ -86,9 +86,9 @@ view('fiAppImports.php');
                 </div>
               </div>
               <div class="d-grid">
-                <button class="btn btn-info m-1" data-action="readDml">Dml</button>
-                <button class="btn btn-info m-1" data-action="readEntities">Entity Oku</button>
-                <button class="btn btn-info m-1" data-action="test">Test</button>
+                <button class="btn btn-info m-1" data-action="readDml">Read Entities</button>
+                <!-- <button class="btn btn-info m-1" data-action="readEntities">Entity Oku</button> -->
+                <!-- <button class="btn btn-info m-1" data-action="test">Test</button> -->
               </div>
             </form>
           </div>
