@@ -2,10 +2,12 @@
 
 namespace App\Controllers;
 
+use Codegen\Modals\CgmUtils;
 use CodeIgniter\RESTful\ResourceController;
 use Config\Services;
 use Engtuncay\Phputils8\FiCsvs\FiCsv;
 use Engtuncay\Phputils8\FiDtos\Fdr;
+use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 
 class Api extends ResourceController
@@ -28,8 +30,10 @@ class Api extends ResourceController
     return $this->respond(['message' => 'API is working (testget)']);
   }
 
-  public function testForm()
+  public function getEntities()
   {
+    log_message('info', 'Api::getEntities called');
+
     $request = Services::request();
     $file = $request->getFile('excelFile');
 
@@ -38,12 +42,21 @@ class Api extends ResourceController
 
       $fdr = $this->convertFileToFkbList($file);
 
+      /** @var FkbList[] $mapEntityToFkbList */
+      $fiwEntity = CgmUtils::genFkbAsEntityList($fdr->getFkbListInit());  
+
       $satirBilgi = 'Satır Sayısı: ' . $fdr->getFkbListInit()->size();
 
-      if ($fdr->getFkbListInit()->size() > 0) {
-      }
+      // if ($fdr->getFkbListInit()->size() > 0) {
+      // }
 
-      return $this->respond(['filename' => $originalName, 'satirBilgi' => $satirBilgi]);
+      $fkbResponse = new FiKeybean();
+      $fkbResponse->add('filename', $originalName);
+      $fkbResponse->add('lnRows', $fdr->getFkbListInit()->size());
+      $fkbResponse->add('entities', $fiwEntity->getArrValue());
+
+      //return $this->respond(['lnRows' => $fdr->getFkbListInit()->size(), 'fileName' => $originalName ], status: 200);
+      return $this->respond($fkbResponse->getParams(), status: 200);
     }
 
     return $this->respond(['error' => 'Dosya yok veya geçersiz'], 400);

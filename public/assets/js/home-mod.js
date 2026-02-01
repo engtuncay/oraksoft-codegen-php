@@ -36,7 +36,7 @@ export function actReadDml() {
   // Convert form element to FormData before sending
   const formData = new FormData(form);
 
-  fiPostFormData('/testForm', formData)
+  fiPostFormData('/getEntities', formData)
     .then((result) => {
       console.log(result);
       return result.json();

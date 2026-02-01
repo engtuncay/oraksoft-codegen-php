@@ -121,6 +121,34 @@ class CgmUtils
     return $fkbMap; //->getArr();
   }
 
+  public static function genFkbAsEntityList(FkbList $fkbListData): FiwArray
+  {
+    $farData = new FiwArray();
+
+    //OcgLogger::info("Generating FkbMap from FkbListData:\n". print_r($fkbListData->getItems(), true) );
+    //OcgLogger::info("Generating FkbMap from FkbListData , total item count:" . count($fkbListData->getItems()));  
+
+    /** @var FiKeybean $fkbItem */
+    foreach ($fkbListData as $fkbItem) {
+      //OcgLogger::info("Processing FkbItem: " . print_r($fkbItem->getArr(), true));
+      //OcgLogger::info("Processing FkbItem EntityName: " . $fkbItem->getFimValue(FimFiCol::ofcTxEntityName()));
+      //OcgLogger::info("Processing FkbItem EntityName: " . $fkbItem->getArr()[FimFiCol::ofcTxEntityName()->getTxKey()]);
+      //FiLog::$log?->debug(implode(":", $fkbItem->getArr()));
+      $txEntityName = $fkbItem->getFimValue(FimFiCol::ofcTxEntityName());
+      //FiLog::$log?->debug("$txEntityName : ". $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName()));
+      if ($txEntityName != null) {
+        //OcgLogger::info("Adding FkbItem to entity:$txEntityName , field:" . $fkbItem->getOfcTxFn());
+        if (!$farData->existValue(trim($txEntityName))) {
+          $farData->addValue(trim($txEntityName));
+        }
+      }
+    }
+
+    //FiLog::$log?->debug(FiText::textArrayFkbList($farData->getArr()));
+
+    return $farData; //->getArr();
+  }
+
   /**
    * Converts a field name to standard method name format.
    *
