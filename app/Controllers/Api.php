@@ -30,9 +30,9 @@ class Api extends ResourceController
     return $this->respond(['message' => 'API is working (testget)']);
   }
 
-  public function getEntities()
+  public function getEntityList()
   {
-    log_message('info', 'Api::getEntities called');
+    log_message('info', 'Api::getEntityList called');
 
     $request = Services::request();
     $file = $request->getFile('excelFile');

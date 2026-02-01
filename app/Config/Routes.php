@@ -17,5 +17,5 @@ CdgciHelper::addRoutePost($routes, 'testpost', Api::class);
 //$routes->get('/testget', 'Api::testpost');
 CdgciHelper::addRouteGet($routes, 'testget', Api::class);
 
-CdgciHelper::addRoutePost($routes, 'getEntities', Api::class);
+CdgciHelper::addRoutePost($routes, 'getEntityList', Api::class);
 

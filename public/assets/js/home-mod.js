@@ -10,15 +10,15 @@ function addOption(element, value, textContent) {
 }
 
 
-export function actReadDml() {
-  console.log("actReadDml method called");
+export function actReadEntityList() {
+  console.log("actReadEntityList method called");
 
   const form = document.querySelector('form');
 
   // Convert form element to FormData before sending
   const formData = new FormData(form);
 
-  fiPostFormData('/getEntities', formData)
+  fiPostFormData('/getEntityList', formData)
     .then((result) => {
       console.log(result);
       return result.json();
@@ -35,7 +35,7 @@ export function actReadDml() {
         data.entities.forEach(entity => {
           addOption(eleSelEntities, entity, entity);
         });
-        
+
       }
       //fiBsModal('<pre>' + data.result.refValue + '</pre>');
     }).catch((err) => {
@@ -43,11 +43,9 @@ export function actReadDml() {
     });
 }
 
-export function actReadEntities() {
-  console.log("actReadEntities method called");
-}
-
-
+// export function actReadEntities() {
+//   console.log("actReadEntities method called");
+// }
 
 
 

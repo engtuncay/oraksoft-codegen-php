@@ -86,7 +86,7 @@ view('fiAppImports.php');
                 </div>
               </div>
               <div class="d-grid">
-                <button class="btn btn-info m-1" data-action="readDml">Read Entities</button>
+                <button class="btn btn-info m-1" data-action="readEntityList">Read Entity List</button>
                 <!-- <button class="btn btn-info m-1" data-action="readEntities">Entity Oku</button> -->
                 <!-- <button class="btn btn-info m-1" data-action="test">Test</button> -->
               </div>
@@ -157,13 +157,12 @@ view('fiAppImports.php');
     // } from './orak_modules/oraksoft-ui/oraksoft-ui.js';
 
     import {
-      actReadDml,
-      actReadEntities,
+      actReadEntityList
     } from '<?= base_url('assets/js/home-mod.js') ?>';
 
     const actions = {
-      readDml() {
-        actReadDml();
+      readEntityList() {
+        actReadEntityList();
       },
       readEntities() {
         actReadEntities();
