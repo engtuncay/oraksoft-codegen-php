@@ -1,8 +1,6 @@
 <?php
-
 namespace Codegen\Modals;
 
-use Codegen\Ficols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiText;
 use Engtuncay\Phputils8\FiCores\FiwArray;
@@ -15,6 +13,7 @@ use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiDtos\FmtList;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 use Codegen\OcdConfig\OcgLogger;
+use Engtuncay\Phputils8\FiCols\FicFiCol;
 
 class CgmUtils
 {
