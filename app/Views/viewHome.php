@@ -1,4 +1,5 @@
 <?php
+//require __DIR__ . '/../../vendor/autoload.php';
 //require __DIR__ . '/fiAppImports.php';
 view('fiAppImports.php');
 
@@ -10,15 +11,15 @@ view('fiAppImports.php');
 <html lang="tr">
 
 <head>
-  <?php //require __DIR__ . '/fiHead.php'; 
+  <?php
   ?>
-  <?php // (fiHead)[./fiHead.php] // link to a file 
+  <?php
   ?>
   <? //= view('fiHead.php') 
   ?>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orak Soft Code Generator</title>
+  <title>Oraksoft Code Generator</title>
   <link rel="stylesheet" href="<?= base_url('orak_modules/bootstrap/bootstrap.min.css') ?>">
   <link rel="stylesheet" href="<?= base_url('orak_modules/oraksoft-tw-css-lib/oraksoft-tw-lib.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/codeblock.css') ?>">
@@ -206,7 +207,7 @@ view('fiAppImports.php');
   <script src="<?= base_url('assets/js/home.js') ?>"></script>
   <script type="module" src="<?= base_url('assets/js/home-mod.js') ?>"></script>
   <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
-  
+
 </body>
 
 </html>
@@ -216,11 +217,13 @@ view('fiAppImports.php');
 <!-- <footer>
     <div class="environment">
         <p>Page rendered in {elapsed_time} seconds using {memory_usage} MB of memory.</p>
-        <p>Environment: <?//= ENVIRONMENT ?></p>
+        <p>Environment: <? //= ENVIRONMENT 
+                        ?></p>
     </div>
 
     <div class="copyrights">
-        <p>&copy; <?//= date('Y') ?> CodeIgniter Foundation. CodeIgniter is open source project released under the MIT
+        <p>&copy; <? //= date('Y') 
+                  ?> CodeIgniter Foundation. CodeIgniter is open source project released under the MIT
             open source licence.</p>
     </div>
 
