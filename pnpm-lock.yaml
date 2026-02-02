@@ -26,6 +26,9 @@ importers:
       notiflix:
         specifier: ^3.2.8
         version: 3.2.8
+      oraksoft-tw-css-lib:
+        specifier: file:../oraksoft-tw-css-lib
+        version: file:../oraksoft-tw-css-lib
       oraksoft-ui:
         specifier: file:../oraksoft-ui
         version: file:../oraksoft-ui
@@ -329,6 +332,9 @@ packages:
 
   notiflix@3.2.8:
     resolution: {integrity: sha512-BNBGr3qNIBNt6NZYvch0OLF9DEEgWKcjYzISMH9eECKwfsUaINb5K/RA21hy5kmfOtdbdAdODrqxts+0xp+xwA==}
+
+  oraksoft-tw-css-lib@file:../oraksoft-tw-css-lib:
+    resolution: {directory: ../oraksoft-tw-css-lib, type: directory}
 
   oraksoft-ui@file:../oraksoft-ui:
     resolution: {directory: ../oraksoft-ui, type: directory}
@@ -733,6 +739,8 @@ snapshots:
   normalize-path@3.0.0: {}
 
   notiflix@3.2.8: {}
+
+  oraksoft-tw-css-lib@file:../oraksoft-tw-css-lib: {}
 
   oraksoft-ui@file:../oraksoft-ui: {}
 

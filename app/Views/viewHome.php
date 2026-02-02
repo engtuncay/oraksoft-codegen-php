@@ -58,17 +58,17 @@ view('fiAppImports.php');
                     <select class="form-select" aria-label="Sql Operations" name="selSql" id="selSql">
                     </select>
                   </div>
-                  
+
                 </div>
               </div>
               <div class="mb-3">
-                    <label for="selEntity" class="form-label">Entity</label>
-                    <select class="form-select" aria-label="Entity Selection" name="selEntity" id="selEntity">
-                    </select>
-                  </div>
+                <label for="selEntity" class="form-label">Entity</label>
+                <select class="form-select" aria-label="Entity Selection" name="selEntity" id="selEntity">
+                </select>
+              </div>
               <div class="mb-3">
                 <script type="module"></script>
-                <label for="excelFile" class="form-label">Excel Dosyası Seçin:</label>
+                <label for="excelFile" class="form-label">DML Dosyasını Seçin:</label>
                 <input type="file" class="form-control" name="excelFile" id="excelFile"
                   accept=".xlsx, .xls, .csv" required>
                 <div class="form-text">Sadece .xlsx, .xls veya .csv dosyaları yükleyebilirsiniz.</div>
@@ -98,6 +98,19 @@ view('fiAppImports.php');
     </div>
   </div>
 
+  <div class="container mt-3 tw-h-min-1 bg-light">
+    <!--code blok -->
+    <div id="divCodeBlock" class="position-relative">
+      <pre class="p-3 rounded"><code id="eleCode"></code>
+        </pre>
+      <button class="top-0 m-2 btn btn-sm btn-outline-dark position-absolute end-0 copy-btn"
+        onclick="copyCode('eleCode')">
+        Copy
+      </button>
+    </div>
+  </div>
+
+
   <!--<h2>Renk Seçin</h2>-->
   <!---->
   <!-- Select elementi -->
@@ -109,13 +122,14 @@ view('fiAppImports.php');
 
 
   <script>
-    // function copyCode() {
-    //     const code = document.getElementById("code-snippet").innerText;
-    //     navigator.clipboard.writeText(code).then(() => {
-    //         //alert("Copied!");
-    //     });
-    // }
 
+    function copyCode(txIdName) {
+      const code = document.getElementById(txIdName).innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        //alert("Copied!");
+      });
+    }
+    
     // @flow
     //let elementById1 = document.getElementById("#txaOutput");
 

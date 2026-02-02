@@ -43,6 +43,10 @@
     {
       "name": "oraksoft-ui",
       "file": "dist/oraksoft-ui.js.map"
+    },
+    {
+      "name": "oraksoft-tw-css-lib",
+      "file": "dist/oraksoft-tw-lib.css"
     }
   ],
   "copyDepsLibFolder": "public/orak_modules",
