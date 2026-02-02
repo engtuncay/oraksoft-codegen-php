@@ -1,4 +1,5 @@
 <?php
+
 namespace Codegen\Modals;
 
 use Engtuncay\Phputils8\FiCores\FiString;
@@ -14,6 +15,10 @@ use Engtuncay\Phputils8\FiDtos\FmtList;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 use Codegen\OcdConfig\OcgLogger;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
+use Engtuncay\Phputils8\FiCsvs\FiCsv;
+use Engtuncay\Phputils8\FiDtos\Fdr;
+use Engtuncay\Phputils8\FiExcels\FiExcel;
+use CodeIgniter\HTTP\Files\UploadedFile;
 
 class CgmUtils
 {
@@ -191,5 +196,44 @@ class CgmUtils
 
       return $result;
     }
+  }
+
+  /**
+   * @param mixed $sourceFile
+   * @return Fdr
+   */
+  public static function convertFileToFkbList(mixed $sourceFile): Fdr
+  {
+    // Tip kontrolü: tercihen `UploadedFile` olmalı, diğer durumlarda `getClientPath()` metodu aranır
+    if (!($sourceFile instanceof UploadedFile)) {
+      $fdrData = new Fdr();
+      $fdrData->setMessage('Geçersiz dosya nesnesi. Beklenen UploadedFile veya getClientPath() metodu olan bir nesne.');
+      $fdrData->setFkbList(new FkbList());
+      return $fdrData;
+    }
+
+    $fileExtension = pathinfo($sourceFile->getClientPath(), PATHINFO_EXTENSION);
+
+    if ($fileExtension == "csv") {
+      $fiCsv = new FiCsv();
+      //$fiCols = FicFiCol::GenTableCols();
+      //$fiCols->add(FicFiMeta::ofmTxKey());
+      $fdrData = $fiCsv::readByFirstRowHeader($sourceFile);
+      $fkbListData = $fdrData->getFkbListInit();
+      return $fdrData;
+    }
+
+    if ($fileExtension == "xlsx" || $fileExtension == "xls") {
+      $fiExcel = new FiExcel();
+      $fdrData = $fiExcel::readExcelFile($sourceFile, FicFiCol::GenTableCols());
+      $fkbListData = $fdrData->getFkbListInit();
+      return $fdrData;
+    }
+
+    $fdrData = new Fdr();
+    $fdrData->setMessage("Geçersiz dosya formatı. Sadece .xlsx, .xls veya .csv dosyaları yükleyebilirsiniz.");
+    $fdrData->setFkbList(new FkbList());
+
+    return $fdrData; // Boş FkbList döndür
   }
 }
