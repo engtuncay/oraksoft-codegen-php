@@ -62,8 +62,8 @@ view('fiAppImports.php');
                 </div>
               </div>
               <div class="mb-3">
-                    <label for="selEntities" class="form-label">Entities</label>
-                    <select class="form-select" aria-label="Entities Operations" name="selEntities" id="selEntities">
+                    <label for="selEntity" class="form-label">Entity</label>
+                    <select class="form-select" aria-label="Entity Selection" name="selEntity" id="selEntity">
                     </select>
                   </div>
               <div class="mb-3">

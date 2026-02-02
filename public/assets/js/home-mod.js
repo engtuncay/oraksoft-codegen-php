@@ -26,14 +26,14 @@ export function actReadEntityList() {
     .then((data) => {
       console.log(data);
       if (data.entities) {
-        /** {HTMLSelectElement} eleSelEntities */
-        let eleSelEntities = document.getElementById("selEntities");
-        if (!(eleSelEntities instanceof HTMLSelectElement)) return;
-        eleSelEntities.options.length = 0;
+        /** {HTMLSelectElement} eleSelEntity */
+        let eleSelEntity = document.getElementById("selEntity");
+        if (!(eleSelEntity instanceof HTMLSelectElement)) return;
+        eleSelEntity.options.length = 0;
 
         /** {string} entity */
         data.entities.forEach(entity => {
-          addOption(eleSelEntities, entity, entity);
+          addOption(eleSelEntity, entity, entity);
         });
 
       }
