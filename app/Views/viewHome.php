@@ -14,7 +14,24 @@ view('fiAppImports.php');
   ?>
   <?php // (fiHead)[./fiHead.php] // link to a file 
   ?>
-  <?= view('fiHead.php') ?>
+  <? //= view('fiHead.php') 
+  ?>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orak Soft Code Generator</title>
+  <link rel="stylesheet" href="<?= base_url('orak_modules/bootstrap/bootstrap.min.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('orak_modules/oraksoft-tw-css-lib/oraksoft-tw-lib.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/css/codeblock.css') ?>">
+  <!--<script type="module" crossorigin src="./assets/main.js"></script>-->
+  <!--<script defer src="libs/cdn.min.js"></script>-->
+  <!--<script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-3.5.0.js"></script>-->
+  <!--<script src="libs/knockout-latest.js"></script>-->
+  <!--<script src="fiapp.js"></script>-->
+  <style>
+    .fibody {
+      background-image: url("<?= base_url('assets/img/ocg-background.jpeg') ?>");
+    }
+  </style>
   <!-- <link rel="stylesheet" href="codeblock.css"> -->
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 </head>
@@ -98,38 +115,26 @@ view('fiAppImports.php');
     </div>
   </div>
 
-  <div class="container mt-3 tw-h-min-1 bg-light">
+  <div class="container mt-3 tw-h-min-1 ">
     <!--code blok -->
     <div id="divCodeBlock" class="position-relative">
       <pre class="p-3 rounded"><code id="eleCode"></code>
         </pre>
-      <button class="top-0 m-2 btn btn-sm btn-outline-dark position-absolute end-0 copy-btn"
+      <button class="m-2 btn btn-sm btn-outline-dark position-absolute top-0 end-0 copy-btn"
         onclick="copyCode('eleCode')">
         Copy
       </button>
     </div>
   </div>
 
-
-  <!--<h2>Renk Seçin</h2>-->
-  <!---->
-  <!-- Select elementi -->
-  <!--<select data-bind="options: colors, value: selectedColor, optionsText: 'name', optionsValue: 'code'">-->
-  <!--</select>-->
-  <!---->
-  <!-- Seçilen rengi göster -->
-  <!--<p>Seçilen Renk: <span data-bind="text: selectedColor"></span></p>-->
-
-
   <script>
-
     function copyCode(txIdName) {
       const code = document.getElementById(txIdName).innerText;
       navigator.clipboard.writeText(code).then(() => {
         //alert("Copied!");
       });
     }
-    
+
     // @flow
     //let elementById1 = document.getElementById("#txaOutput");
 
@@ -196,16 +201,12 @@ view('fiAppImports.php');
     });
   </script>
 
-  <?php // (mainJs)[../../public/assets/js/main.js] // link to a file 
-  ?>
-
   <script src="<?= base_url('orak_modules/bootstrap/bootstrap.min.js') ?>"></script>
   <script type="module" src="<?= base_url('assets/js/main.js') ?>"></script>
   <script src="<?= base_url('assets/js/home.js') ?>"></script>
   <script type="module" src="<?= base_url('assets/js/home-mod.js') ?>"></script>
-
   <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
-  <!--<script type="module" src="./assets/main.js"></script>-->
+  
 </body>
 
 </html>
@@ -215,11 +216,11 @@ view('fiAppImports.php');
 <!-- <footer>
     <div class="environment">
         <p>Page rendered in {elapsed_time} seconds using {memory_usage} MB of memory.</p>
-        <p>Environment: <?= ENVIRONMENT ?></p>
+        <p>Environment: <?//= ENVIRONMENT ?></p>
     </div>
 
     <div class="copyrights">
-        <p>&copy; <?= date('Y') ?> CodeIgniter Foundation. CodeIgniter is open source project released under the MIT
+        <p>&copy; <?//= date('Y') ?> CodeIgniter Foundation. CodeIgniter is open source project released under the MIT
             open source licence.</p>
     </div>
 
