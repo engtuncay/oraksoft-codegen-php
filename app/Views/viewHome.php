@@ -81,7 +81,7 @@ view('fiAppImports.php');
               </div>
               <div class="mb-3">
                 <script type="module"></script>
-                <label for="excelFile" class="form-label">DML Dosyasını Seçin:</label>
+                <label for="excelFile" class="form-label">DML (Data Model) Dosyasını Seçin:</label>
                 <input type="file" class="form-control" name="excelFile" id="excelFile"
                   accept=".xlsx, .xls, .csv" required>
                 <div class="form-text">Sadece .xlsx, .xls veya .csv dosyaları yükleyebilirsiniz.</div>
