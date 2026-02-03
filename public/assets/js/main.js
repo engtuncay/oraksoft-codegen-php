@@ -10,10 +10,10 @@ function addOption(element, value,textContent) {
 
 function addOptionsToElement(elementById, txIdSeciniz = "-1") {
   addOption(elementById, txIdSeciniz, "Seçiniz");
-  addOption(elementById, "1", "FiCol Sınıf");
-  addOption(elementById, "2", "FiMeta By DML Template");
-  addOption(elementById, "3", "FkbCol Sınıf");
-  addOption(elementById, "4", "FiMeta Sınıf");
+  addOption(elementById, "1", "FiCol Class");
+  addOption(elementById, "2", "FiMeta Class By DML");
+  addOption(elementById, "3", "FkbCol Class");
+  addOption(elementById, "4", "FiMeta Class");
 }
 
 let txIdSeciniz = "-1";

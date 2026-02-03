@@ -81,17 +81,18 @@ view('fiAppImports.php');
               </div>
               <div class="mb-3">
                 <script type="module"></script>
-                <label for="excelFile" class="form-label">DML (Data Model) Dosyasını Seçin:</label>
+                <label for="excelFile" class="form-label">DML (Data Model) File:</label>
                 <input type="file" class="form-control" name="excelFile" id="excelFile"
                   accept=".xlsx, .xls, .csv" required>
-                <div class="form-text">Sadece .xlsx, .xls veya .csv dosyaları yükleyebilirsiniz.</div>
+                <div class="form-text">Only .xlsx, .xls veya .csv file types</div>
               </div>
               <!-- <div class="mb-3">
                 <label for="txActiveEntity" class="form-label">Active Entity</label>
                 <input type="text" class="form-control" id="txActiveEntity" name="txActiveEntity" placeholder="active entity">
               </div> -->
               <div class="d-grid">
-                <button type="submit" class="btn btn-primary" data-action="actGenCode">Generate Code</button>
+                <button class="btn btn-info m-1 " data-action="readEntityList">Read Entity List</button>
+                <button type="submit" class="btn btn-primary m-1" data-action="actGenCode">Generate Code</button>
                 <div class="form-check mt-1">
                   <input class="form-check-input" type="checkbox" value="" id="chkEnableDb" name="chkEnableDb">
                   <label class="form-check-label" for="chkEnableDb">
@@ -100,7 +101,7 @@ view('fiAppImports.php');
                 </div>
               </div>
               <div class="d-grid">
-                <button class="btn btn-info m-1" data-action="readEntityList">Read Entity List</button>
+                
                 <!-- <button class="btn btn-info m-1" data-action="readEntities">Entity Oku</button> -->
                 <!-- <button class="btn btn-info m-1" data-action="test">Test</button> -->
               </div>
