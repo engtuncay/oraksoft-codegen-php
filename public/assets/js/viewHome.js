@@ -8,7 +8,7 @@ function addOption(element, value, textContent) {
 }
 
 function addOptionsToElement(elementById, txIdSeciniz = "-1") {
-  addOption(elementById, txIdSeciniz, "Seçiniz");
+  addOption(elementById, txIdSeciniz, "Select");
   addOption(elementById, "1", "FiCol Class");
   addOption(elementById, "2", "FiMeta Class By DML");
   addOption(elementById, "3", "FkbCol Class");
