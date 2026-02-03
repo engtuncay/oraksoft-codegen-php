@@ -12,14 +12,16 @@
   "require": {
     "php": "^8.1",
     "codeigniter4/framework": "^4.0",
-    "phpoffice/phpspreadsheet": "^4.0",
-    "engtuncay/phputils8": "^0.0",
+    "phpoffice/phpspreadsheet": "^4.5",
+    "engtuncay/phputils8": "^0.0.48",
     "ext-pdo": "*"
   },
   "require-dev": {
     "fakerphp/faker": "^1.9",
     "mikey179/vfsstream": "^1.6",
-    "phpunit/phpunit": "^10.5.16"
+    "phpunit/phpunit": "^10.5.16",
+    "squizlabs/php_codesniffer": "^3.8",
+    "slevomat/coding-standard": "^8.6"
   },
   "autoload": {
     "psr-4": {
@@ -37,17 +39,26 @@
     }
   },
   "scripts": {
+    "fi-cmp-install": "composer install",
+    "fi-cmp-update": "composer update",
+    "fi-cmp-dump-optimize": ["composer dump-autoload -o"],
+    "fi-cmp-install-dev": ["composer install --dev"],
+    "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
     "test": "phpunit",
     "spark-serve": "php spark serve --port 8181",
-    "fi-spark-serve": "php spark serve --port 8181",
-    "comp-install": "composer install"
-
+    "fi-spark-serve-local": [
+      "orak-env-change filocal",
+      "php spark serve --port 8181"
+    ]
   },
   "config": {
     "optimize-autoloader": true,
     "preferred-install": "dist",
     "sort-packages": true,
-    "process-timeout": 0
+    "process-timeout": 0,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   },
   "repositories": [
     {

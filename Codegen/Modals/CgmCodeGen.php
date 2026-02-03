@@ -1,9 +1,8 @@
 <?php
-
 namespace Codegen\Modals;
 
 use App\Controllers\CodegenCont;
-use Codegen\OcdConfig\OcgLogger;
+//use Codegen\OcdConfig\OcgLogger;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCsvs\FiCsv;

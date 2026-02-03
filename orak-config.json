@@ -52,12 +52,16 @@
   "copyDepsLibFolder": "public/orak_modules",
   "copyDepsLibFolderEmpty": true,
   "fiDeployZipFile" : "oraksoft_codegen_php",
-  "fiDeployZipContent": [
+  "zip_package": [
     "app/",
+    "Codegen/",
     "public/",
     "writable/",
     "vendor/",
     ".htaccess",
     ".env"
-  ]
+  ],
+  "zip_package_out_file": "dist/codegen",
+  "osf_ftp_local_file": "dist/codegen.tar.gz",
+  "osf_ftp_remote_path": "codegen.oraksoft.com.tr"
 }
