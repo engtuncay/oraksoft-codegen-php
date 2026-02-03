@@ -91,7 +91,7 @@ view('fiAppImports.php');
                 <input type="text" class="form-control" id="txActiveEntity" name="txActiveEntity" placeholder="active entity">
               </div> -->
               <div class="d-grid">
-                <button class="btn btn-info m-1 " data-action="readEntityList">Read Entity List</button>
+                <button class="btn btn-info m-1 " data-action="actReadEntityList">Read Entity List</button>
                 <button type="submit" class="btn btn-primary m-1" data-action="actGenCode">Generate Code</button>
                 <div class="form-check mt-1">
                   <input class="form-check-input" type="checkbox" value="" id="chkEnableDb" name="chkEnableDb">
@@ -147,15 +147,18 @@ view('fiAppImports.php');
 
     import {
       actReadEntityList,
-      actGenCode
-    } from '<?= base_url('assets/js/home-mod.js') ?>';
+      actGenCode,
+      viewHomeInit
+    } from '<?= base_url('assets/js/viewHome.js') ?>';
+
+    viewHomeInit();
 
     const actions = {
       actGenCode() {
         //alert('Generate Code clicked!');
         actGenCode();
       },
-      readEntityList() {
+      actReadEntityList() {
         actReadEntityList();
       },
       test() {
@@ -177,8 +180,7 @@ view('fiAppImports.php');
 
   <script src="<?= base_url('orak_modules/bootstrap/bootstrap.min.js') ?>"></script>
   <script type="module" src="<?= base_url('assets/js/main.js') ?>"></script>
-  <script src="<?= base_url('assets/js/home.js') ?>"></script>
-  <script type="module" src="<?= base_url('assets/js/home-mod.js') ?>"></script>
+  <script type="module" src="<?= base_url('assets/js/viewHome.js') ?>"></script>
   <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
 
 </body>
