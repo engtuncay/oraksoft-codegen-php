@@ -25,10 +25,10 @@ class CgmFiMetaClassByDmlTemplate
    *
    * @param FkbList $fkbList
    * @param CogSpecsJava| null $iCogSpecs sadece className ve methodName standartları için kullanılır
-   * @param CogSpecsJavaFiMeta| null $iSpecsFiMeta
+   * @param ICogSpecsGenCol|null $iSpecsFiMeta
    * @return string
    */
-  public static function actGenFiMetaClassByFkbList(FkbList $fkbList, ICogSpecs $iCogSpecs = null, ICogSpecsFiMeta $iSpecsFiMeta = null): string
+  public static function actGenFiMetaClassByFkbList(FkbList $fkbList, ICogSpecs $iCogSpecs = null, ICogSpecsGenCol $iSpecsFiMeta = null): string
   {
 
     if ($iCogSpecs == null) return "";
@@ -55,7 +55,7 @@ class CgmFiMetaClassByDmlTemplate
       /**
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
        */
-      $sbFiColMethodBody = $iSpecsFiMeta->genFiMetaMethodBodyByFiColTemp($fkbItem); 
+      $sbFiColMethodBody = $iSpecsFiMeta->genColMethodBody($fkbItem); 
 
       //$sbFiColAddDescDetail->append($iCogSpecs->genFiColAddDescDetail($fkbItem)->toString());
 
@@ -73,7 +73,7 @@ class CgmFiMetaClassByDmlTemplate
       $fkbFiMetaMethod->add("fiMethodBody", $sbFiColMethodBody->toString());
       //$fkbFiColMethodBody->add("fieldHeader", $ofcTxHeader);
 
-      $txMethodCode = FiTemplate::replaceParams($iSpecsFiMeta->getTemplateFiMetaMethod(), $fkbFiMetaMethod);
+      $txMethodCode = FiTemplate::replaceParams($iSpecsFiMeta->getTemplateColMethod(), $fkbFiMetaMethod);
 
       $sbFiMetaMethods->append($txMethodCode)->append("\n\n");
 
@@ -134,7 +134,7 @@ class CgmFiMetaClassByDmlTemplate
     //$fkbParamsMain->add("addFieldDescDetail", $sbFiColAddDescDetail->toString());
 
     // String
-    $templateFiMetaClass = $iSpecsFiMeta->getTemplateFiMetaClass();
+    $templateFiMetaClass = $iSpecsFiMeta->getTemplateColClass();
     $txResult = FiTemplate::replaceParams($templateFiMetaClass, $fkbClassParams);
 
     return $txResult;

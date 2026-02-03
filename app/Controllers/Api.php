@@ -20,7 +20,7 @@ use Codegen\Modals\CogSpecsPhpFiMeta;
 use Codegen\Modals\CogSpecsPhpFkbCol;
 use Codegen\Modals\CogSpecsTsFiMeta;
 use Codegen\Modals\CogSpecsTsFkbCol;
-use Codegen\Modals\CogSpecsTypescript;
+use Codegen\Modals\CogSpecsTs;
 use CodeIgniter\RESTful\ResourceController;
 use Config\Services;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
@@ -136,13 +136,11 @@ class Api extends ResourceController
     $selJava = $request->getPost('selJava');
     $selSql = $request->getPost('selSql');
     $formTxEntity = $request->getPost('selEntity');
+    
     // log_message('info', 'Selected Options:');
-    // log_message('info', 'Csharp: ' . $selCsharp);
+    log_message('info', 'Csharp Sel: ' . $selCsharp);
 
     // log_message('info', 'Db Active Checkbox: ' . $this->request->getPost('chkEnableDb'));
-    // log_message('info', 'Request Object: ' . print_r($this->request, true));
-
-    //$excelFile = $this->request->getFile('excelFile');
 
     //$uploadedFile = $this->request->getFile('excelFile'); // $_FILES['excelFile'];
 
@@ -181,71 +179,60 @@ class Api extends ResourceController
     //$formObject = (object)$formData;
 
     $cogSpecs = null;
-    $cogSpecsFiCol = null;
-    $cogSpecsFkbCol = null;
-    $cogSpecsFiMeta = null;
+    $cogSpecsGenCol = null;
 
     // FiCol
-    if ($selCsharp == 1 || $selCsharp == 2 || $selCsharp == 3 || $selCsharp == 4) {
-      $cogSpecs = new CogSpecsCsharp();
-    }
+    if ($selCsharp > 0) $cogSpecs = new CogSpecsCsharp();
+    if ($selPhp > 0) $cogSpecs = new CogSpecsPhp();
+    if ($selJava > 0) $cogSpecs = new CogSpecsJava();
+    if ($selTs > 0) $cogSpecs = new CogSpecsTs();
 
-    if ($selCsharp == 1) $cogSpecsFiCol = new CogSpecsCSharpFiCol();
-    if ($selCsharp == 2 || $selCsharp == 4) $cogSpecsFiMeta = new CogSpecsCsharpFiMeta();
-    if ($selCsharp == 3) $cogSpecsFkbCol = new CogSpecsCSharpFkbCol();
+    #Csharp CogSpecs
+    if ($selCsharp == 1) $cogSpecsGenCol = new CogSpecsCSharpFiCol();
+    if ($selCsharp == 2 || $selCsharp == 4) $cogSpecsGenCol = new CogSpecsCsharpFiMeta();
+    if ($selCsharp == 3) $cogSpecsGenCol = new CogSpecsCSharpFkbCol();
 
-    #region Php CogSpecs
-
-    if ($selPhp == 1 || $selPhp == 2 || $selPhp == 3 || $selPhp == 4) {
-      $cogSpecs = new CogSpecsPhp();
-    }
-
-    if ($selPhp == 1) $cogSpecsFiCol = new CogSpecsPhpFiCol();
-    if ($selPhp == 2 || $selPhp == 4) $cogSpecsFiMeta = new CogSpecsPhpFiMeta();
-    if ($selPhp == 3) $cogSpecsFkbCol = new CogSpecsPhpFkbCol();
+    #Php CogSpecs
+    if ($selPhp == 1) $cogSpecsGenCol = new CogSpecsPhpFiCol();
+    if ($selPhp == 2 || $selPhp == 4) $cogSpecsGenCol = new CogSpecsPhpFiMeta();
+    if ($selPhp == 3) $cogSpecsGenCol = new CogSpecsPhpFkbCol();
 
     //---- Java
-
-    if ($selJava == 1 || $selJava == 2 || $selJava == 3 || $selJava == 4) {
-      $cogSpecs = new CogSpecsJava();
-    }
-
-    if ($selJava == 1) $cogSpecsFiCol = new CogSpecsJavaFiCol();
-    if ($selJava == 2) $cogSpecsFiMeta = new CogSpecsJavaFiMeta();
-    if ($selJava == 3) $cogSpecsFkbCol = new CogSpecsJavaFkbCol();
+    if ($selJava == 1) $cogSpecsGenCol = new CogSpecsJavaFiCol();
+    if ($selJava == 2) $cogSpecsGenCol = new CogSpecsJavaFiMeta();
+    if ($selJava == 3) $cogSpecsGenCol = new CogSpecsJavaFkbCol();
 
     //---- Typescript
-
-    if ($selTs == 1 || $selTs == 2 || $selTs == 3 || $selTs == 4) {
-      $cogSpecs = new CogSpecsTypescript();
-    }
-
-    if ($selTs == 3) $cogSpecsFkbCol = new CogSpecsTsFkbCol();
-    if ($selTs == 2 ||  $selTs == 4) $cogSpecsFiMeta = new CogSpecsTsFiMeta();
+    if ($selTs == 3) $cogSpecsGenCol = new CogSpecsTsFkbCol();
+    if ($selTs == 2 ||  $selTs == 4) $cogSpecsGenCol = new CogSpecsTsFiMeta();
 
     //---- Code Üretimi
-
     $fdrCodegen =  new Fdr();
+    $selClassType = -1;
+
+    // ColClass üretimi (C#, Java, Php)
+    if ($selPhp == 1 || $selJava == 1 || $selCsharp == 1 || $selTs == 1) $selClassType = 1;
+    if ($selPhp == 2 || $selJava == 2 || $selCsharp == 2 || $selTs == 2) $selClassType = 2;
+    if ($selPhp == 3 || $selJava == 3 || $selCsharp == 3 || $selTs == 3) $selClassType = 3;
+    if ($selPhp == 4 || $selJava == 4 || $selCsharp == 4 || $selTs == 4) $selClassType = 4;
 
 
-    // FiColClass üretimi (C#, Java, Php)
-    if ($selPhp == 1 || $selJava == 1 || $selCsharp == 1 || $selTs == 1) {
-      //list($fdrData2, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($fkbListData, $cogSpecs, $cogSpecsFiCol);
-      $fdrCodegen = CgmCodegen::genFiColClass($fkbListData, $cogSpecs, $cogSpecsFiCol, $formTxEntity);
+    if( $selPhp>0 || $selJava>0 || $selCsharp>0 || $selTs>0 ) {
+      $fdrCodegen = CgmCodegen::genCodeColClass($fkbListData, $cogSpecs, $cogSpecsGenCol, $formTxEntity,$selClassType);
     }
 
-    if ($selPhp == 2 || $selJava == 2 || $selCsharp == 2 || $selTs == 2) {
-      //list($fdrData2, $arrDtoCodeGenPack) = self::genFiMetaClassByDmlTemplateFromFile($fkbListData, $cogSpecs, $cogSpecsFiMeta);
-    }
+    // if ($selPhp == 2 || $selJava == 2 || $selCsharp == 2 || $selTs == 2) {
+    //   //list($fdrData2, $arrDtoCodeGenPack) = self::genFiMetaClassByDmlTemplateFromFile($fkbListData, $cogSpecs, $cogSpecsFiMeta);
+    // }
 
-    // FkbColClass üretimi
-    if ($selPhp == 3 || $selJava == 3 || $selCsharp == 3 || $selTs == 3) {
-      //list($fdrData2, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($fkbListData, $cogSpecs, $cogSpecsFkbCol);
-    }
+    // // FkbColClass üretimi
+    // if ($selPhp == 3 || $selJava == 3 || $selCsharp == 3 || $selTs == 3) {
+    //   //list($fdrData2, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($fkbListData, $cogSpecs, $cogSpecsFkbCol);
+    // }
 
-    if ($selPhp == 4 || $selJava == 4 || $selCsharp == 4 || $selTs == 4) {
-      //list($fdrData2, $arrDtoCodeGenPack) = self::genFiMetaClassesFromFile($fkbListData, $cogSpecs, $cogSpecsFiMeta);
-    }
+    // if ($selPhp == 4 || $selJava == 4 || $selCsharp == 4 || $selTs == 4) {
+    //   //list($fdrData2, $arrDtoCodeGenPack) = self::genFiMetaClassesFromFile($fkbListData, $cogSpecs, $cogSpecsFiMeta);
+    // }
 
     //------ Diger
 
@@ -278,7 +265,7 @@ class Api extends ResourceController
     $fkbReturn = CgmApiUtil::genFkbReturn($fdrCodegen);
 
     // (codegen)[../Views/codegen.php] 
-    return $this->respond( $fkbReturn->getArr(), 200);
+    return $this->respond( $fkbReturn->getVal(), 200);
 
     // return $this->response->setJSON([
     //     'status' => 'error',

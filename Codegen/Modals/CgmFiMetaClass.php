@@ -2,7 +2,7 @@
 
 namespace Codegen\Modals;
 
-use Codegen\ficols\FicFiCol;
+use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
@@ -20,9 +20,10 @@ class CgmFiMetaClass
    *
    * @param FkbList $fkbList
    * @param CogSpecsPhp| null $iCogSpecs
+   * @param ICogSpecsGenCol $iSpecsFiMeta
    * @return string
    */
-  public static function actGenFiMetaClassByFkb(FkbList $fkbList, ICogSpecs $iCogSpecs = null, ICogSpecsFiMeta $iSpecsFiMeta = null): string
+  public static function actGenFiMetaClassByFkb(FkbList $fkbList, ICogSpecs $iCogSpecs = null, ICogSpecsGenCol $iSpecsFiMeta = null): string
   {
 
     if ($iCogSpecs == null) return "";
@@ -39,7 +40,7 @@ class CgmFiMetaClass
     $sbFclListBodyTrans = new FiStrbui();
     $sbFiColAddDescDetail = new FiStrbui();
 
-    $templateMethod = $iSpecsFiMeta->getTemplateFiMetaMethod();
+    $templateMethod = $iSpecsFiMeta->getTemplateColMethod();
     //$templateFiColMethodExtra = $iFiColClass->getTemplateFiColMethodExtra();
 
     /**
@@ -50,7 +51,7 @@ class CgmFiMetaClass
       /**
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
        */
-      $sbFiColMethodBody = $iSpecsFiMeta->genFiMetaMethodBody($fkbItem); //StringBuilder
+      $sbFiColMethodBody = $iSpecsFiMeta->genColMethodBody($fkbItem); //StringBuilder
 
       //$sbFiColAddDescDetail->append($iCogSpecs->genFiColAddDescDetail($fkbItem)->toString());
 
@@ -130,7 +131,7 @@ class CgmFiMetaClass
     $fkbParamsMain->add("addFieldDescDetail", $sbFiColAddDescDetail->toString());
 
     // String
-    $templateMain = $iSpecsFiMeta->getTemplateFiMetaClass();
+    $templateMain = $iSpecsFiMeta->getTemplateColClass();
     $txResult = FiTemplate::replaceParams($templateMain, $fkbParamsMain);
 
     return $txResult;

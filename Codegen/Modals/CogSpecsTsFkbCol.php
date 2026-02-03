@@ -10,10 +10,10 @@ use Engtuncay\Phputils8\FiCols\FicValue;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
-class CogSpecsTsFkbCol implements ICogSpecsFkbCol
+class CogSpecsTsFkbCol implements ICogSpecsGenCol
 {
 
-  public function getTemplateFkbColClass(): string
+  public function getTemplateColClass(): string
   {
     //String
     $templateMain = <<<EOD
@@ -60,7 +60,7 @@ EOD;
     return $templateMain;
   }
 
-  public function getTemplateFkbColMethod(): string
+  public function getTemplateColMethod(): string
   {
     return <<<EOD
 public static {{fieldMethodName}}(): FiKeybean {
@@ -71,7 +71,7 @@ public static {{fieldMethodName}}(): FiKeybean {
 EOD;
   }
 
-  public function getTemplateFkbColMethodExtra(): string
+  public function getTemplateColMethodExtra(): string
   {
     return <<<EOD
 public static {{fieldMethodName}}Ext(): FiKeybean
@@ -84,7 +84,7 @@ EOD;
   }
 
 
-  public function genFkbColMethodBody(FiKeybean $fkbItem): FiStrbui
+  public function genColMethodBody(FiKeybean $fkbItem): FiStrbui
   {
     //StringBuilder
     $sbFkbColMethodBody = new FiStrbui(); // new StringBuilder();
@@ -184,7 +184,7 @@ EOD;
     return $sbFkbColMethodBody;
   }
 
-  public function genFkbColMethodBodyDetailExtra(FiKeybean $fkbItem): FiStrbui
+  public function genColMethodBodyDetailExtra(FiKeybean $fkbItem): FiStrbui
   {
     //StringBuilder
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
@@ -217,7 +217,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTemplateFkbColsExtraList(): string
+  public function getTemplateColsExtraList(): string
   {
     return <<<EOD
 public static genTableColsExtra(): FkbList {
@@ -233,7 +233,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTemplateFkbColsListTransMethod(): string
+  public function getTemplateColListTransMethod(): string
   {
     return <<<EOD
 public static genTableColsTrans(): FkbList { 
@@ -249,7 +249,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTemplateGenTableColsMethod(): string
+  public function getTemplateColListMethod(): string
   {
     return <<<EOD
 public static genTableCols(): FkbList {

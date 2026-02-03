@@ -1,28 +1,28 @@
 <?php
 
-namespace Codegen\Modals;
+// namespace Codegen\Modals;
 
-use Engtuncay\Phputils8\FiCores\FiStrbui;
-use Engtuncay\Phputils8\FiDtos\FiKeybean;
+// use Engtuncay\Phputils8\FiCores\FiStrbui;
+// use Engtuncay\Phputils8\FiDtos\FiKeybean;
 
-/**
- * Interface for FiKeybean Specs (Csharp, Java ...)
- */
-interface ICogSpecsFkbCol
-{
+// /**
+//  * Interface for FiKeybean Specs (Csharp, Java ...)
+//  */
+// interface ICogSpecsFkbCol
+// {
 
-  public function getTemplateFkbColClass(): string;
+//   public function getTemplateFkbColClass(): string;
 
-  public function getTemplateFkbColMethod(): string;
+//   public function getTemplateFkbColMethod(): string;
 
-  public function getTemplateGenTableColsMethod(): string;
+//   public function getTemplateGenTableColsMethod(): string;
 
-  public function getTemplateFkbColsListTransMethod(): string;
+//   public function getTemplateFkbColsListTransMethod(): string;
 
-  public function genFkbColMethodBody(FiKeybean $fkbItem): FiStrbui;
+//   public function genFkbColMethodBody(FiKeybean $fkbItem): FiStrbui;
 
-  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void;
+//   public function doNonTransientFieldOps(FiStrbui $sbFclListBody, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void;
 
-  public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void;
+//   public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void;
 
-}
+// }

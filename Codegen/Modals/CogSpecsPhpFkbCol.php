@@ -8,10 +8,10 @@ use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
-class CogSpecsPhpFkbCol implements ICogSpecsFkbCol
+class CogSpecsPhpFkbCol implements ICogSpecsGenCol
 {
 
-  public function getTemplateFkbColMethod(): string
+  public function getTemplateColMethod(): string
   {
     return <<<EOD
 public static function {{fieldMethodName}}() : FiKeybean
@@ -24,7 +24,7 @@ EOD;
   }
 
 
-  public function getTemplateFkbColClass(): string
+  public function getTemplateColClass(): string
   {
     //String
     $templateMain = <<<EOD
@@ -60,7 +60,7 @@ EOD;
     return $templateMain;
   }
 
-  public function genFkbColMethodBody(FiKeybean $fkbItem): FiStrbui
+  public function genColMethodBody(FiKeybean $fkbItem): FiStrbui
   {
     //StringBuilder
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
@@ -164,7 +164,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTemplateFkbColsListTransMethod(): string
+  public function getTemplateColListTransMethod(): string
   {
     return <<<EOD
 public static function genTableColsTrans() : FkbList {
@@ -181,7 +181,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTemplateGenTableColsMethod(): string
+  public function getTemplateColListMethod(): string
   {
     return <<<EOD
 public static function genTableCols() : FkbList {

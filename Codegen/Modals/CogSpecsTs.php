@@ -7,7 +7,7 @@ use Engtuncay\Phputils8\FiCores\FiString;
 /**
  * Typescript Templates For Code Generator
  */
-class CogSpecsTypescript implements ICogSpecs
+class CogSpecsTs implements ICogSpecs
 {
 
   /**

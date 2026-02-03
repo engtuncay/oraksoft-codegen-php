@@ -11,10 +11,10 @@ use Engtuncay\Phputils8\FiCols\FicValue;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
-class CogSpecsJavaFkbCol implements ICogSpecsFkbCol
+class CogSpecsJavaFkbCol implements ICogSpecsGenCol
 {
 
-  public function getTemplateFkbColMethod(): string
+  public function getTemplateColMethod(): string
   {
     return <<<EOD
 public static FiKeybean {{fieldMethodName}}()
@@ -28,7 +28,7 @@ EOD;
 
 
 
-  public function getTemplateFkbColMethodExtra(): string
+  public function getTemplateColMethodExtra(): string
   {
     return <<<EOD
 public static FiKeybean {{fieldMethodName}}Ext()
@@ -45,7 +45,7 @@ EOD;
    * 
    * @return string
    */
-  public function getTemplateFkbColClass(): string
+  public function getTemplateColClass(): string
   {
     //FicFiCol::ofcTxHeader();
 
@@ -100,7 +100,7 @@ EOD;
   }
 
 
-  public function genFkbColMethodBody(FiKeybean $fkbItem): FiStrbui
+  public function genColMethodBody(FiKeybean $fkbItem): FiStrbui
   {
     //StringBuilder
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
@@ -186,7 +186,7 @@ EOD;
     return $sbFiColMethodBody;
   }
 
-  public function genFiColMethodBodyDetailExtra(FiKeybean $fkbItem): FiStrbui
+  public function genGenMethodBodyDetailExtra(FiKeybean $fkbItem): FiStrbui
   {
     //StringBuilder
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
@@ -217,7 +217,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTemplateFkbColsListTransMethod(): string
+  public function getTemplateColListTransMethod(): string
   {
     return <<<EOD
 public static FkbList genTableColsTrans() {
@@ -236,7 +236,7 @@ EOD;
    * 
    * @return string
    */
-  public function getTemplateGenTableColsMethod(): string
+  public function getTemplateColListMethod(): string
   {
     return <<<EOD
 public static FkbList genTableCols() {

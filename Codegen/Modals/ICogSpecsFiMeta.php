@@ -1,22 +1,22 @@
 <?php
 
-namespace Codegen\Modals;
+// namespace Codegen\Modals;
 
-use Engtuncay\Phputils8\FiCores\FiStrbui;
-use Engtuncay\Phputils8\FiDtos\FiKeybean;
+// use Engtuncay\Phputils8\FiCores\FiStrbui;
+// use Engtuncay\Phputils8\FiDtos\FiKeybean;
 
-/**
- * Interface for FiMeta Specs (Csharp, Java ...)
- */
-interface ICogSpecsFiMeta
-{
+// /**
+//  * Interface for FiMeta Specs (Csharp, Java ...)
+//  */
+// interface ICogSpecsFiMeta
+// {
   
-  public function getTemplateFiMetaClass():string;
+//   public function getTemplateFiMetaClass():string;
 
-  public function getTemplateFiMetaMethod():string;
+//   public function getTemplateFiMetaMethod():string;
 
-  public function genFiMetaMethodBody(FiKeybean $fkb): FiStrbui;
+//   public function genFiMetaMethodBody(FiKeybean $fkb): FiStrbui;
 
-  public function genFiMetaMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui;
+//   public function genFiMetaMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui;
 
-}
+// }

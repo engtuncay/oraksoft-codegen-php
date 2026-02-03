@@ -10,7 +10,7 @@ use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCols\FicValue;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 
-class CogSpecsJavaFiCol implements ICogSpecsFiCol
+class CogSpecsJavaFiCol implements ICogSpecsGenCol
 {
 
   /**
@@ -18,7 +18,7 @@ class CogSpecsJavaFiCol implements ICogSpecsFiCol
    *
    * @return string
    */
-  public function getTemplateFicClass(): string
+  public function getTemplateColClass(): string
   {
     //FicFiCol::ofcTxHeader();
 
@@ -73,7 +73,7 @@ EOD;
   }
 
   // 
-  public function getTemplateFiColMethod(): string
+  public function getTemplateColMethod(): string
   {
     return <<<EOD
 public static FiCol {{fieldMethodName}}()
@@ -86,7 +86,7 @@ EOD;
   }
 
 
-  public function getTemplateFiColMethodExtra(): string
+  public function getTemplateColMethodExtra(): string
   {
     return <<<EOD
 public static FiCol {{fieldMethodName}}Ext()
@@ -101,7 +101,7 @@ EOD;
 
 
 
-  public function genFiColMethodBody(FiKeybean $fkbItem): FiStrbui
+  public function genColMethodBody(FiKeybean $fkbItem): FiStrbui
   {
     //StringBuilder
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
@@ -178,7 +178,7 @@ EOD;
     return $sbFiColMethodBody;
   }
 
-  public function genFiColMethodBodyDetailExtra(FiKeybean $fkbItem): FiStrbui
+  public function genColMethodBodyDetailExtra(FiKeybean $fkbItem): FiStrbui
   {
     //StringBuilder
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
@@ -195,7 +195,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTemplateFiColsExtraListMethod(): string
+  public function getTemplateColListExtraMethod(): string
   {
     return <<<EOD
 public static FiColList genTableColsExtra() {
@@ -211,7 +211,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTemplateFiColsTransListMethod(): string
+  public function getTemplateColListTransMethod(): string
   {
     return <<<EOD
 public static FiColList genTableColsTrans() {
@@ -227,7 +227,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTemplateFiColsListMethod(): string
+  public function getTemplateColListMethod(): string
   {
     return <<<EOD
 public static FiColList genTableCols() {
@@ -245,10 +245,13 @@ EOD;
    * @param string $methodName
    * @return void
    */
-  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, string $methodName): void
+  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
   { //, FiStrbui $sbFclListBodyExtra
-    $sbFclListBody->append("ficList.add($methodName());\n");
+    //$sbFclListBody->append("ficList.add($methodName());\n");
     //$sbFclListBodyExtra->append("ficList.add($methodName" . "Ext());\n");
+    $fieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
+    $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
+    $sbFclListBody->append("ficList.add($methodName());\n");
   }
 
   /**
@@ -256,8 +259,11 @@ EOD;
    * @param string $methodName
    * @return void
    */
-  public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, string $methodName): void
+  public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
   {
+    //$sbFclListBodyTrans->append("ficList.add($methodName());\n");
+    $fieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
+    $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
     $sbFclListBodyTrans->append("ficList.add($methodName());\n");
   }
 

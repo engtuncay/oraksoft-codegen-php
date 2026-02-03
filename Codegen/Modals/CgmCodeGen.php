@@ -20,11 +20,11 @@ class CgmCodegen
   /**
    * 
    * @param FkbList $fkbListData
-   * @param CogSpecsPhp|null $iCogSpecs
-   * @param CogSpecsPhpFiCol|null $iCogSpecsFiCol
+   * @param ICogSpecs|null $iCogSpecs
+   * @param ICogSpecsGenCol|null $iCogSpecsGenCol
    * @return Fdr
    */
-  public static function genFiColClass(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsFiCol $iCogSpecsFiCol, string $txEntity =''): Fdr
+  public static function genCodeColClass(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsGenCol $iCogSpecsGenCol, string $txEntity = '', int $inClassType = 0): Fdr
   {
     $fdrData = new Fdr();
 
@@ -34,75 +34,49 @@ class CgmCodegen
 
     /** @var FiKeybean $fkbEntityToFkbList */
     $fkbEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
+    $txVer = CodegenCont::getTxVer();
 
-    if($fkbEntityToFkbList->has($txEntity)){
+    if ($fkbEntityToFkbList->has($txEntity)) {
       $fkbList = $fkbEntityToFkbList->getValue($txEntity);
       $sbTxCodeGen1 = new FiStrbui();
-      $sbTxCodeGen1->append("// FiCol Class Generation v1\n");
-      $sbTxCodeGen1->append(CgmFiColClass::actGenFiColClassByFkb($fkbList, $iCogSpecs, $iCogSpecsFiCol));
+
+      //  addOption(elementById, "1", "FiCol Sınıf");
+      // addOption(elementById, "2", "FiMeta By DML Template");
+      // addOption(elementById, "3", "FkbCol Sınıf");
+      // addOption(elementById, "4", "FiMeta Sınıf");
+
+      if ($inClassType == 1) {
+        $sbTxCodeGen1->append("// FiCol Class Generation - v$txVer \n");
+        $sbTxCodeGen1->append(CgmFiColClass::actGenFiColClassByFkb($fkbList, $iCogSpecs, $iCogSpecsGenCol));
+      }
+      if ($inClassType == 2) {
+        $sbTxCodeGen1->append("// FiMeta Class Generation (By Dml) - v$txVer \n");
+        $sbTxCodeGen1->append(CgmFiMetaClassByDmlTemplate::actGenFiMetaClassByFkbList($fkbList, $iCogSpecs, $iCogSpecsGenCol));
+      }
+      if ($inClassType == 3) {
+        $sbTxCodeGen1->append("// FkbCol Class Generation - v$txVer \n");
+        $sbTxCodeGen1->append(CgmFkbColClass::actGenClassByFkbList($fkbList, $iCogSpecs, $iCogSpecsGenCol));
+      }
+      if ($inClassType == 4) {
+        $sbTxCodeGen1->append("// FiMeta Class Generation - v$txVer \n");
+        $sbTxCodeGen1->append(CgmFiMetaClass::actGenFiMetaClassByFkb($fkbList, $iCogSpecs, $iCogSpecsGenCol));
+      }
+
       $sbTxCodeGen1->append("\n");
       $fdrData->setTxValue($sbTxCodeGen1->toString());
-
     } else {
       $fdrData->setTxValue("Entity not found: " . $txEntity);
       return $fdrData;
     }
 
     // log_message('info', 'arrFkbListExcel' . print_r($fkbEntityToFkbList, true));
-    
+
     // log_message('info', 'arrDtoCodeGen: ' . print_r($arrDtoCodeGen, true));
     // log_message('info', 'fdrData: ' . print_r($fdrData, true));
 
     //$fdrData->setTxValue()
 
     return $fdrData; // array($fdrData, $arrDtoCodeGen); //$fiExcel $fkbListData
-  }
-
-  /**
-   * 
-   * @param mixed $sourceFile
-   * @param ICogSpecs $iCogSpecs
-   * @return array
-   */
-  public function genFkbColClassesFromFile(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsFkbCol $iCogSpecsFkbCol): array
-  {
-
-    $fdrData = new Fdr();
-    // $fdrData = self::convertFileToFkbList($sourceFile);
-    // $fkbListData = $fdrData->getFkbListInit();
-    
-    // OcgLogger::info("fkbListData:" . print_r($fkbListData->getItems(), true));
-
-    /** @var FiKeybean $fkbEntityToFkbList */
-    $fkbEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
-
-    //log_message('info', 'arrFkbListExcel' . print_r($fkbEntityToFkbList, true));
-    $txIdPref = "codegen";
-    $lnForIndex = 0;
-
-    OcgLogger::info("fkblist count:" . count($fkbListData->getAsMultiArray()));
-    OcgLogger::info("fkbEntityToFkbList count:" . count($fkbEntityToFkbList->getParams()));
-    // fkbList, Excelde bir entity için tanımlanmış alanların listesi
-
-    $arrDtoCodeGen =  [];
-    $txVer = CodegenCont::getTxVer();
-
-    foreach ($fkbEntityToFkbList as $entity => $fkbList) {
-      $lnForIndex++;
-      $dtoCodeGen = new DtoCodeGen();
-      $sbTxCodeGen1 = new FiStrbui();
-      $sbTxCodeGen1->append("// Codegen " . $txVer . "\n");
-      $sbTxCodeGen1->append(CgmFkbColClass::actGenClassByFkbList($fkbList, $iCogSpecs, $iCogSpecsFkbCol));
-      $sbTxCodeGen1->append("\n");
-      $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
-      $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
-      array_push($arrDtoCodeGen, $dtoCodeGen);
-    }
-
-    //log_message('info', 'arrDtoCodeGen: ' . print_r($arrDtoCodeGen, true));
-    //log_message('info', 'fdrData: ' . print_r($fdrData, true));
-
-    return array($fdrData, $arrDtoCodeGen); //$fiExcel $fkbListData
   }
 
   /**
@@ -134,92 +108,5 @@ class CgmCodegen
     $fdrData->setFkbList(new FkbList());
 
     return $fdrData; // Boş FkbList döndür
-  }
-
-  /**
-   * @param mixed $sourceFile
-   * @param ICogSpecs $iCogSpecs
-   * @param ICogSpecs $iCogSpecs
-   * @return array
-   */
-  public function genFiMetaClassesFromFile(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsFiMeta $iCogSpecsFiMeta): array
-  {
-    $fdrData = new Fdr();
-    //array|string $fileExtension,
-
-    // $fdrData = self::convertFileToFkbList($sourceFile);
-    // $fkbListData = $fdrData->getFkbListInit();
-
-    //echo var_export($fkbListExcel, true);
-
-    /** @var FkbList[] $mapEntityToFkbList */
-    $mapEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
-
-    log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
-    $txIdPref = "codegen";
-    $lnForIndex = 0;
-
-    $txVer = CodegenCont::getTxVer();
-
-    foreach ($mapEntityToFkbList as $entity => $fkbList) {
-      $lnForIndex++;
-      $dtoCodeGen = new DtoCodeGen();
-      $sbTxCodeGen1 = new FiStrbui();
-      $sbTxCodeGen1->append("// Codegen " . $txVer . "\n");
-
-      $sbTxCodeGen1->append(CgmFiMetaClass::actGenFiMetaClassByFkb($fkbList, $iCogSpecs, $iCogSpecsFiMeta));
-      $sbTxCodeGen1->append("\n");
-      $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
-      $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
-      $arrDtoCodeGen[] = $dtoCodeGen;
-    }
-
-    log_message('info', 'arrDtoCodeGen: ' . print_r($arrDtoCodeGen, true));
-    log_message('info', 'fdrData: ' . print_r($fdrData, true));
-
-    return array($fdrData, $arrDtoCodeGen); //$fiExcel $fkbListData
-  }
-
-
-  /**
-   * @param mixed $sourceFile
-   * @param ICogSpecs $iCogSpecs
-   * @return array
-   */
-  public static function genFiMetaClassByDmlTemplateFromFile(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsFiMeta $iSpecsFiMeta): array
-  {
-    $fdrData = new Fdr();
-    //array|string $fileExtension,
-
-    // $fdrData = self::convertFileToFkbList($sourceFile);
-    // $fkbListData = $fdrData->getFkbListInit();
-
-    //echo var_export($fkbListExcel, true);
-
-    /** @var FkbList[] $mapEntityToFkbList */
-    $mapEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
-
-    //log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
-    $txIdPref = "codegen";
-    $lnForIndex = 0;
-
-    $txVer = CodegenCont::getTxVer();
-
-    foreach ($mapEntityToFkbList as $entity => $fkbList) {
-      $lnForIndex++;
-      $dtoCodeGen = new DtoCodeGen();
-      $sbTxCodeGen1 = new FiStrbui();
-      $sbTxCodeGen1->append("// Codegen " . $txVer . "\n");
-      $sbTxCodeGen1->append(CgmFiMetaClassByDmlTemplate::actGenFiMetaClassByFkbList($fkbList, $iCogSpecs, $iSpecsFiMeta));
-      $sbTxCodeGen1->append("\n");
-      $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
-      $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
-      $arrDtoCodeGen[] = $dtoCodeGen;
-    }
-
-    //log_message('info', 'arrDtoCodeGen: ' . print_r($arrDtoCodeGen, true));
-    //log_message('info', 'fdrData: ' . print_r($fdrData, true));
-
-    return array($fdrData, $arrDtoCodeGen); //$fiExcel $fkbListData
   }
 }

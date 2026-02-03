@@ -10,15 +10,16 @@ use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCols\FicValue;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 
-class CogSpecsPhpFiMeta implements ICogSpecsFiMeta
+class CogSpecsPhpFiMeta implements ICogSpecsGenCol
 {
+
   //
   public function genFiMetaMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui
   {
     return new FiStrbui();
   }
 
-  public function getTemplateFiMetaClass(): string
+  public function getTemplateColClass(): string
   {
     //String
     $templateMain = <<<EOD
@@ -38,19 +39,19 @@ EOD;
 
 
 
-  public function getTemplateFkbColMethod(): string
-  {
-    return <<<EOD
-public static function {{fieldMethodName}}() : FiKeybean
-{ 
-  \$fkbCol = new FiKeybean();
-{{fiColMethodBody}}
-  return \$fkbCol;
-}
-EOD;
-  }
+  //   public function getTemplateFkbColMethod(): string
+  //   {
+  //     return <<<EOD
+  // public static function {{fieldMethodName}}() : FiKeybean
+  // { 
+  //   \$fkbCol = new FiKeybean();
+  // {{fiColMethodBody}}
+  //   return \$fkbCol;
+  // }
+  // EOD;
+  //   }
 
-  public function getTemplateFiMetaMethod(): string
+  public function getTemplateColMethod(): string
   {
     return <<<EOD
 public static function {{fieldMethodName}}() : FiMeta
@@ -62,7 +63,7 @@ public static function {{fieldMethodName}}() : FiMeta
 EOD;
   }
 
-  public function genFiMetaMethodBody(FiKeybean $fkbItem): FiStrbui
+  public function genColMethodBody(FiKeybean $fkbItem): FiStrbui
   {
     //StringBuilder
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
@@ -187,5 +188,25 @@ public static function genTableCols() : FmtList {
   return \$fmtList;
 }
 EOD;
+  }
+
+  public function getTemplateColListMethod(): string
+  {
+    throw new \Exception('Not implemented');
+  }
+
+  public function getTemplateColListTransMethod(): string
+  {
+    throw new \Exception('Not implemented');
+  }
+
+  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  {
+    throw new \Exception('Not implemented');
+  }
+
+  public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  {
+    throw new \Exception('Not implemented');
   }
 }

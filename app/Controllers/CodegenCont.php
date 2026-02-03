@@ -28,7 +28,8 @@ use Codegen\Modals\CogSpecsPhpFiMeta;
 use Codegen\Modals\CogSpecsPhpFkbCol;
 use Codegen\Modals\CogSpecsTsFiMeta;
 use Codegen\Modals\CogSpecsTsFkbCol;
-use Codegen\Modals\CogSpecsTypescript;
+use Codegen\Modals\CogSpecsTs;
+use Codegen\Modals\ICogSpecsGenCol;
 use Codegen\OcdConfig\OcgLogger;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
@@ -197,12 +198,12 @@ class CodegenCont extends BaseController
     //---- Typescript
 
     if ($selTs == 3) {
-      $cogSpecs = new CogSpecsTypescript();
+      $cogSpecs = new CogSpecsTs();
       $cogSpecsFkbCol = new CogSpecsTsFkbCol();
     }
 
     if ($selTs == 2 ||  $selTs == 4) {
-      $cogSpecs = new CogSpecsTypescript();
+      $cogSpecs = new CogSpecsTs();
       $cogSpecsFiMeta = new CogSpecsTsFiMeta();
     }
 
@@ -210,20 +211,20 @@ class CodegenCont extends BaseController
 
     // FiColClass üretimi (C#, Java, Php)
     if ($selPhp == 1 || $selJava == 1 || $selCsharp == 1 || $selTs == 1) {
-      list($fdrData2, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($fkbListData, $cogSpecs, $cogSpecsFiCol);
+      //list($fdrData2, $arrDtoCodeGenPack) = self::genFiColClassesFromFile($fkbListData, $cogSpecs, $cogSpecsFiCol);
     }
 
     if ($selPhp == 2 || $selJava == 2 || $selCsharp == 2 || $selTs == 2) {
-      list($fdrData2, $arrDtoCodeGenPack) = self::genFiMetaClassByDmlTemplateFromFile($fkbListData, $cogSpecs, $cogSpecsFiMeta);
+      //list($fdrData2, $arrDtoCodeGenPack) = self::genFiMetaClassByDmlTemplateFromFile($fkbListData, $cogSpecs, $cogSpecsFiMeta);
     }
 
     // FkbColClass üretimi
     if ($selPhp == 3 || $selJava == 3 || $selCsharp == 3 || $selTs == 3) {
-      list($fdrData2, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($fkbListData, $cogSpecs, $cogSpecsFkbCol);
+      //list($fdrData2, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($fkbListData, $cogSpecs, $cogSpecsFkbCol);
     }
 
     if ($selPhp == 4 || $selJava == 4 || $selCsharp == 4 || $selTs == 4) {
-      list($fdrData2, $arrDtoCodeGenPack) = self::genFiMetaClassesFromFile($fkbListData, $cogSpecs, $cogSpecsFiMeta);
+      //list($fdrData2, $arrDtoCodeGenPack) = self::genFiMetaClassesFromFile($fkbListData, $cogSpecs, $cogSpecsFiMeta);
     }
 
     //------ Diger
@@ -291,7 +292,7 @@ class CodegenCont extends BaseController
    * @param CogSpecsCSharpFiCol|null $iCogSpecsFiCol
    * @return array
    */
-  public function genFiColClassesFromFile(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsFiCol $iCogSpecsFiCol): array
+  public function genFiColClassesFromFile(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsGenCol $iCogSpecsFiCol): array
   {
     $fdrData = new Fdr();
 
@@ -331,7 +332,7 @@ class CodegenCont extends BaseController
    * @param ICogSpecs $iCogSpecs
    * @return array
    */
-  public function genFkbColClassesFromFile(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsFkbCol $iCogSpecsFkbCol): array
+  public function genFkbColClassesFromFile(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsGenCol $iCogSpecsFkbCol): array
   {
 
     $fdrData = new Fdr();
@@ -409,7 +410,7 @@ class CodegenCont extends BaseController
    * @param ICogSpecs $iCogSpecs
    * @return array
    */
-  public function genFiMetaClassesFromFile(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsFiMeta $iCogSpecsFiMeta): array
+  public function genFiMetaClassesFromFile(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsGenCol $iCogSpecsFiMeta): array
   {
     $fdrData = new Fdr();
     //array|string $fileExtension,
@@ -453,7 +454,7 @@ class CodegenCont extends BaseController
    * @param ICogSpecs $iCogSpecs
    * @return array
    */
-  public function genFiMetaClassByDmlTemplateFromFile(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsFiMeta $iSpecsFiMeta): array
+  public function genFiMetaClassByDmlTemplateFromFile(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsGenCol $iSpecsFiMeta): array
   {
     $fdrData = new Fdr();
     //array|string $fileExtension,
@@ -492,6 +493,6 @@ class CodegenCont extends BaseController
 
   public static function getTxVer()
   {
-    return "v0.3";
+    return "0.3";
   }
 }
