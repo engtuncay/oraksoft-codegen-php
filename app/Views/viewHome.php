@@ -23,13 +23,13 @@ view('fiAppImports.php');
   <link rel="stylesheet" href="<?= base_url('orak_modules/bootstrap/bootstrap.min.css') ?>">
   <link rel="stylesheet" href="<?= base_url('orak_modules/oraksoft-tw-css-lib/oraksoft-tw-lib.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/codeblock.css') ?>">
-  
+
   <style>
     .fibody {
       background-image: url("<?= base_url('assets/img/ocg-background.jpeg') ?>");
     }
   </style>
-  
+
 </head>
 
 <body class="fibody">
@@ -91,7 +91,7 @@ view('fiAppImports.php');
                 <input type="text" class="form-control" id="txActiveEntity" name="txActiveEntity" placeholder="active entity">
               </div> -->
               <div class="d-grid">
-                <button type="submit" class="btn btn-primary">Generate Code</button>
+                <button type="submit" class="btn btn-primary" data-action="actGenCode">Generate Code</button>
                 <div class="form-check mt-1">
                   <input class="form-check-input" type="checkbox" value="" id="chkEnableDb" name="chkEnableDb">
                   <label class="form-check-label" for="chkEnableDb">
@@ -113,11 +113,13 @@ view('fiAppImports.php');
 
   <div class="container mt-3 tw-h-min-1 ">
     <!--code blok -->
-    <div id="divCodeBlock" class="position-relative">
-      <pre class="p-3 rounded"><code id="eleCode"></code>
-        </pre>
+    <div id="" class="position-relative bg-black">
+      <!-- <pre class="p-3 rounded"> -->
+      <code class="p-3 rounded" id="divCodeBlock">
+      </code>
+      <!-- </pre> -->
       <button class="m-2 btn btn-sm btn-outline-dark position-absolute top-0 end-0 copy-btn"
-        onclick="copyCode('eleCode')">
+        onclick="copyCode('divCodeBlock')">
         Copy
       </button>
     </div>
@@ -133,7 +135,6 @@ view('fiAppImports.php');
 
     // @flow
     //let elementById1 = document.getElementById("#txaOutput");
-
   </script>
 
   <script type="module">
@@ -144,10 +145,15 @@ view('fiAppImports.php');
     // } from './orak_modules/oraksoft-ui/oraksoft-ui.js';
 
     import {
-      actReadEntityList
+      actReadEntityList,
+      actGenCode
     } from '<?= base_url('assets/js/home-mod.js') ?>';
 
     const actions = {
+      actGenCode() {
+        //alert('Generate Code clicked!');
+        actGenCode();
+      },
       readEntityList() {
         actReadEntityList();
       },

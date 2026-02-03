@@ -43,6 +43,34 @@ export function actReadEntityList() {
     });
 }
 
+export function actGenCode() {
+  console.log("actGenCode method called");
+
+  const form = document.querySelector('form');
+
+  // Convert form element to FormData before sending
+  const formData = new FormData(form);
+
+  fiPostFormData('/genCode', formData)
+    .then((result) => {
+      console.log(result);
+      return result.json();
+    })
+    .then((data) => {
+      console.log(data);
+      if (data.txValue) {
+        /** {HTMLElement} eleEntity */
+        let eleEntity = document.getElementById("divCodeBlock");
+        if (!(eleEntity instanceof HTMLElement)) return;
+        eleEntity.innerHTML = '';
+        eleEntity.innerHTML = '<pre>' + data.txValue + '</pre>';
+      }
+      //fiBsModal('<pre>' + data.result.refValue + '</pre>');
+    }).catch((err) => {
+      alert('Hata: ' + err);
+    });
+}
+
 export function actReadDmlTestPost() {
   console.log("actReadDmlTestPost method called");
 

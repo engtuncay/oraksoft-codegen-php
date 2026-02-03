@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use Codegen\Modals\CgmCodegen;
 use Codegen\Modals\CgmMssqlserver;
 use Codegen\modals\CgmFiColClass;
 use Codegen\modals\CgmUtils;
@@ -281,6 +282,8 @@ class CodegenCont extends BaseController
     // ]);
   }
 
+
+
   /**
    * 
    * @param mixed $sourceFile
@@ -487,7 +490,7 @@ class CodegenCont extends BaseController
     return array($fdrData, $arrDtoCodeGen); //$fiExcel $fkbListData
   }
 
-  public function getTxVer()
+  public static function getTxVer()
   {
     return "v0.3";
   }
