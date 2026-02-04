@@ -41,7 +41,6 @@ use Engtuncay\Phputils8\FiDtos\FkbList;
 
 class CodegenCont extends BaseController
 {
-
   public function index()
   {
     log_message('info', 'Codegen Controller index method called.');
@@ -59,7 +58,7 @@ class CodegenCont extends BaseController
     //   return $this->processCodegen();
     // }
 
-    // Yöntem 3: getMethod(true) - küçük harfle döner  
+    // Yöntem 3: getMethod(true) - küçük harfle döner
     // if ($this->request->getMethod(true) === 'post') {
     //   log_message('info', 'Codegen form submitted.');
     //   return $this->processCodegen();
@@ -255,7 +254,7 @@ class CodegenCont extends BaseController
       'formData' => $formObject ?? null
     ];
 
-    // (codegen)[../Views/codegen.php] 
+    // (codegen)[../Views/codegen.php]
     return view('codegen', $data);
 
     // Dosya yükleme işlemi
@@ -337,8 +336,7 @@ class CodegenCont extends BaseController
 
     $fdrData = new Fdr();
     // $fdrData = self::convertFileToFkbList($sourceFile);
-    // $fkbListData = $fdrData->getFkbListInit();
-    
+    // $fkbListData = $fdrData->getFkbListInit(); 
     // OcgLogger::info("fkbListData:" . print_r($fkbListData->getItems(), true));
 
     /** @var FiKeybean $fkbEntityToFkbList */

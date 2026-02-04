@@ -15,8 +15,7 @@ view('fiAppImports.php');
   ?>
   <?php
   ?>
-  <? //= view('fiHead.php') 
-  ?>
+  <? //= view('fiHead.php') ?>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Oraksoft Code Generator</title>
@@ -101,7 +100,7 @@ view('fiAppImports.php');
                 </div>
               </div>
               <div class="d-grid">
-                
+
                 <!-- <button class="btn btn-info m-1" data-action="readEntities">Entity Oku</button> -->
                 <!-- <button class="btn btn-info m-1" data-action="test">Test</button> -->
               </div>

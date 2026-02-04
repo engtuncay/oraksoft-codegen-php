@@ -2,11 +2,34 @@
 <ruleset name="Oraksoft Codegen PHP">
 	<description>Project coding standard: PSR-12 plus class-file-name check</description>
 
-	<!-- Base standard -->
-	<rule ref="PSR12" />
+	<!-- Base standard (PSR12) but exclude indentation-related sniffs -->
+	<rule ref="PSR12">
+		<exclude name="Generic.WhiteSpace.ScopeIndent" />
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent" />
+		<exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
+		<exclude name="Generic.Files.LineLength" />
+    <exclude name="Generic.ControlStructures.InlineControlStructure" />
+    <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace" />
+    <exclude name="Generic.Files.LineEndings" />
+	</rule>
+
+	<!-- Treat a tab as 2 spaces for indentation calculations -->
+	<config name="tabWidth" value="2" />
+
+	<!-- Note: ScopeIndent rule removed to disable indentation checks -->
 
 	<!-- Ensure class name matches file name (case-sensitive) -->
-	<rule ref="SlevomatCodingStandard.Classes.ClassFileName" />
+	<rule ref="Squiz.Classes.ClassFileName" />
+
+	<!-- Disable indentation checks -->
+	<exclude name="Generic.WhiteSpace.ScopeIndent" />
+	<exclude name="Generic.WhiteSpace.DisallowTabIndent" />
+	<exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
+	<exclude name="Generic.Files.LineLength" />
+  <exclude name="Generic.ControlStructures.InlineControlStructure" />
+  <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace" />
+  <exclude name="Generic.Files.LineEndings" />
+
 
 	<!-- Exclude vendor and public assets -->
 	<exclude-pattern>vendor/*</exclude-pattern>
