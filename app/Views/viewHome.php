@@ -90,26 +90,38 @@ view('fiAppImports.php');
                 <label for="txActiveEntity" class="form-label">Active Entity</label>
                 <input type="text" class="form-control" id="txActiveEntity" name="txActiveEntity" placeholder="active entity">
               </div> -->
+              
               <div class="d-grid">
                 <button class="btn btn-info m-1 " data-action="actReadEntityList">Read Entity List</button>
                 <button type="submit" class="btn btn-primary m-1" data-action="actGenCode">Generate Code</button>
-                <div class="form-check mt-1">
+              </div>
+              <div class="container p-0">
+              <div class="row g-3 m-1 align-items-center">
+                <div class="col-auto">
                   <input class="form-check-input" type="checkbox" value="" id="chkEnableDb" name="chkEnableDb">
                   <label class="form-check-label" for="chkEnableDb">
                     Db Active
                   </label>
                 </div>
+                <div class="col-auto ">
+                  <label for="inputPassword2" class="visually-hidden">Password</label>
+                  <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+                </div>
+                
               </div>
-              <div class="d-grid">
+              </div>
 
-                <!-- <button class="btn btn-info m-1" data-action="readEntities">Entity Oku</button> -->
-                <!-- <button class="btn btn-info m-1" data-action="test">Test</button> -->
-              </div>
-            </form>
           </div>
+          <div class="d-grid">
+
+            <!-- <button class="btn btn-info m-1" data-action="readEntities">Entity Oku</button> -->
+            <!-- <button class="btn btn-info m-1" data-action="test">Test</button> -->
+          </div>
+          </form>
         </div>
       </div>
     </div>
+  </div>
   </div>
 
   <div class="container mt-3 tw-h-min-1 ">

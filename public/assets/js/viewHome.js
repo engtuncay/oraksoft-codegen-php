@@ -32,9 +32,8 @@ export function viewHomeInit() {
   addOptionsToElement(eleSelJava);
 
   let eleSelSql = document.getElementById("selSql");
-  addOption(eleSelSql, txIdSeciniz, "Seçiniz");
+  addOption(eleSelSql, txIdSeciniz, "Select");
   addOption(eleSelSql, "1", "Sql Create Table");
-
 
   // Reset other selects when one changes
   const codeSelects = [eleSelCsharp, eleSelPhp, eleSelTs, eleSelJava, eleSelSql];
