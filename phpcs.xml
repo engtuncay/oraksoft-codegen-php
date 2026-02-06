@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <ruleset name="Oraksoft Codegen PHP">
 	<description>Project coding standard: PSR-12 plus class-file-name check</description>
+	<rule ref="Squiz.ControlStructures.ControlSignature"><severity>0</severity></rule>
 
 	<!-- Base standard (PSR12) but exclude indentation-related sniffs -->
 	<rule ref="PSR12">
@@ -11,6 +12,7 @@
     <exclude name="Generic.ControlStructures.InlineControlStructure" />
     <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace" />
     <exclude name="Generic.Files.LineEndings" />
+    <exclude name="Squiz.ControlStructures.ControlSignature" />
 	</rule>
 
 	<!-- Treat a tab as 2 spaces for indentation calculations -->
@@ -29,6 +31,7 @@
   <exclude name="Generic.ControlStructures.InlineControlStructure" />
   <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace" />
   <exclude name="Generic.Files.LineEndings" />
+  <exclude name="Squiz.ControlStructures.ControlSignature" />
 
 
 	<!-- Exclude vendor and public assets -->
