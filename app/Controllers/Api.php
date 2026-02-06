@@ -136,7 +136,7 @@ class Api extends ResourceController
     $selJava = $request->getPost('selJava');
     $selSql = $request->getPost('selSql');
     $formTxEntity = $request->getPost('selEntity');
-    
+
     // log_message('info', 'Selected Options:');
     log_message('info', 'Csharp Sel: ' . $selCsharp);
 
@@ -170,6 +170,21 @@ class Api extends ResourceController
 
     $fdrData = CgmCodegen::convertFileToFkbList($uploadedFile);
     $fkbListData = $fdrData->getFkbListInit();
+
+    /** @var FiKeybean $fkbEntityToFkbList */
+    $fkbEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
+
+    $fkbListEntity = null;
+
+    if ($fkbEntityToFkbList->has($formTxEntity)) {
+      $fkbListEntity = $fkbEntityToFkbList->getValue($formTxEntity);
+      //$fdrCodegen = CgmMssqlserver::actGenSqlCreateTableByEntity($fkbListEntity);
+    }
+
+    if ($formTxEntity && !$fkbListEntity) {
+      $fdrData->setMessage("Seçilen entity bulunamadı: " . $formTxEntity);
+      goto endExcelOkuma;
+    }
 
     // print_r($fdr);
     // echo var_export($fdr->getFkbList(), true);
@@ -217,55 +232,20 @@ class Api extends ResourceController
     if ($selPhp == 4 || $selJava == 4 || $selCsharp == 4 || $selTs == 4) $selClassType = 4;
 
 
-    if( $selPhp>0 || $selJava>0 || $selCsharp>0 || $selTs>0 ) {
-      $fdrCodegen = CgmCodegen::genCodeColClass($fkbListData, $cogSpecs, $cogSpecsGenCol, $formTxEntity,$selClassType);
+    if ($selPhp > 0 || $selJava > 0 || $selCsharp > 0 || $selTs > 0) {
+      $fdrCodegen = CgmCodegen::genCodeColClass($fkbListEntity, $cogSpecs, $cogSpecsGenCol,  $selClassType); //$formTxEntity
     }
 
-    // if ($selPhp == 2 || $selJava == 2 || $selCsharp == 2 || $selTs == 2) {
-    //   //list($fdrData2, $arrDtoCodeGenPack) = self::genFiMetaClassByDmlTemplateFromFile($fkbListData, $cogSpecs, $cogSpecsFiMeta);
-    // }
-
-    // // FkbColClass üretimi
-    // if ($selPhp == 3 || $selJava == 3 || $selCsharp == 3 || $selTs == 3) {
-    //   //list($fdrData2, $arrDtoCodeGenPack) = self::genFkbColClassesFromFile($fkbListData, $cogSpecs, $cogSpecsFkbCol);
-    // }
-
-    // if ($selPhp == 4 || $selJava == 4 || $selCsharp == 4 || $selTs == 4) {
-    //   //list($fdrData2, $arrDtoCodeGenPack) = self::genFiMetaClassesFromFile($fkbListData, $cogSpecs, $cogSpecsFiMeta);
-    // }
-
-    //------ Diger
-
     if ($selSql == 1) {
-      $fdrData = self::convertFileToFkbList($uploadedFile);
-      $fdrCdgSql = CgmMssqlserver::actGenSqlCreateTable($fdrData->getFkbListInit());
-
-      $data = [
-        'fdrData' => $fdrCdgSql,
-        'arrDtoCodeGenPack' => $fdrCdgSql->getFkbValue()->getParams(),
-        'sbTxCodeGen' => $sbTxCodeGen,
-        //'txCodeGenExtra' => $txCodeGenExtra,
-        'formData' => $formObject ?? null
-      ];
-
-      // (codegen)[../Views/codegen.php]
-      //return view('codegen', $data);
+      $fdrCodegen = CgmMssqlserver::actGenSqlCreateTableByEntity($fkbListEntity);
     }
 
     endExcelOkuma:
 
-    // $data = [
-    //   'fdrData' => $fdrData,
-    //   'arrDtoCodeGenPack' => $arrDtoCodeGenPack,
-    //   'sbTxCodeGen' => $sbTxCodeGen,
-    //   'txCodeGenExtra' => $txCodeGenExtra,
-    //   'formData' => $formObject ?? null
-    // ];
-
     $fkbReturn = CgmApiUtil::genFkbReturn($fdrCodegen);
 
     // (codegen)[../Views/codegen.php] 
-    return $this->respond( $fkbReturn->getVal(), 200);
+    return $this->respond($fkbReturn->getVal(), 200);
 
     // return $this->response->setJSON([
     //     'status' => 'error',

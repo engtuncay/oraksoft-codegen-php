@@ -2,6 +2,7 @@
 
 namespace Codegen\Modals;
 
+use App\Controllers\CodegenCont;
 use Codegen\Modals\CgmUtils;
 use Codegen\Modals\DtoCodeGen;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
@@ -51,6 +52,22 @@ class CgmMssqlserver
 
     return $fdrMain;
   }
+
+  public static function actGenSqlCreateTableByEntity(FkbList $fkbList): Fdr
+  {
+    $fdrMain = new Fdr();
+
+    $sbTxCodeGen1 = new FiStrbui();
+    $txVer = CodegenCont::getTxVer();
+    $sbTxCodeGen1->append("-- Sql Create Table Code Gen v$txVer\n");
+    $sbTxCodeGen1->append(CgmMssqlserver::actGenSqlCreate($fkbList));
+    $sbTxCodeGen1->append("\n");
+
+    $fdrMain->setTxValue($sbTxCodeGen1->toString());
+
+    return $fdrMain;
+  }
+
 
   public static function actGenSqlCreate(FkbList $fkbList): string
   {
@@ -117,26 +134,26 @@ EOD;
     $fkbType = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxFieldType());
     $fkbLength = $fkbItem->getValueByFiMeta(FimFiCol::ofcLnLength());
     $fkbIdType = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxIdType());
-    
+
     $sbTypeDef = new FiStrbui();
 
-    if($fkbType == 'string'){
-      
-      if(FiString::isEmpty($fkbLength)){
+    if ($fkbType == 'string') {
+
+      if (FiString::isEmpty($fkbLength)) {
         $fkbLength = 50;
-      } 
+      }
       $sbTypeDef->append(" varchar($fkbLength)");
     }
 
-    if($fkbType == 'int'){
+    if ($fkbType == 'int') {
       $sbTypeDef->append(" int");
     }
 
-    if($fkbType == 'datetime'){
+    if ($fkbType == 'datetime') {
       $sbTypeDef->append(" datetime");
     }
 
-    if($fkbIdType == 'identity'){
+    if ($fkbIdType == 'identity') {
       $sbTypeDef->append(" IDENTITY(1,1) NOT NULL PRIMARY KEY");
     }
 
@@ -144,5 +161,4 @@ EOD;
 
     return $sbTypeDef->toString();
   }
-
 }

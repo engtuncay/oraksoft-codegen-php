@@ -1,4 +1,5 @@
 <?php
+
 namespace Codegen\Modals;
 
 use App\Controllers\CodegenCont;
@@ -23,7 +24,7 @@ class CgmCodegen
    * @param ICogSpecsGenCol|null $iCogSpecsGenCol
    * @return Fdr
    */
-  public static function genCodeColClass(FkbList $fkbListData, ICogSpecs $iCogSpecs, ICogSpecsGenCol $iCogSpecsGenCol, string $txEntity = '', int $inClassType = 0): Fdr
+  public static function genCodeColClass(FkbList $fkbList, ICogSpecs $iCogSpecs, ICogSpecsGenCol $iCogSpecsGenCol, int $inClassType = 0): Fdr
   {
     $fdrData = new Fdr();
 
@@ -32,41 +33,41 @@ class CgmCodegen
     //echo var_export($fkbListExcel, true);
 
     /** @var FiKeybean $fkbEntityToFkbList */
-    $fkbEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
+    //$fkbEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
     $txVer = CodegenCont::getTxVer();
 
-    if ($fkbEntityToFkbList->has($txEntity)) {
-      $fkbList = $fkbEntityToFkbList->getValue($txEntity);
-      $sbTxCodeGen1 = new FiStrbui();
+    //if ($fkbEntityToFkbList->has($txEntity)) {
+    //$fkbList = $fkbEntityToFkbList->getValue($txEntity);
+    $sbTxCodeGen1 = new FiStrbui();
 
-      //  addOption(elementById, "1", "FiCol Sınıf");
-      // addOption(elementById, "2", "FiMeta By DML Template");
-      // addOption(elementById, "3", "FkbCol Sınıf");
-      // addOption(elementById, "4", "FiMeta Sınıf");
+    //  addOption(elementById, "1", "FiCol Sınıf");
+    // addOption(elementById, "2", "FiMeta By DML Template");
+    // addOption(elementById, "3", "FkbCol Sınıf");
+    // addOption(elementById, "4", "FiMeta Sınıf");
 
-      if ($inClassType == 1) {
-        $sbTxCodeGen1->append("// FiCol Class Generation - v$txVer \n");
-        $sbTxCodeGen1->append(CgmFiColClass::actGenFiColClassByFkb($fkbList, $iCogSpecs, $iCogSpecsGenCol));
-      }
-      if ($inClassType == 2) {
-        $sbTxCodeGen1->append("// FiMeta Class Generation (By Dml) - v$txVer \n");
-        $sbTxCodeGen1->append(CgmFiMetaClassByDmlTemplate::actGenFiMetaClassByFkbList($fkbList, $iCogSpecs, $iCogSpecsGenCol));
-      }
-      if ($inClassType == 3) {
-        $sbTxCodeGen1->append("// FkbCol Class Generation - v$txVer \n");
-        $sbTxCodeGen1->append(CgmFkbColClass::actGenClassByFkbList($fkbList, $iCogSpecs, $iCogSpecsGenCol));
-      }
-      if ($inClassType == 4) {
-        $sbTxCodeGen1->append("// FiMeta Class Generation - v$txVer \n");
-        $sbTxCodeGen1->append(CgmFiMetaClass::actGenFiMetaClassByFkb($fkbList, $iCogSpecs, $iCogSpecsGenCol));
-      }
-
-      $sbTxCodeGen1->append("\n");
-      $fdrData->setTxValue($sbTxCodeGen1->toString());
-    } else {
-      $fdrData->setTxValue("Entity not found: " . $txEntity);
-      return $fdrData;
+    if ($inClassType == 1) {
+      $sbTxCodeGen1->append("// FiCol Class Generation - v$txVer \n");
+      $sbTxCodeGen1->append(CgmFiColClass::actGenFiColClassByFkb($fkbList, $iCogSpecs, $iCogSpecsGenCol));
     }
+    if ($inClassType == 2) {
+      $sbTxCodeGen1->append("// FiMeta Class Generation (By Dml) - v$txVer \n");
+      $sbTxCodeGen1->append(CgmFiMetaClassByDmlTemplate::actGenFiMetaClassByFkbList($fkbList, $iCogSpecs, $iCogSpecsGenCol));
+    }
+    if ($inClassType == 3) {
+      $sbTxCodeGen1->append("// FkbCol Class Generation - v$txVer \n");
+      $sbTxCodeGen1->append(CgmFkbColClass::actGenClassByFkbList($fkbList, $iCogSpecs, $iCogSpecsGenCol));
+    }
+    if ($inClassType == 4) {
+      $sbTxCodeGen1->append("// FiMeta Class Generation - v$txVer \n");
+      $sbTxCodeGen1->append(CgmFiMetaClass::actGenFiMetaClassByFkb($fkbList, $iCogSpecs, $iCogSpecsGenCol));
+    }
+
+    $sbTxCodeGen1->append("\n");
+    $fdrData->setTxValue($sbTxCodeGen1->toString());
+    // } else {
+    //   $fdrData->setTxValue("Entity not found: " . $txEntity);
+    //   return $fdrData;
+    // }
 
     // log_message('info', 'arrFkbListExcel' . print_r($fkbEntityToFkbList, true));
 

@@ -96,7 +96,7 @@ class CgmUtils
    * Excel/Csv'den gelen listeyi entity'lere göre grupla
    * 
    * @param FkbList $fkbListData
-   * @return array
+   * @return FiKeybean (key: entityName, value: FkbList)
    */
   public static function genFkbAsEntityToFkbList(FkbList $fkbListData): FiKeybean
   {
@@ -185,9 +185,9 @@ class CgmUtils
         if (ctype_lower($characters[$i - 1])) { // && ctype_lower($characters[$i])
           $result .= $characters[$i];
         } // Kendinden önceki büyükse küçült
-        else if (ctype_upper($characters[$i - 1])) {
+        elseif (ctype_upper($characters[$i - 1])) {
           $result .= strtolower($characters[$i]);
-        } else if ($characters[$i - 1] == '_') {
+        } elseif ($characters[$i - 1] == '_') {
           $result .= strtolower($characters[$i]);
         } else {  // Kendinden önceki sayı vs (_ dışında karakterse) ise büyült
           $result .= strtoupper($characters[$i]);
