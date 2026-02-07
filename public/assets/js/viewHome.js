@@ -1,4 +1,6 @@
 import { FiKeybean, fiPostFormData, fiPostJson, testOrakSoftUi } from "../../orak_modules/oraksoft-ui/oraksoft-ui.js";
+import { FimOcgApp } from "./ocgmeta/FimOcgApp.js";
+import { FimOsfFdr } from "./ocgmeta/FimOsfFdr.js";
 
 function addOption(element, value, textContent) {
   const option = document.createElement("option");
@@ -28,6 +30,9 @@ export function viewHomeInit() {
   let eleSelTs = document.getElementById("selTs");
   addOptionsToElement(eleSelTs);
 
+  let eleSelJs = document.getElementById("selJs");
+  addOptionsToElement(eleSelJs);
+
   let eleSelJava = document.getElementById("selJava");
   addOptionsToElement(eleSelJava);
 
@@ -36,7 +41,7 @@ export function viewHomeInit() {
   addOption(eleSelSql, "1", "Sql Create Table");
 
   // Reset other selects when one changes
-  const codeSelects = [eleSelCsharp, eleSelPhp, eleSelTs, eleSelJava, eleSelSql];
+  const codeSelects = [eleSelCsharp, eleSelPhp, eleSelTs, eleSelJava, eleSelSql, eleSelJs];
 
   function resetOtherSelects(changedSelect) {
     codeSelects.forEach(s => {
@@ -134,12 +139,14 @@ export function actGenCode() {
     })
     .then((data) => {
       console.log(data);
-      if (data.txValue) {
+      let txCode = data[FimOsfFdr.fdTxValue().fimTxKey];
+      //console.log('txcode:'+ txCode);
+      if (txCode) {
         /** {HTMLElement} eleEntity */
         let eleEntity = document.getElementById("divCodeBlock");
         if (!(eleEntity instanceof HTMLElement)) return;
         eleEntity.innerHTML = '';
-        eleEntity.innerHTML = '<pre>' + data.txValue + '</pre>';
+        eleEntity.innerHTML = '<pre>' + txCode+ '</pre>';
       }
       //fiBsModal('<pre>' + data.result.refValue + '</pre>');
     }).catch((err) => {

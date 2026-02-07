@@ -14,6 +14,9 @@ use Codegen\Modals\CogSpecsJava;
 use Codegen\Modals\CogSpecsJavaFiCol;
 use Codegen\Modals\CogSpecsJavaFiMeta;
 use Codegen\Modals\CogSpecsJavaFkbCol;
+use Codegen\Modals\CogSpecsJs;
+use Codegen\Modals\CogSpecsJsFiMeta;
+use Codegen\Modals\CogSpecsJsFkbCol;
 use Codegen\Modals\CogSpecsPhp;
 use Codegen\Modals\CogSpecsPhpFiCol;
 use Codegen\Modals\CogSpecsPhpFiMeta;
@@ -137,6 +140,7 @@ class Api extends ResourceController
     $selPhp = $request->getPost('selPhp');
     $selJava = $request->getPost('selJava');
     $selSql = $request->getPost('selSql');
+    $selJs = $request->getPost('selJs');
     $formTxEntity = $request->getPost('selEntity');
 
     // log_message('info', 'Selected Options:');
@@ -203,6 +207,7 @@ class Api extends ResourceController
     if ($selPhp > 0) $cogSpecs = new CogSpecsPhp();
     if ($selJava > 0) $cogSpecs = new CogSpecsJava();
     if ($selTs > 0) $cogSpecs = new CogSpecsTs();
+    if ($selJs > 0) $cogSpecs = new CogSpecsJs();
 
     #Csharp CogSpecs
     if ($selCsharp == 1) $cogSpecsGenCol = new CogSpecsCSharpFiCol();
@@ -223,18 +228,21 @@ class Api extends ResourceController
     if ($selTs == 3) $cogSpecsGenCol = new CogSpecsTsFkbCol();
     if ($selTs == 2 ||  $selTs == 4) $cogSpecsGenCol = new CogSpecsTsFiMeta();
 
+    if ($selJs == 3) $cogSpecsGenCol = new CogSpecsJsFkbCol();
+    if ($selJs == 2 ||  $selJs == 4) $cogSpecsGenCol = new CogSpecsJsFiMeta();
+
     //---- Code Üretimi
     $fdrCodegen =  new Fdr();
     $selClassType = -1;
 
-    // ColClass üretimi (C#, Java, Php)
-    if ($selPhp == 1 || $selJava == 1 || $selCsharp == 1 || $selTs == 1) $selClassType = 1;
-    if ($selPhp == 2 || $selJava == 2 || $selCsharp == 2 || $selTs == 2) $selClassType = 2;
-    if ($selPhp == 3 || $selJava == 3 || $selCsharp == 3 || $selTs == 3) $selClassType = 3;
-    if ($selPhp == 4 || $selJava == 4 || $selCsharp == 4 || $selTs == 4) $selClassType = 4;
+    // ColClass üretimi (C#, Java, Php, Js)
+    if ($selPhp == 1 || $selJava == 1 || $selCsharp == 1 || $selTs == 1 || $selJs == 1) $selClassType = 1;
+    if ($selPhp == 2 || $selJava == 2 || $selCsharp == 2 || $selTs == 2 || $selJs == 2) $selClassType = 2;
+    if ($selPhp == 3 || $selJava == 3 || $selCsharp == 3 || $selTs == 3 || $selJs == 3) $selClassType = 3;
+    if ($selPhp == 4 || $selJava == 4 || $selCsharp == 4 || $selTs == 4 || $selJs == 4) $selClassType = 4;
 
 
-    if ($selPhp > 0 || $selJava > 0 || $selCsharp > 0 || $selTs > 0) {
+    if ($selPhp > 0 || $selJava > 0 || $selCsharp > 0 || $selTs > 0 || $selJs > 0) {
       $fdrCodegen = CgmCodegen::genCodeColClass($fkbListEntity, $cogSpecs, $cogSpecsGenCol, $selClassType); //$formTxEntity
     }
 
@@ -244,10 +252,10 @@ class Api extends ResourceController
 
     endExcelOkuma:
 
-    $fkbReturn = CgmApiUtil::genFkbReturn($fdrCodegen);
+    //$fkbReturn = CgmApiUtil::genFkbReturn($fdrCodegen);
 
     // (codegen)[../Views/codegen.php] 
-    return $this->respond($fkbReturn->getVal(), 200);
+    return $this->respond($fdrCodegen->genArrReturn(), 200);
 
     // return $this->response->setJSON([
     //     'status' => 'error',

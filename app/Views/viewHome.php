@@ -50,11 +50,7 @@ view('fiAppImports.php');
                     <label for="selCsharp" class="form-label">Csharp</label>
                     <select name="selCsharp" id="selCsharp" class="form-select" aria-label="Csharp Operations">
                     </select>
-                    <!--          <div class="form-text">note.</div>-->
-                  </div>
-                  <div class="mb-3 col-md-4">
-                    <label for="selTs" class="form-label">Typescript</label>
-                    <select class="form-select" aria-label="Ts Operations" name="selTs" id="selTs"></select>
+                    <!--<div class="form-text">note.</div>-->
                   </div>
                   <div class="mb-3 col-md-4">
                     <label for="selPhp" class="form-label">Php</label>
@@ -67,10 +63,20 @@ view('fiAppImports.php');
                     </select>
                   </div>
                   <div class="mb-3 col-md-4">
+                    <label for="selTs" class="form-label">Typescript</label>
+                    <select class="form-select" aria-label="Ts Operations" name="selTs" id="selTs"></select>
+                  </div>
+                  <div class="mb-3 col-md-4">
+                    <label for="selJs" class="form-label">Javascript</label>
+                    <select class="form-select" aria-label="Javascript Operations" name="selJs" id="selJs">
+                    </select>
+                  </div>
+                  <div class="mb-3 col-md-4">
                     <label for="selSql" class="form-label">Sql</label>
                     <select class="form-select" aria-label="Sql Operations" name="selSql" id="selSql">
                     </select>
                   </div>
+                  
 
                 </div>
               </div>
