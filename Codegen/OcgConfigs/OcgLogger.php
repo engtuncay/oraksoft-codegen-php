@@ -1,5 +1,5 @@
 <?php
-namespace Codegen\OcdConfig;
+namespace Codegen\OcgConfigs;
 /**
  * Logger Helper Class
  * 

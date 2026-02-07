@@ -1,8 +1,14 @@
 <?php
 namespace App\Controllers;
 
+use Codegen\OcdConfig\OcgLogger;
 use CodeIgniter\RESTful\ResourceController;
+use Engtuncay\Phputils8\FiApps\FiAppConfig;
 use Engtuncay\Phputils8\FiCores\FiString;
+use Engtuncay\Phputils8\FiDbs\FiQuery;
+use Engtuncay\Phputils8\FiPdos\FiPdo;
+use Engtuncay\Phputils8\FiPdos\FiPdoExt;
+use Engtuncay\Phputils8\FiPdos\FiPdow;
 
 class ApiTest extends ResourceController
 {
@@ -13,10 +19,16 @@ class ApiTest extends ResourceController
 
   public function test1()
   {
-    $txEnv = env('fidb.profiles','');
+    //$ocgAppConfig = new OcgCLogger
+    //FiAppConfig::$fiConfig->getProfile()
+    $fiPdo = FiPdo::buiWithProfile("");
 
-    $result = FiString::toArray($txEnv, ',', true);
+    $fiQuery = new FiQuery();
+    $sql = "SELECT * FROM settings"; 
+    $fiQuery->setSql($sql);
 
-    return $this->respond(['message' => 'API Test is working (test1)', 'env' => $txEnv, 'result' => $result]);
+    $fdr = $fiPdo->selectFkb($fiQuery);
+
+    return $this->respond(['data' => print_r($fdr,true)]);
   }
 }

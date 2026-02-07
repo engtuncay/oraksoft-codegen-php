@@ -30,7 +30,7 @@ use Codegen\Modals\CogSpecsTsFiMeta;
 use Codegen\Modals\CogSpecsTsFkbCol;
 use Codegen\Modals\CogSpecsTs;
 use Codegen\Modals\ICogSpecsGenCol;
-use Codegen\OcdConfig\OcgLogger;
+use Codegen\OcgConfigs\OcgLogger;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiExcels\FiExcel;

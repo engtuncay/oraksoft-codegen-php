@@ -3,9 +3,8 @@
 use App\Controllers\Api;
 use App\Controllers\ApiConfig;
 use App\Controllers\ApiTest;
-use Codegen\CdgHelpers\CdgciHelper;
+use Codegen\OcgHelpers\CdgciHelper;
 use CodeIgniter\Router\RouteCollection;
-use Config\App;
 
 /**
  * @var RouteCollection $routes

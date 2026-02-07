@@ -1,6 +1,5 @@
 <?php
-
-namespace Codegen\CdgHelpers;
+namespace Codegen\OcgHelpers;
 
 use CodeIgniter\Router\RouteCollection;
 use Engtuncay\Phputils8\FiCiHelpers\FiCiHelper;

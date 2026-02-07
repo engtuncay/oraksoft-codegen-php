@@ -1,21 +1,12 @@
 <?php
-namespace Codegen\OcdConfig;
+
+namespace Codegen\OcgConfigs;
 
 use Engtuncay\Phputils8\FiConfigs\IFiConfigManager;
 use Engtuncay\Phputils8\FiDbs\FiConnConfig;
 
-class OcdConfig implements IFiConfigManager
+class OcgConfig implements IFiConfigManager
 {
-  public function getConnString(?string $profile): string
-  {
-    return "";
-  }
-
-  public function getApiUrl(?string $txProfile): string
-  {
-    return "";
-  }
-
   public function getFiConnConfig(?string $profile = null): FiConnConfig
   {
     return $this->getConnConfig($profile);
@@ -32,9 +23,9 @@ class OcdConfig implements IFiConfigManager
 
     // getenv ile de alabilirsiniz
     $host = env('database.default.hostname');
-    $username = env('database.default.username') ?: 'kullanici_adi';
-    $password = env('database.default.password') ?: 'sifre';
-    $dbName = env('database.default.database') ?: 'veritabani_adi';
+    $username = env('database.default.username') ?: 'username';
+    $password = env('database.default.password') ?: 'pass';
+    $dbName = env('database.default.database') ?: 'dbname';
 
     $fiConnConfig->setTxServer($host);
     $fiConnConfig->setTxDatabase($dbName);
@@ -43,4 +34,15 @@ class OcdConfig implements IFiConfigManager
 
     return $fiConnConfig;
   }
+
+  public function getConnString(?string $profile): string
+  {
+    return "";
+  }
+
+  public function getApiUrl(?string $txProfile): string
+  {
+    return "";
+  }
+
 }

@@ -25,9 +25,11 @@ use CodeIgniter\RESTful\ResourceController;
 use Config\Services;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCsvs\FiCsv;
+use Engtuncay\Phputils8\FiDbs\FiQuery;
 use Engtuncay\Phputils8\FiDtos\Fdr;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
+use Engtuncay\Phputils8\FiPdos\FiPdo;
 
 class Api extends ResourceController
 {
@@ -252,4 +254,21 @@ class Api extends ResourceController
     //     'message' => 'File upload failed'
     // ]);
   }
+
+  public function test1()
+  {
+    //$ocgAppConfig = new OcgCLogger
+    //FiAppConfig::$fiConfig->getProfile()
+    $fiPdo = FiPdo::buiWithProfile("");
+
+    $fiQuery = new FiQuery();
+    $sql = "SELECT * FROM settings"; 
+    $fiQuery->setSql($sql);
+
+    $fdr = $fiPdo->selectFkb($fiQuery);
+
+    return $this->respond(['message' => 'API Test is working (test1)', 'data' => print_r($fdr,true)]);
+  }
+
+
 }

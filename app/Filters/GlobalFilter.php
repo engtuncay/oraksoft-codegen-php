@@ -1,7 +1,7 @@
 <?php
 namespace App\Filters;
 
-use Codegen\OcdConfig\OcdConfig;
+use Codegen\OcgConfigs\OcgConfig;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Filters\FilterInterface;
@@ -13,8 +13,9 @@ class GlobalFilter implements FilterInterface
     {
         // Her istekte çalışacak kod buraya yazılır
         // Örnek: loglama
+        // UBOM AppConfig ayarlama
         log_message('info', 'GlobalFilter (before) was executed.');
-        $ospConfig = new OcdConfig();
+        $ospConfig = new OcgConfig();
         FiAppConfig::$fiConfig = $ospConfig;
     }
 
