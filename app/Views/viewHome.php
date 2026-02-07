@@ -95,7 +95,9 @@ view('fiAppImports.php');
                 <button class="btn btn-info m-1 " data-action="actReadEntityList">Read Entity List</button>
                 <button type="submit" class="btn btn-primary m-1" data-action="actGenCode">Generate Code</button>
               </div>
-              <div class="container p-0">
+              
+              <!-- Db Active - Password Panel -->
+              <div class="container p-0" id="dbActivePanel">
               <div class="row g-3 m-1 align-items-center">
                 <div class="col-auto">
                   <input class="form-check-input" type="checkbox" value="" id="chkEnableDb" name="chkEnableDb">

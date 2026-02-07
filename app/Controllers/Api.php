@@ -151,7 +151,7 @@ class Api extends ResourceController
 
     // if ($uploadedFile['error'] !== UPLOAD_ERR_OK) {
     //   //die('Dosya yüklenirken hata oluştu.');
-    //   $fdrData->setMessage("Dosya yüklenirken Hata oluştu.");
+    //   $fdrData->setTxValue("Dosya yüklenirken Hata oluştu.");
     //   //goto endExcelOkuma;
     // }
 
@@ -164,7 +164,7 @@ class Api extends ResourceController
 
     if (!in_array(strtolower($fileExtension), $allowedExtensions)) {
       $mess = 'Geçersiz dosya formatı. Sadece csv dosyaları yükleyebilirsiniz.';
-      $fdrData->setMessage($mess);
+      $fdrData->setTxValue($mess);
       goto endExcelOkuma;
     }
 
@@ -182,7 +182,7 @@ class Api extends ResourceController
     }
 
     if ($formTxEntity && !$fkbListEntity) {
-      $fdrData->setMessage("Seçilen entity bulunamadı: " . $formTxEntity);
+      $fdrData->setTxValue("Seçilen entity bulunamadı: " . $formTxEntity);
       goto endExcelOkuma;
     }
 
@@ -233,7 +233,7 @@ class Api extends ResourceController
 
 
     if ($selPhp > 0 || $selJava > 0 || $selCsharp > 0 || $selTs > 0) {
-      $fdrCodegen = CgmCodegen::genCodeColClass($fkbListEntity, $cogSpecs, $cogSpecsGenCol,  $selClassType); //$formTxEntity
+      $fdrCodegen = CgmCodegen::genCodeColClass($fkbListEntity, $cogSpecs, $cogSpecsGenCol, $selClassType); //$formTxEntity
     }
 
     if ($selSql == 1) {
