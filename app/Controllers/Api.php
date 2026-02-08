@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use Codegen\Modals\CgmApiUtil;
 use Codegen\Modals\CgmCodegen;
 use Codegen\Modals\CgmMssqlserver;
 use Codegen\Modals\CgmUtils;

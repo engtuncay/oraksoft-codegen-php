@@ -1,5 +1,8 @@
 <?php
 namespace Codegen\OcgConfigs;
+
+use Psr\Log\LogLevel;
+
 /**
  * Logger Helper Class
  * 
@@ -10,17 +13,17 @@ class OcgLogger
   // 
   public static function info(string $message): void
   {
-    log_message('info', $message);
+    log_message(LogLevel::INFO, $message);
   }
 
   public static function debug(string $message): void
   {
-    log_message('debug', $message);
+    log_message(LogLevel::DEBUG, $message);
   }
 
   public static function error(string $message): void
   {
-    log_message('error', $message);
+    log_message(LogLevel::ERROR, $message);
   }
 
 }
