@@ -232,17 +232,12 @@ class Api extends ResourceController
 
     //---- Code Üretimi
     $fdrCodegen =  new Fdr();
-    $selClassType = -1;
 
     // ColClass üretimi (C#, Java, Php, Js)
-    if ($selPhp == 1 || $selJava == 1 || $selCsharp == 1 || $selTs == 1 || $selJs == 1) $selClassType = 1;
-    if ($selPhp == 2 || $selJava == 2 || $selCsharp == 2 || $selTs == 2 || $selJs == 2) $selClassType = 2;
-    if ($selPhp == 3 || $selJava == 3 || $selCsharp == 3 || $selTs == 3 || $selJs == 3) $selClassType = 3;
-    if ($selPhp == 4 || $selJava == 4 || $selCsharp == 4 || $selTs == 4 || $selJs == 4) $selClassType = 4;
+    $selClassType = max($selPhp, $selJava, $selCsharp, $selTs, $selJs);
 
-
-    if ($selPhp > 0 || $selJava > 0 || $selCsharp > 0 || $selTs > 0 || $selJs > 0) {
-      $fdrCodegen = CgmCodegen::genCodeColClass($fkbListEntity, $cogSpecs, $cogSpecsGenCol, $selClassType); //$formTxEntity
+    if ($selClassType > 0 && $cogSpecs && $cogSpecsGenCol) {
+      $fdrCodegen = CgmCodegen::genCodeColClass($fkbListEntity, $cogSpecs, $cogSpecsGenCol, $selClassType);
     }
 
     if ($selSql == 1) {

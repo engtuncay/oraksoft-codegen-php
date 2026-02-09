@@ -9,7 +9,7 @@ function addOption(element, value, textContent) {
   element.appendChild(option);
 }
 
-function addOptionsToElement(elementById, txIdSeciniz = "-1") {
+function addOptionsToElement(elementById, txIdSeciniz = "0") {
   addOption(elementById, txIdSeciniz, "Select");
   addOption(elementById, "1", "FiCol Class");
   addOption(elementById, "2", "FiMeta Class By DML");
@@ -18,8 +18,8 @@ function addOptionsToElement(elementById, txIdSeciniz = "-1") {
 }
 
 export function viewHomeInit() {
-  
-  let txIdSeciniz = "-1";
+
+  let txIdSeciniz = "0";
 
   let eleSelCsharp = document.getElementById("selCsharp");
   addOptionsToElement(eleSelCsharp);
@@ -83,11 +83,11 @@ export function viewHomeInit() {
 
 
 export function actReadEntityList() {
-  
+
   console.log("actReadEntityList method called");
 
   let eleInputFile = document.getElementById("excelFile");
-  
+
   // Eğer dosya seçilmediyse işlemi durdur
   if (!(eleInputFile instanceof HTMLInputElement) || !eleInputFile.files || eleInputFile.files.length === 0) {
     alert('Please select a DML file.');
@@ -146,7 +146,7 @@ export function actGenCode() {
         let eleEntity = document.getElementById("divCodeBlock");
         if (!(eleEntity instanceof HTMLElement)) return;
         eleEntity.innerHTML = '';
-        eleEntity.innerHTML = '<pre>' + txCode+ '</pre>';
+        eleEntity.innerHTML = '<pre>' + txCode + '</pre>';
       }
       //fiBsModal('<pre>' + data.result.refValue + '</pre>');
     }).catch((err) => {
