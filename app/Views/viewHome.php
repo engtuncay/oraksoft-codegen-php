@@ -34,14 +34,14 @@ view('fiAppImports.php');
 
 <body class="fibody">
 
-  <!--main-container-->
-  <div id="fi-main" class="container mt-2">
+  <!--fim-main-container-->
+  <div id="fim" class="container mt-2">
     <!--fold-level-5-->
     <section id="fi1" class="row justify-content-center">
       <div id="fi11" class="col-md-12">
         <div class="card">
           <!--card-header -->
-          <div class="text-white card-header bg-primary">
+          <div class="card-header text-white bg-primary">
             <h3 class="text-center card-title">Oraksoft Code Generator</h3>
           </div>
           <!--card-body -->
@@ -104,7 +104,7 @@ view('fiAppImports.php');
                 </div>
 
                 <!-- Db Active - Password Panel -->
-                <div id="dbActivePanel" class="" >
+                <div id="dbActivePanel" class="">
                   <div class="row g-3 m-1 align-items-center">
                     <div class="col-auto">
                       <input class="form-check-input" type="checkbox" value="" id="chkEnableDb" name="chkEnableDb">
@@ -129,14 +129,8 @@ view('fiAppImports.php');
                   </div>
                 </div>
 
+              </form>
             </div>
-
-            <div class="d-grid">
-
-              <!-- <button class="btn btn-info m-1" data-action="readEntities">Entity Oku</button> -->
-              <!-- <button class="btn btn-info m-1" data-action="test">Test</button> -->
-            </div>
-            </form>
 
           </div>
           <!-- end card-body -->
@@ -148,15 +142,15 @@ view('fiAppImports.php');
     <!-- code-block -->
     <section id="fi2" class="row mt-3 tw-h-min-1">
       <div id="fi21" class="col-12 position-relative">
-        <div id="fi211" class="bg-black" >
-        <!-- <pre class="p-3 rounded"> -->
-        <code class="p-3 rounded" id="divCodeBlock">
-        </code>
-        <!-- </pre> -->
-        <button class="m-2 btn btn-sm btn-outline-dark position-absolute top-0 end-0 copy-btn"
-          onclick="copyCode('divCodeBlock')">
-          Copy
-        </button>
+        <div id="fi211" class="bg-black">
+          <!-- <pre class="p-3 rounded"> -->
+          <code class="p-3 rounded" id="divCodeBlock">
+          </code>
+          <!-- </pre> -->
+          <button class="m-2 btn btn-sm btn-outline-dark position-absolute top-0 end-0 copy-btn"
+            onclick="copyCode('divCodeBlock')">
+            Copy
+          </button>
         </div>
       </div>
     </section>
