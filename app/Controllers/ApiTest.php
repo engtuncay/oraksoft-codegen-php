@@ -24,7 +24,7 @@ class ApiTest extends ResourceController
     $fiPdo = FiPdo::buiWithProfile("");
 
     $fiQuery = new FiQuery();
-    $sql = "SELECT * FROM settings"; 
+    $sql = "SELECT * FROM seta"; 
     $fiQuery->setSql($sql);
 
     $fdr = $fiPdo->selectFkb($fiQuery);
