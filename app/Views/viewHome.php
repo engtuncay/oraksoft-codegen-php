@@ -37,8 +37,8 @@ view('fiAppImports.php');
   <!--main-container-->
   <div id="fi-main" class="container mt-2">
     <!--fold-level-5-->
-    <section id="fi-1" class="row justify-content-center">
-      <div id="fi-1-1" class="col-md-12">
+    <section id="fi1" class="row justify-content-center">
+      <div id="fi11" class="col-md-12">
         <div class="card">
           <!--card-header -->
           <div class="text-white card-header bg-primary">
@@ -146,9 +146,9 @@ view('fiAppImports.php');
     </section>
 
     <!-- code-block -->
-    <section id="fi-2" class="row mt-3 tw-h-min-1">
-      <div id="fi-2-1" class="col-12 position-relative">
-        <div id="fi-2-1-1" class="bg-black" >
+    <section id="fi2" class="row mt-3 tw-h-min-1">
+      <div id="fi21" class="col-12 position-relative">
+        <div id="fi211" class="bg-black" >
         <!-- <pre class="p-3 rounded"> -->
         <code class="p-3 rounded" id="divCodeBlock">
         </code>
