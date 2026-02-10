@@ -33,119 +33,139 @@ view('fiAppImports.php');
 </head>
 
 <body class="fibody">
-  <!---->
-  <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-12">
+
+  <!--main-container-->
+  <div id="fi-main" class="container mt-2">
+    <!--fold-level-5-->
+    <section id="fi-1" class="row justify-content-center">
+      <div id="fi-1-1" class="col-md-12">
         <div class="card">
+          <!--card-header -->
           <div class="text-white card-header bg-primary">
             <h3 class="text-center card-title">Oraksoft Code Generator</h3>
           </div>
-
+          <!--card-body -->
           <div class="card-body">
-            <form action="<?= base_url('codegen') ?>" method="post" enctype="multipart/form-data">
-              <div class="container">
-                <div class="row">
-                  <div class="mb-3 col-md-4">
-                    <label for="selCsharp" class="form-label">Csharp</label>
-                    <select name="selCsharp" id="selCsharp" class="form-select" aria-label="Csharp Operations">
-                    </select>
-                    <!--<div class="form-text">note.</div>-->
-                  </div>
-                  <div class="mb-3 col-md-4">
-                    <label for="selPhp" class="form-label">Php</label>
-                    <select class="form-select" aria-label="Php Operations" name="selPhp" id="selPhp">
-                    </select>
-                  </div>
-                  <div class="mb-3 col-md-4">
-                    <label for="selJava" class="form-label">Java</label>
-                    <select class="form-select" aria-label="Java Operations" name="selJava" id="selJava">
-                    </select>
-                  </div>
-                  <div class="mb-3 col-md-4">
-                    <label for="selTs" class="form-label">Typescript</label>
-                    <select class="form-select" aria-label="Ts Operations" name="selTs" id="selTs"></select>
-                  </div>
-                  <div class="mb-3 col-md-4">
-                    <label for="selJs" class="form-label">Javascript</label>
-                    <select class="form-select" aria-label="Javascript Operations" name="selJs" id="selJs">
-                    </select>
-                  </div>
-                  <div class="mb-3 col-md-4">
-                    <label for="selSql" class="form-label">Sql</label>
-                    <select class="form-select" aria-label="Sql Operations" name="selSql" id="selSql">
-                    </select>
-                  </div>
-                  
 
+            <div id="form">
+              <form action="#" method="post" enctype="multipart/form-data">
+
+                <div id="divSelBoxs" class="">
+                  <div class="row">
+                    <div class="mb-3 col-md-4">
+                      <label for="selCsharp" class="form-label">Csharp</label>
+                      <select name="selCsharp" id="selCsharp" class="form-select" aria-label="Csharp Operations">
+                      </select>
+                      <!--<div class="form-text">note.</div>-->
+                    </div>
+                    <div class="mb-3 col-md-4">
+                      <label for="selPhp" class="form-label">Php</label>
+                      <select class="form-select" aria-label="Php Operations" name="selPhp" id="selPhp">
+                      </select>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                      <label for="selJava" class="form-label">Java</label>
+                      <select class="form-select" aria-label="Java Operations" name="selJava" id="selJava">
+                      </select>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                      <label for="selTs" class="form-label">Typescript</label>
+                      <select class="form-select" aria-label="Ts Operations" name="selTs" id="selTs"></select>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                      <label for="selJs" class="form-label">Javascript</label>
+                      <select class="form-select" aria-label="Javascript Operations" name="selJs" id="selJs">
+                      </select>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                      <label for="selSql" class="form-label">Sql</label>
+                      <select class="form-select" aria-label="Sql Operations" name="selSql" id="selSql">
+                      </select>
+                    </div>
+
+                  </div>
                 </div>
-              </div>
-              <div class="mb-3">
-                <label for="selEntity" class="form-label">Entity</label>
-                <select class="form-select" aria-label="Entity Selection" name="selEntity" id="selEntity">
-                </select>
-              </div>
-              <div class="mb-3">
-                <script type="module"></script>
-                <label for="excelFile" class="form-label">DML (Data Model) File:</label>
-                <input type="file" class="form-control" name="excelFile" id="excelFile"
-                  accept=".xlsx, .xls, .csv" required>
-                <div class="form-text">Only .xlsx, .xls veya .csv file types</div>
-              </div>
-              <!-- <div class="mb-3">
-                <label for="txActiveEntity" class="form-label">Active Entity</label>
-                <input type="text" class="form-control" id="txActiveEntity" name="txActiveEntity" placeholder="active entity">
-              </div> -->
-              
-              <div class="d-grid">
-                <button class="btn btn-info m-1 " data-action="actReadEntityList">Read Entity List</button>
-                <button type="submit" class="btn btn-primary m-1" data-action="actGenCode">Generate Code</button>
-              </div>
-              
-              <!-- Db Active - Password Panel -->
-              <div class="container p-0" id="dbActivePanel">
-              <div class="row g-3 m-1 align-items-center">
-                <div class="col-auto">
-                  <input class="form-check-input" type="checkbox" value="" id="chkEnableDb" name="chkEnableDb">
-                  <label class="form-check-label" for="chkEnableDb">
-                    Db Active
-                  </label>
+
+                <div class="mb-3">
+                  <label for="selEntity" class="form-label">Entity</label>
+                  <select class="form-select" aria-label="Entity Selection" name="selEntity" id="selEntity">
+                  </select>
                 </div>
-                <div class="col-auto ">
-                  <label for="inputPassword2" class="visually-hidden">Password</label>
-                  <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+
+                <div class="mb-3">
+                  <label for="excelFile" class="form-label">DML (Data Model) File:</label>
+                  <input type="file" class="form-control" name="excelFile" id="excelFile" accept=".xlsx, .xls, .csv" required>
+                  <div class="form-text">Only .xlsx, .xls veya .csv file types</div>
                 </div>
-                
-              </div>
-              </div>
+
+                <div class="d-flex">
+                  <button class="btn btn-info m-1 " data-action="actReadEntityList">Read Entity List</button>
+                  <button class="btn btn-primary m-1" data-action="actGenCode">Generate Code</button>
+                </div>
+
+                <!-- Db Active - Password Panel -->
+                <div id="dbActivePanel" class="" >
+                  <div class="row g-3 m-1 align-items-center">
+                    <div class="col-auto">
+                      <input class="form-check-input" type="checkbox" value="" id="chkEnableDb" name="chkEnableDb">
+                      <label class="form-check-label" for="chkEnableDb">
+                        Db Active
+                      </label>
+                    </div>
+                    <div class="col-auto ">
+                      <label for="inputPassword2" class="visually-hidden">Password</label>
+                      <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+                    </div>
+
+                    <div class="container p-0 mt-2">
+                      <div class="row">
+                        <div class="mb-3">
+                          <!-- <label for="txCustomCmd" class="form-label">Custom Command</label> -->
+                          <input type="text" class="form-control" id="txCustomCmd" name="txCustomCmd" placeholder="Custom Command">
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+            </div>
+
+            <div class="d-grid">
+
+              <!-- <button class="btn btn-info m-1" data-action="readEntities">Entity Oku</button> -->
+              <!-- <button class="btn btn-info m-1" data-action="test">Test</button> -->
+            </div>
+            </form>
 
           </div>
-          <div class="d-grid">
+          <!-- end card-body -->
+        </div>
+        <!-- end card -->
+      </div>
+    </section>
 
-            <!-- <button class="btn btn-info m-1" data-action="readEntities">Entity Oku</button> -->
-            <!-- <button class="btn btn-info m-1" data-action="test">Test</button> -->
-          </div>
-          </form>
+    <!-- code-block -->
+    <section id="fi-2" class="row mt-3 tw-h-min-1">
+      <div id="fi-2-1" class="col-12 position-relative">
+        <div id="fi-2-1-1" class="bg-black" >
+        <!-- <pre class="p-3 rounded"> -->
+        <code class="p-3 rounded" id="divCodeBlock">
+        </code>
+        <!-- </pre> -->
+        <button class="m-2 btn btn-sm btn-outline-dark position-absolute top-0 end-0 copy-btn"
+          onclick="copyCode('divCodeBlock')">
+          Copy
+        </button>
         </div>
       </div>
-    </div>
-  </div>
-  </div>
+    </section>
+    <!-- end-code-block -->
 
-  <div class="container mt-3 tw-h-min-1 ">
-    <!--code blok -->
-    <div id="" class="position-relative bg-black">
-      <!-- <pre class="p-3 rounded"> -->
-      <code class="p-3 rounded" id="divCodeBlock">
-      </code>
-      <!-- </pre> -->
-      <button class="m-2 btn btn-sm btn-outline-dark position-absolute top-0 end-0 copy-btn"
-        onclick="copyCode('divCodeBlock')">
-        Copy
-      </button>
-    </div>
   </div>
+  <!--end-main-container -->
 
+  <!--script-block -->
   <script>
     function copyCode(txIdName) {
       const code = document.getElementById(txIdName).innerText;
