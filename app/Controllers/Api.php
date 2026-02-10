@@ -249,7 +249,7 @@ class Api extends ResourceController
     //$fkbReturn = CgmApiUtil::genFkbReturn($fdrCodegen);
 
     // (codegen)[../Views/codegen.php] 
-    return $this->respond($fdrCodegen->genArrReturn(), 200);
+    return $this->respond($fdrCodegen->genArrResponse(), 200);
 
     // return $this->response->setJSON([
     //     'status' => 'error',
@@ -264,7 +264,7 @@ class Api extends ResourceController
     $fiPdo = FiPdo::buiWithProfile("");
 
     $fiQuery = new FiQuery();
-    $sql = "SELECT * FROM settings"; 
+    $sql = "SELECT * FROM seta"; 
     $fiQuery->setSql($sql);
 
     $fdr = $fiPdo->selectFkb($fiQuery);

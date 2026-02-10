@@ -24,11 +24,13 @@ class ApiTest extends ResourceController
     $fiPdo = FiPdo::buiWithProfile("");
 
     $fiQuery = new FiQuery();
-    $sql = "SELECT * FROM abc"; 
+    $sql = "SELECT * FROM settings"; 
     $fiQuery->setSql($sql);
 
     $fdr = $fiPdo->selectFkb($fiQuery);
 
-    return $this->respond(['data' => print_r($fdr,true)]);
+    $fdr->genArrResponse();
+    //['data' => print_r($fdr,true)]
+    return $this->respond($fdr->genArrResponse(), 200);
   }
 }

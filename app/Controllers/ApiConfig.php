@@ -26,6 +26,6 @@ class ApiConfig extends ResourceController
 
     $fkb->addFkbCol(FkcOcgApp::fapDbProfiles(), $arrProfiles);
     
-    return $this->respond($fdr->genArrReturn());
+    return $this->respond($fdr->genArrResponse());
   }
 }
