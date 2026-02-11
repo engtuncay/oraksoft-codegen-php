@@ -104,28 +104,28 @@ EOD;
     //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::fcTxFieldType()));
     $fcTxFieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
     if ($fcTxFieldName != null) {
-      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.OfcTxFieldName(), \"%s\");\n", $fcTxFieldName));
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcTxFieldName(), \"%s\");\n", $fcTxFieldName));
     }
 
 
     $fcTxHeader = $fkbItem->getValueByFiMeta(FimFiCol::fcTxHeader());
     if ($fcTxHeader != null) {
-      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.OfcTxHeader(), \"%s\");\n", $fcTxHeader));
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcTxHeader(), \"%s\");\n", $fcTxHeader));
     }
 
     $fcTxFieldType = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldType());
     if ($fcTxFieldType != null) {
-      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.OfcTxFieldType(), \"%s\");\n", $fcTxFieldType));
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcTxFieldType(), \"%s\");\n", $fcTxFieldType));
     }
 
     $fcTxDbField = $fkbItem->getValueByFiMeta(FimFiCol::fcTxDbField());
     if ($fcTxDbField != null) {
-      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.OfcTxDbField(), \"%s\");\n", $fcTxDbField));
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcTxDbField(), \"%s\");\n", $fcTxDbField));
     }
 
     $fcTxRefField = $fkbItem->getValueByFiMeta(FimFiCol::fcTxRefField());
     if ($fcTxRefField != null) {
-      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.OfcTxRefField(), \"%s\");\n", $fcTxRefField));
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcTxRefField(), \"%s\");\n", $fcTxRefField));
     }
 
 
@@ -142,32 +142,32 @@ EOD;
     $fcBoTransient = $fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoTransient());
     if ($fcBoTransient) {
       //$sbFkbColMethodBody->append("  fkbCol.fcBoTransient = true;\n");
-      $sbFkbColMethodBody->append("  fkbCol.AddFieldBy(FimFiCol.OfcBoTransient(), true );\n");
+      $sbFkbColMethodBody->append("  fkbCol.AddFieldBy(FimFiCol.FcBoTransient(), true );\n");
     }
 
     $fcLnLength = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnLength()));
     if ($fcLnLength != null) {
-      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.OfcLnLength(), %s);\n", $fcLnLength));
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcLnLength(), %s);\n", $fcLnLength));
       // $sbFkbColMethodBody->append(sprintf("  fkbCol.fcLnLength = %s;\n", $fcLnLength));
     }
 
     $fcLnPrecision = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnPrecision()));
     if ($fcLnPrecision != null) {
-      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.OfcLnPrecision(), %s);\n", $fcLnPrecision));
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcLnPrecision(), %s);\n", $fcLnPrecision));
     }
 
     $fcLnScale = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnScale()));
     if ($fcLnScale != null) {
-      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.OfcLnScale(), %s);\n", $fcLnScale));
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcLnScale(), %s);\n", $fcLnScale));
     }
 
     if (FiBool::isFalse($fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoNullable()))) {
-      $sbFkbColMethodBody->append("  fkbCol.AddFieldBy(FimFiCol.OfcBoNullable(), false);\n");
+      $sbFkbColMethodBody->append("  fkbCol.AddFieldBy(FimFiCol.FcBoNullable(), false);\n");
     }
 
     $fcLnId = FicValue::toInt($fkbItem->getValueByFiMeta(FimFiCol::fcLnId()));
     if ($fcLnId != null) {
-      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.OfcLnId(), %s);\n", $fcLnId));
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcLnId(), %s);\n", $fcLnId));
     }
 
     //
