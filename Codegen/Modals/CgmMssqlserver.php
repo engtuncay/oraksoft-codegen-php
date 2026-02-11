@@ -84,7 +84,7 @@ class CgmMssqlserver
      */
     foreach ($fkbList as $fkbItem) {
 
-      $fkbFieldName = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxFieldName());
+      $fkbFieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
 
       $sqlTypeDef = self::genSqlColTypeDef($fkbItem);
 
@@ -95,7 +95,7 @@ class CgmMssqlserver
     }
 
     $fkbSqlCreateParam = new FiKeybean();
-    $fkbSqlCreateParam->addFieldMeta(FimOksCoding::oscTxTableName(), $fkbFirstItem->getValueByFiMeta(FimFiCol::ofcTxEntityName()));
+    $fkbSqlCreateParam->addFieldMeta(FimOksCoding::oscTxTableName(), $fkbFirstItem->getValueByFiMeta(FimFiCol::fcTxEntityName()));
     $fkbSqlCreateParam->addFieldMeta(FimOksCoding::oscTxTableFields(), rtrim($sbColDefs->toString(), ",\n"));
 
     $sqlTemplate = <<<EOD
@@ -131,9 +131,9 @@ EOD;
 
   public static function genSqlColTypeDef(FiKeybean $fkbItem): string
   {
-    $fkbType = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxFieldType());
-    $fkbLength = $fkbItem->getValueByFiMeta(FimFiCol::ofcLnLength());
-    $fkbIdType = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxIdType());
+    $fkbType = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldType());
+    $fkbLength = $fkbItem->getValueByFiMeta(FimFiCol::fcLnLength());
+    $fkbIdType = $fkbItem->getValueByFiMeta(FimFiCol::fcTxIdType());
 
     $sbTypeDef = new FiStrbui();
 

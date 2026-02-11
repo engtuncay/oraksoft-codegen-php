@@ -108,10 +108,10 @@ class CgmUtils
     /** @var FiKeybean $fkbItem */
     foreach ($fkbListData as $fkbItem) {
       //OcgLogger::info("Processing FkbItem: " . print_r($fkbItem->getArr(), true));
-      //OcgLogger::info("Processing FkbItem EntityName: " . $fkbItem->getFimValue(FimFiCol::ofcTxEntityName()));
-      //OcgLogger::info("Processing FkbItem EntityName: " . $fkbItem->getArr()[FimFiCol::ofcTxEntityName()->getTxKey()]);
+      //OcgLogger::info("Processing FkbItem EntityName: " . $fkbItem->getFimValue(FimFiCol::fcTxEntityName()));
+      //OcgLogger::info("Processing FkbItem EntityName: " . $fkbItem->getArr()[FimFiCol::fcTxEntityName()->getTxKey()]);
       //FiLog::$log?->debug(implode(":", $fkbItem->getArr()));
-      $txEntityName = $fkbItem->getFimValue(FimFiCol::ofcTxEntityName());
+      $txEntityName = $fkbItem->getFimValue(FimFiCol::fcTxEntityName());
       //FiLog::$log?->debug("$txEntityName : ". $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName()));
       if ($txEntityName != null) {
         //OcgLogger::info("Adding FkbItem to entity:$txEntityName , field:" . $fkbItem->getOfcTxFn());
@@ -135,10 +135,10 @@ class CgmUtils
     /** @var FiKeybean $fkbItem */
     foreach ($fkbListData as $fkbItem) {
       //OcgLogger::info("Processing FkbItem: " . print_r($fkbItem->getArr(), true));
-      //OcgLogger::info("Processing FkbItem EntityName: " . $fkbItem->getFimValue(FimFiCol::ofcTxEntityName()));
-      //OcgLogger::info("Processing FkbItem EntityName: " . $fkbItem->getArr()[FimFiCol::ofcTxEntityName()->getTxKey()]);
+      //OcgLogger::info("Processing FkbItem EntityName: " . $fkbItem->getFimValue(FimFiCol::fcTxEntityName()));
+      //OcgLogger::info("Processing FkbItem EntityName: " . $fkbItem->getArr()[FimFiCol::fcTxEntityName()->getTxKey()]);
       //FiLog::$log?->debug(implode(":", $fkbItem->getArr()));
-      $txEntityName = $fkbItem->getFimValue(FimFiCol::ofcTxEntityName());
+      $txEntityName = $fkbItem->getFimValue(FimFiCol::fcTxEntityName());
       //FiLog::$log?->debug("$txEntityName : ". $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName()));
       if ($txEntityName != null) {
         //OcgLogger::info("Adding FkbItem to entity:$txEntityName , field:" . $fkbItem->getOfcTxFn());

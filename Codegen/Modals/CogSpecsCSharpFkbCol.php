@@ -102,7 +102,7 @@ EOD;
 
     //String
     //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::ofcTxFieldType()));
-    $ofcTxFieldName = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxFieldName());
+    $ofcTxFieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
     if ($ofcTxFieldName != null) {
       $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.OfcTxFieldName(), \"%s\");\n", $ofcTxFieldName));
     }
@@ -113,7 +113,7 @@ EOD;
       $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.OfcTxHeader(), \"%s\");\n", $ofcTxHeader));
     }
 
-    $ofcTxFieldType = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxFieldType());
+    $ofcTxFieldType = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldType());
     if ($ofcTxFieldType != null) {
       $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.OfcTxFieldType(), \"%s\");\n", $ofcTxFieldType));
     }

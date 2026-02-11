@@ -108,7 +108,7 @@ EOD;
     //String
     //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::ofcTxFieldType()));
 
-    $ofcTxFieldName = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxFieldName());
+    $ofcTxFieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
     if ($ofcTxFieldName != null) {
       $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.ofcTxFieldName(), \"%s\");\n", $ofcTxFieldName));
     }

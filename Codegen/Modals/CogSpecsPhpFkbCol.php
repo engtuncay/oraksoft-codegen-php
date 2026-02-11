@@ -77,7 +77,7 @@ EOD;
 
     $ofcTxFieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
     if ($ofcTxFieldName != null)
-      $sbFiColMethodBody->append(sprintf("  \$fkbCol->addFm(FimFiCol::ofcTxFieldName(), '%s');\n", $ofcTxFieldName));
+      $sbFiColMethodBody->append(sprintf("  \$fkbCol->addFm(FimFiCol::fcTxFieldName(), '%s');\n", $ofcTxFieldName));
 
     $ofcTxHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
     if ($ofcTxHeader != null)
@@ -85,7 +85,7 @@ EOD;
 
     $ofcTxFieldType = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldType());
     if ($ofcTxFieldType != null)
-      $sbFiColMethodBody->append(sprintf("  \$fkbCol->addFm(FimFiCol::ofcTxFieldType(), '%s');\n", $ofcTxFieldType));
+      $sbFiColMethodBody->append(sprintf("  \$fkbCol->addFm(FimFiCol::fcTxFieldType(), '%s');\n", $ofcTxFieldType));
 
     // $ofcTxDbField = $fkbItem->getValueByFiCol(FicFiCol::ofcTxDbField());
     // if ($ofcTxDbField != null)
@@ -202,7 +202,7 @@ EOD;
    */
   public function doNonTransientFieldOps(FiStrbui $sbFclListBody, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void //, string $methodName
   {
-    $fieldName = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxFieldName());
+    $fieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
     $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
     $sbFclListBody->append("\$fkbList->add(self::$methodName());\n");
   }

@@ -63,7 +63,7 @@ class CgmFiMetaClassByDmlTemplate
       $fkbFiMetaMethod = new FiKeybean();
 
       //String
-      $fieldName = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxFieldName());
+      $fieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
 
       if (FiString::isEmpty($fieldName)) continue;
       //$ofcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader()));

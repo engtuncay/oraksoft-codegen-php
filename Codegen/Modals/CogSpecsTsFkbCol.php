@@ -91,7 +91,7 @@ EOD;
 
     //String
     //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::ofcTxFieldType()));
-    $ofcTxFieldName = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxFieldName());
+    $ofcTxFieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
     if ($ofcTxFieldName != null) {
       $sbFkbColMethodBody->append(sprintf("  fkbCol.addFieldByFiMeta(FimFiCol.ofcTxFieldName(), \"%s\");\n", $ofcTxFieldName));
     }
@@ -102,7 +102,7 @@ EOD;
       $sbFkbColMethodBody->append(sprintf("  fkbCol.addFieldByFiMeta(FimFiCol.ofcTxHeader(), \"%s\");\n", $ofcTxHeader));
     }
 
-    $ofcTxFieldType = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxFieldType());
+    $ofcTxFieldType = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldType());
     if ($ofcTxFieldType != null) {
       $sbFkbColMethodBody->append(sprintf("  fkbCol.addFieldByFiMeta(FimFiCol.ofcTxFieldType(), \"%s\");\n", $ofcTxFieldType));
     }
@@ -272,7 +272,7 @@ EOD;
   { //, FiStrbui $sbFclListBodyExtra
     $fieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
     $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
-    $className = $iCogSpecs->checkClassNameStd($fkbItem->getValueByFiMeta(FimFiCol::ofcTxEntityName()));
+    $className = $iCogSpecs->checkClassNameStd($fkbItem->getValueByFiMeta(FimFiCol::fcTxEntityName()));
     // URFIX Fkc dinamik olarak alınmalı
     $sbFclListBody->append("fkbList.add(Fkc$className.$methodName());\n");
     // $sbFclListBodyExtra->append("ficList.Add($methodName" . "Ext());\n");
@@ -287,7 +287,7 @@ EOD;
   {
     $fieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
     $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
-    $className = $iCogSpecs->checkClassNameStd($fkbItem->getValueByFiMeta(FimFiCol::ofcTxEntityName()));
+    $className = $iCogSpecs->checkClassNameStd($fkbItem->getValueByFiMeta(FimFiCol::fcTxEntityName()));
     // URFIX Fkc dinamik olarak alınmalı
     $sbFclListBodyTrans->append("fkbList.add(Fkc$className.$methodName());\n");
   }
