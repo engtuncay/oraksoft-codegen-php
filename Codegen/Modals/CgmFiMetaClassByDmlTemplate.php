@@ -13,7 +13,7 @@ use Engtuncay\Phputils8\FiMetas\FimFiCol;
 /**
  * Code Generator Modal (Cgm) for FiMetaClass (For All Languages)
  * 
- * FiCol excelini kullanarak FiMeta class oluşturur. ofcTxFieldName key, ofcTxHeader da value gösterir. 
+ * FiCol excelini kullanarak FiMeta class oluşturur. fcTxFieldName key, fcTxHeader da value gösterir. 
  * 
  */
 class CgmFiMetaClassByDmlTemplate
@@ -66,22 +66,22 @@ class CgmFiMetaClassByDmlTemplate
       $fieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
 
       if (FiString::isEmpty($fieldName)) continue;
-      //$ofcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
+      //$fcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
 
       $fkbFiMetaMethod->add("fieldMethodName", $iCogSpecs->checkMethodNameStd($fieldName));
       $fkbFiMetaMethod->add("fieldName", $fieldName);
       $fkbFiMetaMethod->add("fiMethodBody", $sbFiColMethodBody->toString());
-      //$fkbFiColMethodBody->add("fieldHeader", $ofcTxHeader);
+      //$fkbFiColMethodBody->add("fieldHeader", $fcTxHeader);
 
       $txMethodCode = FiTemplate::replaceParams($iSpecsFiMeta->getTemplateColMethod(), $fkbFiMetaMethod);
 
       $sbFiMetaMethods->append($txMethodCode)->append("\n\n");
 
 
-      // $ofcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
+      // $fcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
       // $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
 
-      // if (!$ofcBoTransient === true) {
+      // if (!$fcBoTransient === true) {
       //   $iCogSpecs->doNonTransientFieldOps($sbFclListBody, $methodName);
       //   //sbFclListBody.append("\tfclList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
       // } else {
@@ -122,7 +122,7 @@ class CgmFiMetaClassByDmlTemplate
     $txEntityName = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxEntityName());
 
     $txTablePrefix = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxPrefix());
-    //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
+    //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.fcTxEntityName());
 
 
     $fkbClassParams = new FiKeybean();

@@ -2,8 +2,8 @@
 
 namespace Codegen\Modals;
 
-use Codegen\ficols\FicFiCol;
-use Codegen\ficols\FicFiMeta;
+use Codegen\FiCols\FicFiMeta;
+use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiBool;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
@@ -109,8 +109,8 @@ EOD;
     $classPref = "Fic";
     // URFIX entity name çekilecek
     // String
-    $txEntityName = $fiCols->get(0)?->getOfcTxEntityNameNtn();
-    //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
+    $txEntityName = $fiCols->get(0)?->getFcTxEntityNameNtn();
+    //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.fcTxEntityName());
     //
     $fkbParamsMain = new FiKeybean();
     $fkbParamsMain->add("classPref", $classPref);
@@ -141,13 +141,13 @@ EOD;
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
 
     //String
-    //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::ofcTxFieldType()));
+    //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::fcTxFieldType()));
 
     if ($fiCol->fcTxFieldType != null)
       $sbFiColMethodBody->append(sprintf(" \$fiCol->fcTxFieldType = '%s';\n", $fiCol->fcTxFieldType));
 
 
-    //$ofcTxIdType = $fiCol->fcTxIdType;
+    //$fcTxIdType = $fiCol->fcTxIdType;
     //CgmCodeGen::convertExcelIdentityTypeToFiColAttribute($fiCol->fcTxIdType);
 
 //        if (!FiString.isEmpty(ofiTxIdType)) {
@@ -160,42 +160,42 @@ EOD;
     }
 
     if ($fiCol->fcLnLength != null) {
-      $sbFiColMethodBody->append(sprintf("  fiCol.ofcLnLength = %s;\n", $fiCol->fcLnLength));
+      $sbFiColMethodBody->append(sprintf("  fiCol.fcLnLength = %s;\n", $fiCol->fcLnLength));
     }
 
     if (FiBool::isTrue($fiCol->fcBoNullable)) {
       $sbFiColMethodBody->append("  fiCol->fcBoNullable = true;\n");
     }
 
-//        if (fiCol.getOfcLnPrecision() != null) {
-//          sbFiColMethodBody.append(String.format("\tfiCol.ofcLnPrecision = %s;\n", fiCol.getOfcLnPrecision().toString()));
+//        if (fiCol.getFcLnPrecision() != null) {
+//          sbFiColMethodBody.append(String.format("\tfiCol.fcLnPrecision = %s;\n", fiCol.getFcLnPrecision().toString()));
 //        }
 //
-//        if (fiCol.getOfcLnScale() != null) {
-//          sbFiColMethodBody.append(String.format("\tfiCol.ofcLnScale = %s;\n", fiCol.getOfcLnScale().toString()));
+//        if (fiCol.getFcLnScale() != null) {
+//          sbFiColMethodBody.append(String.format("\tfiCol.fcLnScale = %s;\n", fiCol.getFcLnScale().toString()));
 //        }
 //
-//        if (FiBool.isTrue(fiCol.getOfcBoUnique())) {
-//          sbFiColMethodBody.append("\tfiCol.ofcBoUnique = true;\n");
+//        if (FiBool.isTrue(fiCol.getFcBoUnique())) {
+//          sbFiColMethodBody.append("\tfiCol.fcBoUnique = true;\n");
 //        }
 //
-//        if (FiBool.isTrue(fiCol.getOfcBoUniqGro1())) {
-//          sbFiColMethodBody.append("\tfiCol.ofcBoUniqGro1 = true;\n");
+//        if (FiBool.isTrue(fiCol.getFcBoUniqGro1())) {
+//          sbFiColMethodBody.append("\tfiCol.fcBoUniqGro1 = true;\n");
 //        }
 //
-//        if (FiBool.isTrue(fiCol.getOfcBoUtfSupport())) {
-//          sbFiColMethodBody.append("\tfiCol.ofcBoUtfSupport = true;\n");
+//        if (FiBool.isTrue(fiCol.getFcBoUtfSupport())) {
+//          sbFiColMethodBody.append("\tfiCol.fcBoUtfSupport = true;\n");
 //        }
 //
-//        if (!FiString.isEmpty(fiCol.getOfcTxDefValue())) {
-//          sbFiColMethodBody.append(String.format("\tfiCol.ofcTxDefValue = \"%s\";\n", fiCol.getOfcTxDefValue()));
+//        if (!FiString.isEmpty(fiCol.getFcTxDefValue())) {
+//          sbFiColMethodBody.append(String.format("\tfiCol.fcTxDefValue = \"%s\";\n", fiCol.getFcTxDefValue()));
 //        }
 //
 //        if (FiBool.isTrue(fiCol.getBoFilterLike())) {
-//          sbFiColMethodBody.append("\tfiCol.ofcBoFilterLike = true;\n");
+//          sbFiColMethodBody.append("\tfiCol.fcBoFilterLike = true;\n");
 //        }
 //
-//        // ofcTxCollation	ofcTxTypeName
+//        // fcTxCollation	fcTxTypeName
 
     return $sbFiColMethodBody;
   }
@@ -304,7 +304,7 @@ EOD;
     // URFIX entity name çekilecek
     // String
     $txEntityName = $fkbListExcel->get(0)?->getValueByFiCol(FicFiCol::fcTxEntityName());
-    //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
+    //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.fcTxEntityName());
     //
     $fkbParamsClass = new FiKeybean();
     $fkbParamsClass->add("classPref", $classPref);

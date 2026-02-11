@@ -60,12 +60,12 @@ class CgmFiMetaClass
 
       //String
       $fieldName = $fkbItem->getValue('ofmTxKey');
-      //$ofcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
+      //$fcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
       
       $fkbFiColMethodBody->add("fieldMethodName", $iCogSpecs->checkMethodNameStd($fieldName));
       $fkbFiColMethodBody->add("fieldName", $fieldName);
       $fkbFiColMethodBody->add("fiMethodBody", $sbFiColMethodBody->toString());
-      //$fkbFiColMethodBody->add("fieldHeader", $ofcTxHeader);
+      //$fkbFiColMethodBody->add("fieldHeader", $fcTxHeader);
       
 
       /**
@@ -76,10 +76,10 @@ class CgmFiMetaClass
       $sbFiColMethodsBody->append($txFiColMethod)->append("\n\n");
 
 
-      // $ofcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
+      // $fcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
       // $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
 
-      // if (!$ofcBoTransient === true) {
+      // if (!$fcBoTransient === true) {
       //   $iCogSpecs->doNonTransientFieldOps($sbFclListBody, $methodName);
       //   //sbFclListBody.append("\tfclList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
       // } else {
@@ -120,7 +120,7 @@ class CgmFiMetaClass
     $txEntityName = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxEntityName());
 
     $txTablePrefix = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxPrefix());
-    //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
+    //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.fcTxEntityName());
     //
     $fkbParamsMain = new FiKeybean();
     $fkbParamsMain->add("classPref", $classPref);

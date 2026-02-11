@@ -97,16 +97,16 @@ EOD;
 
     //   // Sql Tipi Belirlenmeyenler için
     //   if (field.getSqlFieldDefinition() == null) {
-    //     query.append("\n-- " + field.getOfcTxFieldName() + " " + field.getClassNameSimple()
-    //         + (field.getOfcLnLength() != null ? " -- Length:" + field.getOfcLnLength() : "")
-    //         + (field.getOfcLnPrecision() != null ? " -- Prec.:" + field.getOfcLnPrecision() : "")
-    //         + (field.getOfcLnScale() != null ? "Scale :" + field.getOfcLnScale() : ""));
+    //     query.append("\n-- " + field.getfcTxFieldName() + " " + field.getClassNameSimple()
+    //         + (field.getfcLnLength() != null ? " -- Length:" + field.getfcLnLength() : "")
+    //         + (field.getfcLnPrecision() != null ? " -- Prec.:" + field.getfcLnPrecision() : "")
+    //         + (field.getfcLnScale() != null ? "Scale :" + field.getfcLnScale() : ""));
     //     continue;
     //   }
 
     //   index++;
     //   if (index != 1) query.append("\n, ");
-    //   query.append(field.getOfcTxFieldName() + " " + field.getSqlFieldDefinition());
+    //   query.append(field.getfcTxFieldName() + " " + field.getSqlFieldDefinition());
 
 
     return $txResult;
@@ -115,8 +115,8 @@ EOD;
   public static function genSqlColTypeDef(FiKeybean $fkbItem): string
   {
     $fkbType = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldType());
-    $fkbLength = $fkbItem->getValueByFiMeta(FimFiCol::ofcLnLength());
-    $fkbIdType = $fkbItem->getValueByFiMeta(FimFiCol::ofcTxIdType());
+    $fkbLength = $fkbItem->getValueByFiMeta(FimFiCol::fcLnLength());
+    $fkbIdType = $fkbItem->getValueByFiMeta(FimFiCol::fcTxIdType());
 
     $sbTypeDef = new FiStrbui();
 

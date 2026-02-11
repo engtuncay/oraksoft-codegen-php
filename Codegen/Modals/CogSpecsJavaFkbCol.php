@@ -106,30 +106,30 @@ EOD;
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
 
     //String
-    //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::ofcTxFieldType()));
+    //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::fcTxFieldType()));
 
-    $ofcTxFieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
-    if ($ofcTxFieldName != null) {
-      $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.ofcTxFieldName(), \"%s\");\n", $ofcTxFieldName));
+    $fcTxFieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
+    if ($fcTxFieldName != null) {
+      $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.fcTxFieldName(), \"%s\");\n", $fcTxFieldName));
     }
 
-    $ofcTxHeader = $fkbItem->getValueByFiCol(FicFiCol::fcTxHeader());
-    if ($ofcTxHeader != null) {
-      $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.ofcTxHeader(), \"%s\");\n", $ofcTxHeader));
+    $fcTxHeader = $fkbItem->getValueByFiCol(FicFiCol::fcTxHeader());
+    if ($fcTxHeader != null) {
+      $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.fcTxHeader(), \"%s\");\n", $fcTxHeader));
     }
 
 
-    $ofcTxFieldType = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldType());
-    if ($ofcTxFieldType != null) {
-      $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.ofcTxFieldType(), \"%s\");\n", $ofcTxFieldType));
+    $fcTxFieldType = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldType());
+    if ($fcTxFieldType != null) {
+      $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.fcTxFieldType(), \"%s\");\n", $fcTxFieldType));
     }
 
-    $ofcTxDbField = $fkbItem->getValueByFiCol(FicFiCol::fcTxDbField());
-    if ($ofcTxDbField != null) {
-      $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.ofcTxDbField(), \"%s\");\n", $ofcTxDbField));
+    $fcTxDbField = $fkbItem->getValueByFiCol(FicFiCol::fcTxDbField());
+    if ($fcTxDbField != null) {
+      $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.fcTxDbField(), \"%s\");\n", $fcTxDbField));
     }
 
-    //$ofcTxIdType = $fiCol->fcTxIdType;
+    //$fcTxIdType = $fiCol->fcTxIdType;
     //CgmCodeGen::convertExcelIdentityTypeToFiColAttribute($fiCol->fcTxIdType);
 
     // if (!FiString.isEmpty(ofiTxIdType)) {
@@ -137,51 +137,51 @@ EOD;
     // sbFiColMethodBody.append(String.format("\tfiCol.ofiTxIdType = FiIdGenerationType.%s.toString();\n", ofiTxIdType));
     // }
 
-    $ofcBoTransient = $fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoTransient());
-    if ($ofcBoTransient) {
-      $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.ofcBoTransient(), true);\n"));
+    $fcBoTransient = $fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoTransient());
+    if ($fcBoTransient) {
+      $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.fcBoTransient(), true);\n"));
     }
 
-    $ofcLnLength = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnLength()));
-    if ($ofcLnLength != null) {
-      $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.ofcLnLength(), %s);\n", $ofcLnLength));
+    $fcLnLength = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnLength()));
+    if ($fcLnLength != null) {
+      $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.fcLnLength(), %s);\n", $fcLnLength));
     }
 
-    $ofcLnPrecision = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnPrecision()));
-    if ($ofcLnPrecision != null) {
-      $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.ofcLnPrecision(), %s);\n", $ofcLnPrecision));
+    $fcLnPrecision = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnPrecision()));
+    if ($fcLnPrecision != null) {
+      $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.fcLnPrecision(), %s);\n", $fcLnPrecision));
     }
 
-    $ofcLnScale = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnScale()));
-    if ($ofcLnScale != null) {
-      $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.ofcLnScale(), %s);\n", $ofcLnScale));
+    $fcLnScale = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnScale()));
+    if ($fcLnScale != null) {
+      $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.fcLnScale(), %s);\n", $fcLnScale));
     }
 
     if (FiBool::isFalse($fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoNullable()))) {
-      $sbFiColMethodBody->append("  fkbCol.AddFieldBy(FimFiCol.ofcBoNullable(), false);\n");
+      $sbFiColMethodBody->append("  fkbCol.AddFieldBy(FimFiCol.fcBoNullable(), false);\n");
     }
 
-    //        if (FiBool.isTrue(fiCol.getOfcBoUnique())) {
-    //          sbFiColMethodBody.append("\tfiCol.ofcBoUnique = true;\n");
+    //        if (FiBool.isTrue(fiCol.getFcBoUnique())) {
+    //          sbFiColMethodBody.append("\tfiCol.fcBoUnique = true;\n");
     //        }
     //
-    //        if (FiBool.isTrue(fiCol.getOfcBoUniqGro1())) {
-    //          sbFiColMethodBody.append("\tfkbCol.ofcBoUniqGro1 = true;\n");
+    //        if (FiBool.isTrue(fiCol.getFcBoUniqGro1())) {
+    //          sbFiColMethodBody.append("\tfkbCol.fcBoUniqGro1 = true;\n");
     //        }
     //
-    //        if (FiBool.isTrue(fiCol.getOfcBoUtfSupport())) {
-    //          sbFiColMethodBody.append("\tfkbCol.ofcBoUtfSupport = true;\n");
+    //        if (FiBool.isTrue(fiCol.getFcBoUtfSupport())) {
+    //          sbFiColMethodBody.append("\tfkbCol.fcBoUtfSupport = true;\n");
     //        }
     //
-    //        if (!FiString.isEmpty(fiCol.getOfcTxDefValue())) {
-    //          sbFiColMethodBody.append(String.format("\tfiCol.ofcTxDefValue = \"%s\";\n", fiCol.getOfcTxDefValue()));
+    //        if (!FiString.isEmpty(fiCol.getFcTxDefValue())) {
+    //          sbFiColMethodBody.append(String.format("\tfiCol.fcTxDefValue = \"%s\";\n", fiCol.getFcTxDefValue()));
     //        }
     //
     //        if (FiBool.isTrue(fiCol.getBoFilterLike())) {
-    //          sbFiColMethodBody.append("\tfiCol.ofcBoFilterLike = true;\n");
+    //          sbFiColMethodBody.append("\tfiCol.fcBoFilterLike = true;\n");
     //        }
     //
-    //        // ofcTxCollation	ofcTxTypeName
+    //        // fcTxCollation	fcTxTypeName
 
     return $sbFiColMethodBody;
   }
@@ -191,9 +191,9 @@ EOD;
     //StringBuilder
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
 
-    $ofcTxFielDesc = $fkbItem->getValueByFiCol(FicFiCol::fcTxDesc());
-    //if ($ofcTxFielDesc != null)
-    $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.ofcTxFieldDesc(), \"%s\");\n", $ofcTxFielDesc));
+    $fcTxFielDesc = $fkbItem->getValueByFiCol(FicFiCol::fcTxDesc());
+    //if ($fcTxFielDesc != null)
+    $sbFiColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.fcTxFieldDesc(), \"%s\");\n", $fcTxFielDesc));
 
     return $sbFiColMethodBody;
   }

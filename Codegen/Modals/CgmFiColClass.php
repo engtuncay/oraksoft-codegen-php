@@ -61,12 +61,12 @@ class CgmFiColClass
 
       //String
       $fieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
-      $ofcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
+      $fcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
 
       //fkbFiColMethodBody.add("fieldMethodName", FiString.capitalizeFirstLetter(fieldName));
       $fkbFiColMethodBody->add("fieldMethodName", $iCogSpecs->checkMethodNameStd($fieldName));
       $fkbFiColMethodBody->add("fieldName", $fieldName);
-      $fkbFiColMethodBody->add("fieldHeader", $ofcTxHeader);
+      $fkbFiColMethodBody->add("fieldHeader", $fcTxHeader);
       $fkbFiColMethodBody->add("fiColMethodBody", $sbFiColMethodBody->toString());
 
       /**
@@ -80,17 +80,17 @@ class CgmFiColClass
 //      $fkbFiColMethodBodyExtra = new FiKeybean();
 //      $fkbFiColMethodBodyExtra->add("fieldMethodName", $iFiColClass->checkMethodNameStd($fieldName));
 //      $fkbFiColMethodBodyExtra->add("fieldName", $fieldName);
-//      $fkbFiColMethodBodyExtra->add("fieldHeader", $ofcTxHeader);
+//      $fkbFiColMethodBodyExtra->add("fieldHeader", $fcTxHeader);
 //      $fkbFiColMethodBodyExtra->add("fiColMethodBody", $sbFiColMethodBodyExtra->toString());
 //      $txFiColMethodExtra = FiTemplate::replaceParams($templateFiColMethodExtra, $fkbFiColMethodBodyExtra);
 
 //      $sbFiColMethodsBody->append($txFiColMethodExtra)->append("\n\n");
 
       //
-      $ofcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
+      $fcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
       $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
 
-      if (!$ofcBoTransient === true) {
+      if (!$fcBoTransient === true) {
         $iCogSpecsFiCol->doNonTransientFieldOps($sbFclListBody, $fkbItem, $iCogSpecs);
         //sbFclListBody.append("\tfclList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
       } else {
@@ -131,7 +131,7 @@ class CgmFiColClass
     $txEntityName = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxEntityName());
 
     $txTablePrefix = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxPrefix());
-    //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
+    //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.fcTxEntityName());
     //
     $fkbParamsMain = new FiKeybean();
     $fkbParamsMain->add("classPref", $classPref);

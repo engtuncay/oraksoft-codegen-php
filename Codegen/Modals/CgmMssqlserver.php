@@ -114,16 +114,16 @@ EOD;
 
     //   // Sql Tipi Belirlenmeyenler için
     //   if (field.getSqlFieldDefinition() == null) {
-    //     query.append("\n-- " + field.getOfcTxFieldName() + " " + field.getClassNameSimple()
-    //         + (field.getOfcLnLength() != null ? " -- Length:" + field.getOfcLnLength() : "")
-    //         + (field.getOfcLnPrecision() != null ? " -- Prec.:" + field.getOfcLnPrecision() : "")
-    //         + (field.getOfcLnScale() != null ? "Scale :" + field.getOfcLnScale() : ""));
+    //     query.append("\n-- " + field.getfcTxFieldName() + " " + field.getClassNameSimple()
+    //         + (field.getFcLnLength() != null ? " -- Length:" + field.getFcLnLength() : "")
+    //         + (field.getFcLnPrecision() != null ? " -- Prec.:" + field.getFcLnPrecision() : "")
+    //         + (field.getFcLnScale() != null ? "Scale :" + field.getFcLnScale() : ""));
     //     continue;
     //   }
 
     //   index++;
     //   if (index != 1) query.append("\n, ");
-    //   query.append(field.getOfcTxFieldName() + " " + field.getSqlFieldDefinition());
+    //   query.append(field.getfcTxFieldName() + " " + field.getSqlFieldDefinition());
 
 
     return $txResult;
