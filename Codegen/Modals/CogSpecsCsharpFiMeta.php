@@ -72,7 +72,7 @@ EOD;
   {
     $sb = new FiStrbui();
 
-    $ofcTxHeader = $fkb->getValueByFiCol(FicFiCol::ofcTxHeader());
+    $ofcTxHeader = $fkb->getValueByFiCol(FicFiCol::fcTxHeader());
     if ($ofcTxHeader != null) {
       $sb->append(sprintf("  fiMeta.txValue = \"%s\";\n", $ofcTxHeader));
     }

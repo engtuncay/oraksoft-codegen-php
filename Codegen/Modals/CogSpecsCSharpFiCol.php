@@ -100,57 +100,57 @@ EOD;
     //String
     //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::ofcTxFieldType()));
 
-    $ofcTxHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
+    $ofcTxHeader = $fkbItem->getValueByFiCol(FicFiCol::fcTxHeader());
     if ($ofcTxHeader != null)
       $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxHeader = \"%s\";\n", $ofcTxHeader));
 
-    $ofcTxFieldType = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldType());
+    $ofcTxFieldType = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldType());
     if ($ofcTxFieldType != null)
       $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxFieldType = \"%s\";\n", $ofcTxFieldType));
 
-    $ofcTxDbField = $fkbItem->getValueByFiCol(FicFiCol::ofcTxDbField());
+    $ofcTxDbField = $fkbItem->getValueByFiCol(FicFiCol::fcTxDbField());
     if ($ofcTxDbField != null)
       $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxDbField = \"%s\";\n", $ofcTxDbField)); {
-      $ofcTxRefField = $fkbItem->getValueByFiCol(FicFiCol::ofcTxRefField());
+      $ofcTxRefField = $fkbItem->getValueByFiCol(FicFiCol::fcTxRefField());
       if ($ofcTxRefField != null)
         $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxRefField = \"%s\";\n", $ofcTxRefField));
     }
 
 
-    //$ofcTxIdType = $fiCol->ofcTxIdType;
-    //CgmCodeGen::convertExcelIdentityTypeToFiColAttribute($fiCol->ofcTxIdType);
+    //$ofcTxIdType = $fiCol->fcTxIdType;
+    //CgmCodeGen::convertExcelIdentityTypeToFiColAttribute($fiCol->fcTxIdType);
 
     // if (!FiString.isEmpty(ofiTxIdType)) {
     // sbFiColMethodBody.append("\tfiCol.boKeyIdField = true;\n");
     // sbFiColMethodBody.append(String.format("\tfiCol.ofiTxIdType = FiIdGenerationType.%s.toString();\n", ofiTxIdType));
     // }
 
-    $ofcBoTransient = $fkbItem->getValueAsBoolByFiCol(FicFiCol::ofcBoTransient());
+    $ofcBoTransient = $fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoTransient());
     if ($ofcBoTransient) {
       $sbFiColMethodBody->append("  fiCol.ofcBoTransient = true;\n");
     }
 
-    $ofcLnLength = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::ofcLnLength()));
+    $ofcLnLength = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnLength()));
     if ($ofcLnLength != null) {
       $sbFiColMethodBody->append(sprintf("  fiCol.ofcLnLength = %s;\n", $ofcLnLength));
     }
 
-    $ofcLnPrecision = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::ofcLnPrecision()));
+    $ofcLnPrecision = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnPrecision()));
     if ($ofcLnPrecision != null) {
       $sbFiColMethodBody->append(sprintf("  fiCol.ofcLnPrecision = %s;\n", $ofcLnPrecision));
     }
 
-    $ofcLnScale = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::ofcLnScale()));
+    $ofcLnScale = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnScale()));
     if ($ofcLnScale != null) {
       $sbFiColMethodBody->append(sprintf("  fiCol.ofcLnScale = %s;\n", $ofcLnScale));
     }
 
-    if (FiBool::isFalse($fkbItem->getValueAsBoolByFiCol(FicFiCol::ofcBoNullable()))) {
+    if (FiBool::isFalse($fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoNullable()))) {
       $sbFiColMethodBody->append("  fiCol.ofcBoNullable = false;\n");
     }
 
     //
-    //    if (FiBool::isTrue($fiCol->ofcBoNullable)) {
+    //    if (FiBool::isTrue($fiCol->fcBoNullable)) {
     //      $sbFiColMethodBody->append("fiCol.ofcBoNullable = true;\n");
     //    }
 
@@ -184,7 +184,7 @@ EOD;
     //StringBuilder
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
 
-    $ofcTxDesc = $fkbItem->getValueByFiCol(FicFiCol::ofcTxDesc());
+    $ofcTxDesc = $fkbItem->getValueByFiCol(FicFiCol::fcTxDesc());
     //if ($ofcTxDesc != null)
     $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxDesc = \"%s\";\n", $ofcTxDesc));
 
@@ -266,7 +266,7 @@ EOD;
   public function doNonTransientFieldOps(FiStrbui $sbFclListBody, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
   { //, FiStrbui $sbFclListBodyExtra
     //$sbFclListBody->append("ficList.Add($methodName());\n");
-    $fieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
+    $fieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
     $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
     $sbFclListBody->append("ficList.Add($methodName());\n");
   }
@@ -278,7 +278,7 @@ EOD;
    */
   public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
   {
-    $fieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
+    $fieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
     $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
     $sbFclListBodyTrans->append("ficList.Add($methodName());\n");
   }
@@ -288,10 +288,10 @@ EOD;
     //StringBuilder
     $sbText = new FiStrbui(); // new StringBuilder();
 
-    $ofcTxFielDesc = $fkbItem->getValueByFiCol(FicFiCol::ofcTxDesc());
+    $ofcTxFielDesc = $fkbItem->getValueByFiCol(FicFiCol::fcTxDesc());
 
     if (!FiString::isEmpty($ofcTxFielDesc)) {
-      $methodNameStd = $iCogSpecs->checkMethodNameStd($fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName()));
+      $methodNameStd = $iCogSpecs->checkMethodNameStd($fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName()));
 
       $sbText->append(
         <<<EOD

@@ -60,7 +60,7 @@ class CgmFiMetaClass
 
       //String
       $fieldName = $fkbItem->getValue('ofmTxKey');
-      //$ofcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader()));
+      //$ofcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
       
       $fkbFiColMethodBody->add("fieldMethodName", $iCogSpecs->checkMethodNameStd($fieldName));
       $fkbFiColMethodBody->add("fieldName", $fieldName);
@@ -76,7 +76,7 @@ class CgmFiMetaClass
       $sbFiColMethodsBody->append($txFiColMethod)->append("\n\n");
 
 
-      // $ofcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::ofcBoTransient()));
+      // $ofcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
       // $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
 
       // if (!$ofcBoTransient === true) {
@@ -117,9 +117,9 @@ class CgmFiMetaClass
     $classPref = "Fim";
     // URFIX entity name çekilecek
     // String
-    $txEntityName = $fkbList->get(0)?->getValueByFiCol(FicFiCol::ofcTxEntityName());
+    $txEntityName = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxEntityName());
 
-    $txTablePrefix = $fkbList->get(0)?->getValueByFiCol(FicFiCol::ofcTxPrefix());
+    $txTablePrefix = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxPrefix());
     //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
     //
     $fkbParamsMain = new FiKeybean();

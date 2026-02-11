@@ -168,8 +168,8 @@ EOD;
       $fkbFiColMethodBody = new FiKeybean();
 
       //String
-      $fieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
-      $ofcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader()));
+      $fieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
+      $ofcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
 
       //fkbFiColMethodBody.add("fieldMethodName", FiString.capitalizeFirstLetter(fieldName));
       $fkbFiColMethodBody->add("fieldMethodName", self::checkMethodNameStdJava($fieldName));
@@ -195,7 +195,7 @@ EOD;
       $sbFiColMethodsBody->append($txFiColMethodExtra)->append("\n\n");
 
       //
-      $ofcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::ofcBoTransient()));
+      $ofcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
       $methodName = self::checkMethodNameStdJava($fieldName);
       if (!$ofcBoTransient === true) {
         $sbFclListBody->append("ficList.Add($methodName());\n");
@@ -260,9 +260,9 @@ EOD;
     $classPref = "Fic";
     // URFIX entity name çekilecek
     // String
-    $txEntityName = $fkbListExcel->get(0)?->getValueByFiCol(FicFiCol::ofcTxEntityName());
+    $txEntityName = $fkbListExcel->get(0)?->getValueByFiCol(FicFiCol::fcTxEntityName());
 
-    $txTablePrefix = $fkbListExcel->get(0)?->getValueByFiCol(FicFiCol::ofcTxPrefix());
+    $txTablePrefix = $fkbListExcel->get(0)?->getValueByFiCol(FicFiCol::fcTxPrefix());
     //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
     //
     $fkbParamsMain = new FiKeybean();
@@ -287,52 +287,52 @@ EOD;
     //String
     //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::ofcTxFieldType()));
 
-    $ofcTxHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
+    $ofcTxHeader = $fkbItem->getValueByFiCol(FicFiCol::fcTxHeader());
     if ($ofcTxHeader != null)
       $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxHeader = \"%s\";\n", $ofcTxHeader));
 
-    $ofcTxFieldType = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldType());
+    $ofcTxFieldType = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldType());
     if ($ofcTxFieldType != null)
       $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxFieldType = \"%s\";\n", $ofcTxFieldType));
 
-    $ofcTxDbField = $fkbItem->getValueByFiCol(FicFiCol::ofcTxDbField());
+    $ofcTxDbField = $fkbItem->getValueByFiCol(FicFiCol::fcTxDbField());
     if ($ofcTxDbField != null)
       $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxDbField = \"%s\";\n", $ofcTxDbField));
 
-    //$ofcTxIdType = $fiCol->ofcTxIdType;
-    //CgmCodeGen::convertExcelIdentityTypeToFiColAttribute($fiCol->ofcTxIdType);
+    //$ofcTxIdType = $fiCol->fcTxIdType;
+    //CgmCodeGen::convertExcelIdentityTypeToFiColAttribute($fiCol->fcTxIdType);
 
 // if (!FiString.isEmpty(ofiTxIdType)) {
 // sbFiColMethodBody.append("\tfiCol.boKeyIdField = true;\n");
 // sbFiColMethodBody.append(String.format("\tfiCol.ofiTxIdType = FiIdGenerationType.%s.toString();\n", ofiTxIdType));
 // }
 
-    $ofcBoTransient = $fkbItem->getValueAsBoolByFiCol(FicFiCol::ofcBoTransient());
+    $ofcBoTransient = $fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoTransient());
     if ($ofcBoTransient) {
       $sbFiColMethodBody->append("  fiCol.ofcBoTransient = true;\n");
     }
 
-    $ofcLnLength = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::ofcLnLength()));
+    $ofcLnLength = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnLength()));
     if ($ofcLnLength != null) {
       $sbFiColMethodBody->append(sprintf("  fiCol.ofcLnLength = %s;\n", $ofcLnLength));
     }
 
-    $ofcLnPrecision = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::ofcLnPrecision()));
+    $ofcLnPrecision = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnPrecision()));
     if ($ofcLnPrecision != null) {
       $sbFiColMethodBody->append(sprintf("  fiCol.ofcLnPrecision = %s;\n", $ofcLnPrecision));
     }
 
-    $ofcLnScale = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::ofcLnScale()));
+    $ofcLnScale = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnScale()));
     if ($ofcLnScale != null) {
       $sbFiColMethodBody->append(sprintf("  fiCol.ofcLnScale = %s;\n", $ofcLnScale));
     }
 
-    if (FiBool::isFalse($fkbItem->getValueAsBoolByFiCol(FicFiCol::ofcBoNullable()))) {
+    if (FiBool::isFalse($fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoNullable()))) {
       $sbFiColMethodBody->append("  fiCol.ofcBoNullable = false;\n");
     }
 
     //
-//    if (FiBool::isTrue($fiCol->ofcBoNullable)) {
+//    if (FiBool::isTrue($fiCol->fcBoNullable)) {
 //      $sbFiColMethodBody->append("fiCol.ofcBoNullable = true;\n");
 //    }
 
@@ -366,7 +366,7 @@ EOD;
     //StringBuilder
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
 
-    $ofcTxFielDesc = $fkbItem->getValueByFiCol(FicFiCol::ofcTxDesc());
+    $ofcTxFielDesc = $fkbItem->getValueByFiCol(FicFiCol::fcTxDesc());
     //if ($ofcTxFielDesc != null)
       $sbFiColMethodBody->append(sprintf("  fiCol.ofcTxFieldDesc = \"%s\";\n", $ofcTxFielDesc));
 
@@ -441,7 +441,7 @@ EOD;
     $classPref = "Fic";
     // URFIX entity name çekilecek
     // String
-    $txEntityName = $fkbListExcel->get(0)?->getValueByFiCol(FicFiCol::ofcTxEntityName());
+    $txEntityName = $fkbListExcel->get(0)?->getValueByFiCol(FicFiCol::fcTxEntityName());
     //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
     //
     $fkbParamsClass = new FiKeybean();

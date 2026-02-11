@@ -66,7 +66,7 @@ class CgmFiMetaClassByDmlTemplate
       $fieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
 
       if (FiString::isEmpty($fieldName)) continue;
-      //$ofcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader()));
+      //$ofcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
 
       $fkbFiMetaMethod->add("fieldMethodName", $iCogSpecs->checkMethodNameStd($fieldName));
       $fkbFiMetaMethod->add("fieldName", $fieldName);
@@ -78,7 +78,7 @@ class CgmFiMetaClassByDmlTemplate
       $sbFiMetaMethods->append($txMethodCode)->append("\n\n");
 
 
-      // $ofcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::ofcBoTransient()));
+      // $ofcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
       // $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
 
       // if (!$ofcBoTransient === true) {
@@ -119,9 +119,9 @@ class CgmFiMetaClassByDmlTemplate
     $classPref = "Fim";
 
     // String
-    $txEntityName = $fkbList->get(0)?->getValueByFiCol(FicFiCol::ofcTxEntityName());
+    $txEntityName = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxEntityName());
 
-    $txTablePrefix = $fkbList->get(0)?->getValueByFiCol(FicFiCol::ofcTxPrefix());
+    $txTablePrefix = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxPrefix());
     //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.ofcTxEntityName());
 
 

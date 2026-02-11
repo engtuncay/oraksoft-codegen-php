@@ -42,17 +42,17 @@ class CgmUtils
 
       $ficol = new FiCol();
 
-      $txFieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
-      $ficol->ofcTxFieldName = $txFieldName;
+      $txFieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
+      $ficol->fcTxFieldName = $txFieldName;
 
-      $txHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
-      $ficol->ofcTxHeader = $txHeader;
+      $txHeader = $fkbItem->getValueByFiCol(FicFiCol::fcTxHeader());
+      $ficol->fcTxHeader = $txHeader;
 
-      $txEntName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxEntityName());
-      $ficol->ofcTxEntityName = $txEntName;
+      $txEntName = $fkbItem->getValueByFiCol(FicFiCol::fcTxEntityName());
+      $ficol->fcTxEntityName = $txEntName;
 
-      $boTransient = $fkbItem->getValueAsBoolByFiCol(FicFiCol::ofcBoTransient());
-      $ficol->ofcBoTransient = $boTransient;
+      $boTransient = $fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoTransient());
+      $ficol->fcBoTransient = $boTransient;
 
       $ficols->add($ficol);
     }
@@ -74,14 +74,14 @@ class CgmUtils
 
       $fiMeta = new FiMeta();
 
-      $txFieldName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName());
+      $txFieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
       $fiMeta->ofmTxKey = $txFieldName;
 
-      $txEntityName = $fkbItem->getValueByFiCol(FicFiCol::ofcTxEntityName());
-      $fiMeta[FicFiCol::ofcTxEntityName()->getOfcTxFieldNameNtn()] = $txEntityName;
+      $txEntityName = $fkbItem->getValueByFiCol(FicFiCol::fcTxEntityName());
+      $fiMeta[FicFiCol::fcTxEntityName()->getOfcTxFieldNameNtn()] = $txEntityName;
 
-      // $txHeader = $fkbItem->getValueByFiCol(FicFiCol::ofcTxHeader());
-      // $fiMeta->ofcTxHeader = $txHeader;
+      // $txHeader = $fkbItem->getValueByFiCol(FicFiCol::fcTxHeader());
+      // $fiMeta->fcTxHeader = $txHeader;
 
       $fmtList->add($fiMeta);
     }
@@ -112,7 +112,7 @@ class CgmUtils
       //OcgLogger::info("Processing FkbItem EntityName: " . $fkbItem->getArr()[FimFiCol::fcTxEntityName()->getTxKey()]);
       //FiLog::$log?->debug(implode(":", $fkbItem->getArr()));
       $txEntityName = $fkbItem->getFimValue(FimFiCol::fcTxEntityName());
-      //FiLog::$log?->debug("$txEntityName : ". $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName()));
+      //FiLog::$log?->debug("$txEntityName : ". $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName()));
       if ($txEntityName != null) {
         //OcgLogger::info("Adding FkbItem to entity:$txEntityName , field:" . $fkbItem->getOfcTxFn());
         $txEntityName = trim($txEntityName);
@@ -139,7 +139,7 @@ class CgmUtils
       //OcgLogger::info("Processing FkbItem EntityName: " . $fkbItem->getArr()[FimFiCol::fcTxEntityName()->getTxKey()]);
       //FiLog::$log?->debug(implode(":", $fkbItem->getArr()));
       $txEntityName = $fkbItem->getFimValue(FimFiCol::fcTxEntityName());
-      //FiLog::$log?->debug("$txEntityName : ". $fkbItem->getValueByFiCol(FicFiCol::ofcTxFieldName()));
+      //FiLog::$log?->debug("$txEntityName : ". $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName()));
       if ($txEntityName != null) {
         //OcgLogger::info("Adding FkbItem to entity:$txEntityName , field:" . $fkbItem->getOfcTxFn());
         if (!$farData->existValue(trim($txEntityName))) {
