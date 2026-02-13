@@ -3,10 +3,14 @@ import { FimOcgApp } from "./ocgmeta/FimOcgApp.js";
 import { FimOsfFdr } from "./ocgmeta/FimOsfFdr.js";
 
 function addOption(element, value, textContent) {
-  const option = document.createElement("option");
-  option.value = value;
-  option.textContent = textContent;
-  element.appendChild(option);
+  
+  if(element instanceof HTMLSelectElement) {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = textContent;
+    element.appendChild(option);
+  }
+  
 }
 
 function addOptionsToElement(elementById, txIdSeciniz = "0") {

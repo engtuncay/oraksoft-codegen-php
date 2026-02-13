@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use Codegen\OcdConfig\OcgLogger;
+use Codegen\OcgConfigs\OcgLogger;
 use CodeIgniter\RESTful\ResourceController;
 use Engtuncay\Phputils8\FiApps\FiAppConfig;
 use Engtuncay\Phputils8\FiCores\FiString;
@@ -19,8 +19,7 @@ class ApiTest extends ResourceController
 
   public function test1()
   {
-    //$ocgAppConfig = new OcgCLogger
-    //FiAppConfig::$fiConfig->getProfile()
+
     $fiPdo = FiPdo::buiWithProfile("");
 
     $fiQuery = new FiQuery();
@@ -29,8 +28,10 @@ class ApiTest extends ResourceController
 
     $fdr = $fiPdo->selectFkb($fiQuery);
 
-    $fdr->genArrResponse();
+    //OcgLogger::info("ApiTest::test1 called. Result: " . print_r($fdr->genArrResponse(), true));
+    
     //['data' => print_r($fdr,true)]
+
     return $this->respond($fdr->genArrResponse(), 200);
   }
 }

@@ -1,20 +1,29 @@
 <?php
 //require __DIR__ . '/../../vendor/autoload.php';
 //require __DIR__ . '/fiAppImports.php';
+
+use Codegen\FiMetas\App\FkcOcgApp;
+use Engtuncay\Phputils8\FiDtos\FiKeybean;
+
 view('fiAppImports.php');
 
 //use Engtuncay\Phputils8\Log\FiLog;
 //FiLog::initLogger('filog');
+// view fonksiyonu ile gönderilen assoc.array keyleri değişken olarak view içerisinde kullanılabilir.
+//FkcOcgApp::fapDbProfiles()
+
+//$fapDbProfiles
+
+$fkbData = new FiKeybean($data);
+
+
+
 
 ?>
 <!DOCTYPE html>
 <html lang="tr">
 
 <head>
-  <?php
-  ?>
-  <?php
-  ?>
   <? //= view('fiHead.php') 
   ?>
   <meta charset="UTF-8">
@@ -33,7 +42,11 @@ view('fiAppImports.php');
 </head>
 
 <body class="fibody">
-
+<div>
+<?php
+//echo print_r($fkbData->getFkcVal(FkcOcgApp::fapDbProfiles()), true);
+?>
+</div>
   <!--fim-main-container-->
   <div id="fim" class="container mt-2">
     <!--fold-level-5-->
@@ -106,6 +119,17 @@ view('fiAppImports.php');
                 <!-- Db Active - Password Panel -->
                 <div id="dbActivePanel" class="">
                   <div class="row g-3 m-1 align-items-center">
+                    <div class="col-auto d-flex flex-row gap-2 align-items-center">
+                      <label for="selDbProfile" class="text-nowrap">Db Profile</label>
+                      <select class="form-select" aria-label="Db Profiles" name="selDbProfile" id="selDbProfile">
+                        <?php
+                        $arrDbProfiles = $fkbData->getFkcVal(FkcOcgApp::fapDbProfiles());
+                        ?>
+                        <?php foreach ((array)$arrDbProfiles as $profile): ?>
+                          <option value="<?= htmlspecialchars($profile, ENT_QUOTES) ?>"><?= htmlspecialchars($profile) ?></option>
+                        <?php endforeach; ?>
+                      </select>
+                    </div>
                     <div class="col-auto">
                       <input class="form-check-input" type="checkbox" value="" id="chkEnableDb" name="chkEnableDb">
                       <label class="form-check-label" for="chkEnableDb">
