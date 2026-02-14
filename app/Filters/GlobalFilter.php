@@ -1,11 +1,13 @@
 <?php
 namespace App\Filters;
 
+use Codegen\OcgConfigs\FiLibLogger;
 use Codegen\OcgConfigs\OcgConfig;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Filters\FilterInterface;
 use Engtuncay\Phputils8\FiApps\FiAppConfig;
+use Engtuncay\Phputils8\FiLogs\IFiLogManager;
 
 class GlobalFilter implements FilterInterface
 {
@@ -17,6 +19,7 @@ class GlobalFilter implements FilterInterface
         log_message('info', 'GlobalFilter (before) was executed.');
         $ospConfig = new OcgConfig();
         FiAppConfig::$fiConfig = $ospConfig;
+        FiAppConfig::$fiLog = new FiLibLogger();
     }
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)

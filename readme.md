@@ -15,23 +15,6 @@ Kod üretimi için 4 ana sınıf
   
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # CodeIgniter 4 Application Starter
 
 ## What is CodeIgniter?

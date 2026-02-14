@@ -20,10 +20,12 @@ class ApiTest extends ResourceController
   public function test1()
   {
 
-    $fiPdo = FiPdo::buiWithProfile("");
+    $fiPdo = FiPdo::buiWithProfile("mssql");
+
+    OcgLogger::info("ApiTest::test1 called. FiPdo instance created. Conn:". $fiPdo->getBoConnection());
 
     $fiQuery = new FiQuery();
-    $sql = "SELECT * FROM seta"; 
+    $sql = "SELECT * FROM EncFirma"; 
     $fiQuery->setSql($sql);
 
     $fdr = $fiPdo->selectFkb($fiQuery);
