@@ -137,8 +137,8 @@ $fkbData = new FiKeybean($data);
                       </label>
                     </div>
                     <div class="col-auto ">
-                      <label for="inputPassword2" class="visually-hidden">Password</label>
-                      <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+                      <label for="txDbPsw" class="visually-hidden">Password</label>
+                      <input type="password" class="form-control" id="txDbPsw" name="txDbPsw" placeholder="Password">
                     </div>
 
                     <div class="container p-0 mt-2">

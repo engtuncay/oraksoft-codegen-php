@@ -19,7 +19,7 @@ CdgciHelper::addRoutePost($routes, 'genCode', Api::class);
 
 //$routes->get('/testget', 'Api::testpost');
 CdgciHelper::addRouteGet($routes, 'getDbProfiles', ApiConfig::class);
-CdgciHelper ::addRoutePost($routes, 'getEntityList', Api::class);
+CdgciHelper::addRoutePost($routes, 'getEntityList', Api::class);
 
 // --------Test Routes
 CdgciHelper::addRouteGet($routes, 'testget', Api::class);

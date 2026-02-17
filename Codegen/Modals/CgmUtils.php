@@ -14,6 +14,7 @@ use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiDtos\FmtList;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 use Codegen\OcdConfig\OcgLogger;
+use Codegen\OcgConfigs\OcgLogger;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCsvs\FiCsv;
 use Engtuncay\Phputils8\FiDtos\Fdr;
@@ -235,5 +236,24 @@ class CgmUtils
     $fdrData->setFkbList(new FkbList());
 
     return $fdrData; // Boş FkbList döndür
+  }
+
+  public static function convertArrayToCsv(array $data): Fdr
+  {
+    $fdr = new Fdr();
+    $fiCsv = new FiCsv();
+    $fileName = "output_" . time() . ".csv";
+    $filePath = WRITEPATH . $fileName;
+    $result = $fiCsv::writeArrayToCsv($data, $filePath);
+    if ($result) {
+      $fdr->setBoResult(true);
+      $fileUrl = base_url('writable/' . $fileName);
+      $fdr->setTxValue($fileUrl);
+      $fdr->setMessage("CSV dosyası başarıyla oluşturuldu: " . $filePath);
+    } else {
+      $fdr->setBoResult(false);
+      $fdr->setMessage("CSV dosyası oluşturulurken hata oluştu.");
+    }
+    return $fdr;
   }
 }

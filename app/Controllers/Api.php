@@ -68,7 +68,7 @@ class Api extends ResourceController
       /** @var FkbList[] $mapEntityToFkbList */
       $fiwEntity = CgmUtils::genFkbAsEntityList($fdr->getFkbListInit());
 
-      $satirBilgi = 'Satır Sayısı: ' . $fdr->getFkbListInit()->size();
+      // $satirBilgi = 'Satır Sayısı: ' . $fdr->getFkbListInit()->size();
 
       // if ($fdr->getFkbListInit()->size() > 0) {
       // }
@@ -117,21 +117,29 @@ class Api extends ResourceController
     $request = Services::request();
     $uploadedFile = $request->getFile('excelFile');
 
+    //$selTs = $request->getPost('selTs');
+
     //log_message('info', print_r($request,true));
+    //log_message('info', print_r($request->getPost(),true));
+
+    $fkbPost = new FiKeybean($request->getPost());
 
     //if ($file && $file->isValid() && !$file->hasMoved()) {
 
     log_message('info', 'genCode()');
     $fdrData = new Fdr();
 
+    //---- Code Üretimi
+    $fdrCodegen =  new Fdr();
+
     //$txCodeGenExtra = "";
 
     /** @var DtoCodeGen[] $arrDtoCodeGenPack */
     $arrDtoCodeGenPack = [];
-    $sbTxCodeGen = new FiStrbui();
-    //$fkbListData = new FkbList();
+    // $sbTxCodeGen = new FiStrbui();
+    // $fkbListData = new FkbList();
 
-    //$data = $request->getPost();
+    // $data = $request->getPost();
 
     // Form verilerini al
     $selCsharp = $request->getPost('selCsharp');
@@ -140,16 +148,19 @@ class Api extends ResourceController
     $selJava = $request->getPost('selJava');
     $selSql = $request->getPost('selSql');
     $selJs = $request->getPost('selJs');
+    $selJs = $request->getPost('selJs');
     $formTxEntity = $request->getPost('selEntity');
 
+    // $customCommand = $fkbPost->getStrValue('customCommand');
+
     // log_message('info', 'Selected Options:');
-    log_message('info', 'Csharp Sel: ' . $selCsharp);
+    // log_message('info', 'Csharp Sel: ' . $selCsharp);
 
     // log_message('info', 'Db Active Checkbox: ' . $this->request->getPost('chkEnableDb'));
 
-    //$uploadedFile = $this->request->getFile('excelFile'); // $_FILES['excelFile'];
+    // $uploadedFile = $this->request->getFile('excelFile'); // $_FILES['excelFile'];
 
-    //log_message('info', 'File uploaded: ' . print_r($uploadedFile, true));
+    // log_message('info', 'File uploaded: ' . print_r($uploadedFile, true));
 
     // Dosya geçici olarak kaydediliyor
     // $_SESSION["uploaded_file"] = $_FILES["excelFile"]["name"];
@@ -230,8 +241,7 @@ class Api extends ResourceController
     if ($selJs == 3) $cogSpecsGenCol = new CogSpecsJsFkbCol();
     if ($selJs == 2 ||  $selJs == 4) $cogSpecsGenCol = new CogSpecsJsFiMeta();
 
-    //---- Code Üretimi
-    $fdrCodegen =  new Fdr();
+
 
     // ColClass üretimi (C#, Java, Php, Js)
     $selClassType = max($selPhp, $selJava, $selCsharp, $selTs, $selJs);
