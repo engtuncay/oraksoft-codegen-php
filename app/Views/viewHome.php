@@ -151,7 +151,7 @@ $fkbData = new FiKeybean($data);
                       </div>
                       <div class="row">
                         <div class="">
-                          <div><h6>Örnek Komutlar</h6></div>
+                          <div><h6>Example Commands</h6></div>
                           <!-- <label for="txCustomCmd" class="form-label">Custom Command</label> -->
                           <div><pre class="mb-1"> --cmd dml --table TABLENAME --prefix pref</pre></div>
                         </div>
