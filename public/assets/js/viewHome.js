@@ -175,3 +175,46 @@ export function actReadDmlTestPost() {
       alert('Hata: ' + err);
     });
 }
+
+export function actExecCommand() {
+  console.log("actExecCommand method called");
+
+  const form = document.querySelector('form');
+  const formData = new FormData(form);
+
+  fiPostFormData('/execCmd', formData)
+    .then(async (result) => {
+      let text = await result.text();
+      let isJson = false;
+      let data = null;
+      try {
+        data = JSON.parse(text);
+        isJson = true;
+      } catch (e) {
+        isJson = false;
+      }
+      if (isJson) {
+        // JSON ise ekrana yaz
+        let eleEntity = document.getElementById("divCodeBlock");
+        if (!(eleEntity instanceof HTMLElement)) return;
+        eleEntity.innerHTML = '';
+        eleEntity.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+      } else {
+        // CSV ise dosya olarak indir
+        const blob = new Blob([text], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        // Dosya adında timestamp ekle
+        const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, "");
+        a.download = `export_${timestamp}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+    })
+    .catch((err) => {
+      alert('Hata: ' + err);
+    });
+}

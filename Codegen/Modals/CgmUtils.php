@@ -13,8 +13,6 @@ use Engtuncay\Phputils8\FiDtos\FiMeta;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiDtos\FmtList;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
-use Codegen\OcdConfig\OcgLogger;
-use Codegen\OcgConfigs\OcgLogger;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCsvs\FiCsv;
 use Engtuncay\Phputils8\FiDtos\Fdr;
@@ -238,22 +236,31 @@ class CgmUtils
     return $fdrData; // Boş FkbList döndür
   }
 
-  public static function convertArrayToCsv(array $data): Fdr
+  /**
+   * CLI parametrelerini key-value array'e dönüştür
+   * "--cmd excel--table VIEWMUSTERI" => ['cmd' => 'excel', 'table' => 'VIEWMUSTERI']
+   *
+   * @param string $argv
+   * @return array
+   */
+  public static function parseCliParameters(string $argv): array
   {
-    $fdr = new Fdr();
-    $fiCsv = new FiCsv();
-    $fileName = "output_" . time() . ".csv";
-    $filePath = WRITEPATH . $fileName;
-    $result = $fiCsv::writeArrayToCsv($data, $filePath);
-    if ($result) {
-      $fdr->setBoResult(true);
-      $fileUrl = base_url('writable/' . $fileName);
-      $fdr->setTxValue($fileUrl);
-      $fdr->setMessage("CSV dosyası başarıyla oluşturuldu: " . $filePath);
-    } else {
-      $fdr->setBoResult(false);
-      $fdr->setMessage("CSV dosyası oluşturulurken hata oluştu.");
+    $params = [];
+    $parts = explode('--', trim($argv));
+
+    foreach ($parts as $part) {
+      $part = trim($part);
+      if (empty($part)) {
+        continue;
+      }
+
+      $keyValue = explode(' ', $part, 2);
+      $key = $keyValue[0];
+      $value = isset($keyValue[1]) ? trim($keyValue[1]) : true;
+
+      $params[$key] = $value;
     }
-    return $fdr;
+
+    return $params;
   }
 }

@@ -16,6 +16,7 @@ $routes->get('/', 'Home::index');
 // ---------API Routes
 //$routes->post('/testpost', 'Api::testpost');
 CdgciHelper::addRoutePost($routes, 'genCode', Api::class);
+CdgciHelper::addRoutePost($routes, 'execCmd', Api::class);
 
 //$routes->get('/testget', 'Api::testpost');
 CdgciHelper::addRouteGet($routes, 'getDbProfiles', ApiConfig::class);

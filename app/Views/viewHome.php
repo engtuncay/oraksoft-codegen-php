@@ -114,6 +114,7 @@ $fkbData = new FiKeybean($data);
                 <div class="d-flex">
                   <button class="btn btn-info m-1 " data-action="actReadEntityList">Read Entity List</button>
                   <button class="btn btn-primary m-1" data-action="actGenCode">Generate Code</button>
+                  <button class="btn btn-secondary m-1" data-action="actExecCommand">Exec Command</button>
                 </div>
 
                 <!-- Db Active - Password Panel -->
@@ -206,6 +207,7 @@ $fkbData = new FiKeybean($data);
     import {
       actReadEntityList,
       actGenCode,
+      actExecCommand,
       viewHomeInit
     } from '<?= base_url('assets/js/viewHome.js') ?>';
 
@@ -218,6 +220,9 @@ $fkbData = new FiKeybean($data);
       },
       actReadEntityList() {
         actReadEntityList();
+      },
+      actExecCommand() {
+        actExecCommand();
       },
       test() {
         alert('Test clicked!');

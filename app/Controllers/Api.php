@@ -2,8 +2,10 @@
 
 namespace App\Controllers;
 
+use Codegen\FiMetas\App\FimOcgForm;
 use Codegen\Modals\CgmCodegen;
 use Codegen\Modals\CgmMssqlserver;
+use Codegen\Modals\CgmTableToCsv;
 use Codegen\Modals\CgmUtils;
 use Codegen\Modals\CogSpecsCsharp;
 use Codegen\Modals\CogSpecsCSharpFiCol;
@@ -30,6 +32,7 @@ use Engtuncay\Phputils8\FiCsvs\FiCsv;
 use Engtuncay\Phputils8\FiDbs\FiQuery;
 use Engtuncay\Phputils8\FiDtos\Fdr;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\FiResponse;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiPdos\FiPdo;
 
@@ -267,6 +270,52 @@ class Api extends ResourceController
     // ]);
   }
 
+  public function execCmd()
+  {
+    $request = Services::request();
+    $command = $request->getPost(FimOcgForm::txCustomCmd()->key());
+    $txDbProfile = $request->getPost(FimOcgForm::selDbProfile()->key());
+
+    $arrCliArgs = CgmUtils::parseCliParameters($command);
+
+    // Güvenlik kontrolü: Sadece belirli komutlara izin ver
+    $allowedCommands = ['excel', 'dml']; // İzin verilen komutlar
+    $txCmd = $arrCliArgs['cmd'] ?? '';
+    if (!in_array($txCmd, $allowedCommands)) {
+      $fdr = new Fdr();
+      $fdr->setTxValue('Bu komut izin verilmiyor.');
+      //$fdr->setCode(403);
+
+      return $this->respond($fdr->genArrResponse(), 403);
+    }
+
+    if (strcasecmp($txCmd, 'dml') === 0) {
+      // Excel komutu için özel işlem yapabilirsiniz
+      // Örneğin, belirli bir Excel dosyasını işlemek gibi
+      $fdr = CgmTableToCsv::getCodeByTable($txDbProfile, $arrCliArgs);
+
+      if ($fdr->isTrueBoResult()) {
+        return response()
+          ->setHeader('Content-Type', 'text/csv')
+          ->setHeader('Content-Disposition', 'attachment; filename="export.csv"')
+          ->setBody($fdr->getTxValue());
+      } else {
+        //$fdr->setTxValue('DML komutu çalıştırılırken hata oluştu. Parametreler: ' . json_encode($arrCliArgs));
+      }
+
+      //$fdr->setTxValue('DML komutu çalıştırıldı. Parametreler: ' . json_encode($arrCliArgs));
+      return $this->respond($fdr->genArrResponse(), 200);
+    }
+
+    $fdr = new Fdr();
+    $fdr->setArrValue($arrCliArgs);
+
+    // Komutu çalıştır ve çıktıyı yakala
+    // $output = shell_exec($command . ' 2>&1'); // Hata çıktısını da yakalamak için
+
+    return $this->respond($fdr->genArrResponse(), 200);
+  }
+
   public function test1()
   {
     //$ocgAppConfig = new OcgCLogger
@@ -274,13 +323,11 @@ class Api extends ResourceController
     $fiPdo = FiPdo::buiWithProfile("");
 
     $fiQuery = new FiQuery();
-    $sql = "SELECT * FROM seta"; 
+    $sql = "SELECT * FROM seta";
     $fiQuery->setSql($sql);
 
     $fdr = $fiPdo->selectFkb($fiQuery);
 
-    return $this->respond(['message' => 'API Test is working (test1)', 'data' => print_r($fdr,true)]);
+    return $this->respond(['message' => 'API Test is working (test1)', 'data' => print_r($fdr, true)]);
   }
-
-
 }
