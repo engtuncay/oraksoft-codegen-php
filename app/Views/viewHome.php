@@ -144,9 +144,16 @@ $fkbData = new FiKeybean($data);
 
                     <div class="container p-0 mt-2">
                       <div class="row">
-                        <div class="mb-3">
+                        <div class=" mb-3">
                           <!-- <label for="txCustomCmd" class="form-label">Custom Command</label> -->
                           <input type="text" class="form-control" id="txCustomCmd" name="txCustomCmd" placeholder="Custom Command">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="">
+                          <div><h6>Örnek Komutlar</h6></div>
+                          <!-- <label for="txCustomCmd" class="form-label">Custom Command</label> -->
+                          <div><pre class="mb-1"> --cmd dml --table TABLENAME --prefix pref</pre></div>
                         </div>
                       </div>
                     </div>
@@ -169,7 +176,7 @@ $fkbData = new FiKeybean($data);
       <div id="fi21" class="col-12 position-relative">
         <div id="fi211" class="bg-black">
           <!-- <pre class="p-3 rounded"> -->
-          <code class="p-3 rounded" id="divCodeBlock">
+          <code class="p-3 rounded" id="divCodeBlock" class="divCodeBlock">
           </code>
           <!-- </pre> -->
           <button class="m-2 btn btn-sm btn-outline-dark position-absolute top-0 end-0 copy-btn"
