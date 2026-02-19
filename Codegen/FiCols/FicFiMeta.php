@@ -8,66 +8,75 @@ use Engtuncay\Phputils8\FiCols\IFiTableMeta;
 use Engtuncay\Phputils8\FiDtos\FiCol;
 use Engtuncay\Phputils8\FiDtos\FicList;
 
-class FicFiMeta implements IFiTableMeta {
+class FicFiMeta implements IFiTableMeta
+{
 
-  public function getITxTableName() : string {
+  public function getITxTableName(): string
+  {
     return self::GetTxTableName();
   }
 
-  public static function  GetTxTableName() : string{
+  public static function  GetTxTableName(): string
+  {
     return "FicFiMeta";
   }
 
 
-  public static function GenTableCols() : FicList {
+  public static function GenTableCols(): FicList
+  {
     $fclList = new FicList();
-    $fclList->add(self::ofmTxKey());
-    $fclList->add(self::ofmTxValue());
-    $fclList->add(self::ofmLnKey());
-    $fclList->add(self::ofmTxLabel());
+    $fclList->add(self::ftTxKey());
+    $fclList->add(self::ftTxValue());
+    $fclList->add(self::ftLnKey());
+    $fclList->add(self::ftTxLabel());
 
     return $fclList;
   }
 
-  public static function GenTableColsTrans() : FicList  {
+  public static function GenTableColsTrans(): FicList
+  {
     $fclList = new FicList();
 
     return $fclList;
   }
 
-  public static function ofmTxKey () : FiCol {
-    $fiCol = new FiCol("ofmTxKey", "ofmTxKey");
+  public static function ftTxKey(): FiCol
+  {
+    $fiCol = new FiCol("ftTxKey", "ftTxKey");
 
     return $fiCol;
   }
 
-  public static function ofmTxValue () : FiCol {
-    $fiCol = new FiCol("ofmTxValue", "ofmTxValue");
+  public static function ftTxValue(): FiCol
+  {
+    $fiCol = new FiCol("ftTxValue", "ftTxValue");
 
     return $fiCol;
   }
 
-  public static function ofmLnKey () : FiCol {
-    $fiCol = new FiCol("ofmLnKey", "ofmLnKey");
+  public static function ftLnKey(): FiCol
+  {
+    $fiCol = new FiCol("ftLnKey", "ftLnKey");
 
     return $fiCol;
   }
 
-  public static function ofmTxLabel () : FiCol {
-    $fiCol = new FiCol("ofmTxLabel", "ofmTxLabel");
+  public static function ftTxLabel(): FiCol
+  {
+    $fiCol = new FiCol("ftTxLabel", "ftTxLabel");
 
     return $fiCol;
   }
 
 
 
-  public function genITableCols() : FicList {
+  public function genITableCols(): FicList
+  {
     return self::GenTableCols();
   }
 
-  public function genITableColsTrans():FicList {
+  public function genITableColsTrans(): FicList
+  {
     return self::GenTableColsTrans();
   }
-
 }
-

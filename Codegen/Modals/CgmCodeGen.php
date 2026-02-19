@@ -51,7 +51,7 @@ class CgmCodegen
     }
     if ($inClassType == 2) {
       $sbTxCodeGen1->append("// FiMeta Class Generation (By Dml) - v$txVer \n");
-      $sbTxCodeGen1->append(CgmFiMetaClassByDmlTemplate::actGenFiMetaClassByFkbList($fkbList, $iCogSpecs, $iCogSpecsGenCol));
+      $sbTxCodeGen1->append(CgmFiMetaClassByDml::actGenFiMetaClassByFkbList($fkbList, $iCogSpecs, $iCogSpecsGenCol));
     }
     if ($inClassType == 3) {
       $sbTxCodeGen1->append("// FkbCol Class Generation - v$txVer \n");
@@ -90,7 +90,7 @@ class CgmCodegen
     if ($fileExtension == "csv") {
       $fiCsv = new FiCsv();
       //$fiCols = FicFiCol::GenTableCols();
-      //$fiCols->add(FicFiMeta::ofmTxKey());
+      //$fiCols->add(FicFiMeta::ftTxKey());
       $fdrData = $fiCsv::readByFirstRowHeader($sourceFile);
       $fkbListData = $fdrData->getFkbListInit();
       return $fdrData;

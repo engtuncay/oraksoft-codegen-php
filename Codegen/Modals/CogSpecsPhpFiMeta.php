@@ -37,20 +37,6 @@ EOD;
     return $templateMain;
   }
 
-
-
-  //   public function getTemplateFkbColMethod(): string
-  //   {
-  //     return <<<EOD
-  // public static function {{fieldMethodName}}() : FiKeybean
-  // { 
-  //   \$fkbCol = new FiKeybean();
-  // {{fiColMethodBody}}
-  //   return \$fkbCol;
-  // }
-  // EOD;
-  //   }
-
   public function getTemplateColMethod(): string
   {
     return <<<EOD
@@ -161,12 +147,12 @@ EOD;
     //StringBuilder
     $sbFmtMethodBodyFieldDefs = new FiStrbui();
 
-    $txKey = $fkb->getValueByFiCol(FicFiMeta::ofmTxKey());
+    $txKey = $fkb->getValueByFiCol(FicFiMeta::ftTxKey());
     if ($txKey != null) {
       $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txKey = '%s';\n", $txKey));
     }
 
-    $txValue = $fkb->getValueByFiCol(FicFiMeta::ofmTxValue());
+    $txValue = $fkb->getValueByFiCol(FicFiMeta::ftTxValue());
     if ($txValue != null) {
       $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txValue = '%s';\n", $txValue));
     }

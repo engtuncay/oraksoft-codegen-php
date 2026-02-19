@@ -18,6 +18,7 @@ use Engtuncay\Phputils8\FiCsvs\FiCsv;
 use Engtuncay\Phputils8\FiDtos\Fdr;
 use Engtuncay\Phputils8\FiExcels\FiExcel;
 use CodeIgniter\HTTP\Files\UploadedFile;
+use Engtuncay\Phputils8\FiDtos\FimList;
 
 class CgmUtils
 {
@@ -59,10 +60,10 @@ class CgmUtils
     return $ficols;
   }
 
-  public static function getFiMetaListFromFkbList(FkbList $fkbList): FmtList
+  public static function getFiMetaListFromFkbList(FkbList $fkbList): FimList
   {
 
-    $fmtList = new FmtList();
+    $fmtList = new FimList();
 
     /**
      *
@@ -74,7 +75,7 @@ class CgmUtils
       $fiMeta = new FiMeta();
 
       $txFieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
-      $fiMeta->ofmTxKey = $txFieldName;
+      $fiMeta->setTxKey($txFieldName);
 
       $txEntityName = $fkbItem->getValueByFiCol(FicFiCol::fcTxEntityName());
       $fiMeta[FicFiCol::fcTxEntityName()->getFcTxFieldNameNtn()] = $txEntityName;
@@ -216,7 +217,7 @@ class CgmUtils
     if ($fileExtension == "csv") {
       $fiCsv = new FiCsv();
       //$fiCols = FicFiCol::GenTableCols();
-      //$fiCols->add(FicFiMeta::ofmTxKey());
+      //$fiCols->add(FicFiMeta::ftTxKey());
       $fdrData = $fiCsv::readByFirstRowHeader($sourceFile);
       $fkbListData = $fdrData->getFkbListInit();
       return $fdrData;

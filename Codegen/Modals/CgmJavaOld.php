@@ -2,8 +2,7 @@
 
 namespace Codegen\Modals;
 
-use Codegen\ficols\FicFiCol;
-use Codegen\ficols\FicFiMeta;
+use Codegen\FiCols\FicFiMeta;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiBool;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
@@ -405,7 +404,7 @@ EOD;
       $fkbFiMetaMethodBody = new FiKeybean();
 
       //String
-      $fieldName = $fkb->getValueByFiCol(FicFiMeta::ofmTxKey());
+      $fieldName = $fkb->getValueByFiCol(FicFiMeta::ftTxKey());
 
       $fkbFiMetaMethodBody->add("fieldMethodName", $fieldName);
       //$fkbFiMetaMethodBody->add("fieldName", $fieldName);
@@ -462,12 +461,12 @@ EOD;
     //StringBuilder
     $sbFmtMethodBodyFieldDefs = new FiStrbui();
 
-    $txKey = $fkb->getValueByFiCol(FicFiMeta::ofmTxKey());
+    $txKey = $fkb->getValueByFiCol(FicFiMeta::ftTxKey());
     if ($txKey != null) {
       $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txKey = '%s';\n", $txKey));
     }
 
-    $txValue = $fkb->getValueByFiCol(FicFiMeta::ofmTxValue());
+    $txValue = $fkb->getValueByFiCol(FicFiMeta::ftTxValue());
     if ($txValue != null) {
       $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txValue = '%s';\n", $txValue));
     }

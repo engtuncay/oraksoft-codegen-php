@@ -46,12 +46,12 @@ EOD;
     $sbFmtMethodBodyFieldDefs = new FiStrbui();
 
     // constructor'da tanımlanmış
-    // $txKey = $fkb->getValueByFiCol(FicFiMeta::ofmTxKey());
+    // $txKey = $fkb->getValueByFiCol(FicFiMeta::ftTxKey());
     // if ($txKey != null) {
     //   $sbFmtMethodBodyFieldDefs->append(sprintf(" fiMeta.txKey = \"%s\";\n", $txKey));
     // }
 
-    $txValue = $fkb->getValueByFiCol(FicFiMeta::ofmTxValue());
+    $txValue = $fkb->getValueByFiCol(FicFiMeta::ftTxValue());
     if ($txValue != null) {
       $sbFmtMethodBodyFieldDefs->append(sprintf(" fiMeta.fimTxValue = \"%s\";\n", $txValue));
     }

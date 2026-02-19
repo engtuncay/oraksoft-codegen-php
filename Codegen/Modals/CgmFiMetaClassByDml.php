@@ -11,12 +11,12 @@ use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 /**
- * Code Generator Modal (Cgm) for FiMetaClass (For All Languages)
+ * Cgm for Fmt (FiMeta)Class 
  * 
  * FiCol excelini kullanarak FiMeta class oluşturur. fcTxFieldName key, fcTxHeader da value gösterir. 
  * 
  */
-class CgmFiMetaClassByDmlTemplate
+class CgmFiMetaClassByDml
 {
 
 
@@ -55,7 +55,7 @@ class CgmFiMetaClassByDmlTemplate
       /**
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
        */
-      $sbFiColMethodBody = $iSpecsFiMeta->genColMethodBody($fkbItem); 
+      $sbFiColMethodBody = $iSpecsFiMeta->genColMethodBody($fkbItem);
 
       //$sbFiColAddDescDetail->append($iCogSpecs->genFiColAddDescDetail($fkbItem)->toString());
 
@@ -116,7 +116,7 @@ class CgmFiMetaClassByDmlTemplate
     $sbClassBody->append($sbFiMetaMethods->toString());
 
     //
-    $classPref = "Fim";
+    $classPref = "Fmt";
 
     // String
     $txEntityName = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxEntityName());

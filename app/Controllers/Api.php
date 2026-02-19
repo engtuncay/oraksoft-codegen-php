@@ -95,7 +95,7 @@ class Api extends ResourceController
     if ($fileExtension == "csv") {
       $fiCsv = new FiCsv();
       //$fiCols = FicFiCol::GenTableCols();
-      //$fiCols->add(FicFiMeta::ofmTxKey());
+      //$fiCols->add(FicFiMeta::ftTxKey());
       $fdrData = $fiCsv::readByFirstRowHeader($sourceFile);
       $fkbListData = $fdrData->getFkbListInit();
       return $fdrData;
@@ -120,8 +120,6 @@ class Api extends ResourceController
     $request = Services::request();
     $uploadedFile = $request->getFile('excelFile');
 
-    //$selTs = $request->getPost('selTs');
-
     //log_message('info', print_r($request,true));
     //log_message('info', print_r($request->getPost(),true));
 
@@ -139,9 +137,9 @@ class Api extends ResourceController
 
     /** @var DtoCodeGen[] $arrDtoCodeGenPack */
     $arrDtoCodeGenPack = [];
+    
     // $sbTxCodeGen = new FiStrbui();
     // $fkbListData = new FkbList();
-
     // $data = $request->getPost();
 
     // Form verilerini al
@@ -154,15 +152,7 @@ class Api extends ResourceController
     $selJs = $request->getPost('selJs');
     $formTxEntity = $request->getPost('selEntity');
 
-    // $customCommand = $fkbPost->getStrValue('customCommand');
-
-    // log_message('info', 'Selected Options:');
-    // log_message('info', 'Csharp Sel: ' . $selCsharp);
-
-    // log_message('info', 'Db Active Checkbox: ' . $this->request->getPost('chkEnableDb'));
-
     // $uploadedFile = $this->request->getFile('excelFile'); // $_FILES['excelFile'];
-
     // log_message('info', 'File uploaded: ' . print_r($uploadedFile, true));
 
     // Dosya geçici olarak kaydediliyor

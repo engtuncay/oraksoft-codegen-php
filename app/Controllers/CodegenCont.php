@@ -7,7 +7,7 @@ use Codegen\Modals\CgmMssqlserver;
 use Codegen\modals\CgmFiColClass;
 use Codegen\modals\CgmUtils;
 use Codegen\Modals\CgmFiMetaClass;
-use Codegen\Modals\CgmFiMetaClassByDmlTemplate;
+use Codegen\Modals\CgmFiMetaClassByDml;
 use Codegen\Modals\CgmFkbColClass;
 use Codegen\Modals\DtoCodeGen;
 use Codegen\Modals\ICogSpecs;
@@ -382,7 +382,7 @@ class CodegenCont extends BaseController
     if ($fileExtension == "csv") {
       $fiCsv = new FiCsv();
       //$fiCols = FicFiCol::GenTableCols();
-      //$fiCols->add(FicFiMeta::ofmTxKey());
+      //$fiCols->add(FicFiMeta::ftTxKey());
       $fdrData = $fiCsv::readByFirstRowHeader($sourceFile);
       $fkbListData = $fdrData->getFkbListInit();
       return $fdrData;
@@ -476,7 +476,7 @@ class CodegenCont extends BaseController
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();
       $sbTxCodeGen1->append("// Codegen " . $txVer . "\n");
-      $sbTxCodeGen1->append(CgmFiMetaClassByDmlTemplate::actGenFiMetaClassByFkbList($fkbList, $iCogSpecs, $iSpecsFiMeta));
+      $sbTxCodeGen1->append(CgmFiMetaClassByDml::actGenFiMetaClassByFkbList($fkbList, $iCogSpecs, $iSpecsFiMeta));
       $sbTxCodeGen1->append("\n");
       $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
       $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
@@ -491,6 +491,6 @@ class CodegenCont extends BaseController
 
   public static function getTxVer()
   {
-    return "0.3";
+    return "0.4";
   }
 }
