@@ -53,7 +53,7 @@ EOD;
 
     $txValue = $fkb->getValueByFiCol(FicFiMeta::ftTxValue());
     if ($txValue != null) {
-      $sbFmtMethodBodyFieldDefs->append(sprintf(" fiMeta.fimTxValue = \"%s\";\n", $txValue));
+      $sbFmtMethodBodyFieldDefs->append(sprintf(" fiMeta.ftTxValue = \"%s\";\n", $txValue));
     }
 
     return $sbFmtMethodBodyFieldDefs;
@@ -73,7 +73,7 @@ EOD;
 
     $fcTxHeader = $fkb->getValueByFiCol(FicFiCol::fcTxHeader());
     if ($fcTxHeader != null) {
-      $sb->append(sprintf("  fiMeta.fimTxValue = \"%s\";\n", $fcTxHeader));
+      $sb->append(sprintf("  fiMeta.ftTxValue = \"%s\";\n", $fcTxHeader));
     }
 
     return $sb;

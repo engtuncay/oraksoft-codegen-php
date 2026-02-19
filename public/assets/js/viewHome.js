@@ -143,7 +143,7 @@ export function actGenCode() {
     })
     .then((data) => {
       console.log(data);
-      let txCode = data[FimOsfFdr.fdTxValue().fimTxKey];
+      let txCode = data[FimOsfFdr.fdTxValue().ftTxKey];
       //console.log('txcode:'+ txCode);
       if (txCode) {
         /** {HTMLElement} eleEntity */
