@@ -29,29 +29,32 @@ class RepoCodegen extends FiAbsRepoGeneric
 
     if ($dbType === FiDbTypes::MSSQL) {
       OcgLogger::info("RepoCodeGen-getTableFields: mssql için tablo alanları çekiliyor: $tableName");
-
-      $sql = "--sq202503101637 v3
+      
+      //sq202503101637
+      $sql = "--sq202503101637 v4
 Select @tableName                   fcTxEntityName
   , (@tablePrefix + C.COLUMN_NAME) fcTxFieldName
   , C.DATA_TYPE                  fcTxFieldType
   , @tablePrefix                 fcTxPrefix
-  , C.COLUMN_NAME                fcTxDbField
-  , C.CHARACTER_MAXIMUM_LENGTH   fcLnLength
-  , C.NUMERIC_PRECISION          fcLnPrecision
+  , CASE WHEN C.CHARACTER_MAXIMUM_LENGTH IS NULL THEN C.NUMERIC_PRECISION
+    ELSE C.CHARACTER_MAXIMUM_LENGTH END fcLnLength
+  --, C.NUMERIC_PRECISION          fcLnPrecision
   , C.NUMERIC_SCALE              fcLnScale
   , C.IS_NULLABLE                fcBoNullable
   , Case When Z.CONSTRAINT_NAME Is Null Then 0
     Else 1 End As              fcBoPriKey -- IsPartOfPrimaryKey
+  , C.COLUMN_NAME                fcTxDbField
 From INFORMATION_SCHEMA.COLUMNS As C
-       Outer Apply (Select CCU.CONSTRAINT_NAME
-                    From INFORMATION_SCHEMA.TABLE_CONSTRAINTS As TC
-                           Join INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE As CCU
-                                On CCU.CONSTRAINT_NAME = TC.CONSTRAINT_NAME
-                    Where TC.TABLE_SCHEMA = C.TABLE_SCHEMA
-                      And TC.TABLE_NAME = C.TABLE_NAME
-                      And TC.CONSTRAINT_TYPE = 'PRIMARY KEY'
-                      And CCU.COLUMN_NAME = C.COLUMN_NAME) As Z
-Where C.TABLE_NAME = @tableName";
+    Outer Apply (Select CCU.CONSTRAINT_NAME
+      From INFORMATION_SCHEMA.TABLE_CONSTRAINTS As TC
+              Join INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE As CCU
+                  On CCU.CONSTRAINT_NAME = TC.CONSTRAINT_NAME
+      Where TC.TABLE_SCHEMA = C.TABLE_SCHEMA
+        And TC.TABLE_NAME = C.TABLE_NAME
+        And TC.CONSTRAINT_TYPE = 'PRIMARY KEY'
+        And CCU.COLUMN_NAME = C.COLUMN_NAME) As Z
+Where C.TABLE_NAME = @tableName  
+    ";
 
       $fkbParams = new FiKeybean();
       $fkbParams->put("tableName", $tableName);

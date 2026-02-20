@@ -23,8 +23,11 @@ class CgmTableToCsv
       return $fdrGetTableFields;
     }
 
+    $txTableName = $arrCliArgs['table'] ?? '';
+    $txTablePref = $arrCliArgs['prefix'] ?? '';
+
     $repo = new RepoCodegen($txDbProfile);
-    $fdrGetTableFields = $repo->getTableFields($arrCliArgs['table'] ?? '');
+    $fdrGetTableFields = $repo->getTableFields($txTableName, $txTablePref);
 
     $fdrCsv = new Fdr();
     $csvString = FiCsv::arrayToCsvString($fdrGetTableFields->getFkbValue()->getArr());
