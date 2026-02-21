@@ -34,6 +34,7 @@ use Engtuncay\Phputils8\FiDtos\Fdr;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FiResponse;
 use Engtuncay\Phputils8\FiDtos\FkbList;
+use Engtuncay\Phputils8\FiExcels\FiExcel;
 use Engtuncay\Phputils8\FiPdos\FiPdo;
 
 class Api extends ResourceController
@@ -66,7 +67,7 @@ class Api extends ResourceController
     if ($file && $file->isValid() && !$file->hasMoved()) {
       $originalName = $file->getClientName();
 
-      $fdr = $this->convertFileToFkbList($file);
+      $fdr = CgmCodegen::convertFileToFkbList($file);
 
       /** @var FkbList[] $mapEntityToFkbList */
       $fiwEntity = CgmUtils::genFkbAsEntityList($fdr->getFkbListInit());
@@ -81,38 +82,11 @@ class Api extends ResourceController
       $fkbResponse->add('lnRows', $fdr->getFkbListInit()->size());
       $fkbResponse->add('entities', $fiwEntity->getArrValue());
 
-      //return $this->respond(['lnRows' => $fdr->getFkbListInit()->size(), 'fileName' => $originalName ], status: 200);
+      // ['lnRows' => $fdr->getFkbListInit()->size(), 'fileName' => $originalName ], status: 200);
       return $this->respond($fkbResponse->getParams(), status: 200);
     }
 
     return $this->respond(['error' => 'Dosya yok veya geçersiz'], 400);
-  }
-
-  public function convertFileToFkbList(mixed $sourceFile): Fdr
-  {
-    $fileExtension = pathinfo($sourceFile->getClientPath(), PATHINFO_EXTENSION);
-
-    if ($fileExtension == "csv") {
-      $fiCsv = new FiCsv();
-      //$fiCols = FicFiCol::GenTableCols();
-      //$fiCols->add(FicFiMeta::ftTxKey());
-      $fdrData = $fiCsv::readByFirstRowHeader($sourceFile);
-      $fkbListData = $fdrData->getFkbListInit();
-      return $fdrData;
-    }
-
-    // if ($fileExtension == "xlsx" || $fileExtension == "xls") {
-    //   $fiExcel = new FiExcel();
-    //   $fdrData = $fiExcel::readExcelFile($sourceFile, FicFiCol::GenTableCols());
-    //   $fkbListData = $fdrData->getFkbListInit();
-    //   return $fdrData;
-    // }
-
-    $fdrData = new Fdr();
-    $fdrData->setMessage("Geçersiz dosya formatı. Sadece .xlsx, .xls veya .csv dosyaları yükleyebilirsiniz.");
-    $fdrData->setFkbList(new FkbList());
-
-    return $fdrData; // Boş FkbList döndür
   }
 
   public function genCode()
@@ -123,11 +97,11 @@ class Api extends ResourceController
     //log_message('info', print_r($request,true));
     //log_message('info', print_r($request->getPost(),true));
 
-    $fkbPost = new FiKeybean($request->getPost());
+    //$fkbPost = new FiKeybean($request->getPost());
 
     //if ($file && $file->isValid() && !$file->hasMoved()) {
 
-    log_message('info', 'genCode()');
+    log_message('info', 'genCode() called');
     $fdrData = new Fdr();
 
     //---- Code Üretimi
@@ -233,8 +207,6 @@ class Api extends ResourceController
 
     if ($selJs == 3) $cogSpecsGenCol = new CogSpecsJsFkbCol();
     if ($selJs == 2 ||  $selJs == 4) $cogSpecsGenCol = new CogSpecsJsFiMeta();
-
-
 
     // ColClass üretimi (C#, Java, Php, Js)
     $selClassType = max($selPhp, $selJava, $selCsharp, $selTs, $selJs);

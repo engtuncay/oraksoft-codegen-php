@@ -3,6 +3,7 @@
 namespace Codegen\Modals;
 
 use App\Controllers\CodegenCont;
+use Codegen\OcgConfigs\OcgLogger;
 //use Codegen\OcdConfig\OcgLogger;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
@@ -40,7 +41,7 @@ class CgmCodegen
     //$fkbList = $fkbEntityToFkbList->getValue($txEntity);
     $sbTxCodeGen1 = new FiStrbui();
 
-    //  addOption(elementById, "1", "FiCol Sınıf");
+    // addOption(elementById, "1", "FiCol Sınıf");
     // addOption(elementById, "2", "FiMeta By DML Template");
     // addOption(elementById, "3", "FkbCol Sınıf");
     // addOption(elementById, "4", "FiMeta Sınıf");
@@ -90,15 +91,15 @@ class CgmCodegen
     if ($fileExtension == "csv") {
       $fiCsv = new FiCsv();
       //$fiCols = FicFiCol::GenTableCols();
-      //$fiCols->add(FicFiMeta::ftTxKey());
       $fdrData = $fiCsv::readByFirstRowHeader($sourceFile);
       $fkbListData = $fdrData->getFkbListInit();
       return $fdrData;
     }
 
     if ($fileExtension == "xlsx" || $fileExtension == "xls") {
+      OcgLogger::info("Excel dosyası algılandı, işleniyor...");
       $fiExcel = new FiExcel();
-      $fdrData = $fiExcel::readExcelFile($sourceFile, FicFiCol::GenTableCols());
+      $fdrData = $fiExcel::readExcelFileByFirstRowHeader($sourceFile);
       $fkbListData = $fdrData->getFkbListInit();
       return $fdrData;
     }
