@@ -25,6 +25,7 @@ use Codegen\Modals\CogSpecsPhpFkbCol;
 use Codegen\Modals\CogSpecsTsFiMeta;
 use Codegen\Modals\CogSpecsTsFkbCol;
 use Codegen\Modals\CogSpecsTs;
+use Codegen\OcgConfigs\OcgLogger;
 use CodeIgniter\RESTful\ResourceController;
 use Config\Services;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
@@ -91,6 +92,8 @@ class Api extends ResourceController
 
   public function genCode()
   {
+    OcgLogger::info("genCode() called");
+
     $request = Services::request();
     $uploadedFile = $request->getFile('excelFile');
 
@@ -98,19 +101,16 @@ class Api extends ResourceController
     //log_message('info', print_r($request->getPost(),true));
 
     //$fkbPost = new FiKeybean($request->getPost());
-
     //if ($file && $file->isValid() && !$file->hasMoved()) {
-
-    log_message('info', 'genCode() called');
+    
     $fdrData = new Fdr();
-
     //---- Code Üretimi
     $fdrCodegen =  new Fdr();
 
-    //$txCodeGenExtra = "";
+    // $txCodeGenExtra = "";
 
-    /** @var DtoCodeGen[] $arrDtoCodeGenPack */
-    $arrDtoCodeGenPack = [];
+    // /** @var DtoCodeGen[] $arrDtoCodeGenPack */
+    // $arrDtoCodeGenPack = [];
     
     // $sbTxCodeGen = new FiStrbui();
     // $fkbListData = new FkbList();
@@ -155,7 +155,7 @@ class Api extends ResourceController
     $fkbListData = $fdrData->getFkbListInit();
 
     /** @var FiKeybean $fkbEntityToFkbList */
-    $fkbEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
+    $fkbEntityToFkbList = CgmUtils::genFkbMapAsTxEntityToFkl($fkbListData);
 
     $fkbListEntity = null;
 
@@ -166,10 +166,10 @@ class Api extends ResourceController
 
     if ($formTxEntity && !$fkbListEntity) {
       $fdrData->setTxValue("Seçilen entity bulunamadı: " . $formTxEntity);
+      // MEDFIX goto yerine direk return edilmeli
       goto endExcelOkuma;
     }
 
-    // print_r($fdr);
     // echo var_export($fdr->getFkbList(), true);
     // echo PHP_EOL;
 
@@ -216,7 +216,7 @@ class Api extends ResourceController
     }
 
     if ($selSql == 1) {
-      $fdrCodegen = CgmMssqlserver::actGenSqlCreateTableByEntity($fkbListEntity);
+      $fdrCodegen = CgmMssqlserver::actGenCreateTableByEntity($fkbListEntity);
     }
 
     endExcelOkuma:

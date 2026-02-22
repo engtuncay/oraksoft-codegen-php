@@ -22,7 +22,7 @@ class CgmMysqlserver
   {
     $fdrMain = new Fdr();
 
-    $arrFkbListByEntity = CgmUtils::genFkbAsEntityToFkbList($fkbList);
+    $arrFkbListByEntity = CgmUtils::genFkbMapAsTxEntityToFkl($fkbList);
 
     //log_message('info', 'arrFkbListExcel' . print_r($arrFkbListByEntity, true));
     $txIdPref = "sql";

@@ -300,7 +300,7 @@ class CodegenCont extends BaseController
     //echo var_export($fkbListExcel, true);
 
     /** @var FkbList[] $mapEntityToFkbList */
-    $mapEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
+    $mapEntityToFkbList = CgmUtils::genFkbMapAsTxEntityToFkl($fkbListData);
 
     log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
     $txIdPref = "java";
@@ -340,7 +340,7 @@ class CodegenCont extends BaseController
     // OcgLogger::info("fkbListData:" . print_r($fkbListData->getItems(), true));
 
     /** @var FiKeybean $fkbEntityToFkbList */
-    $fkbEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
+    $fkbEntityToFkbList = CgmUtils::genFkbMapAsTxEntityToFkl($fkbListData);
 
     //log_message('info', 'arrFkbListExcel' . print_r($fkbEntityToFkbList, true));
     $txIdPref = "codegen";
@@ -419,7 +419,7 @@ class CodegenCont extends BaseController
     //echo var_export($fkbListExcel, true);
 
     /** @var FkbList[] $mapEntityToFkbList */
-    $mapEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
+    $mapEntityToFkbList = CgmUtils::genFkbMapAsTxEntityToFkl($fkbListData);
 
     log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
     $txIdPref = "codegen";
@@ -463,7 +463,7 @@ class CodegenCont extends BaseController
     //echo var_export($fkbListExcel, true);
 
     /** @var FkbList[] $mapEntityToFkbList */
-    $mapEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
+    $mapEntityToFkbList = CgmUtils::genFkbMapAsTxEntityToFkl($fkbListData);
 
     //log_message('info', 'arrFkbListExcel' . print_r($mapEntityToFkbList, true));
     $txIdPref = "codegen";

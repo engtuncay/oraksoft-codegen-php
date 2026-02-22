@@ -3,11 +3,7 @@
 namespace Codegen\Modals;
 
 use Codegen\FiCols\FicFiMeta;
-use Engtuncay\Phputils8\FiCores\FiBool;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
-use Engtuncay\Phputils8\FiCores\FiString;
-use Engtuncay\Phputils8\FiCols\FicFiCol;
-use Engtuncay\Phputils8\FiCols\FicValue;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 
 class CogSpecsPhpFiMeta implements ICogSpecsGenCol
@@ -52,7 +48,7 @@ EOD;
   public function genColMethodBody(FiKeybean $fkbItem): FiStrbui
   {
     //StringBuilder
-    $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
+    $sbColMethodBody = new FiStrbui(); // new StringBuilder();
 
     //String
     //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::fcTxFieldType()));
@@ -139,7 +135,7 @@ EOD;
     //
     //        // fcTxCollation	fcTxTypeName
 
-    return $sbFiColMethodBody;
+    return $sbColMethodBody;
   }
 
   public function genFiMetaMethodBodyFieldDefs(FiKeybean $fkb): FiStrbui
@@ -166,10 +162,10 @@ EOD;
   public function getTempGenFmtColsMethod(): string
   {
     return <<<EOD
-public static function genTableCols() : FmtList {
-  \$fmtList = new FmtList();
+public static function genTableCols() : FimList {
+  \$fimList = new FimList();
 
-  {{fmtListBody}}
+  {{fimListBody}}
 
   return \$fmtList;
 }

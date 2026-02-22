@@ -19,41 +19,8 @@ use Engtuncay\Phputils8\FiMetas\FimOksCoding;
  */
 class CgmMssqlserver
 {
-  public static function actGenSqlCreateTable(FkbList $fkbList): Fdr
-  {
-    $fdrMain = new Fdr();
 
-    $arrFkbListByEntity = CgmUtils::genFkbAsEntityToFkbList($fkbList);
-
-    //log_message('info', 'arrFkbListExcel' . print_r($arrFkbListByEntity, true));
-    $txIdPref = "sql";
-    $lnForIndex = 0;
-    $arrDtoCodeGen = [];
-
-    $fkbDtoCodeGen = new FiKeybean();
-
-    foreach ($arrFkbListByEntity as $entity => $fkbList) {
-      $lnForIndex++;
-      $dtoCodeGen = new DtoCodeGen();
-      $sbTxCodeGen1 = new FiStrbui();
-      $sbTxCodeGen1->append("-- Sql Create Table Code Gen v1\n");
-      $sbTxCodeGen1->append(CgmMssqlserver::actGenSqlCreate($fkbList));
-      $sbTxCodeGen1->append("\n");
-      $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
-      $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);
-
-      $arrDtoCodeGen[] = $dtoCodeGen;
-
-      $fkbDtoCodeGen->addValue($dtoCodeGen);
-    }
-
-    $fdrMain->setRefValue($arrDtoCodeGen);
-    $fdrMain->setFkbValue($fkbDtoCodeGen);
-
-    return $fdrMain;
-  }
-
-  public static function actGenSqlCreateTableByEntity(FkbList $fkbList): Fdr
+  public static function actGenCreateTableByEntity(FkbList $fkbList): Fdr
   {
     $fdrMain = new Fdr();
 
@@ -98,11 +65,11 @@ class CgmMssqlserver
     $fkbSqlCreateParam->addFieldMeta(FimOksCoding::oscTxTableName(), $fkbFirstItem->getValueByFiMeta(FimFiCol::fcTxEntityName()));
     $fkbSqlCreateParam->addFieldMeta(FimOksCoding::oscTxTableFields(), rtrim($sbColDefs->toString(), ",\n"));
 
-    $sqlTemplate = <<<EOD
+    $sqlTemplate = "
 CREATE TABLE $tprTableName (
   $tprColumns
 )
-EOD;
+";
 
     $txResult = FiTemplate::replaceParams($sqlTemplate, $fkbSqlCreateParam);
 

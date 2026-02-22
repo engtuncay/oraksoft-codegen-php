@@ -98,7 +98,7 @@ class CgmUtils
    * @param FkbList $fkbListData
    * @return FiKeybean (key: entityName, value: FkbList)
    */
-  public static function genFkbAsEntityToFkbList(FkbList $fkbListData): FiKeybean
+  public static function genFkbMapAsTxEntityToFkl(FkbList $fkbListData): FiKeybean
   {
     $fkbMap = new FiKeybean();
 

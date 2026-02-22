@@ -26,11 +26,12 @@ function addOption(element, value, textContent) {
  * @param {FiMeta} fiMeta
  * 
  */
-function addOptionByLnId(element, fiMeta) {
+function addOptionByFimAndLnKey(element, fiMeta) {
 
   if (element instanceof HTMLSelectElement) {
     const option = document.createElement("option");
-    option.value = fiMeta.ftLnKey.toString();
+    //fiMeta.ftLnKey == null → true olur, eğer değer null veya undefined ise.
+    option.value = (fiMeta.ftLnKey != null) ? fiMeta.ftLnKey.toString() : "";
     option.textContent = fiMeta.getTxValueNtn();
     element.appendChild(option);
   }
@@ -75,7 +76,8 @@ export function viewHomeInit() {
 
   let eleSelSql = document.getElementById("selSql");
   addOption(eleSelSql, txIdSeciniz, "Select");
-  addOption(eleSelSql, "1", "Sql Create Table");
+  addOptionByFimAndLnKey(eleSelSql, FimCdgMssqlOpts.mssqlCreateTable());
+  addOptionByFimAndLnKey(eleSelSql, FimCdgMssqlOpts.mssqlAlterTable());
 
   // Reset other selects when one changes
   const codeSelects = [eleSelCsharp, eleSelPhp, eleSelTs, eleSelJava, eleSelSql, eleSelJs];
