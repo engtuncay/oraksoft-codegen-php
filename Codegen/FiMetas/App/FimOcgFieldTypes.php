@@ -1,139 +1,145 @@
 <?php
+
 namespace Codegen\FiMetas\App;
 
 // FiMeta Class Generation (By Dml) - v0.4 
 use Engtuncay\Phputils8\FiDtos\FiMeta;
 
 
-class FimOcgFieldTypes {
+class FimOcgFieldTypes
+{
 
 
-public static function double() : FiMeta
-{ 
-  $fiMeta = new FiMeta("double");
+  public static function double(): FiMeta
+  {
+    $fiMeta = new FiMeta("double");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
-public static function nvarchar() : FiMeta
-{ 
-  $fiMeta = new FiMeta("nvarchar");
+  public static function nvarchar(): FiMeta
+  {
+    $fiMeta = new FiMeta("nvarchar");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
-public static function int() : FiMeta
-{ 
-  $fiMeta = new FiMeta("int");
+  public static function int(): FiMeta
+  {
+    $fiMeta = new FiMeta("int");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
-public static function date() : FiMeta
-{ 
-  $fiMeta = new FiMeta("date");
+  public static function date(): FiMeta
+  {
+    $fiMeta = new FiMeta("date");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
-public static function bool() : FiMeta
-{ 
-  $fiMeta = new FiMeta("bool");
+  public static function bool(): FiMeta
+  {
+    $fiMeta = new FiMeta("bool");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
-public static function string() : FiMeta
-{ 
-  $fiMeta = new FiMeta("string");
+  public static function string(): FiMeta
+  {
+    $fiMeta = new FiMeta("string");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
-public static function fkb() : FiMeta
-{ 
-  $fiMeta = new FiMeta("fkb");
+  public static function fkb(): FiMeta
+  {
+    $fiMeta = new FiMeta("fkb");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
-public static function fdr() : FiMeta
-{ 
-  $fiMeta = new FiMeta("fdr");
+  public static function fdr(): FiMeta
+  {
+    $fiMeta = new FiMeta("fdr");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
-public static function object() : FiMeta
-{ 
-  $fiMeta = new FiMeta("object");
+  public static function object(): FiMeta
+  {
+    $fiMeta = new FiMeta("object");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
-public static function meta() : FiMeta
-{ 
-  $fiMeta = new FiMeta("meta");
+  public static function meta(): FiMeta
+  {
+    $fiMeta = new FiMeta("meta");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
-public static function varchar() : FiMeta
-{ 
-  $fiMeta = new FiMeta("varchar");
+  public static function varchar(): FiMeta
+  {
+    $fiMeta = new FiMeta("varchar");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
-public static function decimal() : FiMeta
-{ 
-  $fiMeta = new FiMeta("decimal");
+  public static function decimal(): FiMeta
+  {
+    $fiMeta = new FiMeta("decimal");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
-public static function tinyint() : FiMeta
-{ 
-  $fiMeta = new FiMeta("tinyint");
+  public static function tinyint(): FiMeta
+  {
+    $fiMeta = new FiMeta("tinyint");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
-public static function text() : FiMeta
-{ 
-  $fiMeta = new FiMeta("text");
+  public static function text(): FiMeta
+  {
+    $fiMeta = new FiMeta("text");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
-public static function longtext() : FiMeta
-{ 
-  $fiMeta = new FiMeta("longtext");
+  public static function longtext(): FiMeta
+  {
+    $fiMeta = new FiMeta("longtext");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
-public static function enum() : FiMeta
-{ 
-  $fiMeta = new FiMeta("enum");
+  public static function enum(): FiMeta
+  {
+    $fiMeta = new FiMeta("enum");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
-public static function json() : FiMeta
-{ 
-  $fiMeta = new FiMeta("json");
+  public static function json(): FiMeta
+  {
+    $fiMeta = new FiMeta("json");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
-public static function csv() : FiMeta
-{ 
-  $fiMeta = new FiMeta("csv");
+  public static function csv(): FiMeta
+  {
+    $fiMeta = new FiMeta("csv");
 
-  return $fiMeta;
-}
+    return $fiMeta;
+  }
 
+  public static function datetimeoffset(): FiMeta
+  {
+    $fiMeta = new FiMeta("datetimeoffset");
 
-
+    return $fiMeta;
+  }
 }

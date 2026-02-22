@@ -230,7 +230,7 @@ class CodegenCont extends BaseController
 
     if ($selSql == 1) {
       $fdrData = self::convertFileToFkbList($uploadedFile);
-      $fdrCdgSql = CgmMssqlserver::actGenSqlCreateTable($fdrData->getFkbListInit());
+      $fdrCdgSql = CgmMssqlserver::actGenSqlCreate($fdrData->getFkbListInit());
 
       $data = [
         'fdrData' => $fdrCdgSql,

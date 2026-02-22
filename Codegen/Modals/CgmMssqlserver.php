@@ -3,9 +3,8 @@
 namespace Codegen\Modals;
 
 use App\Controllers\CodegenCont;
-use Codegen\FiMetas\App\FimCdgMssqlOpts;
 use Codegen\FiMetas\App\FimOcgFieldTypes;
-use Codegen\FiMetas\App\FimOcgForm;
+use Engtuncay\Phputils8\FiCores\FiBool;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
@@ -14,7 +13,7 @@ use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 use Engtuncay\Phputils8\FiMetas\FimOcgSql;
-use Engtuncay\Phputils8\FiMetas\FimOksCoding;
+
 
 /**
  * SQL Server Code Generation Model
@@ -49,12 +48,19 @@ class CgmMssqlserver
      */
     foreach ($fkbList as $fkbItem) {
 
-      $fkbFieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
+      $fcTxFieldName = $fkbItem->getValueByFim(FimFiCol::fcTxFieldName());
+      $fcBoTransient = $fkbItem->getValueByFimAsBool(FimFiCol::fcBoTransient());
+      $fcTxIdType = $fkbItem->getValueByFim(FimFiCol::fcTxIdType());
+
+      // Transient Alanlar SQL Create Table'da yer almaz
+      if(FiBool::isTrue($fcBoTransient)) {
+        continue; 
+      }
 
       $sqlTypeDef = self::genSqlColTypeDef($fkbItem);
 
       $sbColDef = new FiStrbui();
-      $sbColDef->append("$fkbFieldName $sqlTypeDef,\n");
+      $sbColDef->append("$fcTxFieldName $sqlTypeDef,\n");
       $sbColDefs->append($sbColDef->toString());
     }
 
@@ -98,35 +104,82 @@ CREATE TABLE $sfTableName (
     return $txResult;
   }
 
+  /**
+   * sqldeki sütunun field type ve diger özellikleri tanımlanır
+   *
+   * @param FiKeybean $fkbItem
+   * @return string
+   */
   public static function genSqlColTypeDef(FiKeybean $fkbItem): string
   {
-    $fkbType = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldType());
-    $fkbLength = $fkbItem->getValueByFiMeta(FimFiCol::fcLnLength());
-    $fkbScale = $fkbItem->getValueByFiMeta(FimFiCol::fcLnScale());
-    $fkbIdType = $fkbItem->getValueByFiMeta(FimFiCol::fcTxIdType());
+    $fcTxFieldType = $fkbItem->getValueByFim(FimFiCol::fcTxFieldType());
+    $fcLnLength = $fkbItem->getValueByFim(FimFiCol::fcLnLength());
+    $fcLnScale = $fkbItem->getValueByFim(FimFiCol::fcLnScale());
+    $fcTxIdType = $fkbItem->getValueByFim(FimFiCol::fcTxIdType());
+    
 
     $sbTypeDef = new FiStrbui();
 
-    if ($fkbType == FimOcgFieldTypes::string()->getTxKey() ) {
+    if (
+      $fcTxFieldType == FimOcgFieldTypes::string()->getTxKey()
+      || $fcTxFieldType == FimOcgFieldTypes::nvarchar()->getTxKey()
+    ) {
 
-      if (FiString::isEmpty($fkbLength)) {
-        $fkbLength = 50;
+      if (FiString::isEmpty($fcLnLength)) {
+        $fcLnLength = 50;
       }
-      $sbTypeDef->append(" nvarchar($fkbLength)");
+      $sbTypeDef->append(" nvarchar($fcLnLength)");
     }
 
-    if ($fkbType == 'int') {
+    if ($fcTxFieldType == FimOcgFieldTypes::varchar()->getTxKey()) {
+
+      if (FiString::isEmpty($fcLnLength)) {
+        $fcLnLength = 50;
+      }
+      $sbTypeDef->append(" varchar($fcLnLength)");
+    }
+
+    if (
+      $fcTxFieldType == FimOcgFieldTypes::decimal()->getTxKey()
+      || $fcTxFieldType == FimOcgFieldTypes::double()->getTxKey()
+    ) {
+
+      if (FiString::isEmpty($fcLnLength)) {
+        $fcLnLength = 50;
+      }
+
+      if (FiString::isEmpty($fcLnScale)) {
+        $fcLnScale = 2;
+      }
+
+      $sbTypeDef->append(" decimal($fcLnLength,$fcLnScale)");
+    }
+
+    if ($fcTxFieldType == FimOcgFieldTypes::int()->getTxKey()) {
       $sbTypeDef->append(" int");
     }
 
-    if ($fkbType == 'datetime') {
+    if ($fcTxFieldType == FimOcgFieldTypes::tinyint()->getTxKey()) {
+      $sbTypeDef->append(" tinyint");
+    }
+
+    // URREV
+    if ($fcTxFieldType == FimOcgFieldTypes::date()->getTxKey()) {
       $sbTypeDef->append(" datetime");
     }
 
-    if ($fkbIdType == 'identity') {
+    if ($fcTxFieldType == FimOcgFieldTypes::datetimeoffset()->getTxKey()) {
+      $sbTypeDef->append(" datetimeoffset(0)");
+    }
+
+    if ($fcTxIdType == 'identity' || $fcTxIdType == 'auto') {
       $sbTypeDef->append(" IDENTITY(1,1) NOT NULL PRIMARY KEY");
     }
 
+    if($fcTxIdType == 'user'){
+      $sbTypeDef->append(" NOT NULL PRIMARY KEY");
+      //$sbTypeDef->append(" UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT NEWID()");
+    }
 
 
     return $sbTypeDef->toString();
