@@ -4,7 +4,7 @@ namespace Codegen\FiMetas\App;
 // FiMeta Class Generation (By Dml) - v0.4 
       
 use Engtuncay\Phputils8\FiDtos\FiMeta;
-use Engtuncay\Phputils8\FiDtos\FmtList;
+
 
 class FimCdgMssqlOpts {
 

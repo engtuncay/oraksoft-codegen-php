@@ -24,7 +24,7 @@ class CogSpecsPhpFiCol implements ICogSpecsGenCol
     $templateMain = <<<EOD
       
 use Engtuncay\Phputils8\FiDtos\FiMeta;
-use Engtuncay\Phputils8\FiDtos\FmtList;
+use Engtuncay\Phputils8\FiDtos\FicList;
 
 class {{classPref}}{{entityName}} {
 
@@ -510,12 +510,12 @@ EOD;
   public function getTempGenFmtColsTransList(): string
   {
     return <<<EOD
-public static function genTableColsTrans() : FmtList {
-  \$fmtList = new FmtList();
+public static function genTableColsTrans() : FicList {
+  \$ficList = new FicList();
 
   {{fmtListBodyTrans}}
 
-  return \$fmtList;
+  return \$ficList;
 }
 EOD;
   }
@@ -558,12 +558,12 @@ EOD;
   public function getTempGenFmtColsMethod(): string
   {
     return <<<EOD
-public static function genTableCols() : FmtList {
-  \$fmtList = new FmtList();
+public static function genTableCols() : FicList {
+  \$ficList = new FicList();
 
-  {{fmtListBody}}
+  {{ficListBody}}
 
-  return \$fmtList;
+  return \$ficList;
 }
 EOD;
   }

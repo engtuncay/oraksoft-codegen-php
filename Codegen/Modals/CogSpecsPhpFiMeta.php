@@ -21,7 +21,7 @@ class CogSpecsPhpFiMeta implements ICogSpecsGenCol
     $templateMain = <<<EOD
       
 use Engtuncay\Phputils8\FiDtos\FiMeta;
-use Engtuncay\Phputils8\FiDtos\FmtList;
+use Engtuncay\Phputils8\FiDtos\FicList;
 
 class {{classPref}}{{entityName}} {
 

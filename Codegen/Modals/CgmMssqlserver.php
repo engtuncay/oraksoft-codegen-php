@@ -4,6 +4,8 @@ namespace Codegen\Modals;
 
 use App\Controllers\CodegenCont;
 use Codegen\FiMetas\App\FimCdgMssqlOpts;
+use Codegen\FiMetas\App\FimOcgFieldTypes;
+use Codegen\FiMetas\App\FimOcgForm;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
@@ -105,12 +107,12 @@ CREATE TABLE $sfTableName (
 
     $sbTypeDef = new FiStrbui();
 
-    if ($fkbType == 'string') {
+    if ($fkbType == FimOcgFieldTypes::string()->getTxKey() ) {
 
       if (FiString::isEmpty($fkbLength)) {
         $fkbLength = 50;
       }
-      $sbTypeDef->append(" varchar($fkbLength)");
+      $sbTypeDef->append(" nvarchar($fkbLength)");
     }
 
     if ($fkbType == 'int') {
