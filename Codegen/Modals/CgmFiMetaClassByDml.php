@@ -55,7 +55,7 @@ class CgmFiMetaClassByDml
       /**
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
        */
-      $sbFiColMethodBody = $iSpecsFiMeta->genColMethodBody($fkbItem);
+      $sbColMethodBody = $iSpecsFiMeta->genColMethodBody($fkbItem);
 
       //$sbFiColAddDescDetail->append($iCogSpecs->genFiColAddDescDetail($fkbItem)->toString());
 
@@ -70,13 +70,12 @@ class CgmFiMetaClassByDml
 
       $fkbFiMetaMethod->add("fieldMethodName", $iCogSpecs->checkMethodNameStd($fieldName));
       $fkbFiMetaMethod->add("fieldName", $fieldName);
-      $fkbFiMetaMethod->add("fiMethodBody", $sbFiColMethodBody->toString());
+      $fkbFiMetaMethod->add("fiMethodBody", $sbColMethodBody->toString());
       //$fkbFiColMethodBody->add("fieldHeader", $fcTxHeader);
 
       $txMethodCode = FiTemplate::replaceParams($iSpecsFiMeta->getTemplateColMethod(), $fkbFiMetaMethod);
 
       $sbFiMetaMethods->append($txMethodCode)->append("\n\n");
-
 
       // $fcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
       // $methodName = $iCogSpecs->checkMethodNameStd($fieldName);

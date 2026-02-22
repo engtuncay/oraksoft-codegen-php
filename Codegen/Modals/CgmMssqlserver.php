@@ -3,8 +3,7 @@
 namespace Codegen\Modals;
 
 use App\Controllers\CodegenCont;
-use Codegen\Modals\CgmUtils;
-use Codegen\Modals\DtoCodeGen;
+use Codegen\FiMetas\App\FimCdgMssqlOpts;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
@@ -12,6 +11,7 @@ use Engtuncay\Phputils8\FiDtos\Fdr;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
+use Engtuncay\Phputils8\FiMetas\FimOcgSql;
 use Engtuncay\Phputils8\FiMetas\FimOksCoding;
 
 /**
@@ -40,10 +40,6 @@ class CgmMssqlserver
   {
     $fkbFirstItem = $fkbList->get(0);
 
-    // Tpr: Template Param
-    $tprTableName = FimOksCoding::oscTxTableName()->getTxKeyAsTemp();
-    $tprColumns = FimOksCoding::oscTxTableFields()->getTxKeyAsTemp();
-
     $sbColDefs = new FiStrbui();
 
     /** @var FkbList $fkbList 
@@ -56,18 +52,22 @@ class CgmMssqlserver
       $sqlTypeDef = self::genSqlColTypeDef($fkbItem);
 
       $sbColDef = new FiStrbui();
-      $sbColDef->append($fkbFieldName . ' ' . $sqlTypeDef . ",\n");
-
+      $sbColDef->append("$fkbFieldName $sqlTypeDef,\n");
       $sbColDefs->append($sbColDef->toString());
     }
 
     $fkbSqlCreateParam = new FiKeybean();
-    $fkbSqlCreateParam->addFieldMeta(FimOksCoding::oscTxTableName(), $fkbFirstItem->getValueByFiMeta(FimFiCol::fcTxEntityName()));
-    $fkbSqlCreateParam->addFieldMeta(FimOksCoding::oscTxTableFields(), rtrim($sbColDefs->toString(), ",\n"));
+    $fkbSqlCreateParam->addFieldMeta(FimOcgSql::sfTableName(), $fkbFirstItem->getValueByFim(FimFiCol::fcTxEntityName()));
+    // rtrim ile en sondaki , ve \n karakterleri silinir (!)
+    $fkbSqlCreateParam->addFieldMeta(FimOcgSql::sfTableFields(), rtrim($sbColDefs->toString(), ",\n"));
+
+    // Template Params (getTxKeyAsTemp is for Template Placeholders)
+    $sfTableName = FimOcgSql::sfTableName()->getTxKeyAsTemp();
+    $sfTableFields = FimOcgSql::sfTableFields()->getTxKeyAsTemp();
 
     $sqlTemplate = "
-CREATE TABLE $tprTableName (
-  $tprColumns
+CREATE TABLE $sfTableName (
+  $sfTableFields
 )
 ";
 
@@ -100,6 +100,7 @@ CREATE TABLE $tprTableName (
   {
     $fkbType = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldType());
     $fkbLength = $fkbItem->getValueByFiMeta(FimFiCol::fcLnLength());
+    $fkbScale = $fkbItem->getValueByFiMeta(FimFiCol::fcLnScale());
     $fkbIdType = $fkbItem->getValueByFiMeta(FimFiCol::fcTxIdType());
 
     $sbTypeDef = new FiStrbui();

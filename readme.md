@@ -1,5 +1,10 @@
-
 **Oraksoft CodeGen App Readme**
+
+# App Abbreviations
+
+- Cgm: Code Generation Model Classes
+
+# Code Generation
 
 Kod üretimi için 4 ana sınıf
 
