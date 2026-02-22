@@ -31,7 +31,7 @@ $fkbData = new FiKeybean($data);
   <title>Oraksoft Code Generator</title>
   <link rel="stylesheet" href="<?= base_url('orak_modules/bootstrap/bootstrap.min.css') ?>">
   <link rel="stylesheet" href="<?= base_url('orak_modules/oraksoft-tw-css-lib/oraksoft-tw-lib.css') ?>">
-  <link rel="stylesheet" href="<?= base_url('assets/css/codeblock.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('css/codeblock.css') ?>">
 
   <style>
     .fibody {
