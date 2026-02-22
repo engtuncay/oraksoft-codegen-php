@@ -216,7 +216,7 @@ $fkbData = new FiKeybean($data);
       actGenCode,
       actExecCommand,
       viewHomeInit
-    } from '<?= base_url('assets/js/viewHome.js') ?>';
+    } from '<?= base_url('js/viewHome.js') ?>';
 
     viewHomeInit();
 
@@ -249,8 +249,8 @@ $fkbData = new FiKeybean($data);
   </script>
 
   <script src="<?= base_url('orak_modules/bootstrap/bootstrap.min.js') ?>"></script>
-  <script type="module" src="<?= base_url('assets/js/main.js') ?>"></script>
-  <script type="module" src="<?= base_url('assets/js/viewHome.js') ?>"></script>
+  <script type="module" src="<?= base_url('js/main.js') ?>"></script>
+  <script type="module" src="<?= base_url('js/viewHome.js') ?>"></script>
   <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
 
 </body>

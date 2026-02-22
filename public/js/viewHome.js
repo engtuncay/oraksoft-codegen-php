@@ -1,4 +1,4 @@
-import { FiKeybean, fiPostFormData, fiPostJson, testOrakSoftUi } from "../../orak_modules/oraksoft-ui/oraksoft-ui.js";
+import { FiKeybean, fiPostFormData, fiPostJson, testOrakSoftUi } from "../orak_modules/oraksoft-ui/oraksoft-ui.js";
 import { FimOcgApp } from "./ocgmeta/FimOcgApp.js";
 import { FimOsfFdr } from "./ocgmeta/FimOsfFdr.js";
 
