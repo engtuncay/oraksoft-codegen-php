@@ -3,15 +3,18 @@
 namespace Codegen\Modals;
 
 use Codegen\FiCols\FicFiMeta;
+use Codegen\OcgConfigs\OcgLogger;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 class CogSpecsJsFiMeta implements ICogSpecsGenCol
 {
 
   public function getTemplateColClass(): string
   {
+    OcgLogger::info("CogSpecsJsFiMeta::getTemplateColClass called");
     //String
     $template = <<<EOD
 import { FiMeta } from "../../../orak_modules/oraksoft-ui/oraksoft-ui.js";
@@ -42,21 +45,28 @@ EOD;
 
   public function genColMethodBody(FiKeybean $fkb): FiStrbui
   {
+    // Field Definitions
     //StringBuilder
-    $sbFmtMethodBodyFieldDefs = new FiStrbui();
+    $sbFimMethodBody = new FiStrbui();
 
-    // constructor'da tanımlanmış
+    // ftTxKey alanı constructor'da tanımlanmış
     // $txKey = $fkb->getValueByFiCol(FicFiMeta::ftTxKey());
     // if ($txKey != null) {
-    //   $sbFmtMethodBodyFieldDefs->append(sprintf(" fiMeta.txKey = \"%s\";\n", $txKey));
+    //   $sbFmtMethodBodyFieldDefs->append(sprintf(" fiMeta.ftTxKey = \"%s\";\n", $txKey));
     // }
 
     $txValue = $fkb->getValueByFiCol(FicFiMeta::ftTxValue());
     if ($txValue != null) {
-      $sbFmtMethodBodyFieldDefs->append(sprintf(" fiMeta.ftTxValue = \"%s\";\n", $txValue));
+      $sbFimMethodBody->append(sprintf(" fiMeta.ftTxValue = \"%s\";\n", $txValue));
     }
 
-    return $sbFmtMethodBodyFieldDefs;
+    $fcLnId = $fkb->getValueByFim(FimFiCol::fcLnId());
+    OcgLogger::info("fcLnId: " . $fcLnId);
+    if ($fcLnId != null) {
+      $sbFimMethodBody->append(sprintf("  fiMeta.ftLnKey = %s;\n", $fcLnId));
+    }
+
+    return $sbFimMethodBody;
   }
 
   /**
@@ -71,9 +81,15 @@ EOD;
   {
     $sb = new FiStrbui();
 
-    $fcTxHeader = $fkb->getValueByFiCol(FicFiCol::fcTxHeader());
+    $fcTxHeader = $fkb->getValueByFim(FimFiCol::fcTxHeader());
     if ($fcTxHeader != null) {
       $sb->append(sprintf("  fiMeta.ftTxValue = \"%s\";\n", $fcTxHeader));
+    }
+
+    $fcLnId = $fkb->getValueByFim(FimFiCol::fcLnId());
+    OcgLogger::info("fcLnId: " . $fcLnId);
+    if ($fcLnId != null) {
+      $sb->append(sprintf("  fiMeta.ftLnKey = %s;\n", $fcLnId));
     }
 
     return $sb;

@@ -116,7 +116,7 @@ class CgmFiMetaClassByDml
     $sbClassBody->append($sbFiMetaMethods->toString());
 
     //
-    $classPref = "Fmt";
+    $classPref = "Fim";
 
     // String
     $txEntityName = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxEntityName());

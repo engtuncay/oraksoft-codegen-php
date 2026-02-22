@@ -91,7 +91,7 @@ $fkbData = new FiKeybean($data);
                       </select>
                     </div>
                     <div class="mb-3 col-md-3">
-                      <label for="selSql" class="form-label">Sql</label>
+                      <label for="selSql" class="form-label">Ms-Sql</label>
                       <select class="form-select" aria-label="Sql Operations" name="selSql" id="selSql">
                       </select>
                     </div>

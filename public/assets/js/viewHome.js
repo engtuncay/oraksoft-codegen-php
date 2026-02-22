@@ -2,23 +2,38 @@ import { FiKeybean, fiPostFormData, fiPostJson, testOrakSoftUi } from "../../ora
 import { FimOcgApp } from "./ocgmeta/FimOcgApp.js";
 import { FimOsfFdr } from "./ocgmeta/FimOsfFdr.js";
 
+/**
+ * 
+ * @param {HTMLElement} element 
+ * @param {string} value 
+ * @param {string} textContent 
+ */
 function addOption(element, value, textContent) {
-  
-  if(element instanceof HTMLSelectElement) {
+
+  if (element instanceof HTMLSelectElement) {
     const option = document.createElement("option");
     option.value = value;
     option.textContent = textContent;
     element.appendChild(option);
   }
-  
+
 }
 
-function addOptionsToElement(elementById, txIdSeciniz = "0") {
-  addOption(elementById, txIdSeciniz, "Select");
-  addOption(elementById, "1", "FiCol Class");
-  addOption(elementById, "2", "FiMeta Class By DML");
-  addOption(elementById, "3", "FkbCol Class");
-  addOption(elementById, "4", "FiMeta Class");
+/**
+ * 
+ * @param {HTMLElement} elementById 
+ * @param {string} txIdSeciniz 
+ */
+function addFiClassOptsToElem(elementById, txIdSeciniz = "0") {
+
+  if (elementById instanceof HTMLSelectElement) {
+    addOption(elementById, txIdSeciniz, "Select");
+    addOption(elementById, "1", "FiCol Class");
+    addOption(elementById, "2", "FiMeta Class By DML");
+    addOption(elementById, "3", "FkbCol Class");
+    addOption(elementById, "4", "FiMeta Class");
+  }
+
 }
 
 export function viewHomeInit() {
@@ -26,19 +41,19 @@ export function viewHomeInit() {
   let txIdSeciniz = "0";
 
   let eleSelCsharp = document.getElementById("selCsharp");
-  addOptionsToElement(eleSelCsharp);
+  addFiClassOptsToElem(eleSelCsharp);
 
   let eleSelPhp = document.getElementById("selPhp");
-  addOptionsToElement(eleSelPhp);
+  addFiClassOptsToElem(eleSelPhp);
 
   let eleSelTs = document.getElementById("selTs");
-  addOptionsToElement(eleSelTs);
+  addFiClassOptsToElem(eleSelTs);
 
   let eleSelJs = document.getElementById("selJs");
-  addOptionsToElement(eleSelJs);
+  addFiClassOptsToElem(eleSelJs);
 
   let eleSelJava = document.getElementById("selJava");
-  addOptionsToElement(eleSelJava);
+  addFiClassOptsToElem(eleSelJava);
 
   let eleSelSql = document.getElementById("selSql");
   addOption(eleSelSql, txIdSeciniz, "Select");
