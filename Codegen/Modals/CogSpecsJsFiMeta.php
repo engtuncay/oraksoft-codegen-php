@@ -17,7 +17,7 @@ class CogSpecsJsFiMeta implements ICogSpecsGenCol
     OcgLogger::info("CogSpecsJsFiMeta::getTemplateColClass called");
     //String
     $template = <<<EOD
-import { FiMeta } from "../../../orak_modules/oraksoft-ui/oraksoft-ui.js";
+import { FiMeta } from "../../orak_modules/oraksoft-ui/oraksoft-ui.js";
 
 export class {{classPref}}{{entityName}}
 {
@@ -55,9 +55,9 @@ EOD;
     //   $sbFmtMethodBodyFieldDefs->append(sprintf(" fiMeta.ftTxKey = \"%s\";\n", $txKey));
     // }
 
-    $txValue = $fkb->getValueByFiCol(FicFiMeta::ftTxValue());
+    $txValue = $fkb->getValueByFim(FimFiCol::fcTxHeader());
     if ($txValue != null) {
-      $sbFimMethodBody->append(sprintf(" fiMeta.ftTxValue = \"%s\";\n", $txValue));
+      $sbFimMethodBody->append(sprintf("  fiMeta.ftTxValue = \"%s\";\n", $txValue));
     }
 
     $fcLnId = $fkb->getValueByFim(FimFiCol::fcLnId());
@@ -69,31 +69,31 @@ EOD;
     return $sbFimMethodBody;
   }
 
-  /**
-   * FiMeta üreten metodun gövdesinin FiCol Template üzerinden dolduruldu
-   * 
-   * value olarak fcTxHeader kullanıldı
-   *
-   * @param FiKeybean $fkb alan bilgisi (row)
-   * @return FiStrbui
-   */
-  public function genColMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui
-  {
-    $sb = new FiStrbui();
+  // /**
+  //  * FiMeta üreten metodun gövdesinin FiCol Template üzerinden dolduruldu
+  //  * 
+  //  * value olarak fcTxHeader kullanıldı
+  //  *
+  //  * @param FiKeybean $fkb alan bilgisi (row)
+  //  * @return FiStrbui
+  //  */
+  // public function genColMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui
+  // {
+  //   $sb = new FiStrbui();
 
-    $fcTxHeader = $fkb->getValueByFim(FimFiCol::fcTxHeader());
-    if ($fcTxHeader != null) {
-      $sb->append(sprintf("  fiMeta.ftTxValue = \"%s\";\n", $fcTxHeader));
-    }
+  //   $fcTxHeader = $fkb->getValueByFim(FimFiCol::fcTxHeader());
+  //   if ($fcTxHeader != null) {
+  //     $sb->append(sprintf("  fiMeta.ftTxValue = \"%s\";\n", $fcTxHeader));
+  //   }
 
-    $fcLnId = $fkb->getValueByFim(FimFiCol::fcLnId());
-    OcgLogger::info("fcLnId: " . $fcLnId);
-    if ($fcLnId != null) {
-      $sb->append(sprintf("  fiMeta.ftLnKey = %s;\n", $fcLnId));
-    }
+  //   $fcLnId = $fkb->getValueByFim(FimFiCol::fcLnId());
+  //   OcgLogger::info("fcLnId: " . $fcLnId);
+  //   if ($fcLnId != null) {
+  //     $sb->append(sprintf("  fiMeta.ftLnKey = %s;\n", $fcLnId));
+  //   }
 
-    return $sb;
-  }
+  //   return $sb;
+  // }
 
   public function getTemplateColListMethod(): string
   {

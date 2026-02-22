@@ -1,6 +1,7 @@
-import { FiKeybean, fiPostFormData, fiPostJson, testOrakSoftUi } from "../orak_modules/oraksoft-ui/oraksoft-ui.js";
-import { FimOcgApp } from "./ocgmeta/FimOcgApp.js";
+import { FiKeybean, FiMeta, fiPostFormData, fiPostJson, testOrakSoftUi } from "../orak_modules/oraksoft-ui/oraksoft-ui.js";
+import { FimCdgMssqlOpts } from "./ocgmeta/FimCdgMssqlOpts.js";
 import { FimOsfFdr } from "./ocgmeta/FimOsfFdr.js";
+
 
 /**
  * 
@@ -14,6 +15,23 @@ function addOption(element, value, textContent) {
     const option = document.createElement("option");
     option.value = value;
     option.textContent = textContent;
+    element.appendChild(option);
+  }
+
+}
+
+/**
+ * 
+ * @param {HTMLElement} element 
+ * @param {FiMeta} fiMeta
+ * 
+ */
+function addOptionByLnId(element, fiMeta) {
+
+  if (element instanceof HTMLSelectElement) {
+    const option = document.createElement("option");
+    option.value = fiMeta.ftLnKey.toString();
+    option.textContent = fiMeta.getTxValueNtn();
     element.appendChild(option);
   }
 
