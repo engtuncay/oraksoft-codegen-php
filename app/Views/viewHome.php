@@ -65,32 +65,32 @@ $fkbData = new FiKeybean($data);
 
                 <div id="divSelBoxs" class="">
                   <div class="row">
-                    <div class="mb-3 col-md-4">
+                    <div class="mb-3 col-md-3">
                       <label for="selCsharp" class="form-label">Csharp</label>
                       <select name="selCsharp" id="selCsharp" class="form-select" aria-label="Csharp Operations">
                       </select>
                       <!--<div class="form-text">note.</div>-->
                     </div>
-                    <div class="mb-3 col-md-4">
+                    <div class="mb-3 col-md-3">
                       <label for="selPhp" class="form-label">Php</label>
                       <select class="form-select" aria-label="Php Operations" name="selPhp" id="selPhp">
                       </select>
                     </div>
-                    <div class="mb-3 col-md-4">
+                    <div class="mb-3 col-md-3">
                       <label for="selJava" class="form-label">Java</label>
                       <select class="form-select" aria-label="Java Operations" name="selJava" id="selJava">
                       </select>
                     </div>
-                    <div class="mb-3 col-md-4">
+                    <div class="mb-3 col-md-3">
                       <label for="selTs" class="form-label">Typescript</label>
                       <select class="form-select" aria-label="Ts Operations" name="selTs" id="selTs"></select>
                     </div>
-                    <div class="mb-3 col-md-4">
+                    <div class="mb-3 col-md-3">
                       <label for="selJs" class="form-label">Javascript</label>
                       <select class="form-select" aria-label="Javascript Operations" name="selJs" id="selJs">
                       </select>
                     </div>
-                    <div class="mb-3 col-md-4">
+                    <div class="mb-3 col-md-3">
                       <label for="selSql" class="form-label">Sql</label>
                       <select class="form-select" aria-label="Sql Operations" name="selSql" id="selSql">
                       </select>
