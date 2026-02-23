@@ -10,6 +10,12 @@ use Engtuncay\Phputils8\FiCores\FiString;
 class CogSpecsPhp implements ICogSpecs
 {
 
+  public function getTxLang(): string
+  {
+    return "Php";
+  }
+
+
   /**
    * 
    * Hepsi büyük harf ise, hepsini küçültür

@@ -14,4 +14,6 @@ interface ICogSpecs
 
   public function checkClassNameStd(mixed $entityName): string;
 
+  public function getTxLang(): string;
+
 }

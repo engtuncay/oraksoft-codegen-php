@@ -45,4 +45,10 @@ class CgmApiUtil
 
     return $fkbReturn;
   }
+
+  public static function getTxVer()
+  {
+    return "0.4";
+  }
+  
 }

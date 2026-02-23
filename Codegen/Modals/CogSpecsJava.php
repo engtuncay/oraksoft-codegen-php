@@ -11,6 +11,12 @@ use Engtuncay\Phputils8\FiCores\FiString;
 class CogSpecsJava implements ICogSpecs
 {
 
+  public function getTxLang(): string
+  {
+    return "Java";
+  }
+
+
   /**
    * @param mixed $txEntityName
    * @return mixed
@@ -24,14 +30,14 @@ class CogSpecsJava implements ICogSpecs
     return ucfirst($txEntityName);
   }
 
-    /**
+  /**
    * @param mixed $fieldName
    * @return string
    */
   public function checkMethodNameStd(mixed $fieldName): string
   {
     return CgmUtils::convertToLowerCamelCase($fieldName);
-    
+
     // // Başlangıçta eğer fieldName boşsa direkt döndür
     // if (empty($fieldName)) return "";
 
@@ -66,8 +72,4 @@ class CogSpecsJava implements ICogSpecs
     //   return $result;
     //}
   }
-
-
-
-  
 }

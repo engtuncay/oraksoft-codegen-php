@@ -115,6 +115,7 @@ $fkbData = new FiKeybean($data);
                   <button class="btn btn-info m-1 " data-action="actReadEntityList">Read Entity List</button>
                   <button class="btn btn-primary m-1" data-action="actGenCode">Generate Code</button>
                   <button class="btn btn-secondary m-1" data-action="actExecCommand">Exec Command</button>
+                  <button class="btn btn-danger m-1" data-action="actExecSql">Exec Sql</button>
                 </div>
 
                 <!-- Db Active - Password Panel -->
@@ -153,7 +154,13 @@ $fkbData = new FiKeybean($data);
                         <div class="">
                           <div><h6>Example Commands</h6></div>
                           <!-- <label for="txCustomCmd" class="form-label">Custom Command</label> -->
-                          <div><pre class="mb-1"> --cmd dml --table TABLENAME --prefix pref</pre></div>
+                          <div><pre class="mb-1">--cmd dml --table TABLENAME --prefix pref</pre></div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="">
+                          <div><h6>Command Messages</h6></div>
+                          <div><pre id="elePreCommMess" class="mb-1"></pre></div>
                         </div>
                       </div>
                     </div>

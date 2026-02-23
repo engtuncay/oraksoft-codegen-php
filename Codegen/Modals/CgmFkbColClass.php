@@ -26,7 +26,7 @@ class CgmFkbColClass
    * @param ICogSpecsGenCol|null $iSpecsFkbCol
    * @return string
    */
-  public static function actGenClassByFkbList(FkbList $fkbList, ICogSpecs $iCogSpecs = null, ICogSpecsGenCol $iSpecsFkbCol = null): string
+  public static function actGenClassByFkl(FkbList $fkbList, ICogSpecs $iCogSpecs = null, ICogSpecsGenCol $iSpecsFkbCol = null): string
   {
 
     if ($iCogSpecs == null) return "";

@@ -39,6 +39,7 @@ function addOptionByFimAndLnKey(element, fiMeta) {
 }
 
 /**
+ * FiCol ve FiMeta ve FkbCol sınıfları için option ekleme fonksiyonu
  * 
  * @param {HTMLElement} elementById 
  * @param {string} txIdSeciniz 
@@ -47,10 +48,10 @@ function addFiClassOptsToElem(elementById, txIdSeciniz = "0") {
 
   if (elementById instanceof HTMLSelectElement) {
     addOption(elementById, txIdSeciniz, "Select");
-    addOption(elementById, "1", "FiCol Class");
-    addOption(elementById, "2", "FiMeta Class By DML");
+    addOption(elementById, "2", "FiMeta Class");
     addOption(elementById, "3", "FkbCol Class");
-    addOption(elementById, "4", "FiMeta Class");
+    addOption(elementById, "1", "FiCol Class");
+    //addOption(elementById, "4", "FiMeta Class");
   }
 
 }

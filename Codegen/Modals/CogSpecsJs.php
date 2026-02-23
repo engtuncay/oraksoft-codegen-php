@@ -9,6 +9,12 @@ use Engtuncay\Phputils8\FiCores\FiString;
 class CogSpecsJs implements ICogSpecs
 {
 
+  public function getTxLang(): string
+  {
+    return "Js";
+  }
+
+
   /**
    * 
    * Hepsi büyük harf ise, hepsini küçültür

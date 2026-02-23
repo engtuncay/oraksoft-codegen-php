@@ -26,7 +26,7 @@ class CgmMssqlserver
     $fdrMain = new Fdr();
 
     $sbTxCodeGen1 = new FiStrbui();
-    $txVer = CodegenCont::getTxVer();
+    $txVer = CgmApiUtil::getTxVer();
     $sbTxCodeGen1->append("-- Sql Create Table Code Gen v$txVer\n");
     $sbTxCodeGen1->append(CgmMssqlserver::actGenSqlCreate($fkbList));
     $sbTxCodeGen1->append("\n");

@@ -9,6 +9,10 @@ use Engtuncay\Phputils8\FiCores\FiString;
  */
 class CogSpecsCsharp implements ICogSpecs
 {
+  public function getTxLang(): string
+  {
+    return "Csharp";
+  }
 
   /**
    * @param mixed $txEntityName
@@ -64,6 +68,4 @@ class CogSpecsCsharp implements ICogSpecs
       return $result;
     }
   }
-
-
 }

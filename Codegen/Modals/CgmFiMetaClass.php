@@ -23,7 +23,7 @@ class CgmFiMetaClass
    * @param ICogSpecsGenCol $iSpecsFiMeta
    * @return string
    */
-  public static function actGenFiMetaClassByFkb(FkbList $fkbList, ICogSpecs $iCogSpecs = null, ICogSpecsGenCol $iSpecsFiMeta = null): string
+  public static function actGenFiMetaClassByFkl(FkbList $fkbList, ICogSpecs $iCogSpecs = null, ICogSpecsGenCol $iSpecsFiMeta = null): string
   {
 
     if ($iCogSpecs == null) return "";
