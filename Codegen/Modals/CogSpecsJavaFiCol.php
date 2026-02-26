@@ -26,10 +26,9 @@ class CogSpecsJavaFiCol implements ICogSpecsGenCol
     $templateMain = <<<EOD
 
 import ozpasyazilim.utils.table.FiCol;
-import ozpasyazilim.utils.table.OzColType;
-import ozpasyazilim.utils.table.FiColList;
-import ozpasyazilim.utils.fidbanno.FiIdGenerationType;
+import ozpasyazilim.utils.table.FicList;
 import ozpasyazilim.utils.fidborm.IFiTableMeta;
+import ozpasyazilim.utils.fidbanno.FiIdGenerationType;
       
 public class {{classPref}}{{entityName}} implements IFiTableMeta
 {
@@ -44,12 +43,12 @@ public class {{classPref}}{{entityName}} implements IFiTableMeta
     return getTxTableName();
   }
 
-  public FiColList genITableCols()
+  public FicList genITableCols()
   {
     return genTableCols();
   }
   
-  public FiColList genITableColsTrans()
+  public FicList genITableColsTrans()
   {
     return genTableColsTrans();
   }
@@ -198,8 +197,8 @@ EOD;
   public function getTemplateColListExtraMethod(): string
   {
     return <<<EOD
-public static FiColList genTableColsExtra() {
-  FiColList ficList = new FiColList();
+public static FicList genTableColsExtra() {
+  FicList ficList = new FicList();
 
   {{ficListBodyExtra}}
 
@@ -214,8 +213,8 @@ EOD;
   public function getTemplateColListTransMethod(): string
   {
     return <<<EOD
-public static FiColList genTableColsTrans() {
-  FiColList ficList = new FiColList();
+public static FicList genTableColsTrans() {
+  FicList ficList = new FicList();
   
   {{ficListBodyTrans}}
   
@@ -230,8 +229,8 @@ EOD;
   public function getTemplateColListMethod(): string
   {
     return <<<EOD
-public static FiColList genTableCols() {
-  FiColList ficList = new FiColList();
+public static FicList genTableCols() {
+  FicList ficList = new FicList();
 
   {{ficListBody}}
 

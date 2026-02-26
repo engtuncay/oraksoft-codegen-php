@@ -2,7 +2,6 @@
 
 namespace Codegen\Modals;
 
-use App\Controllers\CodegenCont;
 use Codegen\FiMetas\App\FimOcgFieldTypes;
 use Engtuncay\Phputils8\FiCores\FiBool;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
