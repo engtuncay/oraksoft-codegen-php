@@ -35,6 +35,36 @@ class CgmMssqlserver
     return $fdrMain;
   }
 
+  public static function actGenAlterTableByEntity(FkbList $fkbList): Fdr
+  {
+    $fdrMain = new Fdr();
+
+    $sbTxCodeGen = new FiStrbui();
+    $txVer = CgmApiUtil::getTxVer();
+    $sbTxCodeGen->append("-- Sql Alter Table Code Gen v$txVer\n");
+    // $sbTxCodeGen1->append(CgmMssqlserver::actGenSqlAlter($fkbList));
+
+    $sfTxTableName = $fkbList->get(0)->getFimValue(FimFiCol::fcTxEntityName());
+
+    // --ALTER TABLE STOK_HAREKETLERI ADD sthTxGuid nvarchar(40)
+    
+    foreach ($fkbList as $fkbItem) {
+
+      $sfTxFieldDef = self::genSqlColTypeDefin($fkbItem);
+      $sfTxFieldName = $fkbItem->getValueByFim(FimFiCol::fcTxFieldName());
+      
+      $txAlterQueryTemp = "ALTER TABLE $sfTxTableName ADD $sfTxFieldName $sfTxFieldDef;";
+      $sbTxCodeGen->append($txAlterQueryTemp);
+      $sbTxCodeGen->append("\n");
+
+    }
+    $sbTxCodeGen->append("\n");
+
+    $fdrMain->setBoResult(true);
+    $fdrMain->setTxValue($sbTxCodeGen->toString());
+    return $fdrMain;
+  }
+
 
   public static function actGenSqlCreate(FkbList $fkbList): string
   {
@@ -52,11 +82,11 @@ class CgmMssqlserver
       $fcTxIdType = $fkbItem->getValueByFim(FimFiCol::fcTxIdType());
 
       // Transient Alanlar SQL Create Table'da yer almaz
-      if(FiBool::isTrue($fcBoTransient)) {
-        continue; 
+      if (FiBool::isTrue($fcBoTransient)) {
+        continue;
       }
 
-      $sqlTypeDef = self::genSqlColTypeDef($fkbItem);
+      $sqlTypeDef = self::genSqlColTypeDefin($fkbItem);
 
       $sbColDef = new FiStrbui();
       $sbColDef->append("$fcTxFieldName $sqlTypeDef,\n");
@@ -109,13 +139,13 @@ CREATE TABLE $sfTableName (
    * @param FiKeybean $fkbItem
    * @return string
    */
-  public static function genSqlColTypeDef(FiKeybean $fkbItem): string
+  public static function genSqlColTypeDefin(FiKeybean $fkbItem): string
   {
     $fcTxFieldType = $fkbItem->getValueByFim(FimFiCol::fcTxFieldType());
     $fcLnLength = $fkbItem->getValueByFim(FimFiCol::fcLnLength());
     $fcLnScale = $fkbItem->getValueByFim(FimFiCol::fcLnScale());
     $fcTxIdType = $fkbItem->getValueByFim(FimFiCol::fcTxIdType());
-    
+
 
     $sbTypeDef = new FiStrbui();
 
@@ -162,6 +192,10 @@ CREATE TABLE $sfTableName (
       $sbTypeDef->append(" tinyint");
     }
 
+    if ($fcTxFieldType == FimOcgFieldTypes::bit()->getTxKey()) {
+      $sbTypeDef->append(" bit");
+    }
+
     // URREV
     if ($fcTxFieldType == FimOcgFieldTypes::date()->getTxKey()) {
       $sbTypeDef->append(" datetime");
@@ -175,7 +209,7 @@ CREATE TABLE $sfTableName (
       $sbTypeDef->append(" IDENTITY(1,1) NOT NULL PRIMARY KEY");
     }
 
-    if($fcTxIdType == 'user'){
+    if ($fcTxIdType == 'user') {
       $sbTypeDef->append(" NOT NULL PRIMARY KEY");
       //$sbTypeDef->append(" UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT NEWID()");
     }

@@ -42,16 +42,16 @@ class CgmCodegen
     //$fkbList = $fkbEntityToFkbList->getValue($txEntity);
     $sbTxCodeGen1 = new FiStrbui();
 
-    // addOption(elementById, "1", "FiCol Sınıf");
-    // addOption(elementById, "2", "FiMeta By DML Template");
-    // addOption(elementById, "3", "FkbCol Sınıf");
+    // addOption(elementById, "1", "FiCol Class");
+    // addOption(elementById, "2", "FiMeta Class");
+    // addOption(elementById, "3", "FkbCol Class");
 
     if ($lnClassType == 1) {
       $sbTxCodeGen1->append("// $txLang FiCol Class Generation - v$txVer \n");
       $sbTxCodeGen1->append(CgmFiColClass::actGenFiColClassByFkl($fkbList, $iCogSpecs, $iCogSpecsGenCol));
     }
     if ($lnClassType == 2) {
-      $sbTxCodeGen1->append("// $txLang FiMeta Class Generation (By Dml) - v$txVer \n");
+      $sbTxCodeGen1->append("// $txLang FiMeta Class Generation - v$txVer \n");
       $sbTxCodeGen1->append(CgmFiMetaClassByDml::actGenFiMetaClassByFkl($fkbList, $iCogSpecs, $iCogSpecsGenCol));
     }
     if ($lnClassType == 3) {

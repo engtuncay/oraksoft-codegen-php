@@ -54,7 +54,6 @@ EOD;
 
 import ozpasyazilim.utils.datatypes.FiKeybean;
 import ozpasyazilim.utils.fidborm.IFiTableMetaFkc;
-import ozpasyazilim.utils.fidbanno.FiIdGenerationType;
 import ozpasyazilim.utils.datatypes.FkbList;
 import ozpasyazilim.utils.ficols.FimFiCol;
 

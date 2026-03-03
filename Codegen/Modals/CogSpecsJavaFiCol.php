@@ -28,7 +28,6 @@ class CogSpecsJavaFiCol implements ICogSpecsGenCol
 import ozpasyazilim.utils.table.FiCol;
 import ozpasyazilim.utils.table.FicList;
 import ozpasyazilim.utils.fidborm.IFiTableMeta;
-import ozpasyazilim.utils.fidbanno.FiIdGenerationType;
       
 public class {{classPref}}{{entityName}} implements IFiTableMeta
 {

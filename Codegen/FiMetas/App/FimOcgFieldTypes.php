@@ -2,7 +2,7 @@
 
 namespace Codegen\FiMetas\App;
 
-// FiMeta Class Generation (By Dml) - v0.4 
+// FiMeta Class Generation  - v0.4 
 use Engtuncay\Phputils8\FiDtos\FiMeta;
 
 
@@ -139,6 +139,13 @@ class FimOcgFieldTypes
   public static function datetimeoffset(): FiMeta
   {
     $fiMeta = new FiMeta("datetimeoffset");
+
+    return $fiMeta;
+  }
+
+  public static function bit(): FiMeta
+  {
+    $fiMeta = new FiMeta("bit");
 
     return $fiMeta;
   }

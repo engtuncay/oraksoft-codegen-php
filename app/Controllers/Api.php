@@ -219,6 +219,10 @@ class Api extends ResourceController
       $fdrCodegen = CgmMssqlserver::actGenCreateTableByEntity($fkbListEntity);
     }
 
+    if ($selSql == 2) {
+      $fdrCodegen = CgmMssqlserver::actGenAlterTableByEntity($fkbListEntity);
+    }
+
     endExcelOkuma:
 
     //$fkbReturn = CgmApiUtil::genFkbReturn($fdrCodegen);

@@ -1,4 +1,4 @@
-// FiMeta Class Generation (By Dml) - v0.4 
+// FiMeta Class Generation  - v0.4 
 import { FiMeta } from "../../orak_modules/oraksoft-ui/oraksoft-ui.js";
 
 export class FimCdgMssqlOpts {

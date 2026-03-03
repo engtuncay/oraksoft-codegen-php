@@ -2,7 +2,7 @@
 
 namespace Codegen\FiMetas\App;
 
-// FiMeta Class Generation (By Dml) - v0.3 
+// FiMeta Class Generation  - v0.3 
 
 use Engtuncay\Phputils8\FiDtos\FiMeta;
 
