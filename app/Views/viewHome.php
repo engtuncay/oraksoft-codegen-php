@@ -42,11 +42,11 @@ $fkbData = new FiKeybean($data);
 </head>
 
 <body class="fibody">
-<div>
-<?php
-//echo print_r($fkbData->getFkcVal(FkcOcgApp::fapDbProfiles()), true);
-?>
-</div>
+  <div>
+    <?php
+    //echo print_r($fkbData->getFkcVal(FkcOcgApp::fapDbProfiles()), true);
+    ?>
+  </div>
   <!--fim-main-container-->
   <div id="fim" class="container mt-2">
     <!--fold-level-5-->
@@ -152,15 +152,25 @@ $fkbData = new FiKeybean($data);
                       </div>
                       <div class="row">
                         <div class="">
-                          <div><h6>Example Commands</h6></div>
+                          <div>
+                            <h6>Example Commands</h6>
+                          </div>
                           <!-- <label for="txCustomCmd" class="form-label">Custom Command</label> -->
-                          <div><pre class="mb-1">--cmd dml --table TABLENAME --prefix pref</pre></div>
+                          <div>
+                            <pre class="">--cmd dml --table TABLENAME --prefix pref
+--cmd cuid --count 15
+</pre>
+                          </div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="">
-                          <div><h6>Command Messages</h6></div>
-                          <div><pre id="elePreCommMess" class="mb-1"></pre></div>
+                          <div>
+                            <h6>Command Messages</h6>
+                          </div>
+                          <div>
+                            <pre id="elePreCommMess" class="mb-1"></pre>
+                          </div>
                         </div>
                       </div>
                     </div>

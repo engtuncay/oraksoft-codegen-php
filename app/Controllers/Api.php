@@ -6,6 +6,7 @@ use Codegen\FiMetas\App\FimOcgForm;
 use Codegen\Modals\CgmCodegen;
 use Codegen\Modals\CgmMssqlserver;
 use Codegen\Modals\CgmTableToCsv;
+use Codegen\Modals\CgmUidGen;
 use Codegen\Modals\CgmUtils;
 use Codegen\Modals\CogSpecsCsharp;
 use Codegen\Modals\CogSpecsCSharpFiCol;
@@ -245,7 +246,7 @@ class Api extends ResourceController
     $arrCliArgs = CgmUtils::parseCliParameters($command);
 
     // Güvenlik kontrolü: Sadece belirli komutlara izin ver
-    $allowedCommands = ['excel', 'dml']; // İzin verilen komutlar
+    $allowedCommands = ['excel', 'dml','cuid']; // İzin verilen komutlar
     $txCmd = $arrCliArgs['cmd'] ?? '';
     if (!in_array($txCmd, $allowedCommands)) {
       $fdr = new Fdr();
@@ -273,13 +274,19 @@ class Api extends ResourceController
       return $this->respond($fdr->genArrResponse(), 200);
     }
 
-    $fdr = new Fdr();
-    $fdr->setArrValue($arrCliArgs);
+    if (strcasecmp($txCmd, 'cuid') === 0) {
+      // Excel komutu için özel işlem yapabilirsiniz
+      // Örneğin, belirli bir Excel dosyasını işlemek gibi
+      $fdr = CgmUidGen::genCuid($arrCliArgs['count'] ?? 1);
+
+      $fdr->setArrValue($arrCliArgs);
 
     // Komutu çalıştır ve çıktıyı yakala
     // $output = shell_exec($command . ' 2>&1'); // Hata çıktısını da yakalamak için
 
     return $this->respond($fdr->genArrResponse(), 200);
+  }
+
   }
 
   public function test1()

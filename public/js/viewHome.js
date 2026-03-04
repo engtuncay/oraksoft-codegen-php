@@ -234,7 +234,8 @@ export function actExecCommand() {
         let eleEntity = document.getElementById("divCodeBlock");
         if (!(eleEntity instanceof HTMLElement)) return;
         eleEntity.innerHTML = '';
-        eleEntity.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+        //JSON.stringify(data, null, 2)
+        eleEntity.innerHTML = '<pre>' + data.fdTxValue + '</pre>';
       } else {
         // CSV ise dosya olarak indir
         const blob = new Blob([text], { type: 'text/csv' });
