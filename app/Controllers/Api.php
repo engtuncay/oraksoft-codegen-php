@@ -103,7 +103,7 @@ class Api extends ResourceController
 
     //$fkbPost = new FiKeybean($request->getPost());
     //if ($file && $file->isValid() && !$file->hasMoved()) {
-    
+
     $fdrData = new Fdr();
     //---- Code Üretimi
     $fdrCodegen =  new Fdr();
@@ -112,7 +112,7 @@ class Api extends ResourceController
 
     // /** @var DtoCodeGen[] $arrDtoCodeGenPack */
     // $arrDtoCodeGenPack = [];
-    
+
     // $sbTxCodeGen = new FiStrbui();
     // $fkbListData = new FkbList();
     // $data = $request->getPost();
@@ -246,7 +246,7 @@ class Api extends ResourceController
     $arrCliArgs = CgmUtils::parseCliParameters($command);
 
     // Güvenlik kontrolü: Sadece belirli komutlara izin ver
-    $allowedCommands = ['excel', 'dml','cuid']; // İzin verilen komutlar
+    $allowedCommands = ['excel', 'dml', 'cuid', 'uid']; // İzin verilen komutlar
     $txCmd = $arrCliArgs['cmd'] ?? '';
     if (!in_array($txCmd, $allowedCommands)) {
       $fdr = new Fdr();
@@ -281,12 +281,25 @@ class Api extends ResourceController
 
       $fdr->setArrValue($arrCliArgs);
 
-    // Komutu çalıştır ve çıktıyı yakala
-    // $output = shell_exec($command . ' 2>&1'); // Hata çıktısını da yakalamak için
+      // Komutu çalıştır ve çıktıyı yakala
+      // $output = shell_exec($command . ' 2>&1'); // Hata çıktısını da yakalamak için
 
-    return $this->respond($fdr->genArrResponse(), 200);
-  }
+      return $this->respond($fdr->genArrResponse(), 200);
+    }
 
+
+    if (strcasecmp($txCmd, 'uid') === 0) {
+      // Excel komutu için özel işlem yapabilirsiniz
+      // Örneğin, belirli bir Excel dosyasını işlemek gibi
+      $fdr = CgmUidGen::genUid($arrCliArgs['count'] ?? 1);
+
+      $fdr->setArrValue($arrCliArgs);
+
+      // Komutu çalıştır ve çıktıyı yakala
+      // $output = shell_exec($command . ' 2>&1'); // Hata çıktısını da yakalamak için
+
+      return $this->respond($fdr->genArrResponse(), 200);
+    }
   }
 
   public function test1()

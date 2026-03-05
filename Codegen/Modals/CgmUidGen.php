@@ -27,4 +27,21 @@ class CgmUidGen
     return $fdr;
   }
 
+  public static function genUid(int $count): Fdr
+  {
+    $fdr = new Fdr();
+
+    $sbValue = new FiStrbui();
+
+    for ($i = 0; $i < $count; $i++) {
+      $sbValue->append(FiUid::genUid())->append("\n");
+    }
+
+    $fdr->setBoResult(true);
+    $fdr->setTxValue($sbValue->toString());
+    $fdr->setTxMessage("$count adet UID başarıyla oluşturuldu.");
+
+    return $fdr;
+  }
+
 }
