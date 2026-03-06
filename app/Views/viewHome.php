@@ -158,7 +158,8 @@ $fkbData = new FiKeybean($data);
                           <!-- <label for="txCustomCmd" class="form-label">Custom Command</label> -->
                           <div>
                             <pre class="">--cmd dml --table TABLENAME --prefix pref
---cmd cuid --count 15
+--cmd cuid --count 30
+--cmd uid --count 50
 </pre>
                           </div>
                         </div>

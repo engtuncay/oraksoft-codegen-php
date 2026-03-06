@@ -246,11 +246,11 @@ class Api extends ResourceController
     $arrCliArgs = CgmUtils::parseCliParameters($command);
 
     // Güvenlik kontrolü: Sadece belirli komutlara izin ver
-    $allowedCommands = ['excel', 'dml', 'cuid', 'uid']; // İzin verilen komutlar
+    $allowedCommands = ['excel', 'dml', 'cuid', 'uid','uids']; // İzin verilen komutlar
     $txCmd = $arrCliArgs['cmd'] ?? '';
     if (!in_array($txCmd, $allowedCommands)) {
       $fdr = new Fdr();
-      $fdr->setTxValue('Bu komut izin verilmiyor.');
+      $fdr->setTxMessage('Bu komuta izin verilmiyor.');
       //$fdr->setCode(403);
 
       return $this->respond($fdr->genArrResponse(), 403);
