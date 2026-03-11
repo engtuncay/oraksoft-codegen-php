@@ -6,7 +6,7 @@ use Codegen\FiRepos\RepoCodegen;
 use Engtuncay\Phputils8\FiCsvs\FiCsv;
 use Engtuncay\Phputils8\FiDtos\Fdr;
 
-class CgmTableToCsv
+class CgmDbDefs
 {
   // 
   public static function getCodeByTable(string $txDbProfile, array $arrCliArgs): Fdr
@@ -31,6 +31,37 @@ class CgmTableToCsv
 
     $fdrCsv = new Fdr();
     $csvString = FiCsv::arrayToCsvString($fdrGetTableFields->getFkbValue()->getArr());
+
+    if ($csvString !== false) {
+      $fdrCsv->setBoResult(true);
+      $fdrCsv->setTxValue($csvString);
+      $fdrCsv->setTxMessage("CSV string başarıyla oluşturuldu.");
+    } else {
+      $fdrCsv->setBoResult(false);
+      $fdrCsv->setTxMessage("CSV string oluşturulurken hata oluştu.");
+    }
+
+    return $fdrCsv;
+  }
+
+  public static function getTableList(string $txDbProfile, array $arrCliArgs): Fdr
+  {
+    $fdrMain = new Fdr();
+
+    // if (empty($arrCliArgs['table'])) {
+    //   $fdrGetTableFields->setBoResult(false);
+    //   $fdrGetTableFields->setTxMessage("Tablo adı belirtilmedi. '--table' parametresini ekleyin.");
+    //   return $fdrGetTableFields;
+    // }
+
+    $txTableName = $arrCliArgs['table'] ?? '';
+    $txTablePref = $arrCliArgs['prefix'] ?? '';
+
+    $repo = new RepoCodegen($txDbProfile);
+    $fdrMain = $repo->getTableList($txTableName, $txTablePref);
+
+    $fdrCsv = new Fdr();
+    $csvString = FiCsv::arrayToCsvString($fdrMain->getFkbValue()->getArr());
 
     if ($csvString !== false) {
       $fdrCsv->setBoResult(true);

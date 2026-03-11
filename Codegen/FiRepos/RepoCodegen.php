@@ -20,7 +20,7 @@ class RepoCodegen extends FiAbsRepoGeneric
   public function getTableFields(string $tableName, string $tablePrefix = ""): Fdr
   {
     // Veritabanından tablo alanlarını çekme işlemi
-    $dbType = env("database.$this->connProfile.dbType") ?: FiDbTypes::MYSQL;
+    $dbType = $this->getDbType();
 
     if ($dbType === FiDbTypes::MYSQL) {
       $fdr = new Fdr();
@@ -29,7 +29,7 @@ class RepoCodegen extends FiAbsRepoGeneric
 
     if ($dbType === FiDbTypes::MSSQL) {
       OcgLogger::info("RepoCodeGen-getTableFields: mssql için tablo alanları çekiliyor: $tableName");
-      
+
       //sq202503101637 v4
       $sql = "--sq202503101637 v4
 Select @tableName                   fcTxEntityName
@@ -61,6 +61,36 @@ Where C.TABLE_NAME = @tableName
       $fkbParams->put("tableName", $tableName);
       $fkbParams->put("tablePrefix", $tablePrefix);
 
+      $fiQuery = new FiQuery($sql, $fkbParams);
+      $fdr = $this->getDbHelper()->selectFkb($fiQuery);
+      return $fdr;
+    }
+
+    $fdr = new Fdr();
+    return $fdr;
+  }
+
+  public function getTableList(): Fdr
+  {
+    // Veritabanından tablo alanlarını çekme işlemi
+    $dbType = $this->getDbType();
+
+    if ($dbType === FiDbTypes::MYSQL) {
+      $fdr = new Fdr();
+      return $fdr;
+    }
+
+    if ($dbType === FiDbTypes::MSSQL) {
+      OcgLogger::info("RepoCodeGen-getTableList-MSSQL");
+
+      //sq202603070329 v1
+      $sql = "--sq202603070329 v1
+SELECT TABLE_NAME
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_TYPE = 'BASE TABLE'
+";
+
+      $fkbParams = new FiKeybean();
       $fiQuery = new FiQuery($sql, $fkbParams);
       $fdr = $this->getDbHelper()->selectFkb($fiQuery);
       return $fdr;

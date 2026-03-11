@@ -1,16 +1,17 @@
 {
   "name": "oraksoft-codegen-node",
   "private": true,
-  "version": "0.0.12",
+  "version": "0.0.13",
   "type": "module",
   "scripts": {
     "pn-install": "pnpm install",
     "pn-update": "pnpm update",
     "orak-copy-deps": "orak-copy-deps",
-    "orak-zip": "orak-env-change fiprod & orak-zip-package -v",
-    "orak-zip-deploy": "orak-env-change fiprod & orak-zip-package -v & orak-deploy-ftp -v",
-    "orak-deploy-zip-test": "orak-env-change test & orak-deploy-zip",
-    "orak-env-local": "orak-env-change local"
+    "fi-zip": "orak-env-change fiprod & orak-zip-package -v",
+    "fi-deploy": "orak-env-change fiprod & orak-zip-package -v & orak-deploy-ftp -v",
+    "fi-deploy-ozp": "orak-env-change fiprod & orak-zip-package -v -p ozp & orak-deploy-ftp-ozp -v -p ozp",
+    "fi-deploy-test": "orak-env-change test & fi-deploy",
+    "fi-env-local": "orak-env-change filocal"
   },
   "dependencies": {
     "bootstrap": "^5.3.8",

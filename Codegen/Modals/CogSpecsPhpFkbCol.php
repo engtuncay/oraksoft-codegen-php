@@ -217,7 +217,7 @@ EOD;
   {
     $fieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
     $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
-    $sbFclListBodyTrans->append("fkbList->add($methodName());\n");
+    $sbFclListBodyTrans->append("\$fkbList->add(self::$methodName());\n");
   }
 
 

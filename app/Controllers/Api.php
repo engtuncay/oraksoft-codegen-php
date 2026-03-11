@@ -5,7 +5,7 @@ namespace App\Controllers;
 use Codegen\FiMetas\App\FimOcgForm;
 use Codegen\Modals\CgmCodegen;
 use Codegen\Modals\CgmMssqlserver;
-use Codegen\Modals\CgmTableToCsv;
+use Codegen\Modals\CgmDbDefs;
 use Codegen\Modals\CgmUidGen;
 use Codegen\Modals\CgmUtils;
 use Codegen\Modals\CogSpecsCsharp;
@@ -246,7 +246,7 @@ class Api extends ResourceController
     $arrCliArgs = CgmUtils::parseCliParameters($command);
 
     // Güvenlik kontrolü: Sadece belirli komutlara izin ver
-    $allowedCommands = ['excel', 'dml', 'cuid', 'uid','uids']; // İzin verilen komutlar
+    $allowedCommands = ['excel', 'dml', 'cuid', 'uid', 'table-list']; // İzin verilen komutlar
     $txCmd = $arrCliArgs['cmd'] ?? '';
     if (!in_array($txCmd, $allowedCommands)) {
       $fdr = new Fdr();
@@ -259,7 +259,7 @@ class Api extends ResourceController
     if (strcasecmp($txCmd, 'dml') === 0) {
       // Excel komutu için özel işlem yapabilirsiniz
       // Örneğin, belirli bir Excel dosyasını işlemek gibi
-      $fdr = CgmTableToCsv::getCodeByTable($txDbProfile, $arrCliArgs);
+      $fdr = CgmDbDefs::getCodeByTable($txDbProfile, $arrCliArgs);
 
       if ($fdr->isTrueBoResult()) {
         return response()
@@ -300,7 +300,23 @@ class Api extends ResourceController
 
       return $this->respond($fdr->genArrResponse(), 200);
     }
-  }
+
+    if (strcasecmp($txCmd, 'table-list') === 0) {
+      // Excel komutu için özel işlem yapabilirsiniz
+      // Örneğin, belirli bir Excel dosyasını işlemek gibi
+      $fdr = CgmDbDefs::getTableList($txDbProfile, $arrCliArgs);
+
+      if ($fdr->isTrueBoResult()) {
+        return $this->respond($fdr->genArrResponse(), 200);
+      } else {
+        //$fdr->setTxValue('DML komutu çalıştırılırken hata oluştu. Parametreler: ' . json_encode($arrCliArgs));
+      }
+
+      //$fdr->setTxValue('DML komutu çalıştırıldı. Parametreler: ' . json_encode($arrCliArgs));
+      return $this->respond($fdr->genArrResponse(), 200);
+    }
+
+  }// end-execCmd
 
   public function test1()
   {
