@@ -253,16 +253,16 @@ EOD;
   }
 
   /**
-   * @param FiStrbui $sbFclListBodyTrans
+   * @param FiStrbui $sbContent
    * @param string $methodName
    * @return void
    */
-  public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  public function doTransientFieldOps(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
   {
     //$sbFclListBodyTrans->append("ficList.add($methodName());\n");
     $fieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
     $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
-    $sbFclListBodyTrans->append("ficList.add($methodName());\n");
+    $sbContent->append("ficList.add($methodName());\n");
   }
 
 

@@ -95,7 +95,7 @@ EOD;
     throw new \Exception('Not implemented');
   }
 
-  public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  public function doTransientFieldOps(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
   {
     throw new \Exception('Not implemented');
   }

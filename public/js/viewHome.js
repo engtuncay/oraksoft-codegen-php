@@ -80,8 +80,13 @@ export function viewHomeInit() {
   addOptionByFimAndLnKey(eleSelSql, FimCdgMssqlOpts.mssqlCreateTable());
   addOptionByFimAndLnKey(eleSelSql, FimCdgMssqlOpts.mssqlAlterTable());
 
+  let eleSelMysql = document.getElementById("selMysql");
+  addOption(eleSelMysql, txIdSeciniz, "Select");
+  addOptionByFimAndLnKey(eleSelMysql, FimCdgMssqlOpts.mssqlCreateTable());
+  addOptionByFimAndLnKey(eleSelMysql, FimCdgMssqlOpts.mssqlAlterTable());
+
   // Reset other selects when one changes
-  const codeSelects = [eleSelCsharp, eleSelPhp, eleSelTs, eleSelJava, eleSelSql, eleSelJs];
+  const codeSelects = [eleSelCsharp, eleSelPhp, eleSelTs, eleSelJava, eleSelSql, eleSelJs, eleSelMysql];
 
   function resetOtherSelects(changedSelect) {
     codeSelects.forEach(s => {

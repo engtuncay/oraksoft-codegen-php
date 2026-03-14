@@ -8,6 +8,7 @@ use Engtuncay\Phputils8\FiDbs\FiDbTypes;
 
 class OcgConfig implements IFiConfigManager
 {
+
   public function getFiConnConfig(?string $profile = null): FiConnConfig
   {
     return $this->getConnConfig($profile);
@@ -48,4 +49,8 @@ class OcgConfig implements IFiConfigManager
     return "";
   }
 
+  public function getEnvVar(?string $key): ?string
+  {
+    return env($key);
+  }
 }

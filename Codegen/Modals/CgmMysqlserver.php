@@ -36,7 +36,7 @@ class CgmMysqlserver
       $dtoCodeGen = new DtoCodeGen();
       $sbTxCodeGen1 = new FiStrbui();
       $sbTxCodeGen1->append("-- Sql Create Table Code Gen v1\n");
-      $sbTxCodeGen1->append(CgmMssqlserver::actGenSqlCreate($fkbList));
+      $sbTxCodeGen1->append(CgmMssql::actGenSqlCreate($fkbList));
       $sbTxCodeGen1->append("\n");
       $dtoCodeGen->setSbCodeGen($sbTxCodeGen1);
       $dtoCodeGen->setDcgId($txIdPref . $lnForIndex);

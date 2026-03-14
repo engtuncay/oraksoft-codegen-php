@@ -4,8 +4,9 @@ namespace App\Controllers;
 
 use Codegen\FiMetas\App\FimOcgForm;
 use Codegen\Modals\CgmCodegen;
-use Codegen\Modals\CgmMssqlserver;
+use Codegen\Modals\CgmMssql;
 use Codegen\Modals\CgmDbDefs;
+use Codegen\Modals\CgmMysql;
 use Codegen\Modals\CgmUidGen;
 use Codegen\Modals\CgmUtils;
 use Codegen\Modals\CogSpecsCsharp;
@@ -124,7 +125,7 @@ class Api extends ResourceController
     $selJava = $request->getPost('selJava');
     $selSql = $request->getPost('selSql');
     $selJs = $request->getPost('selJs');
-    $selJs = $request->getPost('selJs');
+    $selMysql = $request->getPost('selMysql');
     $formTxEntity = $request->getPost('selEntity');
 
     // $uploadedFile = $this->request->getFile('excelFile'); // $_FILES['excelFile'];
@@ -217,11 +218,19 @@ class Api extends ResourceController
     }
 
     if ($selSql == 1) {
-      $fdrCodegen = CgmMssqlserver::actGenCreateTableByEntity($fkbListEntity);
+      $fdrCodegen = CgmMssql::actGenCreateTableByEntity($fkbListEntity);
     }
 
     if ($selSql == 2) {
-      $fdrCodegen = CgmMssqlserver::actGenAlterTableByEntity($fkbListEntity);
+      $fdrCodegen = CgmMssql::actGenAlterTableByEntity($fkbListEntity);
+    }
+
+    if ($selMysql == 1) {
+      $fdrCodegen = CgmMysql::actGenCreateTableByEntity($fkbListEntity);
+    }
+
+    if ($selMysql == 2) {
+      $fdrCodegen = CgmMysql::actGenAlterTableByEntity($fkbListEntity);
     }
 
     endExcelOkuma:
@@ -246,7 +255,7 @@ class Api extends ResourceController
     $arrCliArgs = CgmUtils::parseCliParameters($command);
 
     // Güvenlik kontrolü: Sadece belirli komutlara izin ver
-    $allowedCommands = ['excel', 'dml', 'cuid', 'uid', 'table-list']; // İzin verilen komutlar
+    $allowedCommands = ['excel', 'dml', 'cuid', 'uid', 'table-list','sfid']; // İzin verilen komutlar
     $txCmd = $arrCliArgs['cmd'] ?? '';
     if (!in_array($txCmd, $allowedCommands)) {
       $fdr = new Fdr();
@@ -315,6 +324,22 @@ class Api extends ResourceController
       //$fdr->setTxValue('DML komutu çalıştırıldı. Parametreler: ' . json_encode($arrCliArgs));
       return $this->respond($fdr->genArrResponse(), 200);
     }
+
+    if (strcasecmp($txCmd, 'sfid') === 0) {
+      // Excel komutu için özel işlem yapabilirsiniz
+      // Örneğin, belirli bir Excel dosyasını işlemek gibi
+      $fdr = CgmUidGen::genSfId($arrCliArgs['count'] ?? 1);
+
+      if ($fdr->isTrueBoResult()) {
+        return $this->respond($fdr->genArrResponse(), 200);
+      } else {
+        //$fdr->setTxValue('DML komutu çalıştırılırken hata oluştu. Parametreler: ' . json_encode($arrCliArgs));
+      }
+
+      //$fdr->setTxValue('DML komutu çalıştırıldı. Parametreler: ' . json_encode($arrCliArgs));
+      return $this->respond($fdr->genArrResponse(), 200);
+    }
+
 
   }// end-execCmd
 

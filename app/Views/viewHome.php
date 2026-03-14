@@ -95,6 +95,11 @@ $fkbData = new FiKeybean($data);
                       <select class="form-select" aria-label="Sql Operations" name="selSql" id="selSql">
                       </select>
                     </div>
+                    <div class="mb-3 col-md-3">
+                      <label for="selMysql" class="form-label">MySQL</label>
+                      <select class="form-select" aria-label="MySQL Operations" name="selMysql" id="selMysql">
+                      </select>
+                    </div>
 
                   </div>
                 </div>
@@ -160,6 +165,7 @@ $fkbData = new FiKeybean($data);
                             <pre class="">--cmd dml --table TABLENAME --prefix pref
 --cmd cuid --count 30
 --cmd uid --count 50
+--cmd sfid --count 50
 </pre>
                           </div>
                         </div>

@@ -39,8 +39,8 @@ public static function genTableColsTrans() : FkbList {
 public static function fapDbProfiles() : FiKeybean
 { 
   $fkbCol = new FiKeybean();
-  $fkbCol->addFm(FimFiCol::fcTxFieldName(), 'fapDbProfiles');
-  $fkbCol->addFm(FimFiCol::fcTxFieldType(), 'csv');
+  $fkbCol->addFim(FimFiCol::fcTxFieldName(), 'fapDbProfiles');
+  $fkbCol->addFim(FimFiCol::fcTxFieldType(), 'csv');
 
   return $fkbCol;
 }

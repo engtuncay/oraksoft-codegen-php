@@ -17,7 +17,7 @@ use Engtuncay\Phputils8\FiMetas\FimOcgSql;
 /**
  * SQL Server Code Generation Model
  */
-class CgmMssqlserver
+class CgmMssql
 {
 
   public static function actGenCreateTableByEntity(FkbList $fkbList): Fdr
@@ -27,7 +27,7 @@ class CgmMssqlserver
     $sbTxCodeGen1 = new FiStrbui();
     $txVer = CgmApiUtil::getTxVer();
     $sbTxCodeGen1->append("-- Sql Create Table Code Gen v$txVer\n");
-    $sbTxCodeGen1->append(CgmMssqlserver::actGenSqlCreate($fkbList));
+    $sbTxCodeGen1->append(CgmMssql::actGenSqlCreate($fkbList));
     $sbTxCodeGen1->append("\n");
 
     $fdrMain->setTxValue($sbTxCodeGen1->toString());
@@ -42,16 +42,17 @@ class CgmMssqlserver
     $sbTxCodeGen = new FiStrbui();
     $txVer = CgmApiUtil::getTxVer();
     $sbTxCodeGen->append("-- Sql Alter Table Code Gen v$txVer\n");
-    // $sbTxCodeGen1->append(CgmMssqlserver::actGenSqlAlter($fkbList));
+    // $sbTxCodeGen1->append(CgmMssql::actGenSqlAlter($fkbList));
 
     $sfTxTableName = $fkbList->get(0)->getFimValue(FimFiCol::fcTxEntityName());
 
     // --ALTER TABLE STOK_HAREKETLERI ADD sthTxGuid nvarchar(40)
     
+    /** @var FiKeybean $fkbItem */
     foreach ($fkbList as $fkbItem) {
 
-      $sfTxFieldDef = self::genSqlColTypeDefin($fkbItem);
-      $sfTxFieldName = $fkbItem->getValueByFim(FimFiCol::fcTxFieldName());
+      $sfTxFieldDef = self::genSqlColTypeDef($fkbItem);
+      $sfTxFieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
       
       $txAlterQueryTemp = "ALTER TABLE $sfTxTableName ADD $sfTxFieldName $sfTxFieldDef;";
       $sbTxCodeGen->append($txAlterQueryTemp);
@@ -77,16 +78,16 @@ class CgmMssqlserver
      */
     foreach ($fkbList as $fkbItem) {
 
-      $fcTxFieldName = $fkbItem->getValueByFim(FimFiCol::fcTxFieldName());
-      $fcBoTransient = $fkbItem->getValueByFimAsBool(FimFiCol::fcBoTransient());
-      $fcTxIdType = $fkbItem->getValueByFim(FimFiCol::fcTxIdType());
+      $fcTxFieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
+      $fcBoTransient = $fkbItem->getFimAsBool(FimFiCol::fcBoTransient());
+      $fcTxIdType = $fkbItem->getFimValue(FimFiCol::fcTxIdType());
 
       // Transient Alanlar SQL Create Table'da yer almaz
       if (FiBool::isTrue($fcBoTransient)) {
         continue;
       }
 
-      $sqlTypeDef = self::genSqlColTypeDefin($fkbItem);
+      $sqlTypeDef = self::genSqlColTypeDef($fkbItem);
 
       $sbColDef = new FiStrbui();
       $sbColDef->append("$fcTxFieldName $sqlTypeDef,\n");
@@ -139,13 +140,12 @@ CREATE TABLE $sfTableName (
    * @param FiKeybean $fkbItem
    * @return string
    */
-  public static function genSqlColTypeDefin(FiKeybean $fkbItem): string
+  public static function genSqlColTypeDef(FiKeybean $fkbItem): string
   {
-    $fcTxFieldType = $fkbItem->getValueByFim(FimFiCol::fcTxFieldType());
-    $fcLnLength = $fkbItem->getValueByFim(FimFiCol::fcLnLength());
-    $fcLnScale = $fkbItem->getValueByFim(FimFiCol::fcLnScale());
-    $fcTxIdType = $fkbItem->getValueByFim(FimFiCol::fcTxIdType());
-
+    $fcTxFieldType = $fkbItem->getFimValue(FimFiCol::fcTxFieldType());
+    $fcLnLength = $fkbItem->getFimValue(FimFiCol::fcLnLength());
+    $fcLnScale = $fkbItem->getFimValue(FimFiCol::fcLnScale());
+    $fcTxIdType = $fkbItem->getFimValue(FimFiCol::fcTxIdType());
 
     $sbTypeDef = new FiStrbui();
 

@@ -3,7 +3,7 @@
 use App\Controllers\Api;
 use App\Controllers\ApiConfig;
 use App\Controllers\ApiTest;
-use Codegen\OcgHelpers\CdgciHelper;
+use App\ThirdParty\AppCiHelper;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -17,14 +17,14 @@ $routes->get('/', 'Home::index');
 //$routes->post('/testpost', 'Api::testpost');
 //$routes->get('/testget', 'Api::testpost');
 
-CdgciHelper::addRoutePost($routes, 'genCode', Api::class);
-CdgciHelper::addRoutePost($routes, 'execCmd', Api::class);
+AppCiHelper::addRoutePost($routes, 'genCode', Api::class);
+AppCiHelper::addRoutePost($routes, 'execCmd', Api::class);
 
-CdgciHelper::addRouteGet($routes, 'getDbProfiles', ApiConfig::class);
-CdgciHelper::addRoutePost($routes, 'getEntityList', Api::class);
+AppCiHelper::addRouteGet($routes, 'getDbProfiles', ApiConfig::class);
+AppCiHelper::addRoutePost($routes, 'getEntityList', Api::class);
 
 // --------Test Routes
-CdgciHelper::addRouteGet($routes, 'testget', Api::class);
-CdgciHelper::addRouteGet($routes, 'test', Api::class);
-CdgciHelper::addRouteGet($routes, 'test1', ApiTest::class);
-CdgciHelper::addRoutePost($routes, 'testpost', Api::class);
+AppCiHelper::addRouteGet($routes, 'testget', Api::class);
+AppCiHelper::addRouteGet($routes, 'test', Api::class);
+AppCiHelper::addRouteGet($routes, 'test1', ApiTest::class);
+AppCiHelper::addRoutePost($routes, 'testpost', Api::class);

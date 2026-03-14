@@ -279,17 +279,17 @@ EOD;
   }
 
   /**
-   * @param FiStrbui $sbFclListBodyTrans
+   * @param FiStrbui $sbContent
    * @param string $methodName
    * @return void
    */
-  public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  public function doTransientFieldOps(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
   {
     $fieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
     $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
     $className = $iCogSpecs->checkClassNameStd($fkbItem->getValueByFiMeta(FimFiCol::fcTxEntityName()));
     // URFIX Fkc dinamik olarak alınmalı
-    $sbFclListBodyTrans->append("fkbList.add(Fkc$className.$methodName());\n");
+    $sbContent->append("fkbList.add(Fkc$className.$methodName());\n");
   }
 
   public function genFiColAddDescDetail(FiKeybean $fkbItem, ICogSpecs $iCogSpecs): FiStrbui
@@ -314,5 +314,15 @@ EOD
     }
 
     return $sbText;
+  }
+
+  public function getTemplateGenFkbFields(): string
+  {
+    return "";
+  }
+
+  public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  {
+    // will be implemented
   }
 }

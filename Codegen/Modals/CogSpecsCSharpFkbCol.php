@@ -13,6 +13,7 @@ use Engtuncay\Phputils8\FiMetas\FimFiCol;
 class CogSpecsCSharpFkbCol implements ICogSpecsGenCol
 {
 
+
   public function getTemplateColClass(): string
   {
     //String
@@ -275,16 +276,16 @@ EOD;
   }
 
   /**
-   * @param FiStrbui $sbFclListBodyTrans
+   * @param FiStrbui $sbContent
    * @param FiKeybean $fkbItem
    * @param ICogSpecs $iCogSpecs
    * @return void
    */
-  public function doTransientFieldOps(FiStrbui $sbFclListBodyTrans, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  public function doTransientFieldOps(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
   {
     $fieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
     $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
-    $sbFclListBodyTrans->append("fkbList.Add($methodName());\n");
+    $sbContent->append("fkbList.Add($methodName());\n");
   }
 
   public function genFiColAddDescDetail(FiKeybean $fkbItem, ICogSpecs $iCogSpecs): FiStrbui
@@ -309,5 +310,15 @@ EOD
     }
 
     return $sbText;
+  }
+
+  public function getTemplateGenFkbFields(): string
+  {
+    return "";
+  }
+
+  public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  {
+    // will be implemented
   }
 }
