@@ -1,18 +1,6 @@
 {
   "copyDepsModulesToCopy": [
     {
-      "name": "bootstrap",
-      "file": "dist/css/bootstrap.min.css"
-    },
-    {
-      "name": "bootstrap",
-      "file": "dist/js/bootstrap.min.js"
-    },
-    {
-      "name": "bootstrap",
-      "file": "dist/js/bootstrap.bundle.min.js"
-    },
-    {
       "name": "notiflix",
       "file": "dist/notiflix-3.2.8.min.js"
     },

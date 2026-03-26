@@ -29,7 +29,8 @@ $fkbData = new FiKeybean($data);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Oraksoft Code Generator</title>
-  <link rel="stylesheet" href="<?= base_url('orak_modules/oraksoft-tw-css-lib/oraksoft-tw-lib.css') ?>">
+  <!-- <link rel="stylesheet" href="<? //= base_url('orak_modules/oraksoft-tw-css-lib/oraksoft-tw-lib.css') 
+                                    ?>"> -->
   <link rel="stylesheet" href="<?= base_url('css/codeblock.css') ?>">
   <link rel="stylesheet" href="<?= base_url('output.css') ?>">
   <!-- <script src="https://cdn.tailwindcss.com"></script> -->
