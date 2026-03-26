@@ -50,10 +50,10 @@ $fkbData = new FiKeybean($data);
     ?>
   </div>
   <!--fim-main-container-->
-  <div id="fim" class="container mx-auto mt-2 px-4">
+  <div id="frt" class="container mx-auto mt-2 px-4">
     <!--fold-level-5-->
-    <section id="fi1" class="flex justify-center">
-      <div id="fi11" class="w-full">
+    <section id="frt1" class="flex justify-center">
+      <div id="frt11" class="w-full">
         <div class="border rounded-lg shadow-lg">
           <!--card-header -->
           <div class="bg-blue-500 text-white rounded-t-lg p-4">
@@ -193,9 +193,9 @@ $fkbData = new FiKeybean($data);
     </section>
 
     <!-- code-block -->
-    <section id="fi2" class="mt-6">
-      <div id="fi21" class="relative">
-        <div id="fi211" class="bg-black rounded-lg">
+    <section id="frt2" class="mt-6">
+      <div id="frt21" class="relative">
+        <div id="frt211" class="bg-black rounded-lg">
           <code class="p-4 rounded-lg block text-white font-mono text-sm overflow-x-auto" id="divCodeBlock">
           </code>
           <button class="absolute top-4 right-4 px-3 py-1 bg-gray-700 hover:bg-gray-800 text-white text-sm rounded copy-btn transition"
