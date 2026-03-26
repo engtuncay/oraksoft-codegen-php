@@ -32,10 +32,6 @@
       "name": "orak-util-js",
       "file": "dist/orak-util-js.js.map"
     }
-    ,{
-      "name": "oraksoft-tw-css-lib",
-      "file": "dist/oraksoft-tw-lib.css"
-    }
   ],
   "copyDepsLibFolder": "public/orak_modules",
   "copyDepsLibFolderEmpty": true,
