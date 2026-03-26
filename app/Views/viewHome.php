@@ -29,9 +29,10 @@ $fkbData = new FiKeybean($data);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Oraksoft Code Generator</title>
-  <link rel="stylesheet" href="<?= base_url('orak_modules/bootstrap/bootstrap.min.css') ?>">
   <link rel="stylesheet" href="<?= base_url('orak_modules/oraksoft-tw-css-lib/oraksoft-tw-lib.css') ?>">
   <link rel="stylesheet" href="<?= base_url('css/codeblock.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('output.css') ?>">
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 
   <style>
     .fibody {
@@ -48,136 +49,131 @@ $fkbData = new FiKeybean($data);
     ?>
   </div>
   <!--fim-main-container-->
-  <div id="fim" class="container mt-2">
+  <div id="fim" class="container mx-auto mt-2 px-4">
     <!--fold-level-5-->
-    <section id="fi1" class="row justify-content-center">
-      <div id="fi11" class="col-md-12">
-        <div class="card">
+    <section id="fi1" class="flex justify-center">
+      <div id="fi11" class="w-full">
+        <div class="border rounded-lg shadow-lg">
           <!--card-header -->
-          <div class="card-header text-white bg-primary">
-            <h3 class="text-center card-title">Oraksoft Code Generator</h3>
+          <div class="bg-blue-500 text-white rounded-t-lg p-4">
+            <h3 class="text-center text-2xl font-bold">Oraksoft Code Generator</h3>
           </div>
           <!--card-body -->
-          <div class="card-body">
+          <div class="p-6">
 
             <div id="form">
               <form action="#" method="post" enctype="multipart/form-data">
 
                 <div id="divSelBoxs" class="">
-                  <div class="row">
-                    <div class="mb-3 col-md-3">
-                      <label for="selCsharp" class="form-label">Csharp</label>
-                      <select name="selCsharp" id="selCsharp" class="form-select" aria-label="Csharp Operations">
-                      </select>
-                      <!--<div class="form-text">note.</div>-->
-                    </div>
-                    <div class="mb-3 col-md-3">
-                      <label for="selPhp" class="form-label">Php</label>
-                      <select class="form-select" aria-label="Php Operations" name="selPhp" id="selPhp">
+                  <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                    <div class="mb-3">
+                      <label for="selCsharp" class="block text-sm font-medium mb-2">Csharp</label>
+                      <select name="selCsharp" id="selCsharp" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" aria-label="Csharp Operations">
                       </select>
                     </div>
-                    <div class="mb-3 col-md-3">
-                      <label for="selJava" class="form-label">Java</label>
-                      <select class="form-select" aria-label="Java Operations" name="selJava" id="selJava">
+                    <div class="mb-3">
+                      <label for="selPhp" class="block text-sm font-medium mb-2">Php</label>
+                      <select class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" aria-label="Php Operations" name="selPhp" id="selPhp">
                       </select>
                     </div>
-                    <div class="mb-3 col-md-3">
-                      <label for="selTs" class="form-label">Typescript</label>
-                      <select class="form-select" aria-label="Ts Operations" name="selTs" id="selTs"></select>
-                    </div>
-                    <div class="mb-3 col-md-3">
-                      <label for="selJs" class="form-label">Javascript</label>
-                      <select class="form-select" aria-label="Javascript Operations" name="selJs" id="selJs">
+                    <div class="mb-3">
+                      <label for="selJava" class="block text-sm font-medium mb-2">Java</label>
+                      <select class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" aria-label="Java Operations" name="selJava" id="selJava">
                       </select>
                     </div>
-                    <div class="mb-3 col-md-3">
-                      <label for="selSql" class="form-label">Ms-Sql</label>
-                      <select class="form-select" aria-label="Sql Operations" name="selSql" id="selSql">
+                    <div class="mb-3">
+                      <label for="selTs" class="block text-sm font-medium mb-2">Typescript</label>
+                      <select class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" aria-label="Ts Operations" name="selTs" id="selTs"></select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="selJs" class="block text-sm font-medium mb-2">Javascript</label>
+                      <select class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" aria-label="Javascript Operations" name="selJs" id="selJs">
                       </select>
                     </div>
-                    <div class="mb-3 col-md-3">
-                      <label for="selMysql" class="form-label">MySQL</label>
-                      <select class="form-select" aria-label="MySQL Operations" name="selMysql" id="selMysql">
+                    <div class="mb-3">
+                      <label for="selSql" class="block text-sm font-medium mb-2">Ms-Sql</label>
+                      <select class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" aria-label="Sql Operations" name="selSql" id="selSql">
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="selMysql" class="block text-sm font-medium mb-2">MySQL</label>
+                      <select class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" aria-label="MySQL Operations" name="selMysql" id="selMysql">
                       </select>
                     </div>
 
                   </div>
                 </div>
 
-                <div class="mb-3">
-                  <label for="selEntity" class="form-label">Entity</label>
-                  <select class="form-select" aria-label="Entity Selection" name="selEntity" id="selEntity">
+                <div class="mb-4">
+                  <label for="selEntity" class="block text-sm font-medium mb-2">Entity</label>
+                  <select class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" aria-label="Entity Selection" name="selEntity" id="selEntity">
                   </select>
                 </div>
 
-                <div class="mb-3">
-                  <label for="excelFile" class="form-label">DML (Data Model) File:</label>
-                  <input type="file" class="form-control" name="excelFile" id="excelFile" accept=".xlsx, .xls, .csv" required>
-                  <div class="form-text">Only .xlsx, .xls veya .csv file types</div>
+                <div class="mb-4">
+                  <label for="excelFile" class="block text-sm font-medium mb-2">DML (Data Model) File:</label>
+                  <input type="file" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" name="excelFile" id="excelFile" accept=".xlsx, .xls, .csv" required>
+                  <div class="text-xs text-gray-600 mt-1">Only .xlsx, .xls veya .csv file types</div>
                 </div>
 
-                <div class="d-flex">
-                  <button class="btn btn-info m-1 " data-action="actReadEntityList">Read Entity List</button>
-                  <button class="btn btn-primary m-1" data-action="actGenCode">Generate Code</button>
-                  <button class="btn btn-secondary m-1" data-action="actExecCommand">Exec Command</button>
-                  <button class="btn btn-danger m-1" data-action="actExecSql">Exec Sql</button>
+                <div class="flex flex-wrap gap-2">
+                  <button class="px-4 py-2 bg-cyan-500 text-white rounded hover:bg-cyan-600 transition" data-action="actReadEntityList">Read Entity List</button>
+                  <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition" data-action="actGenCode">Generate Code</button>
+                  <button class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition" data-action="actExecCommand">Exec Command</button>
+                  <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition" data-action="actExecSql">Exec Sql</button>
                 </div>
 
                 <!-- Db Active - Password Panel -->
-                <div id="dbActivePanel" class="">
-                  <div class="row g-3 m-1 align-items-center">
-                    <div class="col-auto d-flex flex-row gap-2 align-items-center">
-                      <label for="selDbProfile" class="text-nowrap">Db Profile</label>
-                      <select class="form-select" aria-label="Db Profiles" name="selDbProfile" id="selDbProfile">
-                        <?php
-                        $arrDbProfiles = $fkbData->getFkcVal(FkcOcgApp::fapDbProfiles());
-                        ?>
-                        <?php foreach ((array)$arrDbProfiles as $profile): ?>
-                          <option value="<?= htmlspecialchars($profile, ENT_QUOTES) ?>"><?= htmlspecialchars($profile) ?></option>
-                        <?php endforeach; ?>
-                      </select>
-                    </div>
-                    <div class="col-auto">
-                      <input class="form-check-input" type="checkbox" value="" id="chkEnableDb" name="chkEnableDb">
-                      <label class="form-check-label" for="chkEnableDb">
-                        Db Active
-                      </label>
-                    </div>
-                    <div class="col-auto ">
-                      <label for="txDbPsw" class="visually-hidden">Password</label>
-                      <input type="password" class="form-control" id="txDbPsw" name="txDbPsw" placeholder="Password">
+                <div id="dbActivePanel" class="mt-6 pt-6 border-t border-gray-300">
+                  <div class="space-y-4">
+                    <div class="flex flex-wrap gap-4 items-end">
+                      <div class="flex items-center gap-2">
+                        <label for="selDbProfile" class="whitespace-nowrap text-sm font-medium">Db Profile</label>
+                        <select class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" aria-label="Db Profiles" name="selDbProfile" id="selDbProfile">
+                          <?php
+                          $arrDbProfiles = $fkbData->getFkcVal(FkcOcgApp::fapDbProfiles());
+                          ?>
+                          <?php foreach ((array)$arrDbProfiles as $profile): ?>
+                            <option value="<?= htmlspecialchars($profile, ENT_QUOTES) ?>"><?= htmlspecialchars($profile) ?></option>
+                          <?php endforeach; ?>
+                        </select>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <input class="w-4 h-4 text-blue-500 rounded focus:ring-2 focus:ring-blue-500" type="checkbox" value="" id="chkEnableDb" name="chkEnableDb">
+                        <label class="text-sm font-medium" for="chkEnableDb">
+                          Db Active
+                        </label>
+                      </div>
+                      <div class="">
+                        <label for="txDbPsw" class="sr-only">Password</label>
+                        <input type="password" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" id="txDbPsw" name="txDbPsw" placeholder="Password">
+                      </div>
                     </div>
 
-                    <div class="container p-0 mt-2">
-                      <div class="row">
-                        <div class=" mb-3">
-                          <!-- <label for="txCustomCmd" class="form-label">Custom Command</label> -->
-                          <input type="text" class="form-control" id="txCustomCmd" name="txCustomCmd" placeholder="Custom Command">
-                        </div>
+                    <div class="space-y-4">
+                      <div class="">
+                        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" id="txCustomCmd" name="txCustomCmd" placeholder="Custom Command">
                       </div>
-                      <div class="row">
-                        <div class="">
-                          <div>
-                            <h6>Example Commands</h6>
-                          </div>
-                          <!-- <label for="txCustomCmd" class="form-label">Custom Command</label> -->
-                          <div>
-                            <pre class="">--cmd dml --table TABLENAME --prefix pref
+
+                      <div class="">
+                        <div>
+                          <h6 class="font-semibold text-sm mb-2">Example Commands</h6>
+                        </div>
+                        <div>
+                          <pre class="bg-gray-100 p-3 rounded text-xs overflow-auto">--cmd dml --table TABLENAME --prefix pref
 --cmd cuid --count 30
 --cmd uid --count 50
 --cmd sfid --count 50
 </pre>
-                          </div>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="">
-                          <div>
-                            <h6>Command Messages</h6>
-                          </div>
-                          <div>
-                            <pre id="elePreCommMess" class="mb-1"></pre>
-                          </div>
+
+                      <div class="">
+                        <div>
+                          <h6 class="font-semibold text-sm mb-2">Command Messages</h6>
+                        </div>
+                        <div>
+                          <pre id="elePreCommMess" class="bg-gray-100 p-3 rounded text-xs overflow-auto"></pre>
                         </div>
                       </div>
                     </div>
@@ -196,14 +192,12 @@ $fkbData = new FiKeybean($data);
     </section>
 
     <!-- code-block -->
-    <section id="fi2" class="row mt-3 tw-h-min-1">
-      <div id="fi21" class="col-12 position-relative">
-        <div id="fi211" class="bg-black">
-          <!-- <pre class="p-3 rounded"> -->
-          <code class="p-3 rounded" id="divCodeBlock" class="divCodeBlock">
+    <section id="fi2" class="mt-6">
+      <div id="fi21" class="relative">
+        <div id="fi211" class="bg-black rounded-lg">
+          <code class="p-4 rounded-lg block text-white font-mono text-sm overflow-x-auto" id="divCodeBlock">
           </code>
-          <!-- </pre> -->
-          <button class="m-2 btn btn-sm btn-outline-dark position-absolute top-0 end-0 copy-btn"
+          <button class="absolute top-4 right-4 px-3 py-1 bg-gray-700 hover:bg-gray-800 text-white text-sm rounded copy-btn transition"
             onclick="copyCode('divCodeBlock')">
             Copy
           </button>
@@ -272,10 +266,8 @@ $fkbData = new FiKeybean($data);
     });
   </script>
 
-  <script src="<?= base_url('orak_modules/bootstrap/bootstrap.min.js') ?>"></script>
   <script type="module" src="<?= base_url('js/main.js') ?>"></script>
   <script type="module" src="<?= base_url('js/viewHome.js') ?>"></script>
-  <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
 
 </body>
 
