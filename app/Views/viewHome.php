@@ -233,7 +233,7 @@ $fkbData = new FiKeybean($data);
     //   fiPostFormData,
     //   fiBsModal,
     //   testOrakSoftUi,
-    // } from './orak_modules/oraksoft-ui/oraksoft-ui.js';
+    // } from './orak_modules/orak-util-js/orak-util-js.js';
 
     import {
       actReadEntityList,

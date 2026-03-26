@@ -39,10 +39,10 @@
     }
   },
   "scripts": {
-    "fi-cmp-install": "composer install",
-    "fi-cmp-update": "composer update",
-    "fi-cmp-dump-optimize": ["composer dump-autoload -o"],
-    "fi-cmp-install-dev": ["composer install --dev"],
+    "fi-comp-ins": "composer install",
+    "fi-comp-up": "composer update",
+    "fi-comp-dump-optimize": ["composer dump-autoload -o"],
+    "fi-comp-install-dev": ["composer install --dev"],
     "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
     "test": "phpunit",
     "spark-serve": "php spark serve --port 8181",

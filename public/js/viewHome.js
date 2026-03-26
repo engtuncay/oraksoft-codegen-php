@@ -1,4 +1,4 @@
-import { FiKeybean, FiMeta, fiPostFormData, fiPostJson, testOrakSoftUi } from "../orak_modules/oraksoft-ui/oraksoft-ui.js";
+import { FiKeybean, FiMeta, fiPostFormData, fiPostJson, testOrakSoftUi } from "../orak_modules/orak-util-js/orak-util-js.js";
 import { FimCdgMssqlOpts } from "./ocgmeta/FimCdgMssqlOpts.js";
 import { FimOsfFdr } from "./ocgmeta/FimOsfFdr.js";
 
@@ -107,11 +107,11 @@ export function viewHomeInit() {
 }
 
 
-//import { fiBsModal, testOrakSoftUi } from '../../orak_modules/oraksoft-ui/oraksoft-ui.js';
+//import { fiBsModal, testOrakSoftUi } from '../../orak_modules/orak-util-js/orak-util-js.js';
 //fiBsModal(`<p>OrakSoft UI modülü başarıyla yüklendi!</p>`,"orakSoftUiModal",false);
 
 //let fkb = new Fikeybean();
-//import { Fdr } from './libs/oraksoft-ui.js';
+//import { Fdr } from './libs/orak-util-js.js';
 
 //console.log(testOrakSoftUi("dünya"));
 //let fiCol = new FiCol();

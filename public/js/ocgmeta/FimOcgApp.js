@@ -1,5 +1,5 @@
 // FiMeta Class Generation  - v0.3 
-import { FiMeta } from "../../../orak_modules/oraksoft-ui/oraksoft-ui.js";
+import { FiMeta } from "../../../orak_modules/orak-util-js/orak-util-js.js";
 
 export class FimOcgApp
 {

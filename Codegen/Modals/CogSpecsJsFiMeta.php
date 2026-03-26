@@ -17,7 +17,7 @@ class CogSpecsJsFiMeta implements ICogSpecsGenCol
     OcgLogger::info("CogSpecsJsFiMeta::getTemplateColClass called");
     //String
     $template = <<<EOD
-import { FiMeta } from "../../orak_modules/oraksoft-ui/oraksoft-ui.js";
+import { FiMeta } from "../../orak_modules/orak-util-js/orak-util-js.js";
 
 export class {{classPref}}{{entityName}}
 {

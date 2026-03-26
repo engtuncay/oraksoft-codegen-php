@@ -11,7 +11,8 @@
     "fi-deploy": "orak-env-change fiprod & orak-zip-package -v & orak-deploy-ftp -v",
     "fi-deploy-ozp": "orak-env-change fiprod & orak-zip-package -v -p ozp & orak-deploy-ftp-ozp -v -p ozp",
     "fi-deploy-test": "orak-env-change test & fi-deploy",
-    "fi-env-local": "orak-env-change filocal"
+    "fi-env-local": "orak-env-change filocal",
+    "build-tw": "npx @tailwindcss/cli -i ./public/input.css -o ./public/output.css --watch"
   },
   "dependencies": {
     "bootstrap": "^5.3.8",
@@ -20,14 +21,17 @@
     "jquery": "^3.7.1",
     "jquery-migrate": "^3.5.2",
     "notiflix": "^3.2.8",
-    "oraksoft-ui": "file:../oraksoft-ui",
-    "oraksoft-tw-css-lib": "file:../oraksoft-tw-css-lib"
+    "orak-util-js": "file:../orak-util-js",
+    "oraksoft-tw-css-lib": "file:../oraksoft-tw-css-lib",
+    "tailwindcss": "^4.2.1",
+    "@tailwindcss/cli": "^4.2.1"
   },
   "devDependencies": {
     "archiver": "^7.0.1",
     "basic-ftp": "^5.0.5",
     "fast-glob": "^3.3.3",
     "path": "^0.12.7",
-    "tar": "^7.5.2"
+    "tar": "^7.5.2",
+    "@tailwindcss/forms": "^0.5.11"
   }
 }

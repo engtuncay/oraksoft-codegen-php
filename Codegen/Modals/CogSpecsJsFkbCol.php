@@ -17,35 +17,41 @@ class CogSpecsJsFkbCol implements ICogSpecsGenCol
   {
     //String
     $templateMain = <<<EOD
-import { FiKeybean, FkbList, FimFiCol } from 'orak-util-ts';
+import { FiKeybean, FkbList, FimFiCol } from '../orak_modules/orak-util-js/orak-util-js.js';
 
 export class {{classPref}}{{entityName}} {
 
-  public static getTxTableName(): string {
+  // return string
+  static getTxTableName() {
     return "{{tableName}}";
   }
   
-  public getITxTableName(): string {
+  // return string
+  getITxTableName() {
     return {{classPref}}{{entityName}}.getTxTableName();
   }
 
-  public genITableCols(): FkbList {
+  // return FkbList
+  genITableCols() {
     return {{classPref}}{{entityName}}.genTableCols();
   }
 
-  public genITableColsTrans(): FkbList {
+  // return FkbList
+  genITableColsTrans() {
     return {{classPref}}{{entityName}}.genTableColsTrans();
   }
 
-  public static getTxPrefix(): string {
+  // return string
+  static getTxPrefix() {
     return "{{tablePrefix}}";
   }
 
-  public getITxPrefix(): string {
+  getITxPrefix() {
     return {{classPref}}{{entityName}}.getTxPrefix();
   }
 
-  public static addFieldDesc(fkbList: FkbList) {
+  // param FkbList
+  static addFieldDesc(fkbList) {
 
     for (const fkb of fkbList.getArray()) {
 {{addFieldDescDetail}}
@@ -63,7 +69,8 @@ EOD;
   public function getTemplateColMethod(): string
   {
     return <<<EOD
-public static {{fieldMethodName}}(): FiKeybean {
+// return FiKeybean
+static {{fieldMethodName}}() {
   let fkbCol = new FiKeybean();
 {{fkbColMethodBody}}
   return fkbCol;
@@ -74,7 +81,8 @@ EOD;
   public function getTemplateColMethodExtra(): string
   {
     return <<<EOD
-public static {{fieldMethodName}}Ext(): FiKeybean
+// return FiKeybean
+public static {{fieldMethodName}}Ext()
 {
   let fkbCol = {{fieldMethodName}}();
 {{fkbColMethodExtraBody}}
@@ -220,7 +228,8 @@ EOD;
   public function getTemplateColsExtraList(): string
   {
     return <<<EOD
-public static genTableColsExtra(): FkbList {
+// return FkbList
+static genTableColsExtra()  {
   let fkbList = new FkbList();
 
   {{fkbListBodyExtra}}
@@ -236,7 +245,8 @@ EOD;
   public function getTemplateColListTransMethod(): string
   {
     return <<<EOD
-public static genTableColsTrans(): FkbList { 
+    // return FkbList
+static genTableColsTrans() { 
   let fkbList = new FkbList();
   
   {{fkbListBodyTrans}}
@@ -252,7 +262,8 @@ EOD;
   public function getTemplateColListMethod(): string
   {
     return <<<EOD
-public static genTableCols(): FkbList {
+// return FkbList
+static genTableCols() {
   let fkbList = new FkbList();
 
   {{fkbListBody}}

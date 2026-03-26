@@ -31,20 +31,20 @@
     {
       "name": "clipboard",
       "file": "dist/clipboard.min.js"
-    },
-    {
-      "name": "oraksoft-ui",
-      "file": "dist/oraksoft-ui.js"
-    },
-    {
-      "name": "oraksoft-ui",
-      "file": "dist/oraksoft-ui.d.ts"
-    },
-    {
-      "name": "oraksoft-ui",
-      "file": "dist/oraksoft-ui.js.map"
-    },
-    {
+    }
+    ,{
+      "name": "orak-util-js",
+      "file": "dist/orak-util-js.js"
+    }
+    ,{
+      "name": "orak-util-js",
+      "file": "dist/orak-util-js.d.ts"
+    }
+    ,{
+      "name": "orak-util-js",
+      "file": "dist/orak-util-js.js.map"
+    }
+    ,{
       "name": "oraksoft-tw-css-lib",
       "file": "dist/oraksoft-tw-lib.css"
     }

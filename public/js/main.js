@@ -1,3 +1,3 @@
-//import { FiKeybean } from "./libs/oraksoft-ui.js";
-//const { greetOrakSoftUi } = require("oraksoft-ui");
+//import { FiKeybean } from "./libs/orak-util-js.js";
+//const { greetOrakSoftUi } = require("orak-util-js");
 
