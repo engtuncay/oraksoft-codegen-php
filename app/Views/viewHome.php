@@ -12,12 +12,7 @@ view('fiAppImports.php');
 // view fonksiyonu ile gönderilen assoc.array keyleri değişken olarak view içerisinde kullanılabilir.
 //FkcOcgApp::fapDbProfiles()
 
-//$fapDbProfiles
-
 $fkbData = new FiKeybean($data);
-
-
-
 
 ?>
 <!DOCTYPE html>
