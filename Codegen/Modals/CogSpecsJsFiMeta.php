@@ -7,10 +7,12 @@ use Codegen\OcgConfigs\OcgLogger;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 class CogSpecsJsFiMeta implements ICogSpecsGenCol
 {
+
 
   public function getTemplateColClass(): string
   {
@@ -114,4 +116,16 @@ EOD;
   {
     throw new \Exception('Not implemented');
   }
+
+  public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
+  {
+    return new FiStrbui();
+  }
+
+  public function getTemplateGenFkbFields(): string
+  {
+    return "";
+  }
+
+  public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void {}
 }

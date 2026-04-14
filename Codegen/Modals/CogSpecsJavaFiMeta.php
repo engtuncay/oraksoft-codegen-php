@@ -5,9 +5,11 @@ namespace Codegen\Modals;
 use Codegen\FiCols\FicFiMeta;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\FkbList;
 
 class CogSpecsJavaFiMeta implements ICogSpecsGenCol
 {
+
 
 
   public function getTemplateColClass(): string
@@ -89,4 +91,19 @@ EOD;
   {
     throw new \Exception('Not implemented');
   }
+
+  public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
+  {
+      return new FiStrbui();
+  }
+
+      public function getTemplateGenFkbFields(): string
+    {
+        throw new \Exception('Not implemented');
+    }
+
+    public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+    {
+        throw new \Exception('Not implemented');
+    }
 }

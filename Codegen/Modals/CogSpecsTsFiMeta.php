@@ -98,4 +98,9 @@ EOD;
   {
     throw new \Exception('Not implemented');
   }
+
+  public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
+  {
+      return new FiStrbui();
+  }
 }

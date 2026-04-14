@@ -8,12 +8,13 @@ use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
+use Engtuncay\Phputils8\FiMetas\FimFiCodeTemp;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 /**
  * Cgm for Fmt (FiMeta)Class 
  * 
- * FiCol excelini kullanarak FiMeta class oluşturur. fcTxFieldName key, fcTxHeader da value gösterir. 
+ * Dml excelini kullanarak FiMeta class oluşturur. fcTxFieldName key, fcTxHeader da value gösterir. 
  * 
  */
 class CgmFiMetaClassByDml
@@ -123,6 +124,8 @@ class CgmFiMetaClassByDml
     $txTablePrefix = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxPrefix());
     //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.fcTxEntityName());
 
+    $sbClassBodyExtra = new FiStrbui();
+    $sbClassBodyExtra->append("// Extras");
 
     $fkbClassParams = new FiKeybean();
     $fkbClassParams->add("classPref", $classPref);
@@ -130,6 +133,7 @@ class CgmFiMetaClassByDml
     $fkbClassParams->add("tableName", $txEntityName);
     $fkbClassParams->add("tablePrefix", $txTablePrefix);
     $fkbClassParams->add("classBody", $sbClassBody->toString());
+    $fkbClassParams->addFim( FimFiCodeTemp::classBlockExtra() , $sbClassBodyExtra->toString() );
     //$fkbParamsMain->add("addFieldDescDetail", $sbFiColAddDescDetail->toString());
 
     // String

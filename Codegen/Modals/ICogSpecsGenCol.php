@@ -4,6 +4,7 @@ namespace Codegen\Modals;
 
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\FkbList;
 
 /**
  * Interface for FiKeybean Specs (Csharp, Java ...)
@@ -16,6 +17,8 @@ interface ICogSpecsGenCol
   public function getTemplateColMethod(): string;
 
   public function genColMethodBody(FiKeybean $fkbItem): FiStrbui;
+
+  public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui;
 
   // TemplateColList Metodlar
 
@@ -31,4 +34,5 @@ interface ICogSpecsGenCol
   // PrepFkbFields ile ilgili metodlar
   public function getTemplateGenFkbFields(): string;
   public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void;
+
 }

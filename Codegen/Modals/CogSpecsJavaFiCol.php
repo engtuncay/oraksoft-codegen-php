@@ -9,6 +9,7 @@ use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCols\FicValue;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\FkbList;
 
 class CogSpecsJavaFiCol implements ICogSpecsGenCol
 {
@@ -63,6 +64,8 @@ public class {{classPref}}{{entityName}} implements IFiTableMeta
   }
 
 {{classBody}}
+
+
 
 }
 EOD;
@@ -272,4 +275,21 @@ EOD;
     $sbFiColAddDescBody = new FiStrbui();
     return $sbFiColAddDescBody;
   }
+
+  public function getTemplateGenFkbFields(): string
+  {
+    return "";
+  }
+
+  public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  {
+    // will be implemented
+  }
+
+  public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
+  {
+      return new FiStrbui();
+  }
+
+
 }

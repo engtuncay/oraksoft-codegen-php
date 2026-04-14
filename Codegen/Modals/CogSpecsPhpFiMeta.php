@@ -5,6 +5,7 @@ namespace Codegen\Modals;
 use Codegen\FiCols\FicFiMeta;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\FkbList;
 
 class CogSpecsPhpFiMeta implements ICogSpecsGenCol
 {
@@ -21,7 +22,6 @@ class CogSpecsPhpFiMeta implements ICogSpecsGenCol
     $templateMain = <<<EOD
       
 use Engtuncay\Phputils8\FiDtos\FiMeta;
-use Engtuncay\Phputils8\FiDtos\FicList;
 
 class {{classPref}}{{entityName}} {
 
@@ -190,5 +190,20 @@ EOD;
   public function doTransientFieldOps(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
   {
     throw new \Exception('Not implemented');
+  }
+
+    public function getTemplateGenFkbFields(): string
+  {
+    return "";
+  }
+
+  public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  {
+    // will be implemented
+  }
+
+  public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
+  {
+      return new FiStrbui();
   }
 }

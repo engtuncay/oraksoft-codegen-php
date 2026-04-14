@@ -146,6 +146,9 @@ class CgmFkbColClass
     //$sbFiColAddDescDetail->toString()
     $fkbParamsMain->add("addFieldDescDetail", "");
 
+    $sbClassBlockExtra = $iSpecsFkbCol->genClassBlockExtra($iCogSpecs, $fkbList);
+
+
     // String
     $templateMain = $iSpecsFkbCol->getTemplateColClass();
     $txResult = FiTemplate::replaceParams($templateMain, $fkbParamsMain);

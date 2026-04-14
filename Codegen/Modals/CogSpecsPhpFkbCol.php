@@ -6,10 +6,13 @@ use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 class CogSpecsPhpFkbCol implements ICogSpecsGenCol
 {
+
+
 
   public function getTemplateColMethod(): string
   {
@@ -54,6 +57,8 @@ public function genITableCols() : FkbList {
 public function genITableColsTrans():FkbList {
   return self::genTableColsTrans();
 }
+
+{{classBlockExtra}}
 
 }
 EOD;
@@ -262,6 +267,32 @@ public static function genFkbFields() : FiKeybean {
   {{genFkbFieldsBlock}}
   return \$fkb;
 }
+EOD;
+  }
+
+  public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
+  {
+    $sbClassBlockExtra = new FiStrbui();
+
+    $templateMethodFkbTable = $this->getTemplateMethodFkbTable();
+
+    $sbClassBlockExtra->append($templateMethodFkbTable);
+    
+    return $sbClassBlockExtra;
+  }
+
+  public function getTemplateMethodFkbTable()
+  {
+    return <<<EOD
+public static function genFkbTable() : FiKeybean {
+
+    FiKeybean \$fkb = new FiKeybean();
+
+    {{genFkbTableBlock}}
+
+     return \$fkb;
+
+  } 
 EOD;
   }
 }

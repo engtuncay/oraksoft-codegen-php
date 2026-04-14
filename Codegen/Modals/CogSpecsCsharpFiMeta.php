@@ -6,6 +6,7 @@ use Codegen\FiCols\FicFiMeta;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\FkbList;
 
 class CogSpecsCsharpFiMeta implements ICogSpecsGenCol
 {
@@ -82,22 +83,27 @@ EOD;
 
   public function getTemplateColListMethod(): string
   {
-    throw new \Exception('Not implemented');
+    //throw new \Exception('Not implemented');
   }
 
   public function getTemplateColListTransMethod(): string
   {
-    throw new \Exception('Not implemented');
+    //throw new \Exception('Not implemented');
   }
 
   public function doNonTransientFieldOps(FiStrbui $sbFclListBody, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
   {
-    throw new \Exception('Not implemented');
+    //throw new \Exception('Not implemented');
   }
 
   public function doTransientFieldOps(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
   {
-    throw new \Exception('Not implemented');
+    //throw new \Exception('Not implemented');
+  }
+
+  public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
+  {
+      return new FiStrbui();
   }
   
 }
