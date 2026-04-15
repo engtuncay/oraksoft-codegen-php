@@ -13,7 +13,6 @@ class CogSpecsPhpFkbCol implements ICogSpecsGenCol
 {
 
 
-
   public function getTemplateColMethod(): string
   {
     return <<<EOD
@@ -59,6 +58,7 @@ public function genITableColsTrans():FkbList {
 }
 
 {{classBlockExtra}}
+
 
 }
 EOD;
@@ -274,25 +274,30 @@ EOD;
   {
     $sbClassBlockExtra = new FiStrbui();
 
-    $templateMethodFkbTable = $this->getTemplateMethodFkbTable();
+    // $templateMethodFkbTable = $this->getTemplateMethodFkbTable();
 
-    $sbClassBlockExtra->append($templateMethodFkbTable);
+    // $sbClassBlockExtra->append($templateMethodFkbTable);
     
     return $sbClassBlockExtra;
   }
 
   public function getTemplateMethodFkbTable()
   {
+
+    $txMethodName = CgmUtils::getMethodNameGenFkbFields();
+
     return <<<EOD
-public static function genFkbTable() : FiKeybean {
+public static function {$txMethodName}() : FiKeybean {
 
-    FiKeybean \$fkb = new FiKeybean();
+    \$fkb = new FiKeybean();
 
-    {{genFkbTableBlock}}
+    {{genFkbItems}}
 
      return \$fkb;
 
   } 
 EOD;
   }
+
+
 }

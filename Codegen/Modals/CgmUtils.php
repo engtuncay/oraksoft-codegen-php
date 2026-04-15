@@ -263,5 +263,8 @@ class CgmUtils
 
     return $params;
   }
-
+  public static function getMethodNameGenFkbFields()
+  {
+    return "genFkbFields";
+  }
 }

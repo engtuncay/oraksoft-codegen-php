@@ -9,6 +9,7 @@ use Engtuncay\Phputils8\FiCores\FiTemplate;
 use Engtuncay\Phputils8\FiCols\FicValue;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
+use Engtuncay\Phputils8\FiMetas\FimFiCodeTemp;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 /**
@@ -130,7 +131,7 @@ class CgmFkbColClass
 
     // Fkc: FiKeybean Col
     $classPref = "Fkc";
-    
+
     // String
     $txEntityName = $fkbList->get(0)?->getFimValue(FimFiCol::fcTxEntityName());
 
@@ -145,6 +146,12 @@ class CgmFkbColClass
     $fkbParamsMain->add("classBody", $sbClassBlock->toString());
     //$sbFiColAddDescDetail->toString()
     $fkbParamsMain->add("addFieldDescDetail", "");
+    $sbClassBlockExtra = $iSpecsFkbCol->genClassBlockExtra($iCogSpecs, $fkbList);
+
+    $sbClassBlockExtra->prepend("// Extra \n\n");
+
+    $fkbParamsMain->addFim(FimFiCodeTemp::classBlockExtra(), $sbClassBlockExtra->toString());
+
 
     $sbClassBlockExtra = $iSpecsFkbCol->genClassBlockExtra($iCogSpecs, $fkbList);
 
@@ -155,6 +162,4 @@ class CgmFkbColClass
 
     return $txResult;
   }
-
-	
 }
