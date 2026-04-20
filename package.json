@@ -1,18 +1,19 @@
 {
   "name": "oraksoft-codegen-node",
   "private": true,
+  "fiPrefix": "ocg",
   "version": "0.0.15",
   "type": "module",
   "scripts": {
-    "pn-install": "pnpm install",
+    "pn-ins-ocg": "pnpm install",
     "pn-update": "pnpm update",
     "orak-copy-deps": "orak-copy-deps",
     "fi-zip": "orak-env-change fiprod & orak-zip-package -v",
-    "fi-deploy": "orak-env-change fiprod & orak-zip-package -v & orak-deploy-ftp -v",
-    "fi-deploy-ozp": "orak-env-change fiprod & orak-zip-package -v -p ozp & orak-deploy-ftp-ozp -v -p ozp",
+    "fi-deploy-ocg": "orak-env-change fiprod & orak-zip-package -v & orak-deploy-ftp -v",
+    "fi-deploy-ozp": "orak-env-change fiprod & orak-zip-package -v -p ozp & orak-deploy-ftp -v -p ozp",
     "fi-deploy-test": "orak-env-change test & fi-deploy",
     "fi-env-local": "orak-env-change filocal",
-    "build-tw": "npx @tailwindcss/cli -i ./public/input.css -o ./public/output.css --watch"
+    "buiwc-tw-ocg": "npx @tailwindcss/cli -i ./public/input.css -o ./public/output.css --watch"
   },
   "dependencies": {
     "bootstrap": "^5.3.8",

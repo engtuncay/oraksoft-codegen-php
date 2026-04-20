@@ -3,10 +3,12 @@
 namespace Codegen\Modals;
 
 use Codegen\FiMetas\App\FimOcgFieldTypes;
+use Engtuncay\Phputils8\FiCols\FicValue;
 use Engtuncay\Phputils8\FiCores\FiBool;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
+use Engtuncay\Phputils8\FiDbs\FiDbTypes;
 use Engtuncay\Phputils8\FiDtos\Fdr;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
@@ -47,17 +49,16 @@ class CgmMssql
     $sfTxTableName = $fkbList->get(0)->getFimValue(FimFiCol::fcTxEntityName());
 
     // --ALTER TABLE STOK_HAREKETLERI ADD sthTxGuid nvarchar(40)
-    
+
     /** @var FiKeybean $fkbItem */
     foreach ($fkbList as $fkbItem) {
 
-      $sfTxFieldDef = self::genSqlColTypeDef($fkbItem);
+      $sfTxFieldDef = self::formSqlColTypeDef($fkbItem);
       $sfTxFieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
-      
+
       $txAlterQueryTemp = "ALTER TABLE $sfTxTableName ADD $sfTxFieldName $sfTxFieldDef;";
       $sbTxCodeGen->append($txAlterQueryTemp);
       $sbTxCodeGen->append("\n");
-
     }
     $sbTxCodeGen->append("\n");
 
@@ -87,7 +88,9 @@ class CgmMssql
         continue;
       }
 
-      $sqlTypeDef = self::genSqlColTypeDef($fkbItem);
+      // URFIX burada özel fielNameleri atlaması yapılabilir
+
+      $sqlTypeDef = self::formSqlColTypeDef($fkbItem);
 
       $sbColDef = new FiStrbui();
       $sbColDef->append("$fcTxFieldName $sqlTypeDef,\n");
@@ -95,7 +98,7 @@ class CgmMssql
     }
 
     $fkbSqlCreateParam = new FiKeybean();
-    $fkbSqlCreateParam->addFieldMeta(FimOcgSql::sfTableName(), $fkbFirstItem->getValueByFim(FimFiCol::fcTxEntityName()));
+    $fkbSqlCreateParam->addFieldMeta(FimOcgSql::sfTableName(), $fkbFirstItem->getFimValue(FimFiCol::fcTxEntityName()));
     // rtrim ile en sondaki , ve \n karakterleri silinir (!)
     $fkbSqlCreateParam->addFieldMeta(FimOcgSql::sfTableFields(), rtrim($sbColDefs->toString(), ",\n"));
 
@@ -140,7 +143,7 @@ CREATE TABLE $sfTableName (
    * @param FiKeybean $fkbItem
    * @return string
    */
-  public static function genSqlColTypeDef(FiKeybean $fkbItem): string
+  public static function formSqlColTypeDef(FiKeybean $fkbItem): string
   {
     $fcTxFieldType = $fkbItem->getFimValue(FimFiCol::fcTxFieldType());
     $fcLnLength = $fkbItem->getFimValue(FimFiCol::fcLnLength());
@@ -168,10 +171,11 @@ CREATE TABLE $sfTableName (
       $sbTypeDef->append(" varchar($fcLnLength)");
     }
 
-    if (
-      $fcTxFieldType == FimOcgFieldTypes::decimal()->getTxKey()
-      || $fcTxFieldType == FimOcgFieldTypes::double()->getTxKey()
-    ) {
+    if (FiString::any(
+      $fcTxFieldType,
+      FimOcgFieldTypes::decimal()->getTxKey(),
+      FimOcgFieldTypes::double()->getTxKey()
+    )) {
 
       if (FiString::isEmpty($fcLnLength)) {
         $fcLnLength = 50;
@@ -192,7 +196,11 @@ CREATE TABLE $sfTableName (
       $sbTypeDef->append(" tinyint");
     }
 
-    if ($fcTxFieldType == FimOcgFieldTypes::bit()->getTxKey()) {
+    if (FiString::any(
+      $fcTxFieldType,
+      FimOcgFieldTypes::bit()->getTxKey(),
+      FimOcgFieldTypes::bool()->getTxKey()
+    )) {
       $sbTypeDef->append(" bit");
     }
 
@@ -214,6 +222,11 @@ CREATE TABLE $sfTableName (
       //$sbTypeDef->append(" UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT NEWID()");
     }
 
+    $fcBoUnique = FicValue::toBool($fkbItem->getFimValue(FimFiCol::fcBoUnique()), false);
+
+    if ($fcBoUnique) {
+      $sbTypeDef->append(" UNIQUE");
+    }
 
     return $sbTypeDef->toString();
   }
