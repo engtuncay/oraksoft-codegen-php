@@ -34,6 +34,7 @@ import ozpasyazilim.utils.table.FiCol;
 import ozpasyazilim.utils.table.FicList;
 import ozpasyazilim.utils.fidborm.IFiTableMeta;
 import ozpasyazilim.utils.datatypes.FiKeyfic;
+import ozpasyazilim.utils.fidborm.AbsFicTable;
       
 public class {{classPref}}{{entityName}} extends AbsFicTable implements IFiTableMeta
 {
