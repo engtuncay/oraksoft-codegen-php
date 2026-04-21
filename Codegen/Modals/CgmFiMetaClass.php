@@ -4,23 +4,29 @@ namespace Codegen\Modals;
 
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
+use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
+use Engtuncay\Phputils8\FiMetas\FimFiCodeTemp;
+use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 /**
- * Code Generator Modal (Cgm) for FiMetaClass (For All Languages)
+ * Cgm for Fmt (FiMeta)Class 
+ * 
+ * Dml excelini kullanarak FiMeta class oluşturur. fcTxFieldName key, fcTxHeader da value gösterir. 
+ * 
  */
 class CgmFiMetaClass
 {
 
-  
+
   /**
    * Generate FiMeta Class from FkbList
    *
    * @param FkbList $fkbList
-   * @param CogSpecsPhp| null $iCogSpecs
-   * @param ICogSpecsGenCol $iSpecsFiMeta
+   * @param CogSpecsJava| null $iCogSpecs sadece className ve methodName standartları için kullanılır
+   * @param ICogSpecsGenCol|null $iSpecsFiMeta
    * @return string
    */
   public static function actGenFiMetaClassByFkl(FkbList $fkbList, ICogSpecs $iCogSpecs = null, ICogSpecsGenCol $iSpecsFiMeta = null): string
@@ -30,17 +36,16 @@ class CgmFiMetaClass
 
     //if (FiCollection.isEmpty(fiCols)) return;
     $sbClassBody = new FiStrbui();
-    $sbFiColMethodsBody = new FiStrbui();
+    $sbFiMetaMethods = new FiStrbui();
 
     //int
     //$index = 0;
 
-    $sbFclListBody = new FiStrbui();
+    //$sbFclListBody = new FiStrbui();
     //$sbFclListBodyExtra = new FiStrbui();
-    $sbFclListBodyTrans = new FiStrbui();
-    $sbFiColAddDescDetail = new FiStrbui();
+    //$sbFclListBodyTrans = new FiStrbui();
+    //$sbFiColAddDescDetail = new FiStrbui();
 
-    $templateMethod = $iSpecsFiMeta->getTemplateColMethod();
     //$templateFiColMethodExtra = $iFiColClass->getTemplateFiColMethodExtra();
 
     /**
@@ -51,30 +56,27 @@ class CgmFiMetaClass
       /**
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
        */
-      $sbFiColMethodBody = $iSpecsFiMeta->genColMethodBody($fkbItem); //StringBuilder
+      $sbColMethodBody = $iSpecsFiMeta->genColMethodBody($fkbItem);
 
       //$sbFiColAddDescDetail->append($iCogSpecs->genFiColAddDescDetail($fkbItem)->toString());
 
       //FiKeybean
-      $fkbFiColMethodBody = new FiKeybean();
+      $fkbFiMetaMethod = new FiKeybean();
 
       //String
-      $fieldName = $fkbItem->getValue('ofmTxKey');
+      $fieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
+
+      if (FiString::isEmpty($fieldName)) continue;
       //$fcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
-      
-      $fkbFiColMethodBody->add("fieldMethodName", $iCogSpecs->checkMethodNameStd($fieldName));
-      $fkbFiColMethodBody->add("fieldName", $fieldName);
-      $fkbFiColMethodBody->add("fiMethodBody", $sbFiColMethodBody->toString());
+
+      $fkbFiMetaMethod->add("fieldMethodName", $iCogSpecs->checkMethodNameStd($fieldName));
+      $fkbFiMetaMethod->add("fieldName", $fieldName);
+      $fkbFiMetaMethod->add("fiMethodBody", $sbColMethodBody->toString());
       //$fkbFiColMethodBody->add("fieldHeader", $fcTxHeader);
-      
 
-      /**
-       * @var string $txFiColMethod
-       */
-      $txFiColMethod = FiTemplate::replaceParams($templateMethod, $fkbFiColMethodBody);
+      $txMethodCode = FiTemplate::replaceParams($iSpecsFiMeta->getTemplateColMethod(), $fkbFiMetaMethod);
 
-      $sbFiColMethodsBody->append($txFiColMethod)->append("\n\n");
-
+      $sbFiMetaMethods->append($txMethodCode)->append("\n\n");
 
       // $fcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
       // $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
@@ -91,15 +93,15 @@ class CgmFiMetaClass
     }
 
     // String
-    //$tempGenFiCols = $iSpecsFiMeta->getTempGenFmtColsMethod();
+    //$templateFiMetaMethod = $iSpecsFiMeta->getTemplateFiMetaMethod();
 
     // String
-    //$txResGenTableColsMethod = FiTemplate::replaceParams($tempGenFiCols, FiKeybean::bui()->buiPut("fmtListBody", $sbFclListBody->toString()));
+    //$txGenAllFiMetasMethod = FiTemplate::replaceParams($templateFiMetaMethod, FiKeybean::bui()->buiPut("fmtListBody", $sbFclListBody->toString()));
 
-    //$sbClassBody->append("\n")->append($txResGenTableColsMethod)->append("\n");
+    //$sbClassBody->append("\n")->append($txGenAllFiMetasMethod)->append("\n");
 
     // String
-    //$tempGenFiColsTrans = $iSpecsFiMeta->getTempGenFmtColsTransList();
+    //$tempGenFiColsTrans = $iCogSpecs->getTempGenFmtColsTransList();
 
     // String
     //$txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeybean::bui()->buiPut("fmtListBodyTrans", $sbFclListBodyTrans->toString()));
@@ -111,30 +113,33 @@ class CgmFiMetaClass
     //$sbClassBody->append("\n")->append($txResGenTableColsMethodExtra)->append("\n");
 
     $sbClassBody->append("\n");
-    $sbClassBody->append($sbFiColMethodsBody->toString());
+    $sbClassBody->append($sbFiMetaMethods->toString());
 
     //
     $classPref = "Fim";
-    // URFIX entity name çekilecek
+
     // String
     $txEntityName = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxEntityName());
 
     $txTablePrefix = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxPrefix());
     //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.fcTxEntityName());
-    //
-    $fkbParamsMain = new FiKeybean();
-    $fkbParamsMain->add("classPref", $classPref);
-    $fkbParamsMain->add("entityName", $iCogSpecs->checkClassNameStd($txEntityName));
-    $fkbParamsMain->add("tableName", $txEntityName);
-    $fkbParamsMain->add("tablePrefix", $txTablePrefix);
-    $fkbParamsMain->add("classBody", $sbClassBody->toString());
-    $fkbParamsMain->add("addFieldDescDetail", $sbFiColAddDescDetail->toString());
+
+    $sbClassBodyExtra = new FiStrbui();
+    $sbClassBodyExtra->append("// Extras");
+
+    $fkbClassParams = new FiKeybean();
+    $fkbClassParams->add("classPref", $classPref);
+    $fkbClassParams->add("entityName", $iCogSpecs->checkClassNameStd($txEntityName));
+    $fkbClassParams->add("tableName", $txEntityName);
+    $fkbClassParams->add("tablePrefix", $txTablePrefix);
+    $fkbClassParams->add("classBody", $sbClassBody->toString());
+    $fkbClassParams->addFim( FimFiCodeTemp::classBlockExtra() , $sbClassBodyExtra->toString() );
+    //$fkbParamsMain->add("addFieldDescDetail", $sbFiColAddDescDetail->toString());
 
     // String
-    $templateMain = $iSpecsFiMeta->getTemplateColClass();
-    $txResult = FiTemplate::replaceParams($templateMain, $fkbParamsMain);
+    $templateFiMetaClass = $iSpecsFiMeta->getTemplateColClass();
+    $txResult = FiTemplate::replaceParams($templateFiMetaClass, $fkbClassParams);
 
     return $txResult;
   }
-
 }

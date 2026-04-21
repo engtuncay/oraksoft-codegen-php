@@ -52,7 +52,7 @@ class CgmCodegen
     }
     if ($lnClassType == 2) {
       $sbTxCodeGen1->append("// $txLang FiMeta Class Generation - v$txVer \n");
-      $sbTxCodeGen1->append(CgmFiMetaClassByDml::actGenFiMetaClassByFkl($fkbList, $iCogSpecs, $iCogSpecsGenCol));
+      $sbTxCodeGen1->append(CgmFiMetaClass::actGenFiMetaClassByFkl($fkbList, $iCogSpecs, $iCogSpecsGenCol));
     }
     if ($lnClassType == 3) {
       $sbTxCodeGen1->append("// $txLang FkbCol Class Generation - v$txVer \n");
@@ -60,7 +60,7 @@ class CgmCodegen
     }
     if ($lnClassType == 4) {
       $sbTxCodeGen1->append("// $txLang FiMeta Class Generation - v$txVer \n");
-      $sbTxCodeGen1->append(CgmFiMetaClass::actGenFiMetaClassByFkl($fkbList, $iCogSpecs, $iCogSpecsGenCol));
+      $sbTxCodeGen1->append(CgmFiMetaClassV1::actGenFiMetaClassByFkl($fkbList, $iCogSpecs, $iCogSpecsGenCol));
     }
 
     $sbTxCodeGen1->append("\n");
