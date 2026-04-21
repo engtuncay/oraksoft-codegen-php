@@ -2,8 +2,6 @@
 
 namespace Codegen\Modals;
 
-use Codegen\FiCols\FicFiMeta;
-use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
