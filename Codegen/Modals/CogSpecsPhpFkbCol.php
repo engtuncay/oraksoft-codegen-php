@@ -281,10 +281,10 @@ EOD;
     return $sbClassBlockExtra;
   }
 
-  public function getTemplateMethodFkbTable()
+  public function getTemplateMethodFkbFields()
   {
 
-    $txMethodName = CgmUtils::getMethodNameGenFkbFields();
+    $txMethodName = CgmUtilsName::getMethodNameGetFkbFieldsAll();
 
     return <<<EOD
 public static function {$txMethodName}() : FiKeybean {

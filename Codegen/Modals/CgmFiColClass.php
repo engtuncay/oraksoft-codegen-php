@@ -2,6 +2,7 @@
 
 namespace Codegen\Modals;
 
+use Codegen\FiMetas\App\FimOcgFieldTypes;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
@@ -9,6 +10,8 @@ use Engtuncay\Phputils8\FiCores\FiTemplate;
 use Engtuncay\Phputils8\FiCols\FicValue;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
+use Engtuncay\Phputils8\FiMetas\FimFiCodeTemp;
+use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 /**
  * Code Generator Modal (Cgm) for FiColClass (For All Languages)
@@ -60,12 +63,15 @@ class CgmFiColClass
       $fkbFiColMethodBody = new FiKeybean();
 
       //String
-      $fieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
+      $fcTxFieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
+
+      if(FiString::isEmpty($fcTxFieldName)) continue;
+
       $fcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
 
       //fkbFiColMethodBody.add("fieldMethodName", FiString.capitalizeFirstLetter(fieldName));
-      $fkbFiColMethodBody->add("fieldMethodName", $iCogSpecs->checkMethodNameStd($fieldName));
-      $fkbFiColMethodBody->add("fieldName", $fieldName);
+      $fkbFiColMethodBody->add("fieldMethodName", $iCogSpecs->checkMethodNameStd($fcTxFieldName));
+      $fkbFiColMethodBody->add("fieldName", $fcTxFieldName);
       $fkbFiColMethodBody->add("fieldHeader", $fcTxHeader);
       $fkbFiColMethodBody->add("fiColMethodBody", $sbFiColMethodBody->toString());
 
@@ -88,7 +94,7 @@ class CgmFiColClass
 
       //
       $fcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
-      $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
+      $methodName = $iCogSpecs->checkMethodNameStd($fcTxFieldName);
 
       if (!$fcBoTransient === true) {
         $iCogSpecsFiCol->doNonTransientFieldOps($sbFclListBody, $fkbItem, $iCogSpecs);
@@ -140,6 +146,10 @@ class CgmFiColClass
     $fkbParamsMain->add("tablePrefix", $txTablePrefix);
     $fkbParamsMain->add("classBody", $sbClassBody->toString());
     $fkbParamsMain->add("addFieldDescDetail", $sbFiColAddDescDetail->toString());
+
+    $sbExtra = $iCogSpecsFiCol->genClassBlockExtra($iCogSpecs, $fkbList);
+
+    $fkbParamsMain->addFim( FimFiCodeTemp::classBlockExtra() ,  $sbExtra->toString());
 
     // String
     $templateMain = $iCogSpecsFiCol->getTemplateColClass();

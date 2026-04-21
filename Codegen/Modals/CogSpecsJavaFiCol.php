@@ -8,8 +8,11 @@ use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCols\FicValue;
+use Engtuncay\Phputils8\FiCores\FiTemplate;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
+use Engtuncay\Phputils8\FiMetas\FimFiCodeTemp;
+use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 class CogSpecsJavaFiCol implements ICogSpecsGenCol
 {
@@ -22,6 +25,7 @@ class CogSpecsJavaFiCol implements ICogSpecsGenCol
   public function getTemplateColClass(): string
   {
     //FicFiCol::fcTxHeader();
+    $txKeyClassBloEx = FimFiCodeTemp::classBlockExtra()->getTxKey();
 
     //String
     $templateMain = <<<EOD
@@ -29,8 +33,9 @@ class CogSpecsJavaFiCol implements ICogSpecsGenCol
 import ozpasyazilim.utils.table.FiCol;
 import ozpasyazilim.utils.table.FicList;
 import ozpasyazilim.utils.fidborm.IFiTableMeta;
+import ozpasyazilim.utils.datatypes.FiKeyfic;
       
-public class {{classPref}}{{entityName}} implements IFiTableMeta
+public class {{classPref}}{{entityName}} extends AbsFicTable implements IFiTableMeta
 {
 
   public static String getTxTableName()
@@ -65,7 +70,7 @@ public class {{classPref}}{{entityName}} implements IFiTableMeta
 
 {{classBody}}
 
-
+{{{$txKeyClassBloEx}}}
 
 }
 EOD;
@@ -288,8 +293,46 @@ EOD;
 
   public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
   {
-      return new FiStrbui();
+    $sbExtra = new FiStrbui();
+
+    $sbGetFkbFields = new FiStrbui();
+
+    /** @var FiKeybean $fkbItem  */
+    foreach ($fkbList as $fkbItem) {
+      # code...
+      $fcTxFieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
+      
+      // Eğer fieldName boşsa bu alanı atla
+      if(FiString::isEmpty($fcTxFieldName)) continue;
+      
+      $stMethodName = $iCogSpecs->checkMethodNameStd($fcTxFieldName);
+      $sbGetFkbFields->append("fkb.addFic({$stMethodName}());\n");
+    } 
+
+    $txTempMethod = $this->getTempMethodFkbFields();
+
+    $txResMethod = FiTemplate::replaceParams($txTempMethod, FiKeybean::bui()->buiPut("getFkbFieldsAllContent", $sbGetFkbFields->toString()));
+
+    $sbExtra->append($txResMethod);
+
+    return $sbExtra;
   }
 
+  public function getTempMethodFkbFields()
+  {
 
+    $txMethodName = CgmUtilsName::getMethodNameGetFkbFieldsAll();
+    $cogSpecs = new CogSpecsJava();
+    $stdTxMethodName = $cogSpecs->checkMethodNameStd($txMethodName);
+
+    return <<<EOD
+public static FiKeyfic {$stdTxMethodName}(){
+
+  FiKeyfic fkb = new FiKeyfic();
+  
+{{getFkbFieldsAllContent}}
+  return fkb;
+}
+EOD;
+  }
 }
