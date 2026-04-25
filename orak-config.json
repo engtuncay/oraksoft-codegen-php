@@ -42,10 +42,13 @@
     "app/",
     "Codegen/",
     "public/",
-    "writable/",
     "vendor/",
     ".htaccess",
     ".env"
+  ],
+  "zip_package_comment": [
+    "writable/",
+    "writable ilk olarak yüklenir sonrakiler dahil edilmez"
   ],
   "zip_package_out_file": "dist/codegen",
   "osf_ftp_local_file": "dist/codegen.tar.gz",
