@@ -10,32 +10,34 @@
     },
     {
       "name": "bootstrap-icons",
-      "file": "font/fonts/bootstrap-icons.woff"
+      "file": "font/fonts/bootstrap-icons.woff",
+      "destFolder": "fonts"
     },
     {
       "name": "bootstrap-icons",
-      "file": "font/fonts/bootstrap-icons.woff2"
+      "file": "font/fonts/bootstrap-icons.woff2",
+      "destFolder": "fonts"
     },
     {
       "name": "clipboard",
       "file": "dist/clipboard.min.js"
-    }
-    ,{
+    },
+    {
       "name": "orak-util-js",
       "file": "dist/orak-util-js.js"
-    }
-    ,{
+    },
+    {
       "name": "orak-util-js",
       "file": "dist/orak-util-js.d.ts"
-    }
-    ,{
+    },
+    {
       "name": "orak-util-js",
       "file": "dist/orak-util-js.js.map"
     }
   ],
   "copyDepsLibFolder": "public/orak_modules",
   "copyDepsLibFolderEmpty": true,
-  "fiDeployZipFile" : "oraksoft_codegen_php",
+  "fiDeployZipFile": "oraksoft_codegen_php",
   "zip_package": [
     "app/",
     "Codegen/",

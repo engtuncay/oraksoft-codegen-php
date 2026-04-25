@@ -28,6 +28,7 @@ $fkbData = new FiKeybean($data);
                                     ?>"> -->
   <link rel="stylesheet" href="<?= base_url('css/codeblock.css') ?>">
   <link rel="stylesheet" href="<?= base_url('output.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('orak_modules/bootstrap-icons/bootstrap-icons.min.css') ?>">
   <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 
   <style>
@@ -45,15 +46,26 @@ $fkbData = new FiKeybean($data);
     ?>
   </div>
   <!--fim-main-container-->
-  <div id="frt" class="container mx-auto mt-2 px-4">
-    <!--fold-level-5-->
-    <section id="frt1" class="flex justify-center">
-      <div id="frt11" class="w-full">
+  <div id="fr" class="container mx-auto mt-2 px-1">
+    <!--content-block-fl-5-->
+    <section id="fr1" class="flex flex-col">
+      <!-- flex1 -->
+      <div id="f11" class="bg-blue-500 text-white rounded-lg p-2 my-0.5">
+        <h3 class="text-center text-2xl font-bold">Oraksoft Code Generator</h3>
+      </div>
+
+      <div id="fr12" class="flex justify-start border rounded-lg shadow-lg my-0.5 px-2 py-1 gap-x-2">
+        <div class="">
+          <a href="<?= base_url('assets/doc/DML-Template-v3.xlsx') ?> "><i class="bi bi-file-earmark-spreadsheet"></i>Dml File Template</a>
+        </div>
+      </div>
+
+      <div id="fr13" class="w-full">
         <div class="border rounded-lg shadow-lg">
           <!--card-header -->
-          <div class="bg-blue-500 text-white rounded-t-lg p-4">
-            <h3 class="text-center text-2xl font-bold">Oraksoft Code Generator</h3>
-          </div>
+
+
+
           <!--card-body -->
           <div class="p-6">
 
@@ -188,9 +200,9 @@ $fkbData = new FiKeybean($data);
     </section>
 
     <!-- code-block -->
-    <section id="frt2" class="mt-6">
-      <div id="frt21" class="relative">
-        <div id="frt211" class="bg-black rounded-lg">
+    <section id="fr2" class="my-3">
+      <div id="fr21" class="relative">
+        <div id="fr211" class="bg-black rounded-lg min-h-12">
           <code class="p-4 rounded-lg block text-white font-mono text-sm overflow-x-auto" id="divCodeBlock">
           </code>
           <button class="absolute top-4 right-4 px-3 py-1 bg-gray-700 hover:bg-gray-800 text-white text-sm rounded copy-btn transition"
