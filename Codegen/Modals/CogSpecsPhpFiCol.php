@@ -13,6 +13,10 @@ use Engtuncay\Phputils8\FiDtos\FkbList;
 
 class CogSpecsPhpFiCol implements ICogSpecsGenCol
 {
+    public function genClassCode(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
+    {
+        return FiStrbui::empty();
+    }
   //
   public function genColMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui
   {

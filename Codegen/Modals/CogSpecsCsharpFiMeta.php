@@ -10,6 +10,20 @@ use Engtuncay\Phputils8\FiDtos\FkbList;
 
 class CogSpecsCsharpFiMeta implements ICogSpecsGenCol
 {
+  public function genClassCode(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
+  {
+    return FiStrbui::empty();
+  }
+
+  public function getTemplateGenFkbFields(): string
+  {
+    return "";
+  }
+
+  public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  {
+    return;
+  }
 
   public function getTemplateColClass(): string
   {
@@ -103,7 +117,6 @@ EOD;
 
   public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
   {
-      return new FiStrbui();
+    return new FiStrbui();
   }
-  
 }

@@ -11,6 +11,10 @@ use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 class CogSpecsPhpFkbCol implements ICogSpecsGenCol
 {
+    public function genClassCode(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
+    {
+        return FiStrbui::empty();
+    }
 
 
   public function getTemplateColMethod(): string

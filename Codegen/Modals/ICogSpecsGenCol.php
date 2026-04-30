@@ -12,6 +12,14 @@ use Engtuncay\Phputils8\FiDtos\FkbList;
 interface ICogSpecsGenCol
 {
 
+  /**
+   * Tüm üretim genClassCode üzerinden yapılacak sonraki aşamada
+   * @param ICogSpecs $iCogSpecs 
+   * @param FkbList $fkbList 
+   * @return FiStrbui 
+   */
+  public function genClassCode(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui;
+
   public function getTemplateColClass(): string;
 
   public function getTemplateColMethod(): string;
@@ -34,5 +42,4 @@ interface ICogSpecsGenCol
   // PrepFkbFields ile ilgili metodlar
   public function getTemplateGenFkbFields(): string;
   public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void;
-
 }

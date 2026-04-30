@@ -9,12 +9,14 @@ use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 class CogSpecsJavaFiMeta implements ICogSpecsGenCol
 {
-
-
+  public function genClassCode(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
+  {
+    return FiStrbui::empty();
+  }
 
   public function getTemplateColClass(): string
   {
-    
+
 
     //String
     $template = <<<EOD
@@ -94,16 +96,16 @@ EOD;
 
   public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
   {
-      return new FiStrbui();
+    return new FiStrbui();
   }
 
-      public function getTemplateGenFkbFields(): string
-    {
-        throw new \Exception('Not implemented');
-    }
+  public function getTemplateGenFkbFields(): string
+  {
+    throw new \Exception('Not implemented');
+  }
 
-    public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
-    {
-        throw new \Exception('Not implemented');
-    }
+  public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  {
+    throw new \Exception('Not implemented');
+  }
 }

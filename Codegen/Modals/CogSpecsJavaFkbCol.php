@@ -12,6 +12,10 @@ use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 class CogSpecsJavaFkbCol implements ICogSpecsGenCol
 {
+  public function genClassCode(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
+  {
+    return FiStrbui::empty();
+  }
 
 
   public function getTemplateColMethod(): string
@@ -286,13 +290,13 @@ EOD;
     return "";
   }
 
-  public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void {
+  public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  {
     // will be implemented
   }
 
   public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
   {
-      return new FiStrbui();
+    return new FiStrbui();
   }
-  
 }

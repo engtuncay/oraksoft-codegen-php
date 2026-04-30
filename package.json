@@ -23,7 +23,6 @@
     "jquery-migrate": "^3.5.2",
     "notiflix": "^3.2.8",
     "orak-util-js": "file:../orak-util-js",
-    "oraksoft-tw-css-lib": "file:../oraksoft-tw-css-lib",
     "tailwindcss": "^4.2.1",
     "@tailwindcss/cli": "^4.2.1"
   },

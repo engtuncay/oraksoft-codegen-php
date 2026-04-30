@@ -12,6 +12,10 @@ use Engtuncay\Phputils8\FiDtos\FkbList;
 
 class CogSpecsCSharpFiCol implements ICogSpecsGenCol
 {
+    public function genClassCode(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
+    {
+        return FiStrbui::empty();
+    }
 
   public function getTemplateColMethod(): string
   {

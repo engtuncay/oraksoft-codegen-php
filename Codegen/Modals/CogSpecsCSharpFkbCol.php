@@ -13,6 +13,10 @@ use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 class CogSpecsCSharpFkbCol implements ICogSpecsGenCol
 {
+  public function genClassCode(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
+  {
+    return FiStrbui::empty();
+  }
 
 
   public function getTemplateColClass(): string
@@ -325,6 +329,6 @@ EOD
 
   public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
   {
-      return new FiStrbui();
+    return new FiStrbui();
   }
 }
