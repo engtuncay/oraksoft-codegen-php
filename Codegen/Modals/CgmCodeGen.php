@@ -5,7 +5,6 @@ namespace Codegen\Modals;
 use App\Controllers\CodegenCont;
 use Codegen\OcgConfigs\OcgLogger;
 //use Codegen\OcdConfig\OcgLogger;
-use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCsvs\FiCsv;
 use Engtuncay\Phputils8\FiDtos\Fdr;
@@ -20,7 +19,7 @@ class CgmCodegen
 {
   /**
    * 
-   * @param FkbList $fkbListData
+   * @param FkbList $fkbList
    * @param ICogSpecs|null $iCogSpecs
    * @param ICogSpecsGenCol|null $iCogSpecsGenCol
    * @return Fdr
@@ -48,21 +47,21 @@ class CgmCodegen
 
     if ($lnClassType == 1) {
       $sbTxCodeGen1->append("// $txLang FiCol Class Generation - v$txVer \n");
-      $sbTxCodeGen1->append(CgmFiColClass::actGenFiColClassByFkl($fkbList, $iCogSpecs, $iCogSpecsGenCol));
     }
     if ($lnClassType == 2) {
       $sbTxCodeGen1->append("// $txLang FiMeta Class Generation - v$txVer \n");
-      $sbTxCodeGen1->append(CgmFiMetaClass::actGenFiMetaClassByFkl($fkbList, $iCogSpecs, $iCogSpecsGenCol));
+      //$sbTxCodeGen1->append(CgmFiMetaClass::actGenFiMetaClassByFkl($fkbList, $iCogSpecs, $iCogSpecsGenCol));
     }
     if ($lnClassType == 3) {
       $sbTxCodeGen1->append("// $txLang FkbCol Class Generation - v$txVer \n");
-      $sbTxCodeGen1->append(CgmFkbColClass::actGenClassByFkl($fkbList, $iCogSpecs, $iCogSpecsGenCol));
+      //$sbTxCodeGen1->append(CgmFkbColClass::actGenClassByFkl($fkbList, $iCogSpecs, $iCogSpecsGenCol));
     }
     if ($lnClassType == 4) {
       $sbTxCodeGen1->append("// $txLang FiMeta Class Generation - v$txVer \n");
-      $sbTxCodeGen1->append(CgmFiMetaClassV1::actGenFiMetaClassByFkl($fkbList, $iCogSpecs, $iCogSpecsGenCol));
+      //$sbTxCodeGen1->append(CgmFiMetaClassV1::actGenFiMetaClassByFkl($fkbList, $iCogSpecs, $iCogSpecsGenCol));
     }
 
+    $sbTxCodeGen1->append( $iCogSpecsGenCol->genClassCode($fkbList));
     $sbTxCodeGen1->append("\n");
     $fdrData->setTxValue($sbTxCodeGen1->toString());
     // } else {

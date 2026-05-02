@@ -18,7 +18,7 @@ interface ICogSpecsGenCol
    * @param FkbList $fkbList 
    * @return FiStrbui 
    */
-  public function genClassCode(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui;
+  public function genClassCode(FkbList $fkbList): string;
 
   public function getTemplateColClass(): string;
 
