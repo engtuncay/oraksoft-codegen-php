@@ -13,33 +13,36 @@ interface ICogSpecsGenCol
 {
 
   /**
-   * Tüm üretim genClassCode üzerinden yapılacak sonraki aşamada
-   * @param ICogSpecs $iCogSpecs 
+   * class kodunu üreten metod 
+   * 
    * @param FkbList $fkbList 
-   * @return FiStrbui 
+   * @return string 
    */
   public function genClassCode(FkbList $fkbList): string;
+    
+  // Standardizasyon için eklendi
 
-  public function getTemplateColClass(): string;
+  // public function getTemplateColClass(): string;
 
-  public function getTemplateColMethod(): string;
+  // public function getTemplateColMethod(): string;
 
-  public function genColMethodBody(FiKeybean $fkbItem): FiStrbui;
+  // public function genColMethodBody(FiKeybean $fkbItem): FiStrbui;
 
-  public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui;
+  // public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui;
 
-  // TemplateColList Metodlar
+  // // TemplateColList Metodlar
 
-  // old name : getTemplateGenTableColsMethod 
-  public function getTemplateColListMethod(): string;
+  // // old name : getTemplateGenTableColsMethod 
+  // public function getTemplateColListMethod(): string;
 
-  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void;
+  // public function doNonTransientFieldOps(FiStrbui $sbFclListBody, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void;
 
-  // TemplateColListTrans Metodlar
-  public function getTemplateColListTransMethod(): string;
-  public function doTransientFieldOps(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void;
+  // // TemplateColListTrans Metodlar
+  // public function getTemplateColListTransMethod(): string;
+  // public function doTransientFieldOps(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void;
 
-  // PrepFkbFields ile ilgili metodlar
-  public function getTemplateGenFkbFields(): string;
-  public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void;
+  // // PrepFkbFields ile ilgili metodlar
+  // public function getTemplateGenFkbFields(): string;
+  // public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void;
+
 }
