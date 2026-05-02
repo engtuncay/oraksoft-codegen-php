@@ -10,22 +10,22 @@ use Codegen\Modals\CgmMysql;
 use Codegen\Modals\CgmUidGen;
 use Codegen\Modals\CgmUtils;
 use Codegen\Modals\CogSpecsCsharp;
-use Codegen\Modals\CogSpecsCSharpFiCol;
-use Codegen\Modals\CogSpecsCsharpFiMeta;
-use Codegen\Modals\CogSpecsCSharpFkbCol;
+use Codegen\Modals\CogCSharpFiCol;
+use Codegen\Modals\CogCsharpFiMeta;
+use Codegen\Modals\CogCSharpFkbCol;
 use Codegen\Modals\CogSpecsJava;
 use Codegen\Modals\CogJavaFiCol;
 use Codegen\Modals\CogJavaFiMeta;
 use Codegen\Modals\CogJavaFkbCol;
 use Codegen\Modals\CogSpecsJs;
-use Codegen\Modals\CogSpecsJsFiMeta;
-use Codegen\Modals\CogSpecsJsFkbCol;
+use Codegen\Modals\CogJsFiMeta;
+use Codegen\Modals\CogJsFkbCol;
 use Codegen\Modals\CogSpecsPhp;
-use Codegen\Modals\CogSpecsPhpFiCol;
-use Codegen\Modals\CogSpecsPhpFiMeta;
-use Codegen\Modals\CogSpecsPhpFkbCol;
-use Codegen\Modals\CogSpecsTsFiMeta;
-use Codegen\Modals\CogSpecsTsFkbCol;
+use Codegen\Modals\CogPhpFiCol;
+use Codegen\Modals\CogPhpFiMeta;
+use Codegen\Modals\CogPhpFkbCol;
+use Codegen\Modals\CogTsFiMeta;
+use Codegen\Modals\CogTsFkbCol;
 use Codegen\Modals\CogSpecsTs;
 use Codegen\OcgConfigs\OcgLogger;
 use CodeIgniter\RESTful\ResourceController;
@@ -189,14 +189,14 @@ class Api extends ResourceController
     if ($selJs > 0) $cogSpecs = new CogSpecsJs();
 
     #Csharp CogSpecs
-    if ($selCsharp == 1) $cogSpecsGenCol = new CogSpecsCSharpFiCol();
-    if ($selCsharp == 2 || $selCsharp == 4) $cogSpecsGenCol = new CogSpecsCsharpFiMeta();
-    if ($selCsharp == 3) $cogSpecsGenCol = new CogSpecsCSharpFkbCol();
+    if ($selCsharp == 1) $cogSpecsGenCol = new CogCSharpFiCol();
+    if ($selCsharp == 2 || $selCsharp == 4) $cogSpecsGenCol = new CogCsharpFiMeta();
+    if ($selCsharp == 3) $cogSpecsGenCol = new CogCSharpFkbCol();
 
     #Php CogSpecs
-    if ($selPhp == 1) $cogSpecsGenCol = new CogSpecsPhpFiCol();
-    if ($selPhp == 2 || $selPhp == 4) $cogSpecsGenCol = new CogSpecsPhpFiMeta();
-    if ($selPhp == 3) $cogSpecsGenCol = new CogSpecsPhpFkbCol();
+    if ($selPhp == 1) $cogSpecsGenCol = new CogPhpFiCol();
+    if ($selPhp == 2 || $selPhp == 4) $cogSpecsGenCol = new CogPhpFiMeta();
+    if ($selPhp == 3) $cogSpecsGenCol = new CogPhpFkbCol();
 
     //---- Java
     if ($selJava == 1) $cogSpecsGenCol = new CogJavaFiCol();
@@ -204,11 +204,11 @@ class Api extends ResourceController
     if ($selJava == 3) $cogSpecsGenCol = new CogJavaFkbCol();
 
     //---- Typescript
-    if ($selTs == 3) $cogSpecsGenCol = new CogSpecsTsFkbCol();
-    if ($selTs == 2 ||  $selTs == 4) $cogSpecsGenCol = new CogSpecsTsFiMeta();
+    if ($selTs == 3) $cogSpecsGenCol = new CogTsFkbCol();
+    if ($selTs == 2 ||  $selTs == 4) $cogSpecsGenCol = new CogTsFiMeta();
 
-    if ($selJs == 3) $cogSpecsGenCol = new CogSpecsJsFkbCol();
-    if ($selJs == 2 ||  $selJs == 4) $cogSpecsGenCol = new CogSpecsJsFiMeta();
+    if ($selJs == 3) $cogSpecsGenCol = new CogJsFkbCol();
+    if ($selJs == 2 ||  $selJs == 4) $cogSpecsGenCol = new CogJsFiMeta();
 
     // ColClass üretimi (C#, Java, Php, Js)
     $selClassType = max($selPhp, $selJava, $selCsharp, $selTs, $selJs);

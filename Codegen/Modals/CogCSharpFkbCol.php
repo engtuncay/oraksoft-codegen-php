@@ -2,6 +2,7 @@
 
 namespace Codegen\Modals;
 
+use Engtuncay\Phputils8\FiCores\FiBool;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
@@ -12,15 +13,14 @@ use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCodeTemp;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
-class CogSpecsPhpFkbCol implements ICogSpecsGenCol
+class CogCSharpFkbCol implements ICogSpecsGenCol
 {
   public function genClassCode(FkbList $fkbList): string
   {
-    $iCogSpecs = new CogSpecsPhp();
+    $iCogSpecs = new CogSpecsCsharp();
 
-    $sbClassBlock = new FiStrbui(); //new StringBuilder();
-    $sbFiColMethodsBody = new FiStrbui(); //new StringBuilder();
-
+    $sbClassBlock = new FiStrbui(); 
+    $sbFiColMethodsBody = new FiStrbui(); 
     //int
     //$index = 0;
 
@@ -94,21 +94,6 @@ class CogSpecsPhpFkbCol implements ICogSpecsGenCol
     $txResult = FiTemplate::replaceParams($templateMain, $fkbParamsMain);
 
     return $txResult;
-
-    return "";
-  }
-
-
-  public function getTemplateColMethod(): string
-  {
-    return <<<EOD
-public static function {{fieldMethodName}}() : FiKeybean
-{ 
-  \$fkbCol = new FiKeybean();
-{{fkbColMethodBody}}
-  return \$fkbCol;
-}
-EOD;
   }
 
 
@@ -116,78 +101,118 @@ EOD;
   {
     //String
     $templateMain = <<<EOD
+using OrakYazilimLib.FiMetas.FimStore;
+using OrakYazilimLib.Util.Collection;
+using OrakYazilimLib.Util.core;
 
-use Engtuncay\Phputils8\FiCols\AbsFkbTable;
-use Engtuncay\Phputils8\FiCols\IFkbTableMeta;
-use Engtuncay\Phputils8\FiDtos\FiKeybean;
-use Engtuncay\Phputils8\FiDtos\FkbList;
-use Engtuncay\Phputils8\FiMetas\FimFiCol;
+public class {{classPref}}{{entityName}}
+{
 
-class {{classPref}}{{entityName}} extends AbsFkbTable implements IFkbTableMeta {
+  public static string GetTxTableName()
+  {
+    return "{{tableName}}";
+  }
+  
+  public string GetITxTableName()
+  {
+    return GetTxTableName();
+  }
 
-public function getITxTableName() : string {
-  return self::GetTxTableName();
-}
+  public FkbList GenITableCols()
+  {
+    return GenTableCols();
+  }
 
-public static function  getTxTableName() : string{
-  return "{{entityName}}";
-}
+  public FkbList GenITableColsTrans()
+  {
+    return GenTableColsTrans();
+  }
+  
+  public static string GetTxPrefix()
+  {
+    return "{{tablePrefix}}";
+  }
+
+  public string GetITxPrefix()
+  {
+    return GetTxPrefix();
+  }
+
+  public static void AddFieldDesc(FkbList fkbList) {
+
+    foreach (FiKeybean fkb in fkbList)
+    {
+        {{addFieldDescDetail}}
+    }
+    
+  }
 
 {{classBody}}
-
-public function genITableCols() : FkbList {
-  return self::genTableCols();
-}
-
-public function genITableColsTrans():FkbList {
-  return self::genTableColsTrans();
-}
-
-{{classBlockExtra}}
-
-
 }
 EOD;
 
     return $templateMain;
   }
 
+  public function getTemplateColMethod(): string
+  {
+    return <<<EOD
+public static FiKeybean {{fieldMethodName}}()
+{ 
+  FiKeybean fkbCol = new FiKeybean();
+{{fkbColMethodBody}}
+  return fkbCol;
+}
+EOD;
+  }
+
+  public function getTemplateColMethodExtra(): string
+  {
+    return <<<EOD
+public static FiKeybean {{fieldMethodName}}Ext()
+{
+  FiKeybean fkbCol = {{fieldMethodName}}();
+{{fkbColMethodExtraBody}}
+  return fkbCol;
+}
+EOD;
+  }
+
+
   public function genColMethodBody(FiKeybean $fkbItem): FiStrbui
   {
     //StringBuilder
-    $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
+    $sbFkbColMethodBody = new FiStrbui(); // new StringBuilder();
 
     //String
     //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::fcTxFieldType()));
-    //$txKey = $fkb->getValueByFiCol(FicFiMeta::txKey());
-    //if ($txKey != null) {
-    //  $sbFmtMethodBodyFieldDefs->append(sprintf(" \$fiMeta->txKey = '%s';\n", $txKey));
-    //}
+    $fcTxFieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
+    if ($fcTxFieldName != null) {
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcTxFieldName(), \"%s\");\n", $fcTxFieldName));
+    }
 
-    //    $fkbCol->addFiCol(FicFiCol::fcTxFieldName(),'evsTxMustKod'); // "fcTxFieldType", 'string'); //->fcTxFieldType = 'string';
-    // $fkbCol->addFiCol(FicFiCol::fcTxFieldType(), 'string'); //->fcTxFieldType = 'string';
 
-    $fcTxFieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
-    if ($fcTxFieldName != null)
-      $sbFiColMethodBody->append(sprintf("  \$fkbCol->addFim(FimFiCol::fcTxFieldName(), '%s');\n", $fcTxFieldName));
+    $fcTxHeader = $fkbItem->getValueByFiMeta(FimFiCol::fcTxHeader());
+    if ($fcTxHeader != null) {
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcTxHeader(), \"%s\");\n", $fcTxHeader));
+    }
 
-    $fcTxHeader = $fkbItem->getValueByFiCol(FicFiCol::fcTxHeader());
-    if ($fcTxHeader != null)
-      $sbFiColMethodBody->append(sprintf("  \$fkbCol->addFim(FimFiCol::fcTxHeader(), '%s');\n", $fcTxHeader));
+    $fcTxFieldType = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldType());
+    if ($fcTxFieldType != null) {
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcTxFieldType(), \"%s\");\n", $fcTxFieldType));
+    }
 
-    $fcTxFieldType = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldType());
-    if ($fcTxFieldType != null)
-      $sbFiColMethodBody->append(sprintf("  \$fkbCol->addFim(FimFiCol::fcTxFieldType(), '%s');\n", $fcTxFieldType));
+    $fcTxDbField = $fkbItem->getValueByFiMeta(FimFiCol::fcTxDbField());
+    if ($fcTxDbField != null) {
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcTxDbField(), \"%s\");\n", $fcTxDbField));
+    }
 
-    // $fcTxDbField = $fkbItem->getValueByFiCol(FicFiCol::fcTxDbField());
-    // if ($fcTxDbField != null)
-    //   $sbFiColMethodBody->append(sprintf("  fiCol.fcTxDbField = \"%s\";\n", $fcTxDbField));
+    $fcTxRefField = $fkbItem->getValueByFiMeta(FimFiCol::fcTxRefField());
+    if ($fcTxRefField != null) {
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcTxRefField(), \"%s\");\n", $fcTxRefField));
+    }
 
-    // {
-    //   $fcTxRefField = $fkbItem->getValueByFiCol(FicFiCol::fcTxRefField());
-    //   if ($fcTxRefField != null)
-    //     $sbFiColMethodBody->append(sprintf("  \$fiCol->fcTxRefField = \"%s\";\n", $fcTxRefField));
-    // }
+
 
 
     //$fcTxIdType = $fiCol->fcTxIdType;
@@ -198,31 +223,38 @@ EOD;
     // sbFiColMethodBody.append(String.format("\tfiCol.ofiTxIdType = FiIdGenerationType.%s.toString();\n", ofiTxIdType));
     // }
 
-    // $fcBoTransient = $fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoTransient());
-    // if ($fcBoTransient) {
-    //   $sbFiColMethodBody->append("  fiCol.fcBoTransient = true;\n");
-    // }
+    $fcBoTransient = $fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoTransient());
+    if ($fcBoTransient) {
+      //$sbFkbColMethodBody->append("  fkbCol.fcBoTransient = true;\n");
+      $sbFkbColMethodBody->append("  fkbCol.AddFieldBy(FimFiCol.FcBoTransient(), true );\n");
+    }
 
-    // $fcLnLength = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnLength()));
-    // if ($fcLnLength != null) {
-    //   $sbFiColMethodBody->append(sprintf("  fiCol.fcLnLength = %s;\n", $fcLnLength));
-    // }
+    $fcLnLength = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnLength()));
+    if ($fcLnLength != null) {
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcLnLength(), %s);\n", $fcLnLength));
+      // $sbFkbColMethodBody->append(sprintf("  fkbCol.fcLnLength = %s;\n", $fcLnLength));
+    }
 
-    // $fcLnPrecision = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnPrecision()));
-    // if ($fcLnPrecision != null) {
-    //   $sbFiColMethodBody->append(sprintf("  fiCol.fcLnPrecision = %s;\n", $fcLnPrecision));
-    // }
+    $fcLnPrecision = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnPrecision()));
+    if ($fcLnPrecision != null) {
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcLnPrecision(), %s);\n", $fcLnPrecision));
+    }
 
-    // $fcLnScale = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnScale()));
-    // if ($fcLnScale != null) {
-    //   $sbFiColMethodBody->append(sprintf("  fiCol.fcLnScale = %s;\n", $fcLnScale));
-    // }
+    $fcLnScale = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnScale()));
+    if ($fcLnScale != null) {
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcLnScale(), %s);\n", $fcLnScale));
+    }
 
-    // if (FiBool::isFalse($fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoNullable()))) {
-    //   $sbFiColMethodBody->append("  fiCol.fcBoNullable = false;\n");
-    // }
+    if (FiBool::isFalse($fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoNullable()))) {
+      $sbFkbColMethodBody->append("  fkbCol.AddFieldBy(FimFiCol.FcBoNullable(), false);\n");
+    }
 
+    $fcLnId = FicValue::toInt($fkbItem->getValueByFiMeta(FimFiCol::fcLnId()));
+    if ($fcLnId != null) {
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.AddFieldBy(FimFiCol.FcLnId(), %s);\n", $fcLnId));
+    }
 
+    //
     //    if (FiBool::isTrue($fiCol->fcBoNullable)) {
     //      $sbFiColMethodBody->append("fiCol.fcBoNullable = true;\n");
     //    }
@@ -249,9 +281,36 @@ EOD;
     //
     //        // fcTxCollation	fcTxTypeName
 
+    return $sbFkbColMethodBody;
+  }
+
+  public function genColMethodBodyDetailExtra(FiKeybean $fkbItem): FiStrbui
+  {
+    //StringBuilder
+    $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
+
+    $fcTxDesc = $fkbItem->getValueByFiCol(FicFiCol::fcTxDesc());
+    //if ($fcTxDesc != null)
+    $sbFiColMethodBody->append(sprintf("  fiCol.fcTxDesc = \"%s\";\n", $fcTxDesc));
+
     return $sbFiColMethodBody;
   }
 
+  /**
+   * @return string
+   */
+  public function getTemplateColListExtra(): string
+  {
+    return <<<EOD
+public static FkbList GenTableColsExtra() {
+  FkbList fkbList = new FkbList();
+
+  {{fkbListBodyExtra}}
+
+  return fkbList;
+}
+EOD;
+  }
 
   /**
    * @return string
@@ -259,16 +318,15 @@ EOD;
   public function getTemplateColListTransMethod(): string
   {
     return <<<EOD
-public static function genTableColsTrans() : FkbList {
-  \$fkbList = new FkbList();
-
+public static FkbList GenTableColsTrans() {
+  FkbList fkbList = new FkbList();
+  
   {{fkbListBodyTrans}}
-
-  return \$fkbList;
+  
+  return fkbList;
 }
 EOD;
   }
-
 
   /**
    * @return string
@@ -276,12 +334,12 @@ EOD;
   public function getTemplateColListMethod(): string
   {
     return <<<EOD
-public static function genTableCols() : FkbList {
-  \$fkbList = new FkbList();
+public static FkbList GenTableCols() {
+  FkbList fkbList = new FkbList();
 
   {{fkbListBody}}
 
-  return \$fkbList;
+  return fkbList;
 }
 EOD;
   }
@@ -292,49 +350,42 @@ EOD;
    * @param FiStrbui $sbFclListBodyExtra
    * @return void
    */
-  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void //, string $methodName
-  {
-    $fieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
+  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  { //, FiStrbui $sbFclListBodyExtra
+    $fieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
     $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
-    $sbFclListBody->append("\$fkbList->add(self::$methodName());\n");
+    $sbFclListBody->append("fkbList.Add($methodName());\n");
+    // $sbFclListBodyExtra->append("ficList.Add($methodName" . "Ext());\n");
   }
-
 
   /**
    * @param FiStrbui $sbContent
-   * @param string $methodName
+   * @param FiKeybean $fkbItem
+   * @param ICogSpecs $iCogSpecs
    * @return void
    */
   public function doTransientFieldOps(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
   {
-    $fieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
+    $fieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
     $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
-    $sbContent->append("\$fkbList->add(self::$methodName());\n");
+    $sbContent->append("fkbList.Add($methodName());\n");
   }
-
-  public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
-  {
-    $fieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
-    $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
-    $sbContent->append("\$fkb->addFieldFkb(self::$methodName(),self::$methodName());\n");
-  }
-
 
   public function genFiColAddDescDetail(FiKeybean $fkbItem, ICogSpecs $iCogSpecs): FiStrbui
   {
     //StringBuilder
     $sbText = new FiStrbui(); // new StringBuilder();
 
-    $fcTxFielDesc = $fkbItem->getFimValue(FimFiCol::fcTxDesc());
+    $fcTxFielDesc = $fkbItem->getValueByFiCol(FicFiCol::fcTxDesc());
 
     if (!FiString::isEmpty($fcTxFielDesc)) {
-      $methodNameStd = $iCogSpecs->checkMethodNameStd($fkbItem->getFimValue(FimFiCol::fcTxFieldName()));
+      $methodNameStd = $iCogSpecs->checkMethodNameStd($fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName()));
 
       $sbText->append(
         <<<EOD
 
-    if(FiString.Equals(fiCol.fcTxFieldName,$methodNameStd().fcTxFieldName)){
-      fiCol.fcTxFieldDesc = "$fcTxFielDesc";
+    if(FiString.Equals(fkbCol.fcTxFieldName,$methodNameStd().fcTxFieldName)){
+      fkbCol.fcTxFieldDesc = "$fcTxFielDesc";
     }
       
 EOD
@@ -346,43 +397,17 @@ EOD
 
   public function getTemplateGenFkbFields(): string
   {
-    return <<<EOD
-public static function genFkbFields() : FiKeybean {
-  \$fkb = new FiKeybean();
+    return "";
+  }
 
-  {{genFkbFieldsBlock}}
-  return \$fkb;
-}
-EOD;
+  public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  {
+    // will be implemented
   }
 
   public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
   {
-    $sbClassBlockExtra = new FiStrbui();
-
-    // $templateMethodFkbTable = $this->getTemplateMethodFkbTable();
-
-    // $sbClassBlockExtra->append($templateMethodFkbTable);
-
-    return $sbClassBlockExtra;
-  }
-
-  public function getTemplateMethodFkbFields()
-  {
-
-    $txMethodName = CgmUtilsName::getMethodNameGetFkbFieldsAll();
-
-    return <<<EOD
-public static function {$txMethodName}() : FiKeybean {
-
-    \$fkb = new FiKeybean();
-
-    {{genFkbItems}}
-
-     return \$fkb;
-
-  } 
-EOD;
+    return new FiStrbui();
   }
 
     public function processFkbItem($iSpecsFkbCol, $fkbItem, $iCogSpecs, $templateFiColMethod, $sbFiColMethodsBody, $sbFclListBody, $sbFclListBodyTrans, $sbPrepFkbFields)

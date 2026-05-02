@@ -48,7 +48,7 @@ class CogJavaFiCol implements ICogSpecsGenCol
       //$sbFiColAddDescDetail->append($iCogSpecsFiCol->genColAddDescMethodBody($fkbItem,$iCogSpecs)->toString());
 
       //FiKeybean
-      $fkbFiColMethodBody = new FiKeybean();
+      $fkbFicMethBody = new FiKeybean();
 
       //String
       $fcTxFieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
@@ -58,15 +58,15 @@ class CogJavaFiCol implements ICogSpecsGenCol
       $fcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
 
       //fkbFiColMethodBody.add("fieldMethodName", FiString.capitalizeFirstLetter(fieldName));
-      $fkbFiColMethodBody->addFim(FimFiCodeTemp::fieldMethodName(), $iCogSpecs->checkMethodNameStd($fcTxFieldName));
-      $fkbFiColMethodBody->addFim(FimFiCodeTemp::fieldName() , $fcTxFieldName);
-      $fkbFiColMethodBody->addFim(FimFiCodeTemp::fieldHeader() , $fcTxHeader);
-      $fkbFiColMethodBody->addFim(FimFiCodeTemp::colMethodBody() , $sbFiColMethodBody->toString());
+      $fkbFicMethBody->addFim(FimFiCodeTemp::fieldMethodName(), $iCogSpecs->checkMethodNameStd($fcTxFieldName));
+      $fkbFicMethBody->addFim(FimFiCodeTemp::fieldName() , $fcTxFieldName);
+      $fkbFicMethBody->addFim(FimFiCodeTemp::fieldHeader() , $fcTxHeader);
+      $fkbFicMethBody->addFim(FimFiCodeTemp::colMethodBody() , $sbFiColMethodBody->toString());
 
       /**
        * @var string $txFiColMethod
        */
-      $txFiColMethod = FiTemplate::replaceParams($templateFiColMethod, $fkbFiColMethodBody);
+      $txFiColMethod = FiTemplate::replaceParams($templateFiColMethod, $fkbFicMethBody);
 
       $sbFiColMethodsBody->append($txFiColMethod)->append("\n\n");
 
@@ -379,7 +379,8 @@ EOD;
 
   /**
    * @param FiStrbui $sbFclListBody
-   * @param string $methodName
+   * @param FiKeybean $fkbItem
+   * @param ICogSpecs $iCogSpecs
    * @return void
    */
   public function doNonTransientFieldOps(FiStrbui $sbFclListBody, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void

@@ -3,7 +3,6 @@
 namespace Codegen\Modals;
 
 use Codegen\FiCols\FicFiMeta;
-use Codegen\OcgConfigs\OcgLogger;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiString;
@@ -13,11 +12,13 @@ use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCodeTemp;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
-class CogSpecsJsFiMeta implements ICogSpecsGenCol
+class CogTsFiMeta implements ICogSpecsGenCol
 {
   public function genClassCode(FkbList $fkbList): string
   {
-    $iCogSpecs = new CogSpecsJs();
+    $iCogSpecs = new CogSpecsTs();
+
+        $iCogSpecs = new CogSpecsJava();
 
     //if (FiCollection.isEmpty(fiCols)) return;
     $sbClassBody = new FiStrbui();
@@ -54,8 +55,8 @@ class CogSpecsJsFiMeta implements ICogSpecsGenCol
       if (FiString::isEmpty($fieldName)) continue;
       //$fcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
 
-      $fkbFiMetaMethod->addFim(FimFiCodeTemp::fieldMethodName(), $iCogSpecs->checkMethodNameStd($fieldName));
-      $fkbFiMetaMethod->addFim(FimFiCodeTemp::fieldName(), $fieldName);
+      $fkbFiMetaMethod->addFim( FimFiCodeTemp::fieldMethodName() , $iCogSpecs->checkMethodNameStd($fieldName));
+      $fkbFiMetaMethod->addFim( FimFiCodeTemp::fieldName() , $fieldName);
       $fkbFiMetaMethod->addFim(FimFiCodeTemp::fiMethodBody(), $sbColMethodBody->toString());
       //$fkbFiColMethodBody->add("fieldHeader", $fcTxHeader);
 
@@ -128,13 +129,21 @@ class CogSpecsJsFiMeta implements ICogSpecsGenCol
     return $txResult;
   }
 
+  public function getTemplateGenFkbFields(): string
+  {
+    return "";
+  }
+
+  public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  {
+    return;
+  }
 
   public function getTemplateColClass(): string
   {
-    OcgLogger::info("CogSpecsJsFiMeta::getTemplateColClass called");
     //String
     $template = <<<EOD
-import { FiMeta } from "../../orak_modules/orak-util-js/orak-util-js.js";
+import { FiMeta } from "orak-util-ts";
 
 export class {{classPref}}{{entityName}}
 {
@@ -149,7 +158,7 @@ EOD;
   {
     //String
     $template = <<<EOD
-static {{fieldMethodName}}()
+public static {{fieldMethodName}}():FiMeta
 { 
   let fiMeta = FiMeta.create("{{fieldName}}");
 {{fiMethodBody}}
@@ -162,55 +171,42 @@ EOD;
 
   public function genColMethodBody(FiKeybean $fkb): FiStrbui
   {
-    // Field Definitions
     //StringBuilder
-    $sbFimMethodBody = new FiStrbui();
+    $sbFmtMethodBodyFieldDefs = new FiStrbui();
 
-    // ftTxKey alanı constructor'da tanımlanmış
+    // constructor'da tanımlanmış
     // $txKey = $fkb->getValueByFiCol(FicFiMeta::ftTxKey());
     // if ($txKey != null) {
-    //   $sbFmtMethodBodyFieldDefs->append(sprintf(" fiMeta.ftTxKey = \"%s\";\n", $txKey));
+    //   $sbFmtMethodBodyFieldDefs->append(sprintf(" fiMeta.txKey = \"%s\";\n", $txKey));
     // }
 
-    $txValue = $fkb->getValueByFim(FimFiCol::fcTxHeader());
+    $txValue = $fkb->getValueByFiCol(FicFiMeta::ftTxValue());
     if ($txValue != null) {
-      $sbFimMethodBody->append(sprintf("  fiMeta.ftTxValue = \"%s\";\n", $txValue));
+      $sbFmtMethodBodyFieldDefs->append(sprintf(" fiMeta.ftTxValue = \"%s\";\n", $txValue));
     }
 
-    $fcLnId = $fkb->getValueByFim(FimFiCol::fcLnId());
-    OcgLogger::info("fcLnId: " . $fcLnId);
-    if ($fcLnId != null) {
-      $sbFimMethodBody->append(sprintf("  fiMeta.ftLnKey = %s;\n", $fcLnId));
-    }
-
-    return $sbFimMethodBody;
+    return $sbFmtMethodBodyFieldDefs;
   }
 
-  // /**
-  //  * FiMeta üreten metodun gövdesinin FiCol Template üzerinden dolduruldu
-  //  * 
-  //  * value olarak fcTxHeader kullanıldı
-  //  *
-  //  * @param FiKeybean $fkb alan bilgisi (row)
-  //  * @return FiStrbui
-  //  */
-  // public function genColMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui
-  // {
-  //   $sb = new FiStrbui();
+  /**
+   * FiMeta üreten metodun gövdesinin FiCol Template üzerinden dolduruldu
+   * 
+   * value olarak fcTxHeader kullanıldı
+   *
+   * @param FiKeybean $fkb alan bilgisi (row)
+   * @return FiStrbui
+   */
+  public function genColMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui
+  {
+    $sb = new FiStrbui();
 
-  //   $fcTxHeader = $fkb->getValueByFim(FimFiCol::fcTxHeader());
-  //   if ($fcTxHeader != null) {
-  //     $sb->append(sprintf("  fiMeta.ftTxValue = \"%s\";\n", $fcTxHeader));
-  //   }
+    $fcTxHeader = $fkb->getValueByFiCol(FicFiCol::fcTxHeader());
+    if ($fcTxHeader != null) {
+      $sb->append(sprintf("  fiMeta.ftTxValue = \"%s\";\n", $fcTxHeader));
+    }
 
-  //   $fcLnId = $fkb->getValueByFim(FimFiCol::fcLnId());
-  //   OcgLogger::info("fcLnId: " . $fcLnId);
-  //   if ($fcLnId != null) {
-  //     $sb->append(sprintf("  fiMeta.ftLnKey = %s;\n", $fcLnId));
-  //   }
-
-  //   return $sb;
-  // }
+    return $sb;
+  }
 
   public function getTemplateColListMethod(): string
   {
@@ -236,11 +232,4 @@ EOD;
   {
     return new FiStrbui();
   }
-
-  public function getTemplateGenFkbFields(): string
-  {
-    return "";
-  }
-
-  public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void {}
 }
