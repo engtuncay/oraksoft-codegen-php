@@ -14,9 +14,9 @@ use Codegen\Modals\CogSpecsCSharpFiCol;
 use Codegen\Modals\CogSpecsCsharpFiMeta;
 use Codegen\Modals\CogSpecsCSharpFkbCol;
 use Codegen\Modals\CogSpecsJava;
-use Codegen\Modals\CogSpecsJavaFiCol;
-use Codegen\Modals\CogSpecsJavaFiMeta;
-use Codegen\Modals\CogSpecsJavaFkbCol;
+use Codegen\Modals\CogJavaFiCol;
+use Codegen\Modals\CogJavaFiMeta;
+use Codegen\Modals\CogJavaFkbCol;
 use Codegen\Modals\CogSpecsJs;
 use Codegen\Modals\CogSpecsJsFiMeta;
 use Codegen\Modals\CogSpecsJsFkbCol;
@@ -199,9 +199,9 @@ class Api extends ResourceController
     if ($selPhp == 3) $cogSpecsGenCol = new CogSpecsPhpFkbCol();
 
     //---- Java
-    if ($selJava == 1) $cogSpecsGenCol = new CogSpecsJavaFiCol();
-    if ($selJava == 2) $cogSpecsGenCol = new CogSpecsJavaFiMeta();
-    if ($selJava == 3) $cogSpecsGenCol = new CogSpecsJavaFkbCol();
+    if ($selJava == 1) $cogSpecsGenCol = new CogJavaFiCol();
+    if ($selJava == 2) $cogSpecsGenCol = new CogJavaFiMeta();
+    if ($selJava == 3) $cogSpecsGenCol = new CogJavaFkbCol();
 
     //---- Typescript
     if ($selTs == 3) $cogSpecsGenCol = new CogSpecsTsFkbCol();

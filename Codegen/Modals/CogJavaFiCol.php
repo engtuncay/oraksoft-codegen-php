@@ -14,7 +14,7 @@ use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCodeTemp;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
-class CogSpecsJavaFiCol implements ICogSpecsGenCol
+class CogJavaFiCol implements ICogSpecsGenCol
 {
   public function genClassCode(FkbList $fkbList): string
   {
