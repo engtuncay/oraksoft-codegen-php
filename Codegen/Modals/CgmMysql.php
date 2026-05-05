@@ -11,7 +11,7 @@ use Engtuncay\Phputils8\FiDtos\Fdr;
 use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
-use Engtuncay\Phputils8\FiMetas\FimOcgSpecFies;
+use Engtuncay\Phputils8\FiMetas\FimQcSpecFields;
 use Engtuncay\Phputils8\FiMetas\FimOcgSql;
 
 
@@ -46,7 +46,7 @@ class CgmMysql
 
     //$sfTxTableName = $fkbList->get(0)->getFimValue(FimFiCol::fcTxEntityName());
 
-    $fkbSqTableName = $fkbList->getFkbByFim(FimOcgSpecFies::sqTableName());
+    $fkbSqTableName = $fkbList->getFkbByFim(FimQcSpecFields::sqTableName());
     $sfTxTableName = $fkbSqTableName?->getFcTxHd();
 
     // --ALTER TABLE STOK_HAREKETLERI ADD sthTxGuid nvarchar(40)

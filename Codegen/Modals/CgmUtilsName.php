@@ -10,4 +10,10 @@ class CgmUtilsName
     //return "genFkbFields";
     return "getFkbFieldsAll";
   }
+  
+  //getFkbDdFields
+  public static function getMethodNameGetFkbDdFields()
+  {
+    return "getFkbDdFields";
+  }
 }
