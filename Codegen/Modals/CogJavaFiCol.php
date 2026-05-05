@@ -33,7 +33,7 @@ class CogJavaFiCol implements ICogSpecsGenCol
     $sbFclListBodyTrans = new FiStrbui();
     $sbFiColAddDescDetail = new FiStrbui();
 
-    $templateFiColMethod = $this->getTemplateColMethod();
+    $tempFiColMethod = $this->getTemplateColMethod();
     //$templateFiColMethodExtra = $iFiColClass->getTemplateFiColMethodExtra();
 
     /**
@@ -67,19 +67,9 @@ class CogJavaFiCol implements ICogSpecsGenCol
       /**
        * @var string $txFiColMethod
        */
-      $txFiColMethod = FiTemplate::replaceParams($templateFiColMethod, $fkbFicMethBody);
+      $txFiColMethod = FiTemplate::replaceParams($tempFiColMethod, $fkbFicMethBody);
 
       $sbFiColMethodsBody->append($txFiColMethod)->append("\n\n");
-
-      //$sbFiColMethodBodyExtra = $iFiColClass->genFiColMethodBodyDetailExtra($fkbItem);
-      //      $fkbFiColMethodBodyExtra = new FiKeybean();
-      //      $fkbFiColMethodBodyExtra->add("fieldMethodName", $iFiColClass->checkMethodNameStd($fieldName));
-      //      $fkbFiColMethodBodyExtra->add("fieldName", $fieldName);
-      //      $fkbFiColMethodBodyExtra->add("fieldHeader", $fcTxHeader);
-      //      $fkbFiColMethodBodyExtra->add("fiColMethodBody", $sbFiColMethodBodyExtra->toString());
-      //      $txFiColMethodExtra = FiTemplate::replaceParams($templateFiColMethodExtra, $fkbFiColMethodBodyExtra);
-
-      //      $sbFiColMethodsBody->append($txFiColMethodExtra)->append("\n\n");
 
       //
       $fcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
