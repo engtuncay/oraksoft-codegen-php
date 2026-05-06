@@ -11,7 +11,7 @@ use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCodeTemp;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
-class CogJavaFiMeta implements ICogSpecsGenCol
+class CogJavaFiMeta implements ICogGenClassCode
 {
   public function genClassCode(FkbList $fkbList): string
   {
@@ -165,7 +165,7 @@ EOD;
   public function genColMethodBody(FiKeybean $fkb): FiStrbui
   {
     //StringBuilder
-    $sbFmtMethodBodyFieldDefs = new FiStrbui();
+    $sbMethodContent = new FiStrbui();
 
     // $txKey = $fkb->getValueByFiCol(FicFiMeta::ftTxKey());
     // if ($txKey != null) {
@@ -174,10 +174,15 @@ EOD;
 
     $txValue = $fkb->getFimValue(FimFiCol::fcTxHeader());
     if ($txValue != null) {
-      $sbFmtMethodBodyFieldDefs->append(sprintf(" fim.setFtTxValue(\"%s\");\n", $txValue));
+      $sbMethodContent->append(sprintf(" fim.setFtTxValue(\"%s\");\n", $txValue));
     }
 
-    return $sbFmtMethodBodyFieldDefs;
+    $fcTxUid = $fkb->getValueByFiCol(FicFiCol::fcTxUid());
+    if ($fcTxUid != null){
+      $sbMethodContent->append("  fim.setFtTxUid(\"{$fcTxUid}\");\n");
+    }
+
+    return $sbMethodContent;
   }
 
   // public function genColMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui

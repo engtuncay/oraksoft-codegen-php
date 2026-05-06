@@ -20,10 +20,10 @@ class CgmFiMetaClassV1
    *
    * @param FkbList $fkbList
    * @param CogSpecsPhp| null $iCogSpecs
-   * @param ICogSpecsGenCol $iSpecsFiMeta
+   * @param ICogGenClassCode $iSpecsFiMeta
    * @return string
    */
-  public static function actGenFiMetaClassByFkl(FkbList $fkbList, ICogSpecs $iCogSpecs = null, ICogSpecsGenCol $iSpecsFiMeta = null): string
+  public static function actGenFiMetaClassByFkl(FkbList $fkbList, ICogSpecs $iCogSpecs = null, ICogGenClassCode $iSpecsFiMeta = null): string
   {
 
     if ($iCogSpecs == null) return "";

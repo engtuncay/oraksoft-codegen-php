@@ -21,10 +21,10 @@ class CgmCodegen
    * 
    * @param FkbList $fkbList
    * @param ICogSpecs|null $iCogSpecs
-   * @param ICogSpecsGenCol|null $iCogSpecsGenCol
+   * @param ICogGenClassCode|null $iCogSpecsGenCol
    * @return Fdr
    */
-  public static function genCodeColClass(FkbList $fkbList, ICogSpecs $iCogSpecs, ICogSpecsGenCol $iCogSpecsGenCol, int $lnClassType = 0): Fdr
+  public static function genCodeColClass(FkbList $fkbList, ICogSpecs $iCogSpecs, ICogGenClassCode $iCogSpecsGenCol, int $lnClassType = 0): Fdr
   {
     $fdrData = new Fdr();
 

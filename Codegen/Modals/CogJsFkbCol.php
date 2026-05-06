@@ -13,7 +13,7 @@ use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCodeTemp;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
-class CogJsFkbCol implements ICogSpecsGenCol
+class CogJsFkbCol implements ICogGenClassCode
 {
   public function genClassCode(FkbList $fkbList): string
   {

@@ -15,7 +15,7 @@ use Engtuncay\Phputils8\FiMetas\FimFiCodeTemp;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 use Engtuncay\Phputils8\FiMetas\FimQcSpecFields;
 
-class CogJavaFiCol implements ICogSpecsGenCol
+class CogJavaFiCol implements ICogGenClassCode
 {
   public function genClassCode(FkbList $fkbList): string
   {
@@ -29,11 +29,10 @@ class CogJavaFiCol implements ICogSpecsGenCol
     //$index = 0;
 
     $sbFclListBody = new FiStrbui();
-    //$sbFclListBodyExtra = new FiStrbui();
     $sbFclListBodyTrans = new FiStrbui();
     $sbFiColAddDescDetail = new FiStrbui();
 
-    $tempFiColMethod = $this->getTemplateColMethod();
+    $tempFiColMethod = $this->getTempFiColMethod();
     //$templateFiColMethodExtra = $iFiColClass->getTemplateFiColMethodExtra();
 
     /**
@@ -44,7 +43,7 @@ class CogJavaFiCol implements ICogSpecsGenCol
       /**
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
        */
-      $sbFiColMethodBody = $this->genColMethodBody($fkbItem);
+      $sbFiColMethodContent = $this->genColMethodBody($fkbItem);
 
       //$sbFiColAddDescDetail->append($iCogSpecsFiCol->genColAddDescMethodBody($fkbItem,$iCogSpecs)->toString());
 
@@ -62,7 +61,7 @@ class CogJavaFiCol implements ICogSpecsGenCol
       $fkbFicMethBody->addFim(FimFiCodeTemp::fieldMethodName(), $iCogSpecs->checkMethodNameStd($fcTxFieldName));
       $fkbFicMethBody->addFim(FimFiCodeTemp::fieldName(), $fcTxFieldName);
       $fkbFicMethBody->addFim(FimFiCodeTemp::fieldHeader(), $fcTxHeader);
-      $fkbFicMethBody->addFim(FimFiCodeTemp::colMethodBody(), $sbFiColMethodBody->toString());
+      $fkbFicMethBody->addFim(FimFiCodeTemp::colMethodBody(), $sbFiColMethodContent->toString());
 
       /**
        * @var string $txFiColMethod
@@ -87,7 +86,7 @@ class CogJavaFiCol implements ICogSpecsGenCol
     }
 
     // String
-    $tempGenFiCols = $this->getTemplateColListMethod();
+    $tempGenFiCols = $this->getTempMethGenTableCols();
 
     // String
     $txResGenTableColsMethod = FiTemplate::replaceParams($tempGenFiCols, FiKeybean::bui()->buiPut("ficListBody", $sbFclListBody->toString()));
@@ -191,6 +190,12 @@ class CogJavaFiCol implements ICogSpecsGenCol
     if (FiBool::isFalse($fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoNullable()))) {
       $sbFiColMethodBody->append("  fiCol.setFcBoNullable(false);\n");
     }
+    
+    $fcTxUid = $fkbItem->getValueByFiCol(FicFiCol::fcTxUid());
+    if ($fcTxUid != null){
+      $sbFiColMethodBody->append(sprintf("  fiCol.setFcTxUid(\"%s\");\n", $fcTxUid));
+    }
+      
 
     //        if (FiBool.isTrue(fiCol.getFcBoUnique())) {
     //          sbFiColMethodBody.append("\tfiCol.fcBoUnique = true;\n");
@@ -281,7 +286,7 @@ EOD;
   }
 
   // 
-  public function getTemplateColMethod(): string
+  public function getTempFiColMethod(): string
   {
     return <<<EOD
 public static FiCol {{fieldMethodName}}()
@@ -294,7 +299,7 @@ EOD;
   }
 
 
-  public function getTemplateColMethodExtra(): string
+  public function getTempFiColExtraMethod(): string
   {
     return <<<EOD
 public static FiCol {{fieldMethodName}}Ext()
@@ -355,7 +360,7 @@ EOD;
   /**
    * @return string
    */
-  public function getTemplateColListMethod(): string
+  public function getTempMethGenTableCols(): string
   {
     return <<<EOD
 public static FicList genTableCols() {
