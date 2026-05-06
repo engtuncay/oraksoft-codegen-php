@@ -115,20 +115,21 @@ class CogJavaFiMeta implements ICogGenClassCode
     $fkbClassParams->addFim(FimFiCodeTemp::entityName(), $iCogSpecs->checkClassNameStd($txEntityName));
     $fkbClassParams->addFim(FimFiCodeTemp::tableName(), $txEntityName);
     $fkbClassParams->addFim(FimFiCodeTemp::tablePrefix(), $txTablePrefix);
-    $fkbClassParams->addFim(FimFiCodeTemp::classBody(), $sbClassBody->toString());
+    $fkbClassParams->addFim(FimFiCodeTemp::classContent(), $sbClassBody->toString());
     $fkbClassParams->addFim(FimFiCodeTemp::classBlockExtra(), $sbClassBodyExtra->toString());
     //$fkbParamsMain->add("addFieldDescDetail", $sbFiColAddDescDetail->toString());
 
     // String
-    $templateFiMetaClass = $this->getTemplateColClass();
+    $templateFiMetaClass = $this->getTempColClass();
     $txResult = FiTemplate::replaceParams($templateFiMetaClass, $fkbClassParams);
 
     return $txResult;
   }
 
-  public function getTemplateColClass(): string
+  public function getTempColClass(): string
   {
 
+   $keyClassContent = FimFiCodeTemp::classContent()->getTxKey();
 
     //String
     $template = <<<EOD
@@ -136,7 +137,7 @@ import ozpasyazilim.utils.datatypes.FiMeta;
 
 public class {{classPref}}{{entityName}} {
 
-{{classBody}}
+{{{$keyClassContent}}}
 
 }
 EOD;
