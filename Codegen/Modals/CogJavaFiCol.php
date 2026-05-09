@@ -13,6 +13,7 @@ use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCodeTemp;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
+use Engtuncay\Phputils8\FiMetas\FimQcFieldType;
 use Engtuncay\Phputils8\FiMetas\FimQcSpecFields;
 
 class CogJavaFiCol implements ICogGenClassCode
@@ -54,6 +55,8 @@ class CogJavaFiCol implements ICogGenClassCode
       $fcTxFieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
 
       if (FiString::isEmpty($fcTxFieldName)) continue;
+
+      $fcTxFieldName = trim($fcTxFieldName);
 
       $fcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
 
@@ -393,7 +396,7 @@ EOD;
   {
     $sbExtra = new FiStrbui();
 
-    $sbGetFkbFields = new FiStrbui();
+    $sbGetFkbFieldsAll = new FiStrbui();
     $sbGetFkbDdFields = new FiStrbui();
 
     /** @var FiKeybean $fkbItem  */
@@ -406,14 +409,14 @@ EOD;
 
       $this->processGetFkbDdFields($sbGetFkbDdFields, $fkbItem);
 
-      $stMethodName = $iCogSpecs->checkMethodNameStd($fcTxFieldName);
-      $sbGetFkbFields->append("fkb.addFic({$stMethodName}());\n");
+      $stMethodName = trim($iCogSpecs->checkMethodNameStd($fcTxFieldName));
+      $sbGetFkbFieldsAll->append("fkb.addFic({$stMethodName}());\n");
     }
 
     // getDdFields
 
     $txTempMethodFkbAllFields = $this->getTempMethodFkbFields();
-    $txFkbAllFieldsFull = FiTemplate::replaceParams($txTempMethodFkbAllFields, FiKeybean::bui()->buiPut("getFkbFieldsAllContent", $sbGetFkbFields->toString()));
+    $txFkbAllFieldsFull = FiTemplate::replaceParams($txTempMethodFkbAllFields, FiKeybean::bui()->buiPut("getFkbFieldsAllContent", $sbGetFkbFieldsAll->toString()));
 
     $txTempMethodFkbDdFields = $this->getTempMethodFkbDdFields();
     $txFkbDdFieldsFull = FiTemplate::replaceParams($txTempMethodFkbDdFields
@@ -468,10 +471,14 @@ EOD;
 
   public function processGetFkbDdFields(FiStrbui $sbGetFkbDdFields, FiKeybean  $fkbItem): void 
   {
-    $fcTxFieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
+    $fcTxFieldName = trim($fkbItem->getFimValue(FimFiCol::fcTxFieldName()));
+    $fcTxFieldType = $fkbItem->getFimValue(FimFiCol::fcTxFieldType());
 
     if(FiString::any($fcTxFieldName
     , FimQcSpecFields::qcfTxSqTableName()->getTxKey()
+    ) ||
+    FiString::any($fcTxFieldType
+    , FimQcFieldType::sq_unique()->getTxKey()
     )) {
       $iCogSpecs = new CogSpecsJava();
       $stMethodName = $iCogSpecs->checkMethodNameStd($fcTxFieldName);

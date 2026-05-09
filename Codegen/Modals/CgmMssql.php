@@ -114,7 +114,7 @@ class CgmMssql
       //OcgLogger::debug("CgmMssql::actGenSqlCreate - Field: $fcTxFieldName, TypeDef: $fcTxFieldType");
 
       // Unique Alanlar için
-      if ($fcTxFieldType == FimQcFieldType::fsq_unique()->getTxValue()) {
+      if ($fcTxFieldType == FimQcFieldType::sq_unique()->getTxValue()) {
         self::prepUniqueFieldsDef($sbUniqDefs, $fkbTableName, $fkbItem, $fkbFieldsByTxId);
       }
 
