@@ -2,12 +2,10 @@
 
 namespace Codegen\Modals;
 
-use Engtuncay\Phputils8\FiCores\FiStrbui;
-use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 
 /**
- * Interface for FiKeybean Specs (Csharp, Java ...)
+ * Interface for Generate Class Code
  */
 interface ICogGenClassCode
 {
