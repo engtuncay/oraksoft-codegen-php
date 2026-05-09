@@ -3,7 +3,7 @@
 //require __DIR__ . '/fiAppImports.php';
 
 use Codegen\FiMetas\App\FkcOcgApp;
-use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\Fkb;
 
 view('fiAppImports.php');
 
@@ -12,7 +12,7 @@ view('fiAppImports.php');
 // view fonksiyonu ile gönderilen assoc.array keyleri değişken olarak view içerisinde kullanılabilir.
 //FkcOcgApp::fapDbProfiles()
 
-$fkbData = new FiKeybean($data);
+$fkbData = new Fkb($data);
 
 ?>
 <!DOCTYPE html>

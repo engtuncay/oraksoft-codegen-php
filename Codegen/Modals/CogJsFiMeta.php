@@ -8,7 +8,7 @@ use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
-use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\Fkb;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCodeTemp;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
@@ -34,7 +34,7 @@ class CogJsFiMeta implements ICogGenClassCode
     //$templateFiColMethodExtra = $iFiColClass->getTemplateFiColMethodExtra();
 
     /**
-     * @var FiKeybean $fkbItem
+     * @var Fkb $fkbItem
      */
     foreach ($fkbList as $fkbItem) {
 
@@ -45,8 +45,8 @@ class CogJsFiMeta implements ICogGenClassCode
 
       //$sbFiColAddDescDetail->append($iCogSpecs->genFiColAddDescDetail($fkbItem)->toString());
 
-      //FiKeybean
-      $fkbFiMetaMethod = new FiKeybean();
+      //Fkb
+      $fkbFiMetaMethod = new Fkb();
 
       //String
       $fieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
@@ -81,7 +81,7 @@ class CogJsFiMeta implements ICogGenClassCode
     //$templateFiMetaMethod = $iSpecsFiMeta->getTemplateFiMetaMethod();
 
     // String
-    //$txGenAllFiMetasMethod = FiTemplate::replaceParams($templateFiMetaMethod, FiKeybean::bui()->buiPut("fmtListBody", $sbFclListBody->toString()));
+    //$txGenAllFiMetasMethod = FiTemplate::replaceParams($templateFiMetaMethod, Fkb::bui()->buiPut("fmtListBody", $sbFclListBody->toString()));
 
     //$sbClassBody->append("\n")->append($txGenAllFiMetasMethod)->append("\n");
 
@@ -89,12 +89,12 @@ class CogJsFiMeta implements ICogGenClassCode
     //$tempGenFiColsTrans = $iCogSpecs->getTempGenFmtColsTransList();
 
     // String
-    //$txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, FiKeybean::bui()->buiPut("fmtListBodyTrans", $sbFclListBodyTrans->toString()));
+    //$txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, Fkb::bui()->buiPut("fmtListBodyTrans", $sbFclListBodyTrans->toString()));
     //$sbClassBody->append("\n")->append($txResGenTableColsMethodTrans)->append("\n");
 
     //$tempGenFiColsExt = $iCogSpecs->getTempGenFiColsExtraList();
 
-    //$txResGenTableColsMethodExtra = FiTemplate::replaceParams($tempGenFiColsExt, FiKeybean::bui()->buiPut("ficListBodyExtra", $sbFclListBodyExtra->toString()));
+    //$txResGenTableColsMethodExtra = FiTemplate::replaceParams($tempGenFiColsExt, Fkb::bui()->buiPut("ficListBodyExtra", $sbFclListBodyExtra->toString()));
     //$sbClassBody->append("\n")->append($txResGenTableColsMethodExtra)->append("\n");
 
     $sbClassBody->append("\n");
@@ -112,7 +112,7 @@ class CogJsFiMeta implements ICogGenClassCode
     $sbClassBodyExtra = new FiStrbui();
     $sbClassBodyExtra->append("// Extras");
 
-    $fkbClassParams = new FiKeybean();
+    $fkbClassParams = new Fkb();
     $fkbClassParams->addFim(FimFiCodeTemp::classPref(), $classPref);
     $fkbClassParams->addFim(FimFiCodeTemp::entityName(), $iCogSpecs->checkClassNameStd($txEntityName));
     $fkbClassParams->addFim(FimFiCodeTemp::tableName(), $txEntityName);
@@ -160,7 +160,7 @@ EOD;
     return $template;
   }
 
-  public function genColMethodBody(FiKeybean $fkb): FiStrbui
+  public function genColMethodBody(Fkb $fkb): FiStrbui
   {
     // Field Definitions
     //StringBuilder
@@ -191,10 +191,10 @@ EOD;
   //  * 
   //  * value olarak fcTxHeader kullanıldı
   //  *
-  //  * @param FiKeybean $fkb alan bilgisi (row)
+  //  * @param Fkb $fkb alan bilgisi (row)
   //  * @return FiStrbui
   //  */
-  // public function genColMethodBodyByFiColTemp(FiKeybean $fkb): FiStrbui
+  // public function genColMethodBodyByFiColTemp(Fkb $fkb): FiStrbui
   // {
   //   $sb = new FiStrbui();
 
@@ -222,12 +222,12 @@ EOD;
     throw new \Exception('Not implemented');
   }
 
-  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, Fkb $fkbItem, ICogSpecs $iCogSpecs): void
   {
     throw new \Exception('Not implemented');
   }
 
-  public function doTransientFieldOps(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void
+  public function doTransientFieldOps(FiStrbui $sbContent, Fkb $fkbItem, ICogSpecs $iCogSpecs): void
   {
     throw new \Exception('Not implemented');
   }
@@ -242,5 +242,5 @@ EOD;
     return "";
   }
 
-  public function prepBodyGenFkbFields(FiStrbui $sbContent, FiKeybean $fkbItem, ICogSpecs $iCogSpecs): void {}
+  public function prepBodyGenFkbFields(FiStrbui $sbContent, Fkb $fkbItem, ICogSpecs $iCogSpecs): void {}
 }

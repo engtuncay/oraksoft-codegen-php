@@ -5,7 +5,7 @@ namespace App\Controllers;
 use Codegen\FiMetas\App\FkcOcgApp;
 use Engtuncay\Phputils8\FiCores\FiCollection;
 use Engtuncay\Phputils8\FiCores\FiString;
-use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\Fkb;
 
 class Home extends BaseController
 {
@@ -15,7 +15,7 @@ class Home extends BaseController
 
     $arr = FiString::toArray($fapProfiles,',', true);
 
-    $fkbData = new FiKeybean();
+    $fkbData = new Fkb();
     $fkbData->addFieldFkb(FkcOcgApp::fapDbProfiles(), $arr);
     
     return view('viewHome',['data' => $fkbData->ToArr()]);

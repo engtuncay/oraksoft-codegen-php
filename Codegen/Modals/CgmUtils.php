@@ -8,7 +8,7 @@ use Engtuncay\Phputils8\FiCores\FiwArray;
 use Engtuncay\Phputils8\Log\FiLog;
 use Engtuncay\Phputils8\FiDtos\FicList;
 use Engtuncay\Phputils8\FiDtos\FiCol;
-use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\Fkb;
 use Engtuncay\Phputils8\FiDtos\FiMeta;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
@@ -35,7 +35,7 @@ class CgmUtils
     /**
      *
      *
-     * @var FiKeybean $fkbItem
+     * @var Fkb $fkbItem
      */
     foreach ($fkbList->getItems() as $fkbItem) {
 
@@ -67,7 +67,7 @@ class CgmUtils
     /**
      *
      *
-     * @var FiKeybean $fkbItem
+     * @var Fkb $fkbItem
      */
     foreach ($fkbList->getItems() as $fkbItem) {
 
@@ -95,16 +95,16 @@ class CgmUtils
    * Excel/Csv'den gelen listeyi entity'lere göre grupla
    * 
    * @param FkbList $fkbListData
-   * @return FiKeybean (key: entityName, value: FkbList)
+   * @return Fkb (key: entityName, value: FkbList)
    */
-  public static function genFkbMapAsTxEntityToFkl(FkbList $fkbListData): FiKeybean
+  public static function genFkbMapAsTxEntityToFkl(FkbList $fkbListData): Fkb
   {
-    $fkbMap = new FiKeybean();
+    $fkbMap = new Fkb();
 
     //OcgLogger::info("Generating FkbMap from FkbListData:\n". print_r($fkbListData->getItems(), true) );
     //OcgLogger::info("Generating FkbMap from FkbListData , total item count:" . count($fkbListData->getItems()));  
 
-    /** @var FiKeybean $fkbItem */
+    /** @var Fkb $fkbItem */
     foreach ($fkbListData as $fkbItem) {
       //OcgLogger::info("Processing FkbItem: " . print_r($fkbItem->getArr(), true));
       //OcgLogger::info("Processing FkbItem EntityName: " . $fkbItem->getFimValue(FimFiCol::fcTxEntityName()));
@@ -131,7 +131,7 @@ class CgmUtils
     //OcgLogger::info("Generating FkbMap from FkbListData:\n". print_r($fkbListData->getItems(), true) );
     //OcgLogger::info("Generating FkbMap from FkbListData , total item count:" . count($fkbListData->getItems()));  
 
-    /** @var FiKeybean $fkbItem */
+    /** @var Fkb $fkbItem */
     foreach ($fkbListData as $fkbItem) {
       //OcgLogger::info("Processing FkbItem: " . print_r($fkbItem->getArr(), true));
       //OcgLogger::info("Processing FkbItem EntityName: " . $fkbItem->getFimValue(FimFiCol::fcTxEntityName()));

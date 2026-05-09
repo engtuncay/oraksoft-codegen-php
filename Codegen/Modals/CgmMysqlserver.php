@@ -8,7 +8,7 @@ use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
 use Engtuncay\Phputils8\FiDtos\Fdr;
-use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\Fkb;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 use Engtuncay\Phputils8\FiMetas\FimOksCoding;
@@ -29,7 +29,7 @@ class CgmMysqlserver
     $lnForIndex = 0;
     $arrDtoCodeGen = [];
 
-    $fkbDtoCodeGen = new FiKeybean();
+    $fkbDtoCodeGen = new Fkb();
 
     foreach ($arrFkbListByEntity as $entity => $fkbList) {
       $lnForIndex++;
@@ -63,7 +63,7 @@ class CgmMysqlserver
     $sbColDefs = new FiStrbui();
 
     /** @var FkbList $fkbList 
-     *  @var FiKeybean $fkbItem
+     *  @var Fkb $fkbItem
      */
     foreach ($fkbList as $fkbItem) {
 
@@ -77,7 +77,7 @@ class CgmMysqlserver
       $sbColDefs->append($sbColDef->toString());
     }
 
-    $fkbSqlCreateParam = new FiKeybean();
+    $fkbSqlCreateParam = new Fkb();
     $fkbSqlCreateParam->addFieldMeta(FimOksCoding::oscTxTableName(), $fkbFirstItem->getValueByFiMeta(FimFiCol::fcTxEntityName()));
     $fkbSqlCreateParam->addFieldMeta(FimOksCoding::oscTxTableFields(), rtrim($sbColDefs->toString(), ",\n"));
 
@@ -112,7 +112,7 @@ EOD;
     return $txResult;
   }
 
-  public static function genSqlColTypeDef(FiKeybean $fkbItem): string
+  public static function genSqlColTypeDef(Fkb $fkbItem): string
   {
     $fkbType = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldType());
     $fkbLength = $fkbItem->getValueByFiMeta(FimFiCol::fcLnLength());

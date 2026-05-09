@@ -6,7 +6,7 @@ use Codegen\FiMetas\App\FkcOcgApp;
 use CodeIgniter\RESTful\ResourceController;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiDtos\Fdr;
-use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\Fkb;
 use Engtuncay\Phputils8\FiDtos\FiResponse;
 
 class ApiConfig extends ResourceController

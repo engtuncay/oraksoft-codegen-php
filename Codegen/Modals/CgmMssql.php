@@ -13,7 +13,7 @@ use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
 use Engtuncay\Phputils8\FiDbs\FiDbTypes;
 use Engtuncay\Phputils8\FiDtos\Fdr;
-use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\Fkb;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 use Engtuncay\Phputils8\FiMetas\FimOcgSql;
@@ -55,7 +55,7 @@ class CgmMssql
 
     // --ALTER TABLE STOK_HAREKETLERI ADD sthTxGuid nvarchar(40)
 
-    /** @var FiKeybean $fkbItem */
+    /** @var Fkb $fkbItem */
     foreach ($fkbList as $fkbItem) {
 
       $sfTxFieldDef = self::formSqlColTypeDef($fkbItem);
@@ -87,21 +87,21 @@ class CgmMssql
     $phsfTxFields = FimQcSql::sfTxFields()->getTxKeyAsPlaceHolder();
 
     // $fkbList map çevir
-    $fkbFieldsAll = FiCollection::toFkb($fkbList, function (FiKeybean $item) {
+    $fkbFieldsAll = FiCollection::toFkb($fkbList, function (Fkb $item) {
       return $item->getFimValue(FimFiCol::fcTxFieldName());
     });
 
-    $fkbFieldsByTxId = FiCollection::toFkb($fkbList, function (FiKeybean $item) {
+    $fkbFieldsByTxId = FiCollection::toFkb($fkbList, function (Fkb $item) {
       return $item->getFimValue(FimFiCol::fcTxId());
     });
 
     //OcgLogger::debug("Fields:" . json_encode($fkbFieldsAll));
 
-    /** @var FiKeybean $fkbTableName */
+    /** @var Fkb $fkbTableName */
     $fkbTableName = $fkbFieldsAll->getFimValue(FimQcSpecFields::qcfTxSqTableName());
 
     /** @var FkbList $fkbList 
-     *  @var FiKeybean $fkbItem
+     *  @var Fkb $fkbItem
      */
     foreach ($fkbList as $fkbItem) {
 
@@ -132,7 +132,7 @@ class CgmMssql
       $sbColDefs->append($sbColDef->toString());
     }
 
-    $fkbSqlCreateParam = new FiKeybean();
+    $fkbSqlCreateParam = new Fkb();
     $fkbSqlCreateParam->addFieldMeta(FimOcgSql::sfTableName(), $fkbFirstItem->getFimValue(FimFiCol::fcTxEntityName()));
     // rtrim ile en sondaki , ve \n karakterleri silinir (!)
     $fkbSqlCreateParam->addFieldMeta(FimOcgSql::sfTableFields(), rtrim($sbColDefs->toString(), ",\n"));
@@ -174,7 +174,7 @@ CREATE TABLE $phsfTableName (
     return $sbResult->toString();
   }
 
-  private static function prepUniqueFieldsDef(FiStrbui $sbUniqDefs, FiKeybean $fkbTableName, FiKeybean $fkbItem, FiKeybean $fkbFieldsByTxId)
+  private static function prepUniqueFieldsDef(FiStrbui $sbUniqDefs, Fkb $fkbTableName, Fkb $fkbItem, Fkb $fkbFieldsByTxId)
   {
     $phsfTableName = FimOcgSql::sfTableName()->getTxKeyAsPlaceHolder();
     //$phsfTableFields = FimOcgSql::sfTableFields()->getTxKeyAsPlaceHolder();
@@ -189,7 +189,7 @@ CREATE TABLE $phsfTableName (
 ADD CONSTRAINT {$phsfIdentifName} 
 UNIQUE ({$phsfTxFields});";
     
-    $fkbUniqueCons = new FiKeybean();
+    $fkbUniqueCons = new Fkb();
     $fkbUniqueCons->addFim(FimQcSql::sfTableName(), $fkbTableName->getFcTxHd());
     $fkbUniqueCons->addFim(FimQcSql::sfIdentifName(), $fkbItem->getFcFn());
 
@@ -203,7 +203,7 @@ UNIQUE ({$phsfTxFields});";
       
     if (FiString::isEmpty($txField)) continue;
       // Unique alanların field tanımlarının da olması gerekir, yoksa hata verir
-      /** @var FiKeybean $fkbFieldUni */
+      /** @var Fkb $fkbFieldUni */
       $fkbFieldUni = $fkbFieldsByTxId->get($txField); 
       //OcgLogger::debug(json_encode($fkbFieldUni));
       $sbFieldList->append($fkbFieldUni->getFcFn())->append(FiString::textComma());
@@ -219,10 +219,10 @@ UNIQUE ({$phsfTxFields});";
   /**
    * sqldeki sütunun field type ve diger özellikleri tanımlanır
    *
-   * @param FiKeybean $fkbItem
+   * @param Fkb $fkbItem
    * @return string
    */
-  public static function formSqlColTypeDef(FiKeybean $fkbItem): string
+  public static function formSqlColTypeDef(Fkb $fkbItem): string
   {
     $fcTxFieldType = $fkbItem->getFimValue(FimFiCol::fcTxFieldType());
     $fcLnLength = $fkbItem->getFimValue(FimFiCol::fcLnLength());

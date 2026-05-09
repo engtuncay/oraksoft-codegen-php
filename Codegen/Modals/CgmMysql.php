@@ -8,7 +8,7 @@ use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
 use Engtuncay\Phputils8\FiDtos\Fdr;
-use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\Fkb;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 use Engtuncay\Phputils8\FiMetas\FimQcSpecFields;
@@ -51,7 +51,7 @@ class CgmMysql
 
     // --ALTER TABLE STOK_HAREKETLERI ADD sthTxGuid nvarchar(40)
     
-    /** @var FiKeybean $fkbItem */
+    /** @var Fkb $fkbItem */
     foreach ($fkbList as $fkbItem) {
 
       $boTransient = $fkbItem->getFimAsBool(FimFiCol::fcBoTransient());
@@ -82,7 +82,7 @@ class CgmMysql
     $sbColDefs = new FiStrbui();
 
     /** @var FkbList $fkbList 
-     *  @var FiKeybean $fkbItem
+     *  @var Fkb $fkbItem
      */
     foreach ($fkbList as $fkbItem) {
 
@@ -102,7 +102,7 @@ class CgmMysql
       $sbColDefs->append($sbColDef->toString());
     }
 
-    $fkbSqlCreateParam = new FiKeybean();
+    $fkbSqlCreateParam = new Fkb();
     $fkbSqlCreateParam->addFieldMeta(FimOcgSql::sfTableName(), $fkbFirstItem->getFimValue(FimFiCol::fcTxEntityName()));
     // rtrim ile en sondaki , ve \n karakterleri silinir (!)
     $fkbSqlCreateParam->addFieldMeta(FimOcgSql::sfTableFields(), rtrim($sbColDefs->toString(), ",\n"));
@@ -145,10 +145,10 @@ CREATE TABLE $sfTableName (
   /**
    * sqldeki sütunun field type ve diger özellikleri tanımlanır
    *
-   * @param FiKeybean $fkbItem
+   * @param Fkb $fkbItem
    * @return string
    */
-  public static function genSqlColTypeDef(FiKeybean $fkbItem): string
+  public static function genSqlColTypeDef(Fkb $fkbItem): string
   {
     $fcTxFieldType = $fkbItem->getFimValue(FimFiCol::fcTxFieldType());
     $fcLnLength = $fkbItem->getFimValue(FimFiCol::fcLnLength());

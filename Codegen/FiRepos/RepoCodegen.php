@@ -7,7 +7,7 @@ use Engtuncay\Phputils8\FiDbs\FiAbsRepoGeneric;
 use Engtuncay\Phputils8\FiDbs\FiDbTypes;
 use Engtuncay\Phputils8\FiDbs\FiQuery;
 use Engtuncay\Phputils8\FiDtos\Fdr;
-use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\Fkb;
 
 class RepoCodegen extends FiAbsRepoGeneric
 {
@@ -57,7 +57,7 @@ From INFORMATION_SCHEMA.COLUMNS As C
 Where C.TABLE_NAME = @tableName  
     ";
 
-      $fkbParams = new FiKeybean();
+      $fkbParams = new Fkb();
       $fkbParams->put("tableName", $tableName);
       $fkbParams->put("tablePrefix", $tablePrefix);
 
@@ -90,7 +90,7 @@ FROM INFORMATION_SCHEMA.TABLES
 WHERE TABLE_TYPE = 'BASE TABLE'
 ";
 
-      $fkbParams = new FiKeybean();
+      $fkbParams = new Fkb();
       $fiQuery = new FiQuery($sql, $fkbParams);
       $fdr = $this->getDbHelper()->selectFkb($fiQuery);
       return $fdr;

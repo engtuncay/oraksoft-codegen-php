@@ -3,7 +3,7 @@
 namespace Codegen\Modals;
 
 use Engtuncay\Phputils8\FiDtos\Fdr;
-use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\Fkb;
 
 class CgmApiUtil
 {
@@ -26,7 +26,7 @@ class CgmApiUtil
   // public static function genFkbReturn(Fdr $fdr)
   // {
 
-  //   $fkbReturn = new FiKeybean();
+  //   $fkbReturn = new Fkb();
 
   //   if ($fdr->getBoResult() !== null) $fkbReturn->add('boResult', $fdr->getBoResult());
   //   if ($fdr->getTxValue() !== null) $fkbReturn->add('txValue', $fdr->getTxValue());

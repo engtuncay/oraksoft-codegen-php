@@ -34,7 +34,7 @@ use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCsvs\FiCsv;
 use Engtuncay\Phputils8\FiDbs\FiQuery;
 use Engtuncay\Phputils8\FiDtos\Fdr;
-use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\Fkb;
 use Engtuncay\Phputils8\FiDtos\FiResponse;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiExcels\FiExcel;
@@ -80,7 +80,7 @@ class Api extends ResourceController
       // if ($fdr->getFkbListInit()->size() > 0) {
       // }
 
-      $fkbResponse = new FiKeybean();
+      $fkbResponse = new Fkb();
       $fkbResponse->add('filename', $originalName);
       $fkbResponse->add('lnRows', $fdr->getFkbListInit()->size());
       $fkbResponse->add('entities', $fiwEntity->getArrValue());
@@ -102,7 +102,7 @@ class Api extends ResourceController
     //log_message('info', print_r($request,true));
     //log_message('info', print_r($request->getPost(),true));
 
-    //$fkbPost = new FiKeybean($request->getPost());
+    //$fkbPost = new Fkb($request->getPost());
     //if ($file && $file->isValid() && !$file->hasMoved()) {
 
     $fdrData = new Fdr();
@@ -156,7 +156,7 @@ class Api extends ResourceController
     $fdrData = CgmCodegen::convertFileToFkbList($uploadedFile);
     $fkbListData = $fdrData->getFkbListInit();
 
-    /** @var FiKeybean $fkbEntityToFkbList */
+    /** @var Fkb $fkbEntityToFkbList */
     $fkbEntityToFkbList = CgmUtils::genFkbMapAsTxEntityToFkl($fkbListData);
 
     $fkbListEntity = null;

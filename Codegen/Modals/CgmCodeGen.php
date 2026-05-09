@@ -8,7 +8,7 @@ use Codegen\OcgConfigs\OcgLogger;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCsvs\FiCsv;
 use Engtuncay\Phputils8\FiDtos\Fdr;
-use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\Fkb;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiExcels\FiExcel;
 
@@ -32,7 +32,7 @@ class CgmCodegen
     // $fkbListData = $fdrData->getFkbListInit();
     //echo var_export($fkbListExcel, true);
 
-    /** @var FiKeybean $fkbEntityToFkbList */
+    /** @var Fkb $fkbEntityToFkbList */
     //$fkbEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
     $txVer = CgmApiUtil::getTxVer();
     $txLang = $iCogSpecs->getTxLang();

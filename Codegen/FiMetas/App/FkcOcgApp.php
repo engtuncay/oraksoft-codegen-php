@@ -4,7 +4,7 @@ namespace Codegen\FiMetas\App;
 // FkbCol Class Generation - v0.3 
 
 use Engtuncay\Phputils8\FiCols\IFkbTableMeta;
-use Engtuncay\Phputils8\FiDtos\FiKeybean;
+use Engtuncay\Phputils8\FiDtos\Fkb;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
@@ -36,9 +36,9 @@ public static function genTableColsTrans() : FkbList {
   return $fkbList;
 }
 
-public static function fapDbProfiles() : FiKeybean
+public static function fapDbProfiles() : Fkb
 { 
-  $fkbCol = new FiKeybean();
+  $fkbCol = new Fkb();
   $fkbCol->addFim(FimFiCol::fcTxFieldName(), 'fapDbProfiles');
   $fkbCol->addFim(FimFiCol::fcTxFieldType(), 'csv');
 
