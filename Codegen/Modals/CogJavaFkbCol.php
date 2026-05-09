@@ -91,7 +91,7 @@ class CogJavaFkbCol implements ICogGenClassCode
 
 
     // String
-    $templateMain = $this->getTemplateColClass();
+    $templateMain = $this->getTempColClass();
     $txResult = FiTemplate::replaceParams($templateMain, $fkbParamsMain);
 
     return $txResult;
@@ -129,51 +129,19 @@ EOD;
    * 
    * @return string
    */
-  public function getTemplateColClass(): string
+  public function getTempColClass(): string
   {
     //FicFiCol::fcTxHeader();
 
     //String
     $templateMain = <<<EOD
-
 import ozpasyazilim.utils.datatypes.FiKeybean;
 import ozpasyazilim.utils.fidborm.AbsFkbTable;
-import ozpasyazilim.utils.fidborm.IFiTableMetaFkc;
 import ozpasyazilim.utils.datatypes.FkbList;
 import ozpasyazilim.utils.ficols.FimFiCol;
 
-public class {{classPref}}{{entityName}} extends AbsFkbTable implements IFiTableMetaFkc
+public class {{classPref}}{{entityName}} extends AbsFkbTable
 {
-
-  public static String getTxTableName()
-  {
-    return "{{tableName}}";
-  }
-  
-  public String getITxTableName()
-  {
-    return getTxTableName();
-  }
-
-  public FkbList genITableCols()
-  {
-    return genTableCols();
-  }
-  
-  public FkbList genITableColsTrans()
-  {
-    return genTableColsTrans();
-  }
-  
-  public static String getTxPrefix()
-  {
-    return "{{tablePrefix}}";
-  }
-
-  public String getITxPrefix()
-  {
-    return getTxPrefix();
-  }
 
 {{classBody}}
 
@@ -212,6 +180,18 @@ EOD;
     if ($fcTxDbField != null) {
       $sbFiColMethodBody->append(sprintf("  fkbCol.addFieldBy(FimFiCol.fcTxDbField(), \"%s\");\n", $fcTxDbField));
     }
+
+    $fcTxUid = $fkbItem->getFimValue(FimFiCol::fcTxUid());
+    if ($fcTxUid != null) {
+      $sbFiColMethodBody->append("  fkbCol.addFieldBy(FimFiCol.fcTxUid(), \"{$fcTxUid}\");\n");
+    }
+
+    $fcLnId = $fkbItem->getFimValue(FimFiCol::fcLnId());
+    if ($fcLnId != null) {
+      $sbFiColMethodBody->append("  fkbCol.addFieldBy(FimFiCol.fcLnId(), {$fcLnId});\n");
+    }
+
+    
 
     //$fcTxIdType = $fiCol->fcTxIdType;
     //CgmCodeGen::convertExcelIdentityTypeToFiColAttribute($fiCol->fcTxIdType);

@@ -124,7 +124,7 @@ class CogJavaFiCol implements ICogGenClassCode
     $fkbParamsMain->addFim(FimFiCodeTemp::entityName(), $iCogSpecs->checkClassNameStd($txEntityName));
     $fkbParamsMain->addFim(FimFiCodeTemp::tableName(), $txEntityName);
     $fkbParamsMain->addFim(FimFiCodeTemp::tablePrefix(), $txTablePrefix);
-    $fkbParamsMain->addFim(FimFiCodeTemp::classBody(), $sbClassBody->toString());
+    $fkbParamsMain->addFim(FimFiCodeTemp::classContent(), $sbClassBody->toString());
     //$fkbParamsMain->addFim(FimFiCodeTemp::classBlockExtra(), $sbClassBodyExtra->toString());
     $fkbParamsMain->add("addFieldDescDetail", $sbFiColAddDescDetail->toString());
 
@@ -230,52 +230,22 @@ class CogJavaFiCol implements ICogGenClassCode
    */
   public function getTemplateColClass(): string
   {
-    //FicFiCol::fcTxHeader();
+    
     $txKeyClassBloEx = FimFiCodeTemp::classBlockExtra()->getTxKey();
-
+    $txKeyClassContent = FimFiCodeTemp::classContent()->getTxKey();
+    
     //String
     $templateMain = <<<EOD
 
 import ozpasyazilim.utils.table.FiCol;
 import ozpasyazilim.utils.table.FicList;
-import ozpasyazilim.utils.fidborm.IFiTableMeta;
 import ozpasyazilim.utils.datatypes.Fkfic;
 import ozpasyazilim.utils.fidborm.AbsFicTable;
       
-public class {{classPref}}{{entityName}} extends AbsFicTable implements IFiTableMeta
+public class {{classPref}}{{entityName}} extends AbsFicTable
 {
 
-  public static String getTxTableName()
-  {
-    return "{{tableName}}";
-  }
-  
-  public String getITxTableName()
-  {
-    return getTxTableName();
-  }
-
-  public FicList genITableCols()
-  {
-    return genTableCols();
-  }
-  
-  public FicList genITableColsTrans()
-  {
-    return genTableColsTrans();
-  }
-  
-  public static String getTxPrefix()
-  {
-    return "{{tablePrefix}}";
-  }
-
-  public String getITxPrefix()
-  {
-    return getTxPrefix();
-  }
-
-{{classBody}}
+{{{$txKeyClassContent}}}
 
 {{{$txKeyClassBloEx}}}
 

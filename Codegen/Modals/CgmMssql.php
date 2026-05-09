@@ -3,8 +3,11 @@
 namespace Codegen\Modals;
 
 use Codegen\FiMetas\App\FimOcgFieldTypes;
+use Codegen\FiMetas\App\FimQcColClassTempAreas;
+use Codegen\OcgConfigs\OcgLogger;
 use Engtuncay\Phputils8\FiCols\FicValue;
 use Engtuncay\Phputils8\FiCores\FiBool;
+use Engtuncay\Phputils8\FiCores\FiCollection;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
@@ -14,7 +17,9 @@ use Engtuncay\Phputils8\FiDtos\FiKeybean;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 use Engtuncay\Phputils8\FiMetas\FimOcgSql;
-
+use Engtuncay\Phputils8\FiMetas\FimQcFieldType;
+use Engtuncay\Phputils8\FiMetas\FimQcSpecFields;
+use Engtuncay\Phputils8\FiMetas\FimQcSql;
 
 /**
  * SQL Server Code Generation Model
@@ -22,14 +27,14 @@ use Engtuncay\Phputils8\FiMetas\FimOcgSql;
 class CgmMssql
 {
 
-  public static function actGenCreateTableByEntity(FkbList $fkbList): Fdr
+  public static function actGenCreateTableByEntity(FkbList $fklEntity): Fdr
   {
     $fdrMain = new Fdr();
 
     $sbTxCodeGen1 = new FiStrbui();
     $txVer = CgmApiUtil::getTxVer();
     $sbTxCodeGen1->append("-- Sql Create Table Code Gen v$txVer\n");
-    $sbTxCodeGen1->append(CgmMssql::actGenSqlCreate($fkbList));
+    $sbTxCodeGen1->append(CgmMssql::actGenSqlCreate($fklEntity));
     $sbTxCodeGen1->append("\n");
 
     $fdrMain->setTxValue($sbTxCodeGen1->toString());
@@ -73,6 +78,27 @@ class CgmMssql
     $fkbFirstItem = $fkbList->get(0);
 
     $sbColDefs = new FiStrbui();
+    $sbUniqDefs = new FiStrbui();
+
+    // Template Placeholders (getTxKeyAsTemp is for Template Placeholders)
+    $phsfTableName = FimOcgSql::sfTableName()->getTxKeyAsPlaceHolder();
+    $phsfTableFields = FimOcgSql::sfTableFields()->getTxKeyAsPlaceHolder();
+    $phsfIdentifName = FimQcSql::sfIdentifName()->getTxKeyAsPlaceHolder();
+    $phsfTxFields = FimQcSql::sfTxFields()->getTxKeyAsPlaceHolder();
+
+    // $fkbList map çevir
+    $fkbFieldsAll = FiCollection::toFkb($fkbList, function (FiKeybean $item) {
+      return $item->getFimValue(FimFiCol::fcTxFieldName());
+    });
+
+    $fkbFieldsByTxId = FiCollection::toFkb($fkbList, function (FiKeybean $item) {
+      return $item->getFimValue(FimFiCol::fcTxId());
+    });
+
+    //OcgLogger::debug("Fields:" . json_encode($fkbFieldsAll));
+
+    /** @var FiKeybean $fkbTableName */
+    $fkbTableName = $fkbFieldsAll->getFimValue(FimQcSpecFields::qcfTxSqTableName());
 
     /** @var FkbList $fkbList 
      *  @var FiKeybean $fkbItem
@@ -82,6 +108,15 @@ class CgmMssql
       $fcTxFieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
       $fcBoTransient = $fkbItem->getFimAsBool(FimFiCol::fcBoTransient());
       $fcTxIdType = $fkbItem->getFimValue(FimFiCol::fcTxIdType());
+      $fcTxFieldType = $fkbItem->getFimValue(FimFiCol::fcTxFieldType());
+      $fcTxHeader = $fkbItem->getFimValue(FimFiCol::fcTxHeader());
+
+      //OcgLogger::debug("CgmMssql::actGenSqlCreate - Field: $fcTxFieldName, TypeDef: $fcTxFieldType");
+
+      // Unique Alanlar için
+      if ($fcTxFieldType == FimQcFieldType::fsq_unique()->getTxValue()) {
+        self::prepUniqueFieldsDef($sbUniqDefs, $fkbTableName, $fkbItem, $fkbFieldsByTxId);
+      }
 
       // Transient Alanlar SQL Create Table'da yer almaz
       if (FiBool::isTrue($fcBoTransient)) {
@@ -102,18 +137,21 @@ class CgmMssql
     // rtrim ile en sondaki , ve \n karakterleri silinir (!)
     $fkbSqlCreateParam->addFieldMeta(FimOcgSql::sfTableFields(), rtrim($sbColDefs->toString(), ",\n"));
 
-    // Template Params (getTxKeyAsTemp is for Template Placeholders)
-    $sfTableName = FimOcgSql::sfTableName()->getTxKeyAsTemp();
-    $sfTableFields = FimOcgSql::sfTableFields()->getTxKeyAsTemp();
 
     $sqlTemplate = "
-CREATE TABLE $sfTableName (
-  $sfTableFields
+CREATE TABLE $phsfTableName (
+  $phsfTableFields
 )
 ";
 
     $txResult = FiTemplate::replaceParams($sqlTemplate, $fkbSqlCreateParam);
 
+    $sbResult = new FiStrbui();
+    $sbResult->append($txResult)->append("\n");
+
+    if (!FiString::isEmpty($sbUniqDefs->toString())) {
+      $sbResult->append("\n-- Unique Constraints\n")->append($sbUniqDefs->toString());
+    }
 
     // assignSqlTypeAndDef(listFields);
 
@@ -133,8 +171,49 @@ CREATE TABLE $sfTableName (
     //   if (index != 1) query.append("\n, ");
     //   query.append(field.getfcTxFieldName() + " " + field.getSqlFieldDefinition());
 
+    return $sbResult->toString();
+  }
 
-    return $txResult;
+  private static function prepUniqueFieldsDef(FiStrbui $sbUniqDefs, FiKeybean $fkbTableName, FiKeybean $fkbItem, FiKeybean $fkbFieldsByTxId)
+  {
+    $phsfTableName = FimOcgSql::sfTableName()->getTxKeyAsPlaceHolder();
+    //$phsfTableFields = FimOcgSql::sfTableFields()->getTxKeyAsPlaceHolder();
+    $phsfIdentifName = FimQcSql::sfIdentifName()->getTxKeyAsPlaceHolder();
+    $phsfTxFields = FimQcSql::sfTxFields()->getTxKeyAsPlaceHolder();
+
+    $fcTxFieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
+
+    OcgLogger::debug("CgmMssql::actGenSqlCreate - Unique Field Detected: $fcTxFieldName");
+    
+    $template = "ALTER TABLE {$phsfTableName} 
+ADD CONSTRAINT {$phsfIdentifName} 
+UNIQUE ({$phsfTxFields});";
+    
+    $fkbUniqueCons = new FiKeybean();
+    $fkbUniqueCons->addFim(FimQcSql::sfTableName(), $fkbTableName->getFcTxHd());
+    $fkbUniqueCons->addFim(FimQcSql::sfIdentifName(), $fkbItem->getFcFn());
+
+    $txUniuqFields = $fkbItem->getFimValue(FimFiCol::fcTxHeader());
+
+    $arrUniqFields = FiString::split($txUniuqFields, ",", true);
+
+    $sbFieldList = new FiStrbui();
+    
+    foreach ($arrUniqFields as $txField) {
+      
+    if (FiString::isEmpty($txField)) continue;
+      // Unique alanların field tanımlarının da olması gerekir, yoksa hata verir
+      /** @var FiKeybean $fkbFieldUni */
+      $fkbFieldUni = $fkbFieldsByTxId->get($txField); 
+      //OcgLogger::debug(json_encode($fkbFieldUni));
+      $sbFieldList->append($fkbFieldUni->getFcFn())->append(FiString::textComma());
+    }
+    // Remove trailing comma and space
+    $txFieldListStr = rtrim($sbFieldList->toString(), FiString::textComma());
+    $fkbUniqueCons->addFim(FimQcSql::sfTxFields(), $txFieldListStr);
+
+    $txUniqueCode = FiTemplate::replaceParams($template, $fkbUniqueCons);
+    $sbUniqDefs->append($txUniqueCode)->append("\n");
   }
 
   /**
