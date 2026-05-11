@@ -363,7 +363,7 @@ EOD;
 
   /**
    * @param FiStrbui $sbContent
-   * @param string $methodName
+   * 
    * @return void
    */
   public function doTransientFieldOps(FiStrbui $sbContent, Fkb $fkbItem, ICogSpecs $iCogSpecs): void

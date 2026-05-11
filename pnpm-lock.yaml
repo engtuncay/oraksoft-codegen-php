@@ -32,9 +32,6 @@ importers:
       orak-util-js:
         specifier: file:../orak-util-js
         version: file:../orak-util-js
-      oraksoft-tw-css-lib:
-        specifier: file:../oraksoft-tw-css-lib
-        version: file:../oraksoft-tw-css-lib
       tailwindcss:
         specifier: ^4.2.1
         version: 4.2.2
@@ -646,9 +643,6 @@ packages:
 
   orak-util-js@file:../orak-util-js:
     resolution: {directory: ../orak-util-js, type: directory}
-
-  oraksoft-tw-css-lib@file:../oraksoft-tw-css-lib:
-    resolution: {directory: ../oraksoft-tw-css-lib, type: directory}
 
   package-json-from-dist@1.0.1:
     resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
@@ -1293,8 +1287,6 @@ snapshots:
   notiflix@3.2.8: {}
 
   orak-util-js@file:../orak-util-js: {}
-
-  oraksoft-tw-css-lib@file:../oraksoft-tw-css-lib: {}
 
   package-json-from-dist@1.0.1: {}
 
