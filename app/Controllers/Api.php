@@ -236,8 +236,8 @@ class Api extends ResourceController
     endExcelOkuma:
 
     //$fkbReturn = CgmApiUtil::genFkbReturn($fdrCodegen);
-
     // (codegen)[../Views/codegen.php] 
+    
     return $this->respond($fdrCodegen->genArrResponse(), 200);
 
     // return $this->response->setJSON([

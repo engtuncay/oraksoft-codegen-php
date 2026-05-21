@@ -149,4 +149,11 @@ class FimOcgFieldTypes
 
     return $fiMeta;
   }
+
+  public static function datetime(): FiMeta
+  {
+    $fiMeta = new FiMeta("datetime");
+
+    return $fiMeta;
+  }
 }
