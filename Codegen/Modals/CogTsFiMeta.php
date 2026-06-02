@@ -3,6 +3,7 @@
 namespace Codegen\Modals;
 
 use Codegen\FiCols\FicFiMeta;
+use Codegen\Modals\CgmUtils;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiString;
@@ -17,8 +18,8 @@ class CogTsFiMeta implements ICogGenClassCode
   public function genClassCode(FkbList $fkbList): string
   {
     $iCogSpecs = new CogSpecsTs();
-
-        $iCogSpecs = new CogSpecsJava();
+    
+    //$iCogSpecs = new CogSpecsJava();
 
     //if (FiCollection.isEmpty(fiCols)) return;
     $sbClassBody = new FiStrbui();
@@ -53,6 +54,9 @@ class CogTsFiMeta implements ICogGenClassCode
       $fieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
 
       if (FiString::isEmpty($fieldName)) continue;
+
+      $fieldName = CgmUtils::prepFieldName($fieldName);
+      
       //$fcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
 
       $fkbFiMetaMethod->addFim( FimFiCodeTemp::fieldMethodName() , $iCogSpecs->checkMethodNameStd($fieldName));
@@ -232,4 +236,5 @@ EOD;
   {
     return new FiStrbui();
   }
+
 }

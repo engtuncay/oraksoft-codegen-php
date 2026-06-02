@@ -1,5 +1,4 @@
 <?php
-
 namespace Codegen\Modals;
 
 use Engtuncay\Phputils8\FiCores\FiString;
@@ -77,7 +76,7 @@ class CgmUtils
       $fiMeta->setTxKey($txFieldName);
 
       $txEntityName = $fkbItem->getValueByFiCol(FicFiCol::fcTxEntityName());
-      $fiMeta[FicFiCol::fcTxEntityName()->getFcTxFieldNameNtn()] = $txEntityName;
+      $fiMeta->setTxValue($txEntityName);
 
       // $txHeader = $fkbItem->getValueByFiCol(FicFiCol::fcTxHeader());
       // $fiMeta->fcTxHeader = $txHeader;
@@ -263,5 +262,12 @@ class CgmUtils
 
     return $params;
   }
+
+  public static function prepFieldName(string|null $fieldName)
+	{
+    if (FiString::isEmpty($fieldName)) return "";
+		return trim($fieldName);
+	}
+
 
 }
