@@ -6,6 +6,7 @@ use Codegen\FiMetas\App\FimOcgForm;
 use Codegen\Modals\CgmCodegen;
 use Codegen\Modals\CgmMssql;
 use Codegen\Modals\CgmDbDefs;
+use Codegen\Modals\CgmDbSqlite;
 use Codegen\Modals\CgmMysql;
 use Codegen\Modals\CgmUidGen;
 use Codegen\Modals\CgmUtils;
@@ -126,6 +127,7 @@ class Api extends ResourceController
     $selSql = $request->getPost('selSql');
     $selJs = $request->getPost('selJs');
     $selMysql = $request->getPost('selMysql');
+    $selSqlite = $request->getPost('selSqlite');
     $formTxEntity = $request->getPost('selEntity');
 
     // $uploadedFile = $this->request->getFile('excelFile'); // $_FILES['excelFile'];
@@ -231,6 +233,10 @@ class Api extends ResourceController
 
     if ($selMysql == 2) {
       $fdrCodegen = CgmMysql::actGenAlterTableByEntity($fkbListEntity);
+    }
+
+    if ($selSqlite == 1) {
+      $fdrCodegen = CgmDbSqlite::actGenCreateTableByEntity($fkbListEntity);
     }
 
     endExcelOkuma:

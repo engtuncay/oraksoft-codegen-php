@@ -2,36 +2,36 @@
   "name": "oraksoft-codegen-node",
   "private": true,
   "fiPrefix": "ocg",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "type": "module",
   "scripts": {
-    "pn-ins-ocg": "pnpm install",
-    "pn-update": "pnpm update",
+    "np-ins-ocg": "pnpm install",
+    "pnn-update": "pnpm update",
     "orak-copy-deps": "orak-copy-deps",
     "fi-zip": "orak-env-change fiprod & orak-zip-package -v",
-    "fi-deploy-ocg": "orak-env-change fiprod & orak-zip-package -v & orak-deploy-ftp -v",
+    "fi-deploy-ocg": "orak-env-change fiprod & orak-zip-package -v --zip & orak-deploy-ftp -v",
     "fi-deploy-ozp": "orak-env-change fiprod & orak-zip-package -v -p ozp & orak-deploy-ftp -v -p ozp",
     "fi-deploy-test": "orak-env-change test & fi-deploy",
     "fi-env-local": "orak-env-change filocal",
     "buiwc-tw-ocg": "npx @tailwindcss/cli -i ./public/input.css -o ./public/output.css --watch"
   },
   "dependencies": {
+    "@tailwindcss/cli": "^4.3.0",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
     "clipboard": "^2.0.11",
     "jquery": "^3.7.1",
-    "jquery-migrate": "^3.5.2",
+    "jquery-migrate": "^3.6.0",
     "notiflix": "^3.2.8",
-    "orak-util-js": "file:../orak-util-js",
-    "tailwindcss": "^4.2.1",
-    "@tailwindcss/cli": "^4.2.1"
+    "orak-util-js": "^0.0.40",
+    "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.11",
     "archiver": "^7.0.1",
-    "basic-ftp": "^5.0.5",
+    "basic-ftp": "^5.3.1",
     "fast-glob": "^3.3.3",
     "path": "^0.12.7",
-    "tar": "^7.5.2",
-    "@tailwindcss/forms": "^0.5.11"
+    "tar": "^7.5.15"
   }
 }

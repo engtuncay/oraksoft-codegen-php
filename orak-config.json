@@ -51,7 +51,7 @@
     "writable ilk olarak yüklenir sonrakiler dahil edilmez"
   ],
   "zip_package_out_file": "dist/codegen",
-  "osf_ftp_local_file": "dist/codegen.tar.gz",
+  "osf_ftp_local_file": "dist/codegen.zip",
   "osf_ftp_remote_path": "home/orakuser_codegen/",
   "osf_ftp_remote_path_url": "",
   "osf_ftp_local_file_ozpas": "dist/codegen-ozpas.tar.gz",

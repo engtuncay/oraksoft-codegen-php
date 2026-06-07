@@ -85,8 +85,13 @@ export function viewHomeInit() {
   addOptionByFimAndLnKey(eleSelMysql, FimCdgMssqlOpts.mssqlCreateTable());
   addOptionByFimAndLnKey(eleSelMysql, FimCdgMssqlOpts.mssqlAlterTable());
 
+  let eleSelSqLite = document.getElementById("selSqlite");
+  addOption(selSqlite, txIdSeciniz, "Select");
+  addOptionByFimAndLnKey(selSqlite, FimCdgMssqlOpts.mssqlCreateTable());
+  //addOptionByFimAndLnKey(selSqlite, FimCdgMssqlOpts.mssqlAlterTable());
+
   // Reset other selects when one changes
-  const codeSelects = [eleSelCsharp, eleSelPhp, eleSelTs, eleSelJava, eleSelSql, eleSelJs, eleSelMysql];
+  const codeSelects = [eleSelCsharp, eleSelPhp, eleSelTs, eleSelJava, eleSelSql, eleSelJs, eleSelMysql, eleSelSqLite];
 
   function resetOtherSelects(changedSelect) {
     codeSelects.forEach(s => {
