@@ -2,7 +2,7 @@
   "name": "oraksoft-codegen-node",
   "private": true,
   "fiPrefix": "ocg",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "type": "module",
   "scripts": {
     "np-ins-ocg": "pnpm install",
