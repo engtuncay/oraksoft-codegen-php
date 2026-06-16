@@ -2,10 +2,11 @@ import { Fkb, FiMeta, fiPostFormData, fiPostJson, testOrakSoftUi } from "../orak
 import { FimCdgMssqlOpts } from "./ocgmeta/FimCdgMssqlOpts.js";
 import { FimOsfFdr } from "./ocgmeta/FimOsfFdr.js";
 
+viewHomeInit();
 
 /**
  * 
- * @param {HTMLElement} element 
+ * @param {HTMLElement|null} element 
  * @param {string} value 
  * @param {string} textContent 
  */
@@ -22,7 +23,7 @@ function addOption(element, value, textContent) {
 
 /**
  * 
- * @param {HTMLElement} element 
+ * @param {HTMLElement|null} element 
  * @param {FiMeta} fiMeta
  * 
  */
@@ -41,7 +42,7 @@ function addOptionByFimAndLnKey(element, fiMeta) {
 /**
  * FiCol ve FiMeta ve FkbCol sınıfları için option ekleme fonksiyonu
  * 
- * @param {HTMLElement} elementById 
+ * @param {HTMLElement|null} elementById 
  * @param {string} txIdSeciniz 
  */
 function addFiClassOptsToElem(elementById, txIdSeciniz = "0") {
@@ -86,8 +87,9 @@ export function viewHomeInit() {
   addOptionByFimAndLnKey(eleSelMysql, FimCdgMssqlOpts.mssqlAlterTable());
 
   let eleSelSqLite = document.getElementById("selSqlite");
-  addOption(selSqlite, txIdSeciniz, "Select");
-  addOptionByFimAndLnKey(selSqlite, FimCdgMssqlOpts.mssqlCreateTable());
+  addOption(eleSelSqLite, txIdSeciniz, "Select");
+  addOptionByFimAndLnKey(eleSelSqLite, FimCdgMssqlOpts.mssqlCreateTable());
+
   //addOptionByFimAndLnKey(selSqlite, FimCdgMssqlOpts.mssqlAlterTable());
 
   // Reset other selects when one changes
@@ -122,7 +124,6 @@ export function viewHomeInit() {
 //let fiCol = new FiCol();
 
 
-
 //console.log(testOrakSoftUi("dünya"));
 // function addOption(element, value, textContent) {
 //   const option = document.createElement("option");
@@ -131,137 +132,157 @@ export function viewHomeInit() {
 //   element.appendChild(option);
 // }
 
+class Ocg {
 
-export function actReadEntityList() {
+  static actReadEntityList(event) {
 
-  console.log("actReadEntityList method called");
+    event.preventDefault();
 
-  let eleInputFile = document.getElementById("excelFile");
+    console.log("actReadEntityList method called");
 
-  // Eğer dosya seçilmediyse işlemi durdur
-  if (!(eleInputFile instanceof HTMLInputElement) || !eleInputFile.files || eleInputFile.files.length === 0) {
-    alert('Please select a DML file.');
-    return;
+    let eleInputFile = document.getElementById("excelFile");
+
+    // Eğer dosya seçilmediyse işlemi durdur
+    if (!(eleInputFile instanceof HTMLInputElement) || !eleInputFile.files || eleInputFile.files.length === 0) {
+      alert('Please select a DML file.');
+      return;
+    }
+
+    const form = document.querySelector('form');
+
+    // Convert form element to FormData before sending
+    const formData = new FormData(form);
+
+    fiPostFormData('/getEntityList', formData)
+      .then((result) => {
+        console.log(result);
+        return result.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.entities) {
+          /** {HTMLSelectElement} eleSelEntity */
+          let eleSelEntity = document.getElementById("selEntity");
+          if (!(eleSelEntity instanceof HTMLSelectElement)) return;
+          eleSelEntity.options.length = 0;
+
+          /** {string} entity */
+          data.entities.forEach(entity => {
+            addOption(eleSelEntity, entity, entity);
+          });
+
+        }
+        //fiBsModal('<pre>' + data.result.refValue + '</pre>');
+      }).catch((err) => {
+        alert('Hata: ' + err);
+      });
   }
 
-  const form = document.querySelector('form');
 
-  // Convert form element to FormData before sending
-  const formData = new FormData(form);
+  static actGenCode(event) {
 
-  fiPostFormData('/getEntityList', formData)
-    .then((result) => {
-      console.log(result);
-      return result.json();
+    event.preventDefault();
+
+    console.log("actGenCode method called");
+
+    const form = document.querySelector('form');
+
+    // Convert form element to FormData before sending
+    const formData = new FormData(form);
+
+    fiPostFormData('/genCode', formData)
+      .then((result) => {
+        console.log(result);
+        return result.json();
+      })
+      .then((data) => {
+        console.log(data);
+        let txCode = data[FimOsfFdr.fdTxValue().ftTxKey];
+        //console.log('txcode:'+ txCode);
+        if (txCode) {
+          /** {HTMLElement} eleEntity */
+          let eleEntity = document.getElementById("divCodeBlock");
+          if (!(eleEntity instanceof HTMLElement)) return;
+          eleEntity.innerHTML = '';
+          eleEntity.innerHTML = '<pre>' + txCode + '</pre>';
+        }
+        //fiBsModal('<pre>' + data.result.refValue + '</pre>');
+      }).catch((err) => {
+        alert('Hata: ' + err);
+      });
+  }
+
+
+  static actExecCommand(event) {
+
+    event.preventDefault();
+
+    console.log("actExecCommand method called");
+
+    const form = document.querySelector('form');
+    const formData = new FormData(form);
+
+    fiPostFormData('/execCmd', formData)
+      .then(async (result) => {
+        let text = await result.text();
+        let isJson = false;
+        let data = null;
+        try {
+          data = JSON.parse(text);
+          isJson = true;
+        } catch (e) {
+          isJson = false;
+        }
+        if (isJson) {
+          // JSON ise ekrana yaz
+          let eleEntity = document.getElementById("divCodeBlock");
+          if (!(eleEntity instanceof HTMLElement)) return;
+          eleEntity.innerHTML = '';
+          //JSON.stringify(data, null, 2)
+          eleEntity.innerHTML = '<pre>' + data.fdTxValue + '</pre>';
+        } else {
+          // CSV ise dosya olarak indir
+          const blob = new Blob([text], { type: 'text/csv' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          // Dosya adında timestamp ekle
+          const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, "");
+          a.download = `export_${timestamp}.csv`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }
+      })
+      .catch((err) => {
+        alert('Hata: ' + err);
+      });
+  }
+
+  static actReadDmlTestPost(event) {
+
+    event.preventDefault();
+    
+    console.log("actReadDmlTestPost method called");
+
+    fiPostJson('/testpost', {
+      veri: 'örnek'
     })
-    .then((data) => {
-      console.log(data);
-      if (data.entities) {
-        /** {HTMLSelectElement} eleSelEntity */
-        let eleSelEntity = document.getElementById("selEntity");
-        if (!(eleSelEntity instanceof HTMLSelectElement)) return;
-        eleSelEntity.options.length = 0;
+      .then((result) => {
+        console.log(result);
+        return result.json();
+      })
+      .then((data) => {
+        console.log(data);
+        //fiBsModal('<pre>' + data.result.refValue + '</pre>');
+      }).catch((err) => {
+        alert('Hata: ' + err);
+      });
+  }
 
-        /** {string} entity */
-        data.entities.forEach(entity => {
-          addOption(eleSelEntity, entity, entity);
-        });
 
-      }
-      //fiBsModal('<pre>' + data.result.refValue + '</pre>');
-    }).catch((err) => {
-      alert('Hata: ' + err);
-    });
 }
 
-export function actGenCode() {
-  console.log("actGenCode method called");
-
-  const form = document.querySelector('form');
-
-  // Convert form element to FormData before sending
-  const formData = new FormData(form);
-
-  fiPostFormData('/genCode', formData)
-    .then((result) => {
-      console.log(result);
-      return result.json();
-    })
-    .then((data) => {
-      console.log(data);
-      let txCode = data[FimOsfFdr.fdTxValue().ftTxKey];
-      //console.log('txcode:'+ txCode);
-      if (txCode) {
-        /** {HTMLElement} eleEntity */
-        let eleEntity = document.getElementById("divCodeBlock");
-        if (!(eleEntity instanceof HTMLElement)) return;
-        eleEntity.innerHTML = '';
-        eleEntity.innerHTML = '<pre>' + txCode + '</pre>';
-      }
-      //fiBsModal('<pre>' + data.result.refValue + '</pre>');
-    }).catch((err) => {
-      alert('Hata: ' + err);
-    });
-}
-
-export function actReadDmlTestPost() {
-  console.log("actReadDmlTestPost method called");
-
-  fiPostJson('/testpost', {
-    veri: 'örnek'
-  })
-    .then((result) => {
-      console.log(result);
-      return result.json();
-    })
-    .then((data) => {
-      console.log(data);
-      //fiBsModal('<pre>' + data.result.refValue + '</pre>');
-    }).catch((err) => {
-      alert('Hata: ' + err);
-    });
-}
-
-export function actExecCommand() {
-  console.log("actExecCommand method called");
-
-  const form = document.querySelector('form');
-  const formData = new FormData(form);
-
-  fiPostFormData('/execCmd', formData)
-    .then(async (result) => {
-      let text = await result.text();
-      let isJson = false;
-      let data = null;
-      try {
-        data = JSON.parse(text);
-        isJson = true;
-      } catch (e) {
-        isJson = false;
-      }
-      if (isJson) {
-        // JSON ise ekrana yaz
-        let eleEntity = document.getElementById("divCodeBlock");
-        if (!(eleEntity instanceof HTMLElement)) return;
-        eleEntity.innerHTML = '';
-        //JSON.stringify(data, null, 2)
-        eleEntity.innerHTML = '<pre>' + data.fdTxValue + '</pre>';
-      } else {
-        // CSV ise dosya olarak indir
-        const blob = new Blob([text], { type: 'text/csv' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        // Dosya adında timestamp ekle
-        const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, "");
-        a.download = `export_${timestamp}.csv`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }
-    })
-    .catch((err) => {
-      alert('Hata: ' + err);
-    });
-}
+// window.objs nesnesi yoksa oluştur
+window.ocg = window.ocg || Ocg;

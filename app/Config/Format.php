@@ -61,4 +61,13 @@ class Format extends BaseConfig
         'application/xml'  => 0,
         'text/xml'         => 0,
     ];
+
+    /**
+     * Maximum depth for JSON encoding.
+     * 
+     * Eklenmeyince aşağıdaki hatayı veriyor:
+     * 
+     * ErrorException: Undefined property: Config\Format::$jsonEncodeDepth
+     */
+    public int $jsonEncodeDepth = 512;
 }

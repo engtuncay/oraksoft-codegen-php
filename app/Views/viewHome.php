@@ -12,6 +12,7 @@ view('fiAppImports.php');
 // view fonksiyonu ile gönderilen assoc.array keyleri değişken olarak view içerisinde kullanılabilir.
 //FkcOcgApp::fapDbProfiles()
 
+/** @var array $data */
 $fkbData = new Fkb($data);
 
 ?>
@@ -130,10 +131,10 @@ $fkbData = new Fkb($data);
                 </div>
 
                 <div class="flex flex-wrap gap-2">
-                  <button class="px-4 py-2 bg-cyan-500 text-white rounded hover:bg-cyan-600 transition" data-action="actReadEntityList">Read Entity List</button>
-                  <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition" data-action="actGenCode">Generate Code</button>
-                  <button class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition" data-action="actExecCommand">Exec Command</button>
-                  <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition" data-action="actExecSql">Exec Sql</button>
+                  <button class="px-4 py-2 bg-cyan-500 text-white rounded hover:bg-cyan-600 transition" onclick="ocg.actReadEntityList(event)">Read Entity List</button>
+                  <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition" onclick="ocg.actGenCode(event)">Generate Code</button>
+                  <button class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition" onclick="ocg.actExecCommand(event)">Exec Command</button>
+                  <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition" onclick="ocg.actExecSql(event)">Exec Sql</button>
                 </div>
 
                 <!-- Db Active - Password Panel -->
@@ -235,52 +236,8 @@ $fkbData = new Fkb($data);
     //let elementById1 = document.getElementById("#txaOutput");
   </script>
 
-  <script type="module">
-    // import {
-    //   fiPostFormData,
-    //   fiBsModal,
-    //   testOrakSoftUi,
-    // } from './orak_modules/orak-util-js/orak-util-js.js';
-
-    import {
-      actReadEntityList,
-      actGenCode,
-      actExecCommand,
-      viewHomeInit
-    } from '<?= base_url('js/viewHome.js') ?>';
-
-    viewHomeInit();
-
-    const actions = {
-      actGenCode() {
-        //alert('Generate Code clicked!');
-        actGenCode();
-      },
-      actReadEntityList() {
-        actReadEntityList();
-      },
-      actExecCommand() {
-        actExecCommand();
-      },
-      test() {
-        alert('Test clicked!');
-      }
-    };
-
-    // Attach click handlers only to buttons with data-action
-    document.querySelectorAll('button[data-action]').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const action = btn.dataset.action;
-        if (action && actions[action]) {
-          actions[action]();
-        }
-      });
-    });
-  </script>
-
-  <script type="module" src="<?= base_url('js/main.js') ?>"></script>
-  <script type="module" src="<?= base_url('js/viewHome.js') ?>"></script>
+  <script type="module" src="<?= base_url('js/main.js?v=06160759') ?>"></script>
+  <script type="module" src="<?= base_url('js/viewHome.js?v=06160807') ?>"></script>
 
 </body>
 
