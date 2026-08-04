@@ -179,28 +179,28 @@ EOD;
     //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::fcTxFieldType()));
     $fcTxFieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
     if ($fcTxFieldName != null) {
-      $sbFkbColMethodBody->append(sprintf("  fkbCol.addFieldByFiMeta(FimFiCol.fcTxFieldName(), \"%s\");\n", $fcTxFieldName));
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.addFim(FimFiCol.fcTxFieldName(), \"%s\");\n", $fcTxFieldName));
     }
 
 
     $fcTxHeader = $fkbItem->getValueByFiMeta(FimFiCol::fcTxHeader());
     if ($fcTxHeader != null) {
-      $sbFkbColMethodBody->append(sprintf("  fkbCol.addFieldByFiMeta(FimFiCol.fcTxHeader(), \"%s\");\n", $fcTxHeader));
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.addFim(FimFiCol.fcTxHeader(), \"%s\");\n", $fcTxHeader));
     }
 
     $fcTxFieldType = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldType());
     if ($fcTxFieldType != null) {
-      $sbFkbColMethodBody->append(sprintf("  fkbCol.addFieldByFiMeta(FimFiCol.fcTxFieldType(), \"%s\");\n", $fcTxFieldType));
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.addFim(FimFiCol.fcTxFieldType(), \"%s\");\n", $fcTxFieldType));
     }
 
     $fcTxDbField = $fkbItem->getValueByFiMeta(FimFiCol::fcTxDbField());
     if ($fcTxDbField != null) {
-      $sbFkbColMethodBody->append(sprintf("  fkbCol.addFieldByFiMeta(FimFiCol.fcTxDbField(), \"%s\");\n", $fcTxDbField));
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.addFim(FimFiCol.fcTxDbField(), \"%s\");\n", $fcTxDbField));
     }
 
     $fcTxRefField = $fkbItem->getValueByFiMeta(FimFiCol::fcTxRefField());
     if ($fcTxRefField != null) {
-      $sbFkbColMethodBody->append(sprintf("  fkbCol.addFieldByFiMeta(FimFiCol.fcTxRefField(), \"%s\");\n", $fcTxRefField));
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.addFim(FimFiCol.fcTxRefField(), \"%s\");\n", $fcTxRefField));
     }
 
 
@@ -217,27 +217,27 @@ EOD;
     $fcBoTransient = $fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoTransient());
     if ($fcBoTransient) {
       //$sbFkbColMethodBody->append("  fkbCol.fcBoTransient = true;\n");
-      $sbFkbColMethodBody->append("  fkbCol.addFieldByFiMeta(FimFiCol.fcBoTransient(), true );\n");
+      $sbFkbColMethodBody->append("  fkbCol.addFim(FimFiCol.fcBoTransient(), true );\n");
     }
 
     $fcLnLength = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnLength()));
     if ($fcLnLength != null) {
-      $sbFkbColMethodBody->append(sprintf("  fkbCol.addFieldByFiMeta(FimFiCol.fcLnLength(), %s);\n", $fcLnLength));
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.addFim(FimFiCol.fcLnLength(), %s);\n", $fcLnLength));
       // $sbFkbColMethodBody->append(sprintf("  fkbCol.fcLnLength = %s;\n", $fcLnLength));
     }
 
     $fcLnPrecision = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnPrecision()));
     if ($fcLnPrecision != null) {
-      $sbFkbColMethodBody->append(sprintf("  fkbCol.addFieldByFiMeta(FimFiCol.fcLnPrecision(), %s);\n", $fcLnPrecision));
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.addFim(FimFiCol.fcLnPrecision(), %s);\n", $fcLnPrecision));
     }
 
     $fcLnScale = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnScale()));
     if ($fcLnScale != null) {
-      $sbFkbColMethodBody->append(sprintf("  fkbCol.addFieldByFiMeta(FimFiCol.fcLnScale(), %s);\n", $fcLnScale));
+      $sbFkbColMethodBody->append(sprintf("  fkbCol.addFim(FimFiCol.fcLnScale(), %s);\n", $fcLnScale));
     }
 
     if (FiBool::isFalse($fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoNullable()))) {
-      $sbFkbColMethodBody->append("  fkbCol.addFieldByFiMeta(FimFiCol.fcBoNullable(), false);\n");
+      $sbFkbColMethodBody->append("  fkbCol.addFim(FimFiCol.fcBoNullable(), false);\n");
     }
 
     //

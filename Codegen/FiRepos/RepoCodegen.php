@@ -29,14 +29,13 @@ class RepoCodegen extends FiAbsRepoGeneric
 
     if ($dbType === FiDbTypes::MSSQL) {
       OcgLogger::info("RepoCodeGen-getTableFields: mssql için tablo alanları çekiliyor: $tableName");
-
+      //, @tablePrefix                 fcTxPrefix
       //sq202503101637 v4
       $sql = "--sq202503101637 v4
 Select @tableName                   fcTxEntityName
   , (@tablePrefix + C.COLUMN_NAME) fcTxFieldName
   , C.DATA_TYPE                  fcTxFieldType
   , ''                           fcTxHeader
-  , @tablePrefix                 fcTxPrefix
   , CASE WHEN C.CHARACTER_MAXIMUM_LENGTH IS NULL THEN C.NUMERIC_PRECISION
     ELSE C.CHARACTER_MAXIMUM_LENGTH END fcLnLength
   --, C.NUMERIC_PRECISION          fcLnPrecision
