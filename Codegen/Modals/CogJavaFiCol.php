@@ -44,7 +44,7 @@ class CogJavaFiCol implements ICogGenClassCode
       /**
        * Alanların FiCol Metod İçeriği (özellikleri tanımlanır)
        */
-      $sbFiColMethodContent = $this->genColMethodBody($fkbItem);
+      $sbFiColMethodContent = $this->genColMethodContent($fkbItem);
 
       //$sbFiColAddDescDetail->append($iCogSpecsFiCol->genColAddDescMethodBody($fkbItem,$iCogSpecs)->toString());
 
@@ -142,7 +142,13 @@ class CogJavaFiCol implements ICogGenClassCode
     return $txResult;
   }
 
-  public function genColMethodBody(Fkb $fkbItem): FiStrbui
+  /**
+   * İlgili alanın FiCol Metod İçeriğini üreten metod
+   * 
+   * @param Fkb $fkbItem 
+   * @return FiStrbui 
+   */
+  public function genColMethodContent(Fkb $fkbItem): FiStrbui
   {
     //StringBuilder
     $sbFiColMethodBody = new FiStrbui(); // new StringBuilder();
@@ -188,6 +194,11 @@ class CogJavaFiCol implements ICogGenClassCode
     $fcLnScale = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnScale()));
     if ($fcLnScale != null) {
       $sbFiColMethodBody->append(sprintf("  fiCol.setFcLnScale(%s);\n", $fcLnScale));
+    }
+
+    $fcLnId = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnId()));
+    if ($fcLnId != null) {
+      $sbFiColMethodBody->append(sprintf("  fiCol.setFcLnId(%s);\n", $fcLnId));
     }
 
     if (FiBool::isFalse($fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoNullable()))) {
