@@ -253,7 +253,7 @@ class CogJavaFiCol implements ICogGenClassCode
 
 import ozpasyazilim.utils.table.FiCol;
 import ozpasyazilim.utils.table.FicList;
-import ozpasyazilim.utils.datatypes.Fkfic;
+import ozpasyazilim.utils.datatypes.Fkf;
 import ozpasyazilim.utils.fidborm.AbsFicTable;
       
 public class {{classPref}}{{entityName}} extends AbsFicTable
@@ -421,7 +421,7 @@ EOD;
       $this->processGetFkbDdFields($sbGetFkbDdFields, $fkbItem);
 
       $stMethodName = trim($iCogSpecs->checkMethodNameStd($fcTxFieldName));
-      $sbGetFkbFieldsAll->append("fkb.addFic({$stMethodName}());\n");
+      $sbGetFkbFieldsAll->append("fkf.addFic({$stMethodName}());\n");
     }
 
     // getDdFields
@@ -444,17 +444,17 @@ EOD;
   public function getTempMethodFkbFields()
   {
 
-    $txMethodName = CgmUtilsName::getMethodNameGetFkbFieldsAll();
+    $txMethodName = CgmUtilsName::getMethodNameGetFkfAll();
     $cogSpecs = new CogSpecsJava();
     $stdTxMethodName = $cogSpecs->checkMethodNameStd($txMethodName);
 
     return <<<EOD
-public static Fkfic {$stdTxMethodName}(){
+public static Fkf {$stdTxMethodName}(){
 
-  Fkfic fkb = new Fkfic();
+  Fkf fkf = new Fkf();
   
 {{getFkbFieldsAllContent}}
-  return fkb;
+  return fkf;
 }
 EOD;
   }
@@ -462,7 +462,7 @@ EOD;
   public function getTempMethodFkbDdFields()
   {
 
-    $txMethodName = CgmUtilsName::getMethodNameGetFkbDdFields();
+    $txMethodName = CgmUtilsName::getMethodNameGetFkfDefs();
 
     $cogSpecs = new CogSpecsJava();
     $stdTxMethodName = $cogSpecs->checkMethodNameStd($txMethodName);
@@ -470,12 +470,12 @@ EOD;
     $keyGetFkbDdFields = FimQcColClassTempAreas::getFkbDdFields()->getTxKey();
 
     return <<<EOD
-public static Fkfic {$stdTxMethodName}(){
+public static Fkf {$stdTxMethodName}(){
 
-  Fkfic fkb = new Fkfic();
+  Fkf fkf = new Fkf();
   
 {{{$keyGetFkbDdFields}}}
-  return fkb;
+  return fkf;
 }
 EOD;
   }
@@ -493,7 +493,7 @@ EOD;
     )) {
       $iCogSpecs = new CogSpecsJava();
       $stMethodName = $iCogSpecs->checkMethodNameStd($fcTxFieldName);
-      $sbGetFkbDdFields->append("fkb.addFic({$stMethodName}());\n");
+      $sbGetFkbDdFields->append("fkf.addFic({$stMethodName}());\n");
     }
     
   }

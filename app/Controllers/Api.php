@@ -181,7 +181,7 @@ class Api extends ResourceController
     //$formObject = (object)$formData;
 
     $cogSpecs = null;
-    $cogSpecsGenCol = null;
+    $cogGenCode = null;
 
     // FiCol
     if ($selCsharp > 0) $cogSpecs = new CogSpecsCsharp();
@@ -191,32 +191,32 @@ class Api extends ResourceController
     if ($selJs > 0) $cogSpecs = new CogSpecsJs();
 
     #Csharp CogSpecs
-    if ($selCsharp == 1) $cogSpecsGenCol = new CogCSharpFiCol();
-    if ($selCsharp == 2 || $selCsharp == 4) $cogSpecsGenCol = new CogCsharpFiMeta();
-    if ($selCsharp == 3) $cogSpecsGenCol = new CogCSharpFkbCol();
+    if ($selCsharp == 1) $cogGenCode = new CogCSharpFiCol();
+    if ($selCsharp == 2 || $selCsharp == 4) $cogGenCode = new CogCsharpFiMeta();
+    if ($selCsharp == 3) $cogGenCode = new CogCSharpFkbCol();
 
     #Php CogSpecs
-    if ($selPhp == 1) $cogSpecsGenCol = new CogPhpFiCol();
-    if ($selPhp == 2 || $selPhp == 4) $cogSpecsGenCol = new CogPhpFiMeta();
-    if ($selPhp == 3) $cogSpecsGenCol = new CogPhpFkbCol();
+    if ($selPhp == 1) $cogGenCode = new CogPhpFiCol();
+    if ($selPhp == 2 || $selPhp == 4) $cogGenCode = new CogPhpFiMeta();
+    if ($selPhp == 3) $cogGenCode = new CogPhpFkbCol();
 
     //---- Java
-    if ($selJava == 1) $cogSpecsGenCol = new CogJavaFiCol();
-    if ($selJava == 2) $cogSpecsGenCol = new CogJavaFiMeta();
-    if ($selJava == 3) $cogSpecsGenCol = new CogJavaFkbCol();
+    if ($selJava == 1) $cogGenCode = new CogJavaFiCol();
+    if ($selJava == 2) $cogGenCode = new CogJavaFiMeta();
+    if ($selJava == 3) $cogGenCode = new CogJavaFkbCol();
 
     //---- Typescript
-    if ($selTs == 3) $cogSpecsGenCol = new CogTsFkbCol();
-    if ($selTs == 2 ||  $selTs == 4) $cogSpecsGenCol = new CogTsFiMeta();
+    if ($selTs == 3) $cogGenCode = new CogTsFkbCol();
+    if ($selTs == 2 ||  $selTs == 4) $cogGenCode = new CogTsFiMeta();
 
-    if ($selJs == 3) $cogSpecsGenCol = new CogJsFkbCol();
-    if ($selJs == 2 ||  $selJs == 4) $cogSpecsGenCol = new CogJsFiMeta();
+    if ($selJs == 3) $cogGenCode = new CogJsFkbCol();
+    if ($selJs == 2 ||  $selJs == 4) $cogGenCode = new CogJsFiMeta();
 
     // ColClass üretimi (C#, Java, Php, Js)
     $selClassType = max($selPhp, $selJava, $selCsharp, $selTs, $selJs);
 
-    if ($selClassType > 0 && $cogSpecs && $cogSpecsGenCol) {
-      $fdrCodegen = CgmCodegen::genCodeColClass($fkbListEntity, $cogSpecs, $cogSpecsGenCol, $selClassType);
+    if ($selClassType > 0 && $cogSpecs && $cogGenCode) {
+      $fdrCodegen = CgmCodegen::genCodeColClass($fkbListEntity, $cogSpecs, $cogGenCode, $selClassType);
     }
 
     if ($selSql == 1) {

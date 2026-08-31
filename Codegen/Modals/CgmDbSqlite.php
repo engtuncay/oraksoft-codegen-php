@@ -289,9 +289,9 @@ UNIQUE ({$phsfTxFields});";
     if ($fcTxFieldType == FimOcgFieldTypes::datetimeoffset()->getTxKey()) {
       $sbTypeDef->append(" datetimeoffset(0)");
     }
-    // a01LnId        INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    // a01LnId        INT NOT NULL AUTOINCREMENT PRIMARY KEY,
     if ($fcTxIdType == 'identity' || $fcTxIdType == 'auto') {
-      $sbTypeDef->append(" NOT NULL AUTO_INCREMENET PRIMARY KEY");
+      $sbTypeDef->append(" NOT NULL PRIMARY KEY AUTOINCREMENT");
     }
 
     if ($fcTxIdType == 'user') {

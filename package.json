@@ -13,6 +13,7 @@
     "fi-deploy-ozp": "orak-env-change fiprod & orak-zip-package -v -p ozp & orak-deploy-ftp -v -p ozp",
     "fi-deploy-test": "orak-env-change test & fi-deploy",
     "fi-env-local": "orak-env-change filocal",
+    "ph-server-local-ocg": "orak-env-change filocal & php spark serve --port 8181",
     "buiwc-tw-ocg": "npx @tailwindcss/cli -i ./public/input.css -o ./public/output.css --watch"
   },
   "dependencies": {

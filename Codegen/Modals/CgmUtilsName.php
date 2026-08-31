@@ -2,18 +2,25 @@
 
 namespace Codegen\Modals;
 
+/**
+ * code generate ederken kullanılan metod isimleri 
+ * 
+ * farklı dillerde ortak metod ismi kullanılmalı
+ * 
+ * @package Codegen\Modals
+ */
 class CgmUtilsName
 {
   // 
-  public static function getMethodNameGetFkbFieldsAll()
+  public static function getMethodNameGetFkfAll()
   {
     //return "genFkbFields";
-    return "getFkbFieldsAll";
+    return "getFkfAll";
   }
-  
+
   //getFkbDdFields
-  public static function getMethodNameGetFkbDdFields()
+  public static function getMethodNameGetFkfDefs()
   {
-    return "getFkbDdFields";
+    return "getFkfDefs";
   }
 }

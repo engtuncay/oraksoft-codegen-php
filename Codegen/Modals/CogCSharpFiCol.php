@@ -18,7 +18,7 @@ class CogCSharpFiCol implements ICogGenClassCode
   public function genClassCode(FkbList $fkbList): string
   {
     $iCogSpecs = new CogSpecsCsharp();
-    
+
     //if (FiCollection.isEmpty(fiCols)) return;
     $sbClassBody = new FiStrbui(); //new StringBuilder();
     $sbFiColMethodsBody = new FiStrbui(); //new StringBuilder();
@@ -52,15 +52,15 @@ class CogCSharpFiCol implements ICogGenClassCode
       //String
       $fcTxFieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
 
-      if(FiString::isEmpty($fcTxFieldName)) continue;
+      if (FiString::isEmpty($fcTxFieldName)) continue;
 
       $fcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
 
       //fkbFiColMethodBody.add("fieldMethodName", FiString.capitalizeFirstLetter(fieldName));
       $fkbFiColMethodBody->addFim(FimFiCodeTemp::fieldMethodName(), $iCogSpecs->checkMethodNameStd($fcTxFieldName));
-      $fkbFiColMethodBody->addFim(FimFiCodeTemp::fieldName() , $fcTxFieldName);
-      $fkbFiColMethodBody->addFim(FimFiCodeTemp::fieldHeader() , $fcTxHeader);
-      $fkbFiColMethodBody->addFim(FimFiCodeTemp::colMethodBody() , $sbFiColMethodBody->toString());
+      $fkbFiColMethodBody->addFim(FimFiCodeTemp::fieldName(), $fcTxFieldName);
+      $fkbFiColMethodBody->addFim(FimFiCodeTemp::fieldHeader(), $fcTxHeader);
+      $fkbFiColMethodBody->addFim(FimFiCodeTemp::colMethodBody(), $sbFiColMethodBody->toString());
 
       /**
        * @var string $txFiColMethod
@@ -70,14 +70,14 @@ class CogCSharpFiCol implements ICogGenClassCode
       $sbFiColMethodsBody->append($txFiColMethod)->append("\n\n");
 
       //$sbFiColMethodBodyExtra = $iFiColClass->genFiColMethodBodyDetailExtra($fkbItem);
-//      $fkbFiColMethodBodyExtra = new Fkb();
-//      $fkbFiColMethodBodyExtra->add("fieldMethodName", $iFiColClass->checkMethodNameStd($fieldName));
-//      $fkbFiColMethodBodyExtra->add("fieldName", $fieldName);
-//      $fkbFiColMethodBodyExtra->add("fieldHeader", $fcTxHeader);
-//      $fkbFiColMethodBodyExtra->add("fiColMethodBody", $sbFiColMethodBodyExtra->toString());
-//      $txFiColMethodExtra = FiTemplate::replaceParams($templateFiColMethodExtra, $fkbFiColMethodBodyExtra);
+      //      $fkbFiColMethodBodyExtra = new Fkb();
+      //      $fkbFiColMethodBodyExtra->add("fieldMethodName", $iFiColClass->checkMethodNameStd($fieldName));
+      //      $fkbFiColMethodBodyExtra->add("fieldName", $fieldName);
+      //      $fkbFiColMethodBodyExtra->add("fieldHeader", $fcTxHeader);
+      //      $fkbFiColMethodBodyExtra->add("fiColMethodBody", $sbFiColMethodBodyExtra->toString());
+      //      $txFiColMethodExtra = FiTemplate::replaceParams($templateFiColMethodExtra, $fkbFiColMethodBodyExtra);
 
-//      $sbFiColMethodsBody->append($txFiColMethodExtra)->append("\n\n");
+      //      $sbFiColMethodsBody->append($txFiColMethodExtra)->append("\n\n");
 
       //
       $fcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
@@ -127,7 +127,7 @@ class CogCSharpFiCol implements ICogGenClassCode
     //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.fcTxEntityName());
     //
     $fkbParamsMain = new Fkb();
-    
+
 
     $fkbParamsMain->addFim(FimFiCodeTemp::classPref(), $classPref);
     $fkbParamsMain->addFim(FimFiCodeTemp::entityName(), $iCogSpecs->checkClassNameStd($txEntityName));
@@ -139,7 +139,7 @@ class CogCSharpFiCol implements ICogGenClassCode
 
     $sbExtra = $this->genClassBlockExtra($iCogSpecs, $fkbList);
 
-    $fkbParamsMain->addFim( FimFiCodeTemp::classBlockExtra() ,  $sbExtra->toString());
+    $fkbParamsMain->addFim(FimFiCodeTemp::classBlockExtra(),  $sbExtra->toString());
 
     // String
     $templateMain = $this->getTemplateColClass();
@@ -177,40 +177,12 @@ EOD;
     //String
     $templateMain = <<<EOD
 using OrakYazilimLib.Util.core;
+//using OrakUtilDotNetCore.FiCollections;
+//using OrakUtilDotNetCore.FiDataContainer;
 
 public class {{classPref}}{{entityName}}
 {
 
-  public static string GetTxTableName()
-  {
-    return "{{tableName}}";
-  }
-  
-  public string GetITxTableName()
-  {
-    return GetTxTableName();
-  }
-
-  public FicList GenITableCols()
-  {
-    return GenTableCols();
-  }
-  
-  public FicList GenITableColsTrans()
-  {
-    return GenTableColsTrans();
-  }
-  
-  public static string GetTxPrefix()
-  {
-    return "{{tablePrefix}}";
-  }
-
-  public string GetITxPrefix()
-  {
-    return GetTxPrefix();
-  }
-  
   public static void AddFieldDesc(FicList ficolList) {
 
     foreach (FiCol fiCol in ficolList)
@@ -246,12 +218,16 @@ EOD;
 
     $fcTxDbField = $fkbItem->getValueByFiCol(FicFiCol::fcTxDbField());
     if ($fcTxDbField != null)
-      $sbFiColMethodBody->append(sprintf("  fiCol.fcTxDbField = \"%s\";\n", $fcTxDbField)); {
-      $fcTxRefField = $fkbItem->getValueByFiCol(FicFiCol::fcTxRefField());
-      if ($fcTxRefField != null)
-        $sbFiColMethodBody->append(sprintf("  fiCol.fcTxRefField = \"%s\";\n", $fcTxRefField));
-    }
+      $sbFiColMethodBody->append(sprintf("  fiCol.fcTxDbField = \"%s\";\n", $fcTxDbField));
 
+    $fcTxRefField = $fkbItem->getValueByFiCol(FicFiCol::fcTxRefField());
+    if ($fcTxRefField != null)
+      $sbFiColMethodBody->append(sprintf("  fiCol.fcTxRefField = \"%s\";\n", $fcTxRefField));
+
+    $fcTxIdType = $fkbItem->getValueByFiCol(FicFiCol::fcTxIdType());
+    if ($fcTxIdType != null) {
+      $sbFiColMethodBody->append(sprintf("  fiCol.fcTxIdType = \"%s\";\n", $fcTxIdType));
+    }
 
     //$fcTxIdType = $fiCol->fcTxIdType;
     //CgmCodeGen::convertExcelIdentityTypeToFiColAttribute($fiCol->fcTxIdType);
