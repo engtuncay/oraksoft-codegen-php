@@ -4,10 +4,10 @@ namespace App\Controllers;
 
 use Codegen\FiMetas\App\FimOcgForm;
 use Codegen\Modals\CgmCodegen;
-use Codegen\Modals\CgmMssql;
-use Codegen\Modals\CgmDbDefs;
-use Codegen\Modals\CgmDbSqlite;
-use Codegen\Modals\CgmMysql;
+use Codegen\Modals\CogMssql;
+use Codegen\Modals\CogDbDefs;
+use Codegen\Modals\CogDbSqlite;
+use Codegen\Modals\CogMysql;
 use Codegen\Modals\CgmUidGen;
 use Codegen\Modals\CgmUtils;
 use Codegen\Modals\CogSpecsCsharp;
@@ -220,23 +220,23 @@ class Api extends ResourceController
     }
 
     if ($selSql == 1) {
-      $fdrCodegen = CgmMssql::actGenCreateTableByEntity($fkbListEntity);
+      $fdrCodegen = CogMssql::actGenCreateTableByEntity($fkbListEntity);
     }
 
     if ($selSql == 2) {
-      $fdrCodegen = CgmMssql::actGenAlterTableByEntity($fkbListEntity);
+      $fdrCodegen = CogMssql::actGenAlterTableByEntity($fkbListEntity);
     }
 
     if ($selMysql == 1) {
-      $fdrCodegen = CgmMysql::actGenCreateTableByEntity($fkbListEntity);
+      $fdrCodegen = CogMysql::actGenCreateTableByEntity($fkbListEntity);
     }
 
     if ($selMysql == 2) {
-      $fdrCodegen = CgmMysql::actGenAlterTableByEntity($fkbListEntity);
+      $fdrCodegen = CogMysql::actGenAlterTableByEntity($fkbListEntity);
     }
 
     if ($selSqlite == 1) {
-      $fdrCodegen = CgmDbSqlite::actGenCreateTableByEntity($fkbListEntity);
+      $fdrCodegen = CogDbSqlite::actGenCreateTableByEntity($fkbListEntity);
     }
 
     endExcelOkuma:
@@ -274,7 +274,7 @@ class Api extends ResourceController
     if (strcasecmp($txCmd, 'dml') === 0) {
       // Excel komutu için özel işlem yapabilirsiniz
       // Örneğin, belirli bir Excel dosyasını işlemek gibi
-      $fdr = CgmDbDefs::getCodeByTable($txDbProfile, $arrCliArgs);
+      $fdr = CogDbDefs::getCodeByTable($txDbProfile, $arrCliArgs);
 
       if ($fdr->isTrueBoResult()) {
         return response()
@@ -319,7 +319,7 @@ class Api extends ResourceController
     if (strcasecmp($txCmd, 'table-list') === 0) {
       // Excel komutu için özel işlem yapabilirsiniz
       // Örneğin, belirli bir Excel dosyasını işlemek gibi
-      $fdr = CgmDbDefs::getTableList($txDbProfile, $arrCliArgs);
+      $fdr = CogDbDefs::getTableList($txDbProfile, $arrCliArgs);
 
       if ($fdr->isTrueBoResult()) {
         return $this->respond($fdr->genArrResponse(), 200);

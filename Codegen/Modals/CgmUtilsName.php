@@ -23,4 +23,9 @@ class CgmUtilsName
   {
     return "getFkfDefs";
   }
+
+    public static function getMethodNameGetFkfDto()
+  {
+    return "getFkfDto";
+  }
 }

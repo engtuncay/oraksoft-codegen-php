@@ -204,12 +204,12 @@ class CogJavaFiCol implements ICogGenClassCode
     if (FiBool::isFalse($fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoNullable()))) {
       $sbFiColMethodBody->append("  fiCol.setFcBoNullable(false);\n");
     }
-    
+
     $fcTxUid = $fkbItem->getValueByFiCol(FicFiCol::fcTxUid());
-    if ($fcTxUid != null){
+    if ($fcTxUid != null) {
       $sbFiColMethodBody->append(sprintf("  fiCol.setFcTxUid(\"%s\");\n", $fcTxUid));
     }
-      
+
 
     //        if (FiBool.isTrue(fiCol.getFcBoUnique())) {
     //          sbFiColMethodBody.append("\tfiCol.fcBoUnique = true;\n");
@@ -244,10 +244,10 @@ class CogJavaFiCol implements ICogGenClassCode
    */
   public function getTemplateColClass(): string
   {
-    
+
     $txKeyClassBloEx = FimFiCodeTemp::classBlockExtra()->getTxKey();
     $txKeyClassContent = FimFiCodeTemp::classContent()->getTxKey();
-    
+
     //String
     $templateMain = <<<EOD
 
@@ -409,6 +409,7 @@ EOD;
 
     $sbGetFkbFieldsAll = new FiStrbui();
     $sbGetFkbDdFields = new FiStrbui();
+    $sbGetFkfDto = new FiStrbui();
 
     /** @var Fkb $fkbItem  */
     foreach ($fkbList as $fkbItem) {
@@ -419,6 +420,7 @@ EOD;
       if (FiString::isEmpty($fcTxFieldName)) continue;
 
       $this->processGetFkbDdFields($sbGetFkbDdFields, $fkbItem);
+      $this->processGetFkfDto($sbGetFkfDto, $fkbItem);
 
       $stMethodName = trim($iCogSpecs->checkMethodNameStd($fcTxFieldName));
       $sbGetFkbFieldsAll->append("fkf.addFic({$stMethodName}());\n");
@@ -426,22 +428,42 @@ EOD;
 
     // getDdFields
 
-    $txTempMethodFkbAllFields = $this->getTempMethodFkbFields();
+    $txTempMethodFkbAllFields = $this->getTempMethodFkfAll();
     $txFkbAllFieldsFull = FiTemplate::replaceParams($txTempMethodFkbAllFields, Fkb::bui()->buiPut("getFkbFieldsAllContent", $sbGetFkbFieldsAll->toString()));
 
     $txTempMethodFkbDdFields = $this->getTempMethodFkbDdFields();
-    $txFkbDdFieldsFull = FiTemplate::replaceParams($txTempMethodFkbDdFields
-      , Fkb::bui()->buiPut("getFkbDdFields"
-      , $sbGetFkbDdFields->toString()));
+    $txFkbDdFieldsFull = FiTemplate::replaceParams(
+      $txTempMethodFkbDdFields,
+      Fkb::bui()->buiPut(
+        "getFkbDdFields",
+        $sbGetFkbDdFields->toString()
+      )
+    );
+
+    // getFkfDto
+
+    $txTempMethodFkfDto = $this->getTempMethodFkfDto();
+    $keyMethodContent = FimQcColClassTempAreas::getFkfDto()->getTxKey();
+    $txFkfDto = FiTemplate::replaceParams(
+      $txTempMethodFkfDto,
+      Fkb::bui()->buiPut(
+        $keyMethodContent,
+        $sbGetFkfDto->toString()
+      )
+    );
+
+    // extra content'e ekleme
 
     $sbExtra->append($txFkbAllFieldsFull);
     $sbExtra->append("\n\n");
     $sbExtra->append($txFkbDdFieldsFull);
+    $sbExtra->append("\n\n");
+    $sbExtra->append($txFkfDto);
 
     return $sbExtra;
   }
 
-  public function getTempMethodFkbFields()
+  public function getTempMethodFkfAll()
   {
 
     $txMethodName = CgmUtilsName::getMethodNameGetFkfAll();
@@ -466,7 +488,7 @@ EOD;
 
     $cogSpecs = new CogSpecsJava();
     $stdTxMethodName = $cogSpecs->checkMethodNameStd($txMethodName);
-    
+
     $keyGetFkbDdFields = FimQcColClassTempAreas::getFkbDdFields()->getTxKey();
 
     return <<<EOD
@@ -480,22 +502,58 @@ public static Fkf {$stdTxMethodName}(){
 EOD;
   }
 
-  public function processGetFkbDdFields(FiStrbui $sbGetFkbDdFields, Fkb  $fkbItem): void 
+  public function getTempMethodFkfDto()
+  {
+
+    $txMethodName = CgmUtilsName::getMethodNameGetFkfDto();
+
+    $cogSpecs = new CogSpecsJava();
+    $stdTxMethodName = $cogSpecs->checkMethodNameStd($txMethodName);
+
+    $keyMethodContent = FimQcColClassTempAreas::getFkfDto()->getTxKey();
+
+    return <<<EOD
+public static Fkf {$stdTxMethodName}(){
+
+  Fkf fkf = new Fkf();
+  
+{{{$keyMethodContent}}}
+  return fkf;
+}
+EOD;
+  }
+
+  public function processGetFkbDdFields(FiStrbui $sbGetFkbDdFields, Fkb  $fkbItem): void
   {
     $fcTxFieldName = trim($fkbItem->getFimValue(FimFiCol::fcTxFieldName()));
     $fcTxFieldType = $fkbItem->getFimValue(FimFiCol::fcTxFieldType());
 
-    if(FiString::any($fcTxFieldName
-    , FimQcSpecFields::qcfTxSqTableName()->getTxKey()
-    ) ||
-    FiString::any($fcTxFieldType
-    , FimQcFieldType::sq_unique()->getTxKey()
-    )) {
+    if (
+      FiString::any(
+        $fcTxFieldName,
+        FimQcSpecFields::qcfTxSqTableName()->getTxKey()
+      ) ||
+      FiString::any(
+        $fcTxFieldType,
+        FimQcFieldType::sq_unique()->getTxKey()
+      )
+    ) {
       $iCogSpecs = new CogSpecsJava();
       $stMethodName = $iCogSpecs->checkMethodNameStd($fcTxFieldName);
       $sbGetFkbDdFields->append("fkf.addFic({$stMethodName}());\n");
     }
-    
   }
 
+  public function processGetFkfDto(FiStrbui $sbGetFkbDdFields, Fkb  $fkbItem): void
+  {
+    $fcTxFieldName = trim($fkbItem->getFimValue(FimFiCol::fcTxFieldName()));
+    //$fcTxFieldType = $fkbItem->getFimValue(FimFiCol::fcTxFieldType());
+
+    $tfcBoDto = $fkbItem->getValueAsBoolByFiCol(FicFiCol::tfcBoDto());
+    if ($tfcBoDto) {
+      $iCogSpecs = new CogSpecsJava();
+      $txStdMethodName = $iCogSpecs->checkMethodNameStd($fcTxFieldName);
+      $sbGetFkbDdFields->append("fkf.addFic({$txStdMethodName}());\n");
+    } 
+  }
 }

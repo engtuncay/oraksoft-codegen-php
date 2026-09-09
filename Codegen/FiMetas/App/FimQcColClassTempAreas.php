@@ -15,6 +15,13 @@ public static function getFkbDdFields() : FiMeta
   return $fiMeta;
 }
 
+public static function getFkfDto() : FiMeta
+{ 
+  $fiMeta = new FiMeta("getFkfDto");
+
+  return $fiMeta;
+}
+
 
 
 }

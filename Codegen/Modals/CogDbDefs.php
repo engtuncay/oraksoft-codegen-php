@@ -6,7 +6,7 @@ use Codegen\FiRepos\RepoCodegen;
 use Engtuncay\Phputils8\FiCsvs\FiCsv;
 use Engtuncay\Phputils8\FiDtos\Fdr;
 
-class CgmDbDefs
+class CogDbDefs
 {
   // 
   public static function getCodeByTable(string $txDbProfile, array $arrCliArgs): Fdr

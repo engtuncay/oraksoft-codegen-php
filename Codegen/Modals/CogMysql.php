@@ -22,9 +22,9 @@ use Engtuncay\Phputils8\FiMetas\FimQcSpecFields;
 use Engtuncay\Phputils8\FiMetas\FimQcSql;
 
 /**
- * Sqlite Code Generation Model
+ * SQL Server Code Generation Model
  */
-class CgmDbSqlite
+class CogMysql
 {
 
   public static function actGenCreateTableByEntity(FkbList $fklEntity): Fdr
@@ -33,8 +33,8 @@ class CgmDbSqlite
 
     $sbTxCodeGen1 = new FiStrbui();
     $txVer = self::getTxVer();
-    $sbTxCodeGen1->append("-- Sqlite Create Table Code Gen v$txVer\n");
-    $sbTxCodeGen1->append(CgmDbSqlite::actGenSqlCreate($fklEntity));
+    $sbTxCodeGen1->append("-- Mysql Create Table Code Gen v$txVer\n");
+    $sbTxCodeGen1->append(CogMysql::actGenSqlCreate($fklEntity));
     $sbTxCodeGen1->append("\n");
 
     $fdrMain->setTxValue($sbTxCodeGen1->toString());
@@ -143,7 +143,9 @@ class CgmDbSqlite
 CREATE TABLE $phSfTableName (
   $phSfTableFields
   
-)
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_unicode_ci;
 ";
 
     $txResult = FiTemplate::replaceParams($sqlTemplate, $fkbSqlCreateParam);
@@ -233,15 +235,16 @@ UNIQUE ({$phsfTxFields});";
 
     $sbTypeDef = new FiStrbui();
 
-    if ( FiString::any(
-      $fcTxFieldType,
-      FimOcgFieldTypes::varchar()->getTxKey(),
-      FimOcgFieldTypes::string()->getTxKey(),
-      FimOcgFieldTypes::nvarchar()->getTxKey()
-    )) {
+    if (
+      $fcTxFieldType == FimOcgFieldTypes::varchar()->getTxKey()
+      || $fcTxFieldType == FimOcgFieldTypes::string()->getTxKey()
+      || $fcTxFieldType == FimOcgFieldTypes::nvarchar()->getTxKey()
+    ) {
 
-      // length değeri sqlite için gerekli değil, ancak diğer veritabanları için tanımlanabilir
-      $sbTypeDef->append(" TEXT");
+      if (FiString::isEmpty($fcLnLength)) {
+        $fcLnLength = 50;
+      }
+      $sbTypeDef->append(" varchar($fcLnLength)");
     }
 
     if (FiString::any(
@@ -258,15 +261,15 @@ UNIQUE ({$phsfTxFields});";
         $fcLnScale = 2;
       }
 
-      $sbTypeDef->append(" DECIMAL($fcLnLength,$fcLnScale)");
+      $sbTypeDef->append(" decimal($fcLnLength,$fcLnScale)");
     }
 
     if ($fcTxFieldType == FimOcgFieldTypes::int()->getTxKey()) {
-      $sbTypeDef->append(" INTEGER");
+      $sbTypeDef->append(" int");
     }
 
     if ($fcTxFieldType == FimOcgFieldTypes::tinyint()->getTxKey()) {
-      $sbTypeDef->append(" INTEGER");
+      $sbTypeDef->append(" tinyint");
     }
 
     if (FiString::any(
@@ -274,7 +277,7 @@ UNIQUE ({$phsfTxFields});";
       FimOcgFieldTypes::bit()->getTxKey(),
       FimOcgFieldTypes::bool()->getTxKey()
     )) {
-      $sbTypeDef->append(" INTEGER");
+      $sbTypeDef->append(" bit");
     }
 
     // URREV
@@ -289,9 +292,9 @@ UNIQUE ({$phsfTxFields});";
     if ($fcTxFieldType == FimOcgFieldTypes::datetimeoffset()->getTxKey()) {
       $sbTypeDef->append(" datetimeoffset(0)");
     }
-    // a01LnId        INT NOT NULL AUTOINCREMENT PRIMARY KEY,
+    // a01LnId        INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     if ($fcTxIdType == 'identity' || $fcTxIdType == 'auto') {
-      $sbTypeDef->append(" NOT NULL PRIMARY KEY AUTOINCREMENT");
+      $sbTypeDef->append(" NOT NULL AUTO_INCREMENET PRIMARY KEY");
     }
 
     if ($fcTxIdType == 'user') {
