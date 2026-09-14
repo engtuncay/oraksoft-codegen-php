@@ -45,10 +45,10 @@
     "fi-comp-install-dev": ["composer install --dev"],
     "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
     "test": "phpunit",
-    "spark-serve": "php spark serve --port 8181",
+    "spark-serve": "php spark serve --port 9281",
     "fi-spark-serve-local": [
       "orak-env-change filocal",
-      "php spark serve --port 8181"
+      "php spark serve --port 9281"
     ]
   },
   "config": {

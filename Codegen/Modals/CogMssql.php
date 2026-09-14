@@ -27,14 +27,20 @@ use Engtuncay\Phputils8\FiMetas\FimQcSql;
 class CogMssql
 {
 
-  public static function actGenCreateTableByEntity(FkbList $fklEntity): Fdr
+  /**
+   * fkblEntity- Entity alan bilgileri (fkb) tutan fkbList olarak verilir. Her biri fkbCol olarak gelir.
+   * 
+   * @param FkbList $fkblEntity 
+   * @return Fdr 
+   */
+  public static function actGenCreateTableByEntity(FkbList $fkblEntity): Fdr
   {
     $fdrMain = new Fdr();
 
     $sbTxCodeGen1 = new FiStrbui();
     $txVer = CgmApiUtil::getTxVer();
     $sbTxCodeGen1->append("-- Sql Create Table Code Gen v$txVer\n");
-    $sbTxCodeGen1->append(CogMssql::actGenSqlCreate($fklEntity));
+    $sbTxCodeGen1->append(CogMssql::actGenSqlCreate($fkblEntity));
     $sbTxCodeGen1->append("\n");
 
     $fdrMain->setTxValue($sbTxCodeGen1->toString());
@@ -73,9 +79,9 @@ class CogMssql
   }
 
 
-  public static function actGenSqlCreate(FkbList $fkbList): string
+  public static function actGenSqlCreate(FkbList $fkblEntity): string
   {
-    $fkbFirstItem = $fkbList->get(0);
+    $fkbFirstItem = $fkblEntity->get(0);
 
     $sbColDefs = new FiStrbui();
     $sbUniqDefs = new FiStrbui();
@@ -86,24 +92,25 @@ class CogMssql
     $phsfIdentifName = FimQcSql::sfIdentifName()->getTxKeyAsPlaceHolder();
     $phsfTxFields = FimQcSql::sfTxFields()->getTxKeyAsPlaceHolder();
 
-    // $fkbList map çevir
-    $fkbFieldsAll = FiCollection::toFkb($fkbList, function (Fkb $item) {
+    // $fkbList'i map'e (fkb) çevrilir key: fcTxFieldName, value: fkbItem
+    $fkfAll = FiCollection::toFkb($fkblEntity, function (Fkb $item) {
       return $item->getFimValue(FimFiCol::fcTxFieldName());
     });
 
-    $fkbFieldsByTxId = FiCollection::toFkb($fkbList, function (Fkb $item) {
+    // key: fcTxId, value: fkbItem
+    $fkbFieldsByTxId = FiCollection::toFkb($fkblEntity, function (Fkb $item) {
       return $item->getFimValue(FimFiCol::fcTxId());
     });
 
     //OcgLogger::debug("Fields:" . json_encode($fkbFieldsAll));
 
     /** @var Fkb $fkbTableName */
-    $fkbTableName = $fkbFieldsAll->getFimValue(FimQcSpecFields::qcfTxSqTableName());
+    $fkbTableName = $fkfAll->getFimValue(FimQcSpecFields::qcfTxSqTableName());
 
-    /** @var FkbList $fkbList 
+    /** @var FkbList $fkblEntity 
      *  @var Fkb $fkbItem
      */
-    foreach ($fkbList as $fkbItem) {
+    foreach ($fkblEntity as $fkbItem) {
 
       $fcTxFieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
       $fcBoTransient = $fkbItem->getFimAsBool(FimFiCol::fcBoTransient());
@@ -185,11 +192,11 @@ CREATE TABLE $phsfTableName (
     $fcTxFieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
 
     OcgLogger::debug("CgmMssql::actGenSqlCreate - Unique Field Detected: $fcTxFieldName");
-    
+
     $template = "ALTER TABLE {$phsfTableName} 
 ADD CONSTRAINT {$phsfIdentifName} 
 UNIQUE ({$phsfTxFields});";
-    
+
     $fkbUniqueCons = new Fkb();
     $fkbUniqueCons->addFim(FimQcSql::sfTableName(), $fkbTableName->getFcTxHd());
     $fkbUniqueCons->addFim(FimQcSql::sfIdentifName(), $fkbItem->getFcFn());
@@ -199,13 +206,13 @@ UNIQUE ({$phsfTxFields});";
     $arrUniqFields = FiString::split($txUniuqFields, ",", true);
 
     $sbFieldList = new FiStrbui();
-    
+
     foreach ($arrUniqFields as $txField) {
-      
-    if (FiString::isEmpty($txField)) continue;
+
+      if (FiString::isEmpty($txField)) continue;
       // Unique alanların field tanımlarının da olması gerekir, yoksa hata verir
       /** @var Fkb $fkbFieldUni */
-      $fkbFieldUni = $fkbFieldsByTxId->get($txField); 
+      $fkbFieldUni = $fkbFieldsByTxId->get($txField);
       //OcgLogger::debug(json_encode($fkbFieldUni));
       $sbFieldList->append($fkbFieldUni->getFcFn())->append(FiString::textComma());
     }
@@ -285,7 +292,10 @@ UNIQUE ({$phsfTxFields});";
     }
 
     // URREV
-    if ($fcTxFieldType == FimOcgFieldTypes::date()->getTxKey()) {
+    if (
+      $fcTxFieldType == FimOcgFieldTypes::date()->getTxKey()
+      || $fcTxFieldType == FimOcgFieldTypes::datetime()->getTxKey()
+    ) {
       $sbTypeDef->append(" datetime");
     }
 
