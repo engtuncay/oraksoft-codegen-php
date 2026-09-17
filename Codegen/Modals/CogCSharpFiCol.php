@@ -444,6 +444,7 @@ EOD
     return new FiStrbui();
   }
 
+  // *** GetFkfAll Methods ***
   public function getTempMethodFkfAll()
   {
 
@@ -484,4 +485,8 @@ EOD;
 
     return FiTemplate::replaceParams($txMethodTemplate, $fkbParams);  
 	}
+
+  // end - GetFkfAll Methods ***
+
+
 }
