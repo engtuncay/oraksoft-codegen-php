@@ -5,9 +5,9 @@ namespace Codegen\FiMetas\App;
       
 use Engtuncay\Phputils8\FiDtos\FiMeta;
 
-class FimQcColClassTempAreas {
+class FimFiColClassTempAreas {
 
-
+  
 public static function getFkbDdFields() : FiMeta
 { 
   $fiMeta = new FiMeta("getFkbDdFields");
@@ -18,6 +18,13 @@ public static function getFkbDdFields() : FiMeta
 public static function getFkfDto() : FiMeta
 { 
   $fiMeta = new FiMeta("getFkfDto");
+
+  return $fiMeta;
+}
+
+public static function getFkfAll() : FiMeta
+{ 
+  $fiMeta = new FiMeta("getFkfAll");
 
   return $fiMeta;
 }

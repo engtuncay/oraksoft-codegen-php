@@ -2,7 +2,7 @@
 
 namespace Codegen\Modals;
 
-use Codegen\FiMetas\App\FimQcColClassTempAreas;
+use Codegen\FiMetas\App\FimFiColClassTempAreas;
 use Engtuncay\Phputils8\FiCores\FiBool;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
@@ -443,7 +443,7 @@ EOD;
     // getFkfDto
 
     $txTempMethodFkfDto = $this->getTempMethodFkfDto();
-    $keyMethodContent = FimQcColClassTempAreas::getFkfDto()->getTxKey();
+    $keyMethodContent = FimFiColClassTempAreas::getFkfDto()->getTxKey();
     $txFkfDto = FiTemplate::replaceParams(
       $txTempMethodFkfDto,
       Fkb::bui()->buiPut(
@@ -489,7 +489,7 @@ EOD;
     $cogSpecs = new CogSpecsJava();
     $stdTxMethodName = $cogSpecs->checkMethodNameStd($txMethodName);
 
-    $keyGetFkbDdFields = FimQcColClassTempAreas::getFkbDdFields()->getTxKey();
+    $keyGetFkbDdFields = FimFiColClassTempAreas::getFkbDdFields()->getTxKey();
 
     return <<<EOD
 public static Fkf {$stdTxMethodName}(){
@@ -510,7 +510,7 @@ EOD;
     $cogSpecs = new CogSpecsJava();
     $stdTxMethodName = $cogSpecs->checkMethodNameStd($txMethodName);
 
-    $keyMethodContent = FimQcColClassTempAreas::getFkfDto()->getTxKey();
+    $keyMethodContent = FimFiColClassTempAreas::getFkfDto()->getTxKey();
 
     return <<<EOD
 public static Fkf {$stdTxMethodName}(){

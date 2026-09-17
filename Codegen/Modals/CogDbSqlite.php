@@ -3,7 +3,7 @@
 namespace Codegen\Modals;
 
 use Codegen\FiMetas\App\FimOcgFieldTypes;
-use Codegen\FiMetas\App\FimQcColClassTempAreas;
+use Codegen\FiMetas\App\FimFiColClassTempAreas;
 use Codegen\OcgConfigs\OcgLogger;
 use Engtuncay\Phputils8\FiCols\FicValue;
 use Engtuncay\Phputils8\FiCores\FiBool;
