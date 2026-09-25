@@ -9,7 +9,7 @@ namespace Codegen\Modals;
  * 
  * @package Codegen\Modals
  */
-class CgmUtilsName
+class CgbUtilsName
 {
   // 
   public static function getMethodNameGetFkfAll()

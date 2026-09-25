@@ -11,7 +11,7 @@ use Engtuncay\Phputils8\FiDtos\FkbList;
 /**
  * Code Generator Modal (Cgm) for FiMetaClass (For All Languages)
  */
-class CgmFiMetaClassV1
+class CgbFiMetaClassV1
 {
 
   

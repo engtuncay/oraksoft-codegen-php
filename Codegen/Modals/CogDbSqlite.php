@@ -47,7 +47,7 @@ class CogDbSqlite
     $fdrMain = new Fdr();
 
     $sbTxCodeGen = new FiStrbui();
-    $txVer = CgmApiUtil::getTxVer();
+    $txVer = CgbApiUtil::getTxVer();
     $sbTxCodeGen->append("-- Sql Alter Table Code Gen v$txVer\n");
     // $sbTxCodeGen1->append(CgmMssql::actGenSqlAlter($fkbList));
 

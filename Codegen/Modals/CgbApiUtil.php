@@ -5,7 +5,7 @@ namespace Codegen\Modals;
 use Engtuncay\Phputils8\FiDtos\Fdr;
 use Engtuncay\Phputils8\FiDtos\Fkb;
 
-class CgmApiUtil
+class CgbApiUtil
 {
   // /**
   //  * Gelen JSON verisini diziye dönüştürür

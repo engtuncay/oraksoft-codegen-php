@@ -26,7 +26,7 @@ class CogMysql2
     $fdrMain = new Fdr();
 
     $sbTxCodeGen1 = new FiStrbui();
-    $txVer = CgmApiUtil::getTxVer();
+    $txVer = CgbApiUtil::getTxVer();
     $sbTxCodeGen1->append("-- Sql Create Table Code Gen v$txVer\n");
     $sbTxCodeGen1->append(CogMysql::actGenSqlCreate($fkbList));
     $sbTxCodeGen1->append("\n");
@@ -41,7 +41,7 @@ class CogMysql2
     $fdrMain = new Fdr();
 
     $sbTxCodeGen = new FiStrbui();
-    $txVer = CgmApiUtil::getTxVer();
+    $txVer = CgbApiUtil::getTxVer();
     $sbTxCodeGen->append("-- MySql Alter Table Code Gen v$txVer\n");
 
     //$sfTxTableName = $fkbList->get(0)->getFimValue(FimFiCol::fcTxEntityName());

@@ -18,7 +18,7 @@ use Engtuncay\Phputils8\FiExcels\FiExcel;
 use CodeIgniter\HTTP\Files\UploadedFile;
 use Engtuncay\Phputils8\FiDtos\FimList;
 
-class CgmUtils
+class CgbUtils
 {
 
   /**

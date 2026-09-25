@@ -15,7 +15,7 @@ use Engtuncay\Phputils8\FiExcels\FiExcel;
 /**
  * CgmCodegen : Code Generation Models
  */
-class CgmCodegen
+class CgbCodegen
 {
   /**
    * 
@@ -34,7 +34,7 @@ class CgmCodegen
 
     /** @var Fkb $fkbEntityToFkbList */
     //$fkbEntityToFkbList = CgmUtils::genFkbAsEntityToFkbList($fkbListData);
-    $txVer = CgmApiUtil::getTxVer();
+    $txVer = CgbApiUtil::getTxVer();
     $txLang = $iCogSpecs->getTxLang();
 
     //if ($fkbEntityToFkbList->has($txEntity)) {

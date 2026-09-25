@@ -38,7 +38,7 @@ class CogMssql
     $fdrMain = new Fdr();
 
     $sbTxCodeGen1 = new FiStrbui();
-    $txVer = CgmApiUtil::getTxVer();
+    $txVer = CgbApiUtil::getTxVer();
     $sbTxCodeGen1->append("-- Sql Create Table Code Gen v$txVer\n");
     $sbTxCodeGen1->append(CogMssql::actGenSqlCreate($fkblEntity));
     $sbTxCodeGen1->append("\n");
@@ -53,7 +53,7 @@ class CogMssql
     $fdrMain = new Fdr();
 
     $sbTxCodeGen = new FiStrbui();
-    $txVer = CgmApiUtil::getTxVer();
+    $txVer = CgbApiUtil::getTxVer();
     $sbTxCodeGen->append("-- Sql Alter Table Code Gen v$txVer\n");
     // $sbTxCodeGen1->append(CgmMssql::actGenSqlAlter($fkbList));
 

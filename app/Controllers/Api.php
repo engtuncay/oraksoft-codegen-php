@@ -3,13 +3,13 @@
 namespace App\Controllers;
 
 use Codegen\FiMetas\App\FimOcgForm;
-use Codegen\Modals\CgmCodegen;
+use Codegen\Modals\CgbCodegen;
 use Codegen\Modals\CogMssql;
 use Codegen\Modals\CogDbDefs;
 use Codegen\Modals\CogDbSqlite;
 use Codegen\Modals\CogMysql;
-use Codegen\Modals\CgmUidGen;
-use Codegen\Modals\CgmUtils;
+use Codegen\Modals\CgbUidGen;
+use Codegen\Modals\CgbUtils;
 use Codegen\Modals\CogSpecsCsharp;
 use Codegen\Modals\CogCSharpFiCol;
 use Codegen\Modals\CogCsharpFiMeta;
@@ -71,10 +71,10 @@ class Api extends ResourceController
     if ($file && $file->isValid() && !$file->hasMoved()) {
       $originalName = $file->getClientName();
 
-      $fdr = CgmCodegen::convertFileToFkbList($file);
+      $fdr = CgbCodegen::convertFileToFkbList($file);
 
       /** @var FkbList[] $mapEntityToFkbList */
-      $fiwEntity = CgmUtils::genFkbAsEntityList($fdr->getFkbListInit());
+      $fiwEntity = CgbUtils::genFkbAsEntityList($fdr->getFkbListInit());
 
       // $satirBilgi = 'Satır Sayısı: ' . $fdr->getFkbListInit()->size();
 
@@ -155,11 +155,11 @@ class Api extends ResourceController
       goto endExcelOkuma;
     }
 
-    $fdrData = CgmCodegen::convertFileToFkbList($uploadedFile);
+    $fdrData = CgbCodegen::convertFileToFkbList($uploadedFile);
     $fkbListData = $fdrData->getFkbListInit();
 
     /** @var Fkb $fkbEntityToFkbList */
-    $fkbEntityToFkbList = CgmUtils::genFkbMapAsTxEntityToFkl($fkbListData);
+    $fkbEntityToFkbList = CgbUtils::genFkbMapAsTxEntityToFkl($fkbListData);
 
     $fkbListEntity = null;
 
@@ -216,7 +216,7 @@ class Api extends ResourceController
     $selClassType = max($selPhp, $selJava, $selCsharp, $selTs, $selJs);
 
     if ($selClassType > 0 && $cogSpecs && $cogGenCode) {
-      $fdrCodegen = CgmCodegen::genCodeColClass($fkbListEntity, $cogSpecs, $cogGenCode, $selClassType);
+      $fdrCodegen = CgbCodegen::genCodeColClass($fkbListEntity, $cogSpecs, $cogGenCode, $selClassType);
     }
 
     if ($selSql == 1) {
@@ -258,7 +258,7 @@ class Api extends ResourceController
     $command = $request->getPost(FimOcgForm::txCustomCmd()->key());
     $txDbProfile = $request->getPost(FimOcgForm::selDbProfile()->key());
 
-    $arrCliArgs = CgmUtils::parseCliParameters($command);
+    $arrCliArgs = CgbUtils::parseCliParameters($command);
 
     // Güvenlik kontrolü: Sadece belirli komutlara izin ver
     $allowedCommands = ['excel', 'dml', 'cuid', 'uid', 'table-list','sfid']; // İzin verilen komutlar
@@ -292,7 +292,7 @@ class Api extends ResourceController
     if (strcasecmp($txCmd, 'cuid') === 0) {
       // Excel komutu için özel işlem yapabilirsiniz
       // Örneğin, belirli bir Excel dosyasını işlemek gibi
-      $fdr = CgmUidGen::genCuid($arrCliArgs['count'] ?? 1);
+      $fdr = CgbUidGen::genCuid($arrCliArgs['count'] ?? 1);
 
       $fdr->setArrValue($arrCliArgs);
 
@@ -306,7 +306,7 @@ class Api extends ResourceController
     if (strcasecmp($txCmd, 'uid') === 0) {
       // Excel komutu için özel işlem yapabilirsiniz
       // Örneğin, belirli bir Excel dosyasını işlemek gibi
-      $fdr = CgmUidGen::genUid($arrCliArgs['count'] ?? 1);
+      $fdr = CgbUidGen::genUid($arrCliArgs['count'] ?? 1);
 
       $fdr->setArrValue($arrCliArgs);
 
@@ -334,7 +334,7 @@ class Api extends ResourceController
     if (strcasecmp($txCmd, 'sfid') === 0) {
       // Excel komutu için özel işlem yapabilirsiniz
       // Örneğin, belirli bir Excel dosyasını işlemek gibi
-      $fdr = CgmUidGen::genSfId($arrCliArgs['count'] ?? 1);
+      $fdr = CgbUidGen::genSfId($arrCliArgs['count'] ?? 1);
 
       if ($fdr->isTrueBoResult()) {
         return $this->respond($fdr->genArrResponse(), 200);

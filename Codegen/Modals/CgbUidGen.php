@@ -9,7 +9,7 @@ use Engtuncay\Phputils8\FiDtos\Fdr;
 /**
  * Generates unique identifiers (UUID, short UUID, CUID)
  */
-class CgmUidGen
+class CgbUidGen
 {
   public static function genCuid(int $count): Fdr
   {

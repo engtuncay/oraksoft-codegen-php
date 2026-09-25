@@ -422,7 +422,7 @@ EOD
   public function getTempMethodFkfAll()
   {
 
-    $txMethodName = CgmUtilsName::getMethodNameGetFkfAll();
+    $txMethodName = CgbUtilsName::getMethodNameGetFkfAll();
     $cogSpecs = new CogSpecsCsharp();
     $stdTxMethodName = $cogSpecs->checkMethodNameStd($txMethodName);
 

@@ -36,7 +36,7 @@ class CogSpecsJava implements ICogSpecs
    */
   public function checkMethodNameStd(mixed $fieldName): string
   {
-    return CgmUtils::convertToLowerCamelCase($fieldName);
+    return CgbUtils::convertToLowerCamelCase($fieldName);
 
     // // Başlangıçta eğer fieldName boşsa direkt döndür
     // if (empty($fieldName)) return "";

@@ -43,6 +43,6 @@ class CogSpecsPhp implements ICogSpecs
    */
   public function checkMethodNameStd(mixed $fieldName): string
   {
-    return CgmUtils::convertToLowerCamelCase($fieldName);
+    return CgbUtils::convertToLowerCamelCase($fieldName);
   }
 }

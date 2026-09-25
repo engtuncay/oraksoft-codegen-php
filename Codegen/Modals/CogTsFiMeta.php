@@ -3,7 +3,7 @@
 namespace Codegen\Modals;
 
 use Codegen\FiCols\FicFiMeta;
-use Codegen\Modals\CgmUtils;
+use Codegen\Modals\CgbUtils;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiString;
@@ -55,7 +55,7 @@ class CogTsFiMeta implements ICogGenClassCode
 
       if (FiString::isEmpty($fieldName)) continue;
 
-      $fieldName = CgmUtils::prepFieldName($fieldName);
+      $fieldName = CgbUtils::prepFieldName($fieldName);
       
       //$fcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
 

@@ -2,7 +2,7 @@
 
 namespace Codegen\Modals;
 
-use Codegen\Modals\CgmUtils;
+use Codegen\Modals\CgbUtils;
 use Codegen\Modals\DtoCodeGen;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
@@ -22,7 +22,7 @@ class CogMysqlserver
   {
     $fdrMain = new Fdr();
 
-    $arrFkbListByEntity = CgmUtils::genFkbMapAsTxEntityToFkl($fkbList);
+    $arrFkbListByEntity = CgbUtils::genFkbMapAsTxEntityToFkl($fkbList);
 
     //log_message('info', 'arrFkbListExcel' . print_r($arrFkbListByEntity, true));
     $txIdPref = "sql";
