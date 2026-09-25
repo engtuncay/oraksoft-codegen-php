@@ -33,14 +33,15 @@ class CogJavaFiCol implements ICogGenClassCode
     $sbGenTableColsContent = new FiStrbui();
     $sbGenTableColsTransContent = new FiStrbui();
     $sbGetFclDtoContent = new FiStrbui();
-
-    //$sbFiColAddDescDetail = new FiStrbui();
     $sbGetFkfAllMethodContent = new FiStrbui();
     $sbGetFkfDefsMethodContent = new FiStrbui();
     
-    //$templateFiColMethodExtra = $iFiColClass->getTemplateFiColMethodExtra();
+    // Deps
+    //$sbFiColAddDescDetail = new FiStrbui();
 
     /**
+     * Alan Döngüsü
+     * 
      * @var Fkb $fkbItem
      */
     foreach ($fkbList as $fkbItem) {
@@ -81,8 +82,10 @@ class CogJavaFiCol implements ICogGenClassCode
 
     $txGetFkfAllMethodFull = FiTemplate::replaceParams($this->getTempMethodFkfAll(), Fkb::bui()->buiPut("getFkbFieldsAllContent", $sbGetFkfAllMethodContent->toString()));
 
-    $txGetFkfDefsMethodFull = FiTemplate::replaceParams($this->getTempGetFkfDefsMethod(),
-      Fkb::bui()->buiPut("getFkbDdFields", $sbGetFkfDefsMethodContent->toString()));
+    $txGetFkfDefsMethodFull = FiTemplate::replaceParams(
+      $this->getTempGetFkfDefsMethod(),
+      Fkb::bui()->buiPut("getFkbDdFields", $sbGetFkfDefsMethodContent->toString())
+    );
 
     //$txResGenTableColsMethodExtra = FiTemplate::replaceParams($tempGenFiColsExt, Fkb::bui()->buiPut("ficListBodyExtra", $sbFclListBodyExtra->toString()));
     //$tempGenFiColsExt = $iCogSpecsFiCol->getTemplateFiColsExtraListMethod();
@@ -368,81 +371,6 @@ EOD;
     $sbContent->append("ficList.add($methodName());\n");
   }
 
-
-  // public function genFiColAddDescMethodBody(Fkb $fkbItem, ICogSpecs $iCogSpecs): FiStrbui
-  // {
-  //   // TODO: Implement genFiColAddDescBody() method.
-  //   $sbFiColAddDescBody = new FiStrbui();
-  //   return $sbFiColAddDescBody;
-  // }
-
-  // public function getTemplateGenFkbFields(): string
-  // {
-  //   return "";
-  // }
-
-  // public function prepBodyGenFkbFields(FiStrbui $sbContent, Fkb $fkbItem, ICogSpecs $iCogSpecs): void
-  // {
-  //   // will be implemented
-  // }
-
-  // public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
-  // {
-  //   $sbExtra = new FiStrbui();
-
-  //   $sbGetFkbFieldsAll = new FiStrbui();
-  //   $sbGetFkbDdFields = new FiStrbui();
-  //   //$sbGetFkfDto = new FiStrbui();
-
-  //   /** @var Fkb $fkbItem  */
-  //   foreach ($fkbList as $fkbItem) {
-  //     # code...
-  //     $fcTxFieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
-
-  //     // Eğer fieldName boşsa bu alanı atla
-  //     if (FiString::isEmpty($fcTxFieldName)) continue;
-
-  //     $this->processGetFkfDefsMethod($sbGetFkbDdFields, $fkbItem);
-  //     //$this->processGetFkfDto($sbGetFkfDto, $fkbItem);
-
-  //     $stMethodName = trim($iCogSpecs->checkMethodNameStd($fcTxFieldName));
-  //     $sbGetFkbFieldsAll->append("fkf.addFic({$stMethodName}());\n");
-  //   } // end for
-
-  //   // getDdFields
-
-  //   $txTempMethodFkbAllFields = $this->getTempMethodFkfAll();
-  //   $txFkbAllFieldsFull = FiTemplate::replaceParams($txTempMethodFkbAllFields, Fkb::bui()->buiPut("getFkbFieldsAllContent", $sbGetFkbFieldsAll->toString()));
-
-  //   $txTempGetFkbDdFieldsMethod = $this->getTempGetFkbDdFieldsMethod();
-  //   $txFkbDdFieldsFull = FiTemplate::replaceParams(
-  //     $txTempGetFkbDdFieldsMethod,
-  //     Fkb::bui()->buiPut("getFkbDdFields", $sbGetFkbDdFields->toString())
-  //   );
-
-  //   // getFkfDto
-
-  //   //$txTempMethodFkfDto = $this->getTempMethodFkfDto();
-  //   //$keyMethodContent = FimFiColClassTempAreas::getFkfDto()->getTxKey();
-  //   // $txFkfDto = FiTemplate::replaceParams(
-  //   //   $txTempMethodFkfDto,
-  //   //   Fkb::bui()->buiPut(
-  //   //     $keyMethodContent,
-  //   //     $sbGetFkfDto->toString()
-  //   //   )
-  //   // );
-
-  //   // extra content'e ekleme
-
-  //   $sbExtra->append($txFkbAllFieldsFull);
-  //   $sbExtra->append("\n\n");
-  //   $sbExtra->append($txFkbDdFieldsFull);
-  //   $sbExtra->append("\n\n");
-  //   //$sbExtra->append($txFkfDto);
-
-  //   return $sbExtra;
-  // }
-
   public function getTempMethodFkfAll()
   {
 
@@ -608,3 +536,78 @@ EOD;
     return new CogSpecsJava();
   }
 }
+
+
+// public function genFiColAddDescMethodBody(Fkb $fkbItem, ICogSpecs $iCogSpecs): FiStrbui
+  // {
+  //   // TODO: Implement genFiColAddDescBody() method.
+  //   $sbFiColAddDescBody = new FiStrbui();
+  //   return $sbFiColAddDescBody;
+  // }
+
+  // public function getTemplateGenFkbFields(): string
+  // {
+  //   return "";
+  // }
+
+  // public function prepBodyGenFkbFields(FiStrbui $sbContent, Fkb $fkbItem, ICogSpecs $iCogSpecs): void
+  // {
+  //   // will be implemented
+  // }
+
+  // public function genClassBlockExtra(ICogSpecs $iCogSpecs, FkbList $fkbList): FiStrbui
+  // {
+  //   $sbExtra = new FiStrbui();
+
+  //   $sbGetFkbFieldsAll = new FiStrbui();
+  //   $sbGetFkbDdFields = new FiStrbui();
+  //   //$sbGetFkfDto = new FiStrbui();
+
+  //   /** @var Fkb $fkbItem  */
+  //   foreach ($fkbList as $fkbItem) {
+  //     # code...
+  //     $fcTxFieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
+
+  //     // Eğer fieldName boşsa bu alanı atla
+  //     if (FiString::isEmpty($fcTxFieldName)) continue;
+
+  //     $this->processGetFkfDefsMethod($sbGetFkbDdFields, $fkbItem);
+  //     //$this->processGetFkfDto($sbGetFkfDto, $fkbItem);
+
+  //     $stMethodName = trim($iCogSpecs->checkMethodNameStd($fcTxFieldName));
+  //     $sbGetFkbFieldsAll->append("fkf.addFic({$stMethodName}());\n");
+  //   } // end for
+
+  //   // getDdFields
+
+  //   $txTempMethodFkbAllFields = $this->getTempMethodFkfAll();
+  //   $txFkbAllFieldsFull = FiTemplate::replaceParams($txTempMethodFkbAllFields, Fkb::bui()->buiPut("getFkbFieldsAllContent", $sbGetFkbFieldsAll->toString()));
+
+  //   $txTempGetFkbDdFieldsMethod = $this->getTempGetFkbDdFieldsMethod();
+  //   $txFkbDdFieldsFull = FiTemplate::replaceParams(
+  //     $txTempGetFkbDdFieldsMethod,
+  //     Fkb::bui()->buiPut("getFkbDdFields", $sbGetFkbDdFields->toString())
+  //   );
+
+  //   // getFkfDto
+
+  //   //$txTempMethodFkfDto = $this->getTempMethodFkfDto();
+  //   //$keyMethodContent = FimFiColClassTempAreas::getFkfDto()->getTxKey();
+  //   // $txFkfDto = FiTemplate::replaceParams(
+  //   //   $txTempMethodFkfDto,
+  //   //   Fkb::bui()->buiPut(
+  //   //     $keyMethodContent,
+  //   //     $sbGetFkfDto->toString()
+  //   //   )
+  //   // );
+
+  //   // extra content'e ekleme
+
+  //   $sbExtra->append($txFkbAllFieldsFull);
+  //   $sbExtra->append("\n\n");
+  //   $sbExtra->append($txFkbDdFieldsFull);
+  //   $sbExtra->append("\n\n");
+  //   //$sbExtra->append($txFkfDto);
+
+  //   return $sbExtra;
+  // }
