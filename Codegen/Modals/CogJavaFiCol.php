@@ -36,7 +36,8 @@ class CogJavaFiCol implements ICogGenClassCode
     $sbGetFclDtoContent = new FiStrbui();
 
     //$sbFiColAddDescDetail = new FiStrbui();
-
+    $sbGetFkbFieldsAll = new FiStrbui();
+    $sbGetFkfDefMethodContent = new FiStrbui();
     
     //$templateFiColMethodExtra = $iFiColClass->getTemplateFiColMethodExtra();
 
@@ -60,33 +61,36 @@ class CogJavaFiCol implements ICogGenClassCode
         $this->processGenTableColsTransContent($sbGenTableColsTransContent, $fkbItem);
       }
 
+      $this->processGetFkfDefsMethod($sbGetFkfDefMethodContent, $fkbItem);
+      //$this->processGetFkfDto($sbGetFkfDto, $fkbItem);
+
+      $stMethodName = trim($iCogSpecs->checkMethodNameStd($fcTxFieldName));
+      $sbGetFkbFieldsAll->append("fkf.addFic({$stMethodName}());\n");
+
       //$index++;
     }
 
     // String
-    $tempGenTableColsMethod = $this->getTempMethGenTableCols();
+    $txGetFclDtoMethodFull = FiTemplate::replaceParams($this->getTempMethodFclDto(), Fkb::bui()->buiPut(CgmUtilsName::getMethodNameGetFclDto(), $sbGetFclDtoContent->toString()));
 
     // String
-    $txGenTableColsMethodFull = FiTemplate::replaceParams($tempGenTableColsMethod, Fkb::bui()->buiPut("ficListBody", $sbGenTableColsContent->toString()));
-
-    $sbClassBody->append("\n")->append($txGenTableColsMethodFull)->append("\n");
+    $txGenTableColsMethodFull = FiTemplate::replaceParams($this->getTempMethGenTableCols(), Fkb::bui()->buiPut("ficListBody", $sbGenTableColsContent->toString()));
 
     // String
-    $tempGenFiColsTrans = $this->getTemplateColListTransMethod();
-
-    //    String
-    $txResGenTableColsMethodTrans = FiTemplate::replaceParams($tempGenFiColsTrans, Fkb::bui()->buiPut("ficListBodyTrans", $sbGenTableColsTransContent->toString()));
-    $sbClassBody->append("\n")->append($txResGenTableColsMethodTrans)->append("\n");
-
-    //$tempGenFiColsExt = $iCogSpecsFiCol->getTemplateFiColsExtraListMethod();
+    $txResGenTableColsMethodTrans = FiTemplate::replaceParams($this->getTemplateColListTransMethod(), Fkb::bui()->buiPut("ficListBodyTrans", $sbGenTableColsTransContent->toString()));
 
     //$txResGenTableColsMethodExtra = FiTemplate::replaceParams($tempGenFiColsExt, Fkb::bui()->buiPut("ficListBodyExtra", $sbFclListBodyExtra->toString()));
+    //$tempGenFiColsExt = $iCogSpecsFiCol->getTemplateFiColsExtraListMethod();
+
+    $sbClassBody->append("\n")->append($txGenTableColsMethodFull)->append("\n");
+    $sbClassBody->append("\n")->append($txResGenTableColsMethodTrans)->append("\n");
+
     //$sbClassBody->append("\n")->append($txResGenTableColsMethodExtra)->append("\n");
 
     $sbClassBody->append("\n");
     $sbClassBody->append($sbFiColMethods->toString());
 
-    $txGetFclDtoMethodFull = FiTemplate::replaceParams($this->getTempMethodFclDto(), Fkb::bui()->buiPut(CgmUtilsName::getMethodNameGetFclDto(), $sbGetFclDtoContent->toString()));
+    
 
     $sbClassBody->append("\n");
     $sbClassBody->append($txGetFclDtoMethodFull);
@@ -400,7 +404,7 @@ EOD;
       // Eğer fieldName boşsa bu alanı atla
       if (FiString::isEmpty($fcTxFieldName)) continue;
 
-      $this->processGetFkbDdFields($sbGetFkbDdFields, $fkbItem);
+      $this->processGetFkfDefsMethod($sbGetFkbDdFields, $fkbItem);
       //$this->processGetFkfDto($sbGetFkfDto, $fkbItem);
 
       $stMethodName = trim($iCogSpecs->checkMethodNameStd($fcTxFieldName));
@@ -583,7 +587,7 @@ EOD;
     }
   }
 
-  public function processGetFkbDdFields(FiStrbui $sbGetFkbDdFields, Fkb  $fkbItem): void
+  public function processGetFkfDefsMethod(FiStrbui $sbGetFkbDdFields, Fkb  $fkbItem): void
   {
     $fcTxFieldName = trim($fkbItem->getFimValue(FimFiCol::fcTxFieldName()));
     $fcTxFieldType = $fkbItem->getFimValue(FimFiCol::fcTxFieldType());
