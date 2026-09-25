@@ -3,7 +3,6 @@
 namespace Codegen\Modals;
 
 use Codegen\FiMetas\App\FimOcgFieldTypes;
-use Codegen\FiMetas\App\FimFiColClassTempAreas;
 use Codegen\OcgConfigs\OcgLogger;
 use Engtuncay\Phputils8\FiCols\FicValue;
 use Engtuncay\Phputils8\FiCores\FiBool;
@@ -11,7 +10,6 @@ use Engtuncay\Phputils8\FiCores\FiCollection;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCores\FiString;
 use Engtuncay\Phputils8\FiCores\FiTemplate;
-use Engtuncay\Phputils8\FiDbs\FiDbTypes;
 use Engtuncay\Phputils8\FiDtos\Fdr;
 use Engtuncay\Phputils8\FiDtos\Fkb;
 use Engtuncay\Phputils8\FiDtos\FkbList;
