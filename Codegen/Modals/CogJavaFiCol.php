@@ -119,11 +119,11 @@ class CogJavaFiCol implements ICogGenClassCode
     $fkbParamsMain->addFim(FimFiCodeTemp::tableName(), $txEntityName);
     $fkbParamsMain->addFim(FimFiCodeTemp::tablePrefix(), $txTablePrefix);
     $fkbParamsMain->addFim(FimFiCodeTemp::classContent(), $sbClassContent->toString());
-    //$fkbParamsMain->addFim(FimFiCodeTemp::classBlockExtra(), $sbClassBodyExtra->toString());
-    //$fkbParamsMain->add("addFieldDescDetail", $sbFiColAddDescDetail->toString());
+    // $fkbParamsMain->addFim(FimFiCodeTemp::classBlockExtra(), $sbClassBodyExtra->toString());
+    // $fkbParamsMain->add("addFieldDescDetail", $sbFiColAddDescDetail->toString());
 
-    //$sbExtra = $this->genClassBlockExtra($iCogSpecs, $fkbList);
-    //$fkbParamsMain->addFim(FimFiCodeTemp::classBlockExtra(),  $sbExtra->toString());
+    // $sbExtra = $this->genClassBlockExtra($iCogSpecs, $fkbList);
+    // $fkbParamsMain->addFim(FimFiCodeTemp::classBlockExtra(),  $sbExtra->toString());
 
     $txClassFull = FiTemplate::replaceParams($this->getTempFicClass(), $fkbParamsMain);
 
@@ -540,7 +540,7 @@ EOD;
 
 // public function genFiColAddDescMethodBody(Fkb $fkbItem, ICogSpecs $iCogSpecs): FiStrbui
   // {
-  //   // TODO: Implement genFiColAddDescBody() method.
+  //   // xTODO: Implement genFiColAddDescBody() method.
   //   $sbFiColAddDescBody = new FiStrbui();
   //   return $sbFiColAddDescBody;
   // }
