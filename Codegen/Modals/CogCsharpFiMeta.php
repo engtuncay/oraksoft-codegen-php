@@ -121,7 +121,7 @@ class CogCsharpFiMeta implements ICogGenClassCode
     //$fkbParamsMain->add("addFieldDescDetail", $sbFiColAddDescDetail->toString());
 
     // String
-    $templateFiMetaClass = $this->getTemplateColClass();
+    $templateFiMetaClass = $this->getTemplateClass();
     $txResult = FiTemplate::replaceParams($templateFiMetaClass, $fkbClassParams);
 
     return $txResult;
@@ -137,11 +137,12 @@ class CogCsharpFiMeta implements ICogGenClassCode
     return;
   }
 
-  public function getTemplateColClass(): string
+  public function getTemplateClass(): string
   {
     //String
     $template = <<<EOD
-using OrakYazilimLib.Util.core;
+//using OrakYazilimLib.Util.core;
+using OrakUtilDotNetCore.FiDataContainer;
 
 public class {{classPref}}{{entityName}}
 {
