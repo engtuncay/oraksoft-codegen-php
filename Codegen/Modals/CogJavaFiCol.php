@@ -77,37 +77,42 @@ class CogJavaFiCol implements ICogGenClassCode
     $txGenTableColsMethodFull = FiTemplate::replaceParams($this->getTempMethGenTableCols(), Fkb::bui()->buiPut("ficListBody", $sbGenTableColsContent->toString()));
 
     // String
-    $txResGenTableColsMethodTrans = FiTemplate::replaceParams($this->getTemplateColListTransMethod(), Fkb::bui()->buiPut("ficListBodyTrans", $sbGenTableColsTransContent->toString()));
+    $txGenTableColsMethodTransFull = FiTemplate::replaceParams($this->getTemplateColListTransMethod(), Fkb::bui()->buiPut("ficListBodyTrans", $sbGenTableColsTransContent->toString()));
 
     //$txResGenTableColsMethodExtra = FiTemplate::replaceParams($tempGenFiColsExt, Fkb::bui()->buiPut("ficListBodyExtra", $sbFclListBodyExtra->toString()));
     //$tempGenFiColsExt = $iCogSpecsFiCol->getTemplateFiColsExtraListMethod();
 
     $sbClassBody->append("\n")->append($txGenTableColsMethodFull)->append("\n");
-    $sbClassBody->append("\n")->append($txResGenTableColsMethodTrans)->append("\n");
-
+    $sbClassBody->append("\n")->append($txGenTableColsMethodTransFull)->append("\n");
     //$sbClassBody->append("\n")->append($txResGenTableColsMethodExtra)->append("\n");
-
     $sbClassBody->append("\n");
     $sbClassBody->append($sbFiColMethods->toString());
-
-    
-
     $sbClassBody->append("\n");
     $sbClassBody->append($txGetFclDtoMethodFull);
 
+    $txTempMethodFkbAllFields = $this->getTempMethodFkfAll();
+    $txGetFkfAllMethodFull = FiTemplate::replaceParams($txTempMethodFkbAllFields, Fkb::bui()->buiPut("getFkbFieldsAllContent", $sbGetFkbFieldsAll->toString()));
+
+    $txTempGetFkbDdFieldsMethod = $this->getTempGetFkbDdFieldsMethod();
+    $txGetFkfDefsMethodFull = FiTemplate::replaceParams($txTempGetFkbDdFieldsMethod,
+      Fkb::bui()->buiPut("getFkbDdFields",$sbGetFkfDefMethodContent->toString())
+    );
+
+    $sbClassBody->append("\n\n");
+    $sbClassBody->append($txGetFkfAllMethodFull);
+    $sbClassBody->append("\n\n");
+    $sbClassBody->append($txGetFkfDefsMethodFull);
     
-    //
+    // Class Şablonu Uygulaması
     $classPref = "Fic";
     // URFIX entity name çekilecek
     // String
     $txEntityName = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxEntityName());
-
     $txTablePrefix = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxPrefix());
     //fikeysExcelFiCols.get(0).getTosOrEmpty(FiColsMetaTable.fcTxEntityName());
+    
     //
     $fkbParamsMain = new Fkb();
-
-
     $fkbParamsMain->addFim(FimFiCodeTemp::classPref(), $classPref);
     $fkbParamsMain->addFim(FimFiCodeTemp::entityName(), $iCogSpecs->checkClassNameStd($txEntityName));
     $fkbParamsMain->addFim(FimFiCodeTemp::tableName(), $txEntityName);
@@ -116,9 +121,8 @@ class CogJavaFiCol implements ICogGenClassCode
     //$fkbParamsMain->addFim(FimFiCodeTemp::classBlockExtra(), $sbClassBodyExtra->toString());
     //$fkbParamsMain->add("addFieldDescDetail", $sbFiColAddDescDetail->toString());
 
-    $sbExtra = $this->genClassBlockExtra($iCogSpecs, $fkbList);
-
-    $fkbParamsMain->addFim(FimFiCodeTemp::classBlockExtra(),  $sbExtra->toString());
+    //$sbExtra = $this->genClassBlockExtra($iCogSpecs, $fkbList);
+    //$fkbParamsMain->addFim(FimFiCodeTemp::classBlockExtra(),  $sbExtra->toString());
 
     // String
     $tempFicClass = $this->getTempFicClass();
@@ -230,8 +234,8 @@ class CogJavaFiCol implements ICogGenClassCode
   public function getTempFicClass(): string
   {
 
-    $txKeyClassBloEx = FimFiCodeTemp::classBlockExtra()->getTxKey();
-    $txKeyClassContent = FimFiCodeTemp::classContent()->getTxKey();
+    //$txKeyClassBloEx = FimFiCodeTemp::classBlockExtra()->getTxKey();
+    //$txKeyClassContent = FimFiCodeTemp::classContent()->getTxKey();
 
     //String
     $templateMain = <<<EOD
@@ -244,9 +248,7 @@ import ozpasyazilim.utils.fidborm.AbsFicTable;
 public class {{classPref}}{{entityName}} extends AbsFicTable
 {
 
-{{{$txKeyClassContent}}}
-
-{{{$txKeyClassBloEx}}}
+{{classContent}}
 
 }
 EOD;
@@ -419,10 +421,7 @@ EOD;
 
     $txTempGetFkbDdFieldsMethod = $this->getTempGetFkbDdFieldsMethod();
     $txFkbDdFieldsFull = FiTemplate::replaceParams($txTempGetFkbDdFieldsMethod,
-      Fkb::bui()->buiPut(
-        "getFkbDdFields",
-        $sbGetFkbDdFields->toString()
-      )
+      Fkb::bui()->buiPut("getFkbDdFields",$sbGetFkbDdFields->toString())
     );
 
     // getFkfDto
