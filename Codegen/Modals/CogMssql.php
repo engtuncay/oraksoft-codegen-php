@@ -26,19 +26,19 @@ class CogMssql
 {
 
   /**
-   * fkblEntity- Entity alan bilgileri (fkb) tutan fkbList olarak verilir. Her biri fkbCol olarak gelir.
+   * fkbEntity- Entity alan bilgileri (fkb) tutan fkbList olarak verilir. Her biri fkbCol olarak gelir.
    * 
-   * @param FkbList $fkblEntity 
+   * @param FkbList $fkbEntity List
    * @return Fdr 
    */
-  public static function actGenCreateTableByEntity(FkbList $fkblEntity): Fdr
+  public static function actGenCreateTableByEntity(FkbList $fkbEntity): Fdr
   {
     $fdrMain = new Fdr();
 
     $sbTxCodeGen1 = new FiStrbui();
     $txVer = CgbApiUtil::getTxVer();
     $sbTxCodeGen1->append("-- Sql Create Table Code Gen v$txVer\n");
-    $sbTxCodeGen1->append(CogMssql::actGenSqlCreate($fkblEntity));
+    $sbTxCodeGen1->append(CogMssql::actGenSqlCreate($fkbEntity));
     $sbTxCodeGen1->append("\n");
 
     $fdrMain->setTxValue($sbTxCodeGen1->toString());
