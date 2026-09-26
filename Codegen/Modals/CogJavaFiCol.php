@@ -407,7 +407,7 @@ public static FicList {$stdTxMethodName}(){
 
   // cols
 {{{$keyMethodContent}}}
-  return fkf;
+  return ficList;
 }
 EOD;
   }
