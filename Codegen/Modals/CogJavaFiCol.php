@@ -53,18 +53,13 @@ class CogJavaFiCol implements ICogGenClassCode
       $this->processGetFclDtoContent($sbGetFclDtoContent, $fkbItem);
       $this->processFiColsMethods($sbFiColMethodsFull, $fkbItem);
 
-      $fcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
+      $this->processGenTableColsContent($sbGenTableColsContent, $fkbItem);
+      $this->processGenTableColsTransContent($sbGenTableColsTransContent, $fkbItem);
 
-      if (!$fcBoTransient === true) {
-        $this->processGenTableColsContent($sbGenTableColsContent, $fkbItem);
-      } else {
-        $this->processGenTableColsTransContent($sbGenTableColsTransContent, $fkbItem);
-      }
-
-      $this->processGetFkfDefsMethod($sbGetFkfDefsMethodContent, $fkbItem);
+      $this->processGetFkfDefsContent($sbGetFkfDefsMethodContent, $fkbItem);
       //$this->processGetFkfDto($sbGetFkfDto, $fkbItem);
 
-      // fkfAll Metod İçeriği
+      // fkfAll Metod Content
       $stMethodName = trim($iCogSpecs->checkMethodNameStd($fcTxFieldName));
       $sbGetFkfAllMethodContent->append("fkf.addFic({$stMethodName}());\n");
 
@@ -307,6 +302,12 @@ EOD;
    */
   public function processGenTableColsContent(FiStrbui $sbFclListBody, Fkb $fkbItem): void
   {
+    $fcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
+
+    if ($fcBoTransient === true) {
+      return;
+    }
+
     $iCogSpecs = $this->getCogSpecs();
     $fieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
     $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
@@ -321,6 +322,12 @@ EOD;
    */
   public function processGenTableColsTransContent(FiStrbui $sbContent, Fkb $fkbItem): void
   {
+    $fcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
+    
+    if (!$fcBoTransient === true) {
+      return;
+    }
+
     $iCogSpecs = $this->getCogSpecs();
 
     $fieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
@@ -460,7 +467,7 @@ EOD;
     }
   }
 
-  public function processGetFkfDefsMethod(FiStrbui $sbGetFkbDdFields, Fkb  $fkbItem): void
+  public function processGetFkfDefsContent(FiStrbui $sbGetFkbDdFields, Fkb  $fkbItem): void
   {
     $fcTxFieldName = trim($fkbItem->getFimValue(FimFiCol::fcTxFieldName()));
     $fcTxFieldType = $fkbItem->getFimValue(FimFiCol::fcTxFieldType());
