@@ -19,7 +19,7 @@ class CogCSharpFiCol implements ICogGenClassCode
 {
   public function genClassCode(FkbList $fkbList): string
   {
-    $iCogSpecs = new CogSpecsCsharp();
+    $iCogSpecs = $this->getCogSpecs();
 
     //if (FiCollection.isEmpty(fiCols)) return;
     $sbClassContent = new FiStrbui(); //new StringBuilder();
@@ -30,7 +30,7 @@ class CogCSharpFiCol implements ICogGenClassCode
     //int
     //$index = 0;
 
-    $sbFclListBody = new FiStrbui();
+    $sbGetTableColsContent = new FiStrbui();
     //$sbFclListBodyExtra = new FiStrbui();
     $sbGenTableColsTransContent = new FiStrbui();
     //$sbFiColAddDescDetail = new FiStrbui();
@@ -53,33 +53,20 @@ class CogCSharpFiCol implements ICogGenClassCode
 
       if (FiString::isEmpty($fcTxFieldName)) continue;
 
-      /**
-       * Önce content oluşturulur. Sonra content, şablona eklenir.
-       */
+      $this->processFiColMethods($sbFiColMethods, $fkbItem);
+      
+      // Önce content oluşturulur. Sonra content, şablona eklenir.
+      $this->processGetTableColsContent($sbGetTableColsContent, $fkbItem);
+      $this->processGetTableColsTransContent($sbGenTableColsTransContent, $fkbItem);
       $this->processGetFkfAllContent($sbGetFkfAllContent, $fkbItem);
 
-      $this->processFiColMethods($sbFiColMethods, $fkbItem);
-
-      //
-      $fcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
-      // $methodName = $iCogSpecs->checkMethodNameStd($fcTxFieldName);
-
-      if (!$fcBoTransient === true) {
-        $this->doNonTransientFieldOps($sbFclListBody, $fkbItem, $iCogSpecs);
-        //sbFclListBody.append("\tfclList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
-      } else {
-        $this->doTransientFieldOps($sbGenTableColsTransContent, $fkbItem, $iCogSpecs);
-        //sbFclListBodyTrans.append("\tfclList.Add(").append(FiString.capitalizeFirstLetter(fieldName)).append("());\n");
-      }
-
-      //$index++;
     }
 
     // String
     $tempGenFiCols = $this->getTempGenTableColsMethods();
 
     // String
-    $txResGenTableColsMethod = FiTemplate::replaceParams($tempGenFiCols, Fkb::bui()->buiPut("ficListBody", $sbFclListBody->toString()));
+    $txResGenTableColsMethod = FiTemplate::replaceParams($tempGenFiCols, Fkb::bui()->buiPut("ficListBody", $sbGetTableColsContent->toString()));
 
     $sbClassContent->append("\n")->append($txResGenTableColsMethod)->append("\n");
 
@@ -90,7 +77,7 @@ class CogCSharpFiCol implements ICogGenClassCode
 
     // String
     $txGenTableColsMethodFull = FiTemplate::replaceParams($tempGenTableColsTrans, Fkb::bui()->buiPut("ficListBodyTrans", $sbGenTableColsTransContent->toString()));
-    
+
     $sbClassContent->append("\n")->append($txGenTableColsMethodFull)->append("\n");
 
     //$tempGenFiColsExt = $iCogSpecsFiCol->getTemplateFiColsExtraListMethod();
@@ -176,15 +163,15 @@ public class {{classPref}}{{entityName}}
 }
 EOD;
 
-  // template'den çıkarıldl
-  //  public static void AddFieldDesc(FicList ficolList) {
+    // template'den çıkarıldl
+    //  public static void AddFieldDesc(FicList ficolList) {
 
-  //   foreach (FiCol fiCol in ficolList)
-  //   {
-  //       {{addFieldDescDetail}}
-  //   }
-    
-  // }
+    //   foreach (FiCol fiCol in ficolList)
+    //   {
+    //       {{addFieldDescDetail}}
+    //   }
+
+    // }
 
     return $templateMain;
   }
@@ -362,9 +349,15 @@ EOD;
    * @param FiStrbui $sbFclListBody
    * @return void
    */
-  public function doNonTransientFieldOps(FiStrbui $sbFclListBody, Fkb $fkbItem, ICogSpecs $iCogSpecs): void
-  { //, FiStrbui $sbFclListBodyExtra
-    //$sbFclListBody->append("ficList.Add($methodName());\n");
+  public function processGetTableColsContent(FiStrbui $sbFclListBody, Fkb $fkbItem): void
+  { 
+    $fcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
+
+    if ($fcBoTransient === true) {
+      return;
+    }
+
+    $iCogSpecs = $this->getCogSpecs();
     $fieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
     $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
     $sbFclListBody->append("ficList.Add($methodName());\n");
@@ -372,11 +365,17 @@ EOD;
 
   /**
    * @param FiStrbui $sbContent
-   * @param string $methodName
    * @return void
    */
-  public function doTransientFieldOps(FiStrbui $sbContent, Fkb $fkbItem, ICogSpecs $iCogSpecs): void
+  public function processGetTableColsTransContent(FiStrbui $sbContent, Fkb $fkbItem): void
   {
+    $fcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
+
+    if (!$fcBoTransient === true) {
+      return;
+    }
+
+    $iCogSpecs = $this->getCogSpecs();
     $fieldName = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldName());
     $methodName = $iCogSpecs->checkMethodNameStd($fieldName);
     $sbContent->append("ficList.Add($methodName());\n");
@@ -480,12 +479,7 @@ EOD;
     $sbContent->append($txFiColMethod);
     $sbContent->append("\n");
     $sbContent->append("\n");
-
   }
-
-
-
-
 
   public function getMethodFullGetfAll(FiStrbui $sbGetFkfAllContent): string
   {
@@ -498,5 +492,8 @@ EOD;
 
   // end - GetFkfAll Methods ***
 
-
+  public function getCogSpecs()
+  {
+    return new CogSpecsJava();
+  }
 }
