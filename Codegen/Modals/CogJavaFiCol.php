@@ -139,64 +139,65 @@ class CogJavaFiCol implements ICogGenClassCode
     //String
     //$fieldType = FiCodeGen::convertExcelTypeToOzColType($fiCol->getTosOrEmpty(FicMeta::fcTxFieldType()));
 
-    $fcTxHeader = $fkbItem->getValueByFiCol(FicFiCol::fcTxHeader());
+    $fcTxHeader = $fkbItem->getFicVal(FicFiCol::fcTxHeader());
     if ($fcTxHeader != null) {
       $sbFiColMethodContent->append(sprintf("  fiCol.setFcTxHeader(\"%s\");\n", $fcTxHeader));
     }
 
-    $fcTxFieldType = $fkbItem->getValueByFiCol(FicFiCol::fcTxFieldType());
+    $fcTxFieldType = $fkbItem->getFicVal(FicFiCol::fcTxFieldType());
     if ($fcTxFieldType != null) {
       $sbFiColMethodContent->append(sprintf("  fiCol.setFcTxFieldType(\"%s\");\n", $fcTxFieldType));
     }
 
-    $fcTxDbField = $fkbItem->getValueByFiCol(FicFiCol::fcTxDbField());
+    $fcTxDbField = $fkbItem->getFicVal(FicFiCol::fcTxDbField());
     if ($fcTxDbField != null) {
       $sbFiColMethodContent->append(" fiCol.setFcTxDbField(\"$fcTxDbField\");\n");
     }
 
-    $fcTxIdType = $fkbItem->getValueByFiCol(FicFiCol::fcTxIdType());
+    $fcTxIdType = $fkbItem->getFicVal(FicFiCol::fcTxIdType());
     if ($fcTxIdType != null) {
       $sbFiColMethodContent->append(" fiCol.setFcTxIdType(\"$fcTxIdType\");\n");
     }
 
-    $fcBoTransient = $fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoTransient());
+    $fcBoTransient = $fkbItem->getFicValAsBool(FicFiCol::fcBoTransient());
     if ($fcBoTransient) {
       $sbFiColMethodContent->append("  fiCol.setFcBoTransient(true);\n");
     }
 
-    $fcLnLength = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnLength()));
+    $fcLnLength = $fkbItem->getFicValAsInt(FicFiCol::fcLnLength());
     if ($fcLnLength != null) {
       $sbFiColMethodContent->append(sprintf("  fiCol.setFcLnLength(%s);\n", $fcLnLength));
     }
 
-    $fcLnPrecision = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnPrecision()));
+    $fcLnPrecision = $fkbItem->getFicValAsInt(FicFiCol::fcLnPrecision());
     if ($fcLnPrecision != null) {
       $sbFiColMethodContent->append(sprintf("  fiCol.setFcLnPrecision(%s);\n", $fcLnPrecision));
     }
 
-    $fcLnScale = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnScale()));
+    $fcLnScale = $fkbItem->getFicValAsInt(FicFiCol::fcLnScale());
     if ($fcLnScale != null) {
       $sbFiColMethodContent->append(sprintf("  fiCol.setFcLnScale(%s);\n", $fcLnScale));
     }
 
-    $fcLnId = FicValue::toInt($fkbItem->getValueByFiCol(FicFiCol::fcLnId()));
+    $fcLnId = $fkbItem->getFicValAsInt(FicFiCol::fcLnId());
     if ($fcLnId != null) {
       $sbFiColMethodContent->append(sprintf("  fiCol.setFcLnId(%s);\n", $fcLnId));
     }
 
-    if (FiBool::isFalse($fkbItem->getValueAsBoolByFiCol(FicFiCol::fcBoNullable()))) {
+    if (FiBool::isFalse($fkbItem->getFicValAsBool(FicFiCol::fcBoNullable()))) {
       $sbFiColMethodContent->append("  fiCol.setFcBoNullable(false);\n");
     }
 
-    $fcTxUid = $fkbItem->getValueByFiCol(FicFiCol::fcTxUid());
+    $fcTxUid = $fkbItem->getFicVal(FicFiCol::fcTxUid());
     if ($fcTxUid != null) {
       $sbFiColMethodContent->append(sprintf("  fiCol.setFcTxUid(\"%s\");\n", $fcTxUid));
     }
 
+    $fcBoUnique = $fkbItem->getFicValAsBool(FicFiCol::fcBoUnique());
+    if ($fcBoUnique) {
+      $sbFiColMethodContent->append("  fiCol.setFcBoUnique(true);\n");
+    }
 
-    //        if (FiBool.isTrue(fiCol.getFcBoUnique())) {
-    //          sbFiColMethodBody.append("\tfiCol.fcBoUnique = true;\n");
-    //        }
     //
     //        if (FiBool.isTrue(fiCol.getFcBoUniqGro1())) {
     //          sbFiColMethodBody.append("\tfiCol.fcBoUniqGro1 = true;\n");
