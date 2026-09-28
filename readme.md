@@ -2,22 +2,22 @@
 
 # App Abbreviations
 
-- Cgm: Code Generation Model Classes
+- Cgb: Code Generation Business Classes
+- Cog : Code Generation Class (Code Languages)
 
 # Code Generation
-
-Kod üretimi için 4 ana sınıf
 
 ➖ CodegenCont , ana yönlendirmeyi yapan sınıf
 
 ➖ ICogSpecs , diller için genel metodlar (metodAdı,sınıf ismi gibi) bulunur. Örnek implemente CogSpecsCsharp,CogSpecsPhp gibi
 
-➖ ICogSpecsFiCol, FiCol sınıfı üretecek metodlar için arayüz tanımı, örneğin CogSpecsCsharpFiCol, Csharp için FiCol sınıfını üretecek metodlara sahip. Diger örnekler: CogSpecsPhpFiCol. Bunun dışında ICogSpecsFiMeta ve ICogSpecsFkbCol da ilgili sınıfları üretecek metodlar barındırır. Örnek : CogSpecsCsharpFiMeta,CogSpecsCsharpFkbCol 
+➖ CogCsharp,CogJava,CogTs gibi sınıflarda; FiCol,FiMeta,FkbCol sınıflarını üretir.
 
-➖ CgmFiColClass sınıfı, ICogSpecsFiCol ve ICogSpecs arayüzünü implemente eden sınıfları kullanarak FiCol sınıf kodunu üretir.
 
-➖ Aynı şekilde CgmFiMetaClass ve CgmFkbColClass sınıfları da ilgili sınıfları üretir.
-  
+
+
+
+
 
 
 # CodeIgniter 4 Application Starter
