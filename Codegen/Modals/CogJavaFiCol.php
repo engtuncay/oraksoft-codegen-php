@@ -13,6 +13,7 @@ use Engtuncay\Phputils8\FiDtos\Fkb;
 use Engtuncay\Phputils8\FiDtos\FkbList;
 use Engtuncay\Phputils8\FiMetas\FimFiCodeTemp;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
+use Engtuncay\Phputils8\FiMetas\FimFtFieldType;
 use Engtuncay\Phputils8\FiMetas\FimQcFieldType;
 use Engtuncay\Phputils8\FiMetas\FimQcSpecFields;
 
@@ -22,22 +23,25 @@ class CogJavaFiCol implements ICogGenClassCode
   {
     $iCogSpecs = $this->getCogSpecs(); // 
 
-    //if (FiCollection.isEmpty(fiCols)) return;
-    $sbClassContent = new FiStrbui(); //new StringBuilder();
+    // if (FiCollection.isEmpty(fiCols)) return;
+    $sbClassContent = new FiStrbui(); 
 
-    //int
-    //$index = 0;
+    // int
+    // $index = 0;
 
     $sbFiColMethodsFull = new FiStrbui();
+    
     // content'ler
     $sbGenTableColsContent = new FiStrbui();
     $sbGenTableColsTransContent = new FiStrbui();
     $sbGetFclDtoContent = new FiStrbui();
     $sbGetFkfAllMethodContent = new FiStrbui();
     $sbGetFkfDefsMethodContent = new FiStrbui();
-    
+
     // Deps
-    //$sbFiColAddDescDetail = new FiStrbui();
+    // $sbFiColAddDescDetail = new FiStrbui();
+
+    $fkbClassComm = null;
 
     /**
      * Alan Döngüsü
@@ -46,9 +50,16 @@ class CogJavaFiCol implements ICogGenClassCode
      */
     foreach ($fkbList as $fkbItem) {
 
-      //String
+      // String
       $fcTxFieldName = $fkbItem->getFimValue(FimFiCol::fcTxFieldName());
       if (FiString::isEmpty($fcTxFieldName)) continue;
+
+      if (FiString::startWith($fcTxFieldName, "tfc")) {
+        if ($fcTxFieldName == FimFtFieldType::tfcTxCodeComm()->ftTxValue) {
+          $fkbClassComm = $fkbItem;
+        }
+        continue;
+      }
 
       $this->processGetFclDtoContent($sbGetFclDtoContent, $fkbItem);
       $this->processFiColsMethods($sbFiColMethodsFull, $fkbItem);
@@ -324,7 +335,7 @@ EOD;
   public function processGenTableColsTransContent(FiStrbui $sbContent, Fkb $fkbItem): void
   {
     $fcBoTransient = FicValue::toBool($fkbItem->getValueByFiCol(FicFiCol::fcBoTransient()));
-    
+
     if (!$fcBoTransient === true) {
       return;
     }
@@ -568,4 +579,6 @@ EOD;
   //   //$sbExtra->append($txFkfDto);
 
   //   return $sbExtra;
+
+	
   // }
