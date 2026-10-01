@@ -19,33 +19,20 @@ class CogCSharpFiCol implements ICogGenClassCode
 {
   public function genClassCode(FkbList $fkbList): string
   {
-    $iCogSpecs = $this->getCogSpecs();
-
     //if (FiCollection.isEmpty(fiCols)) return;
+    
+    $iCogSpecs = $this->getCogSpecs();
     $sbClassContent = new FiStrbui(); //new StringBuilder();
-    //$sbAllFiColMethods = new FiStrbui(); //new StringBuilder();
-
     $sbGetFkfAllContent = new FiStrbui(); //new StringBuilder();
-
-    //int
-    //$index = 0;
-
-    $sbGetTableColsContent = new FiStrbui();
-    //$sbFclListBodyExtra = new FiStrbui();
-    $sbGetTableColsTransContent = new FiStrbui();
-    //$sbFiColAddDescDetail = new FiStrbui();
-
-
 
     /**
      * ficol metodlar
      */
-    $sbFiColMethods = new FiStrbui();
+    $sbFiColMethodsFull = new FiStrbui();
 
     $sbGetFclDtoContent = new FiStrbui();
-
-    //$tempFiColMethod = $this->getTemplateColMethod();
-    //$templateFiColMethodExtra = $iFiColClass->getTemplateFiColMethodExtra();
+    $sbGetTableColsContent = new FiStrbui();
+    $sbGetTableColsTransContent = new FiStrbui();
 
     /**
      * @var Fkb $fkbItem
@@ -57,15 +44,15 @@ class CogCSharpFiCol implements ICogGenClassCode
 
       if (FiString::isEmpty($fcTxFieldName)) continue;
 
-      $this->processFiColMethods($sbFiColMethods, $fkbItem);
+      $this->processFiColMethods($sbFiColMethodsFull, $fkbItem);
 
       // Önce content oluşturulur. Sonra content, şablona eklenir.
       $this->processGetTableColsContent($sbGetTableColsContent, $fkbItem);
       $this->processGetTableColsTransContent($sbGetTableColsTransContent, $fkbItem);
       $this->processGetFkfAllContent($sbGetFkfAllContent, $fkbItem);
-
       $this->processGetFclDtoContent($sbGetFclDtoContent, $fkbItem);
-    }
+
+    } // end foreach
 
     // full template çevirme
 
@@ -79,14 +66,13 @@ class CogCSharpFiCol implements ICogGenClassCode
 
     // end - full template çevirme
 
-
     // sbClassContent içine ekleme 
     $sbClassContent->append("\n");
     $sbClassContent->append($txGetTableColsMetFull);
     $sbClassContent->append("\n\n");
     $sbClassContent->append($txGetTableColsTransMetFull);
     $sbClassContent->append("\n\n");
-    $sbClassContent->append($sbFiColMethods->toString());
+    $sbClassContent->append($sbFiColMethodsFull->toString());
     $sbClassContent->append("\n\n");
     $sbClassContent->append($txGetFkfAllMetFull);
     $sbClassContent->append("\n\n");
