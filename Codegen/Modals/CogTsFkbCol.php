@@ -19,10 +19,8 @@ class CogTsFkbCol implements ICogGenClassCode
   {
     $iCogSpecs = new CogSpecsTs();
 
-        $iCogSpecs = new CogSpecsJava();
-
-    $sbClassBlock = new FiStrbui(); //new StringBuilder();
-    $sbFiColMethodsBody = new FiStrbui(); //new StringBuilder();
+    $sbClassBlock = new FiStrbui();
+    $sbFiColMethodsBody = new FiStrbui();
 
     //int
     //$index = 0;
