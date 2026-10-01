@@ -24,7 +24,7 @@ class CgbUtilsName
     return "getFkfDefs";
   }
 
-    public static function getMethodNameGetFkfDto()
+  public static function getMethodNameGetFkfDto()
   {
     return "getFkfDto";
   }
@@ -32,5 +32,15 @@ class CgbUtilsName
   public static function getMethodNameGetFclDto()
   {
     return "getFclDto";
+  }
+
+  public static function getMethodNameGetTableColsTrans()
+  {
+    return "getTableColsTrans";
+  }
+
+  public static function getMethodNameGetTableCols()
+  {
+    return "getTableCols";
   }
 }

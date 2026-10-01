@@ -24,13 +24,13 @@ class CogJavaFiCol implements ICogGenClassCode
     $iCogSpecs = $this->getCogSpecs(); // 
 
     // if (FiCollection.isEmpty(fiCols)) return;
-    $sbClassContent = new FiStrbui(); 
+    $sbClassContent = new FiStrbui();
 
     // int
     // $index = 0;
 
     $sbFiColMethodsFull = new FiStrbui();
-    
+
     // content'ler
     $sbGenTableColsContent = new FiStrbui();
     $sbGenTableColsTransContent = new FiStrbui();
@@ -41,6 +41,7 @@ class CogJavaFiCol implements ICogGenClassCode
     // Deps
     // $sbFiColAddDescDetail = new FiStrbui();
 
+    /** @var Fkb|null $fkbClassComm */
     $fkbClassComm = null;
 
     /**
@@ -61,14 +62,12 @@ class CogJavaFiCol implements ICogGenClassCode
         continue;
       }
 
-      $this->processGetFclDtoContent($sbGetFclDtoContent, $fkbItem);
+      
       $this->processFiColsMethods($sbFiColMethodsFull, $fkbItem);
-
       $this->processGenTableColsContent($sbGenTableColsContent, $fkbItem);
       $this->processGenTableColsTransContent($sbGenTableColsTransContent, $fkbItem);
-
       $this->processGetFkfDefsContent($sbGetFkfDefsMethodContent, $fkbItem);
-      //$this->processGetFkfDto($sbGetFkfDto, $fkbItem);
+      $this->processGetFclDtoContent($sbGetFclDtoContent, $fkbItem);
 
       // fkfAll Metod Content
       $stMethodName = trim($iCogSpecs->checkMethodNameStd($fcTxFieldName));
@@ -108,6 +107,7 @@ class CogJavaFiCol implements ICogGenClassCode
     $sbClassContent->append($txGetFclDtoMetFull);
     $sbClassContent->append("\n\n");
     $sbClassContent->append($txGetFkfDefsMetFull);
+    
     //$sbClassBody->append("\n")->append($txResGenTableColsMethodExtra)->append("\n");
 
     // Class Şablonu Uygulaması
