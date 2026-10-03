@@ -85,7 +85,7 @@ class CogJavaFiCol implements ICogGenClassCode
     $txGetFkfAllMetFull = FiTemplate::replaceParams($this->getTempGetFkfAllMet(), Fkb::bui()->buiPut("getFkbFieldsAllContent", $sbGetFkfAllMethodContent->toString()));
 
     // String
-    $txGetFclDtoMetFull = FiTemplate::replaceParams($this->getTempGetFclDtoMet(), Fkb::bui()->buiPut(CgbUtilsName::getMethodNameGetFclDto(), $sbGetFclDtoContent->toString()));
+    $txGetFclDtoMetFull = FiTemplate::replaceParams($this->getTempGetFclDtoMet(), Fkb::bui()->buiPut(CgbUtilsName::getMetNameGetFclDto(), $sbGetFclDtoContent->toString()));
 
     $txGetFkfDefsMetFull = FiTemplate::replaceParams(
       $this->getTempGetFkfDefsMethod(),
@@ -350,7 +350,7 @@ EOD;
   public function getTempGetFkfAllMet()
   {
 
-    $txMethodName = CgbUtilsName::getMethodNameGetFkfAll();
+    $txMethodName = CgbUtilsName::getMetNameGetFkfAll();
     $cogSpecs = new CogSpecsJava();
     $stdTxMethodName = $cogSpecs->checkMethodNameStd($txMethodName);
 
@@ -368,7 +368,7 @@ EOD;
   public function getTempGetFkfDefsMethod()
   {
 
-    $txMethodName = CgbUtilsName::getMethodNameGetFkfDefs();
+    $txMethodName = CgbUtilsName::getMetNameGetFkfDefs();
 
     $cogSpecs = new CogSpecsJava();
     $stdTxMethodName = $cogSpecs->checkMethodNameStd($txMethodName);
@@ -394,7 +394,7 @@ EOD;
   public function getTempGetFkfDtoMet()
   {
 
-    $txMethodName = CgbUtilsName::getMethodNameGetFkfDto();
+    $txMethodName = CgbUtilsName::getMetNameGetFkfDto();
 
     $cogSpecs = new CogSpecsJava();
     $stdTxMethodName = $cogSpecs->checkMethodNameStd($txMethodName);
@@ -414,12 +414,12 @@ EOD;
 
   public function getTempGetFclDtoMet()
   {
-    $txMethodName = CgbUtilsName::getMethodNameGetFclDto();
+    $txMethodName = CgbUtilsName::getMetNameGetFclDto();
 
     $cogSpecs = $this->getCogSpecs();
     $stdTxMethodName = $cogSpecs->checkMethodNameStd($txMethodName);
 
-    $keyMethodContent = CgbUtilsName::getMethodNameGetFclDto(); //& "content"; //FimFiColClassTempAreas::getFkfDto()->getTxKey();
+    $keyMethodContent = CgbUtilsName::getMetNameGetFclDto(); //& "content"; //FimFiColClassTempAreas::getFkfDto()->getTxKey();
 
     return <<<EOD
 public static FicList {$stdTxMethodName}(){

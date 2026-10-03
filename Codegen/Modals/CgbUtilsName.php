@@ -12,35 +12,41 @@ namespace Codegen\Modals;
 class CgbUtilsName
 {
   // 
-  public static function getMethodNameGetFkfAll()
+  public static function getMetNameGetFkfAll()
   {
+    //eski kullanım
     //return "genFkbFields";
     return "getFkfAll";
   }
 
   //getFkbDdFields
-  public static function getMethodNameGetFkfDefs()
+  public static function getMetNameGetFkfDefs()
   {
     return "getFkfDefs";
   }
 
-  public static function getMethodNameGetFkfDto()
-  {
-    return "getFkfDto";
-  }
-
-  public static function getMethodNameGetFclDto()
+  public static function getMetNameGetFclDto()
   {
     return "getFclDto";
   }
 
-  public static function getMethodNameGetTableColsTrans()
+  public static function getMetNameGetTableColsTrans()
   {
     return "getTableColsTrans";
   }
 
-  public static function getMethodNameGetTableCols()
+  public static function getMetNameGetTableCols()
   {
     return "getTableCols";
+  }
+
+  /**
+   * kullanımdan kaldırıldı GetFclDto aynı işlevde kullanılabilir
+   * 
+   * @return string 
+   */
+  public static function getMetNameGetFkfDto()
+  {
+    return "getFkfDto";
   }
 }

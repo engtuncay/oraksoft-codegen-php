@@ -370,7 +370,7 @@ EOD;
   public function getTemplateMethodFkbFields()
   {
 
-    $txMethodName = CgbUtilsName::getMethodNameGetFkfAll();
+    $txMethodName = CgbUtilsName::getMetNameGetFkfAll();
 
     return <<<EOD
 public static function {$txMethodName}() : Fkb {

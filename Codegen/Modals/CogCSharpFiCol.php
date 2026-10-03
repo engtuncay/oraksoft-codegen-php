@@ -56,14 +56,14 @@ class CogCSharpFiCol implements ICogGenClassCode
 
     // full template çevirme
 
-    $txGetTableColsMetFull = FiTemplate::replaceParams($this->getTempGetTableColsMethods(), Fkb::bui()->buiPut(CgbUtilsName::getMethodNameGetTableCols(), $sbGetTableColsContent->toString()));
+    $txGetTableColsMetFull = FiTemplate::replaceParams($this->getTempGetTableColsMethods(), Fkb::bui()->buiPut(CgbUtilsName::getMetNameGetTableCols(), $sbGetTableColsContent->toString()));
 
-    $txGetTableColsTransMetFull = FiTemplate::replaceParams($this->getTempGetTableColsTransMethod(), Fkb::bui()->buiPut(CgbUtilsName::getMethodNameGetTableColsTrans(), $sbGetTableColsTransContent->toString()));
+    $txGetTableColsTransMetFull = FiTemplate::replaceParams($this->getTempGetTableColsTransMethod(), Fkb::bui()->buiPut(CgbUtilsName::getMetNameGetTableColsTrans(), $sbGetTableColsTransContent->toString()));
 
     // metod kaldırılacak
     $txGetFkfAllMetFull = $this->getMethodFullGetfAll($sbGetFkfAllContent);
 
-    $txGetFclDtoMetFull = FiTemplate::replaceParams($this->getTempGetFclDtoMet(), Fkb::bui()->buiPut(CgbUtilsName::getMethodNameGetFclDto(), $sbGetFclDtoContent->toString()));
+    $txGetFclDtoMetFull = FiTemplate::replaceParams($this->getTempGetFclDtoMet(), Fkb::bui()->buiPut(CgbUtilsName::getMetNameGetFclDto(), $sbGetFclDtoContent->toString()));
 
     // end - full template çevirme
 
@@ -270,8 +270,8 @@ EOD;
    */
   public function getTempGetTableColsTransMethod(): string
   {
-    $plahGetTableColsTrans = CgbUtilsName::getMethodNameGetTableColsTrans();
-    $txNameGetTableColsTrans = $this->getCogSpecs()->checkMethodNameStd(CgbUtilsName::getMethodNameGetTableColsTrans());
+    $plahGetTableColsTrans = CgbUtilsName::getMetNameGetTableColsTrans();
+    $txNameGetTableColsTrans = $this->getCogSpecs()->checkMethodNameStd(CgbUtilsName::getMetNameGetTableColsTrans());
 
     return <<<EOD
 public static FicList {$txNameGetTableColsTrans}() {
@@ -290,8 +290,8 @@ EOD;
   public function getTempGetTableColsMethods(): string
   {
 
-    $plahGetTableCols = CgbUtilsName::getMethodNameGetTableCols();
-    $txNameGetTableCols = $this->getCogSpecs()->checkMethodNameStd(CgbUtilsName::getMethodNameGetTableCols());
+    $plahGetTableCols = CgbUtilsName::getMetNameGetTableCols();
+    $txNameGetTableCols = $this->getCogSpecs()->checkMethodNameStd(CgbUtilsName::getMetNameGetTableCols());
 
     return <<<EOD
 public static FicList {$txNameGetTableCols}() {
@@ -380,7 +380,7 @@ EOD
   public function getTempMethodFkfAll()
   {
 
-    $txMethodName = CgbUtilsName::getMethodNameGetFkfAll();
+    $txMethodName = CgbUtilsName::getMetNameGetFkfAll();
     $cogSpecs = $this->getCogSpecs();
     $stdTxMethodName = $cogSpecs->checkMethodNameStd($txMethodName);
 
@@ -476,13 +476,13 @@ EOD;
    */
   public function getTempGetFclDtoMet()
   {
-    $txMethodName = CgbUtilsName::getMethodNameGetFclDto();
+    $txMethodName = CgbUtilsName::getMetNameGetFclDto();
 
     $cogSpecs = $this->getCogSpecs();
     $stdTxMethodName = $cogSpecs->checkMethodNameStd($txMethodName);
 
     // plah : placeholder (sonuna content eklenbilir belki)
-    $plahMethodContent = CgbUtilsName::getMethodNameGetFclDto(); //& "content"; 
+    $plahMethodContent = CgbUtilsName::getMetNameGetFclDto(); //& "content"; 
 
     // content alanına placeholder olarak method ismini koyarız
     return <<<EOD
