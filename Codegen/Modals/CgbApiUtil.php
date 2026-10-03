@@ -7,6 +7,7 @@ use Engtuncay\Phputils8\FiDtos\Fkb;
 
 class CgbApiUtil
 {
+
   // /**
   //  * Gelen JSON verisini diziye dönüştürür
   //  *
@@ -48,7 +49,6 @@ class CgbApiUtil
 
   public static function getTxVer()
   {
-    return "0.4";
+    return "0.5";
   }
-  
 }

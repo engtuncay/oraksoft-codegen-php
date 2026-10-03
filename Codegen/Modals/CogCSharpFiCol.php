@@ -60,6 +60,7 @@ class CogCSharpFiCol implements ICogGenClassCode
 
     $txGetTableColsTransMetFull = FiTemplate::replaceParams($this->getTempGetTableColsTransMethod(), Fkb::bui()->buiPut(CgbUtilsName::getMethodNameGetTableColsTrans(), $sbGetTableColsTransContent->toString()));
 
+    // metod kaldırılacak
     $txGetFkfAllMetFull = $this->getMethodFullGetfAll($sbGetFkfAllContent);
 
     $txGetFclDtoMetFull = FiTemplate::replaceParams($this->getTempGetFclDtoMet(), Fkb::bui()->buiPut(CgbUtilsName::getMethodNameGetFclDto(), $sbGetFclDtoContent->toString()));
@@ -380,7 +381,7 @@ EOD
   {
 
     $txMethodName = CgbUtilsName::getMethodNameGetFkfAll();
-    $cogSpecs = new CogSpecsCsharp();
+    $cogSpecs = $this->getCogSpecs();
     $stdTxMethodName = $cogSpecs->checkMethodNameStd($txMethodName);
 
     //FimFcColClassTempAreas::getFkfAll();
