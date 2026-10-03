@@ -11,6 +11,16 @@ namespace Codegen\Modals;
  */
 class CgbUtilsName
 {
+  public static function getMetNameGetTableCols()
+  {
+    return "getTableCols";
+  }
+
+  public static function getMetNameGetTableColsTrans()
+  {
+    return "getTableColsTrans";
+  }
+
   // 
   public static function getMetNameGetFkfAll()
   {
@@ -28,16 +38,6 @@ class CgbUtilsName
   public static function getMetNameGetFclDto()
   {
     return "getFclDto";
-  }
-
-  public static function getMetNameGetTableColsTrans()
-  {
-    return "getTableColsTrans";
-  }
-
-  public static function getMetNameGetTableCols()
-  {
-    return "getTableCols";
   }
 
   /**
