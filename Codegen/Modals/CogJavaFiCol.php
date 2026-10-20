@@ -31,7 +31,7 @@ class CogJavaFiCol implements ICogGenClassCode
 
     $sbFiColMethodsFull = new FiStrbui();
 
-    // content'ler
+    // content'ler (contentler şablonun içerisindeki content alanın yerleştirilecek içerik)
     $sbGetTableColsContent = new FiStrbui();
     $sbGetTableColsTransContent = new FiStrbui();
     $sbGetFclDtoContent = new FiStrbui();
@@ -70,8 +70,8 @@ class CogJavaFiCol implements ICogGenClassCode
       $this->processGetFclDtoContent($sbGetFclDtoContent, $fkbItem);
 
       // fkfAll Metod Content
-      $stMethodName = trim($iCogSpecs->checkMethodNameStd($fcTxFieldName));
-      $sbGetFkfAllMethodContent->append("fkf.addFic({$stMethodName}());\n");
+      $txStMethodName = trim($iCogSpecs->checkMethodNameStd($fcTxFieldName));
+      $sbGetFkfAllMethodContent->append("fkf.addFic({$txStMethodName}());\n");
 
       //$index++;
     }
@@ -111,8 +111,8 @@ class CogJavaFiCol implements ICogGenClassCode
     //$sbClassBody->append("\n")->append($txResGenTableColsMethodExtra)->append("\n");
 
     // Class Şablonu Uygulaması
-    $classPref = "Fic";
-    // URFIX entity name çekilecek
+    $classPref = "Fec";
+    
     // String
     $txEntityName = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxEntityName());
     $txTablePrefix = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxPrefix());
@@ -249,10 +249,14 @@ class CogJavaFiCol implements ICogGenClassCode
 import ozpasyazilim.utils.table.FiCol;
 import ozpasyazilim.utils.table.FicList;
 import ozpasyazilim.utils.datatypes.Fkf;
-import ozpasyazilim.utils.fidborm.AbsFicTable;
+import ozpasyazilim.utils.fidborm.AbsFicTableV2;
       
-public class {{classPref}}{{entityName}} extends AbsFicTable
+public class {{classPref}}{{entityName}} extends AbsFicTableV2
 {
+
+  public static {{classPref}}{{entityName}} bui() {
+    return new {{classPref}}{{entityName}}();
+  }
 
 {{classContent}}
 
@@ -266,7 +270,7 @@ EOD;
   public function getTempFiColMethod(): string
   {
     return <<<EOD
-public static FiCol {{fieldMethodName}}()
+public FiCol {{fieldMethodName}}()
 {
   FiCol fiCol = new FiCol("{{fieldName}}");
 {{colMethodBody}}
@@ -281,7 +285,7 @@ EOD;
   public function getTempGetTableColsTransMet(): string
   {
     return <<<EOD
-public static FicList getTableColsTrans() {
+public FicList getTableColsTrans() {
   FicList ficList = new FicList();
   
   {{ficListBodyTrans}}
@@ -297,7 +301,7 @@ EOD;
   public function getTempGetTableColsMet(): string
   {
     return <<<EOD
-public static FicList getTableCols() {
+public FicList getTableCols() {
   FicList ficList = new FicList();
 
   {{ficListBody}}
@@ -355,7 +359,7 @@ EOD;
     $stdTxMethodName = $cogSpecs->checkMethodNameStd($txMethodName);
 
     return <<<EOD
-public static Fkf {$stdTxMethodName}(){
+public Fkf {$stdTxMethodName}(){
 
   Fkf fkf = new Fkf();
   
@@ -376,7 +380,7 @@ EOD;
     $keyGetFkbDdFields = FimFiColClassTempAreas::getFkbDdFields()->getTxKey();
 
     return <<<EOD
-public static Fkf {$stdTxMethodName}(){
+public Fkf {$stdTxMethodName}(){
 
   Fkf fkf = new Fkf();
   
@@ -402,7 +406,7 @@ EOD;
     $keyMethodContent = FimFiColClassTempAreas::getFkfDto()->getTxKey();
 
     return <<<EOD
-public static Fkf {$stdTxMethodName}(){
+public Fkf {$stdTxMethodName}(){
 
   Fkf fkf = new Fkf();
   
@@ -422,7 +426,7 @@ EOD;
     $keyMethodContent = CgbUtilsName::getMetNameGetFclDto(); //& "content"; //FimFiColClassTempAreas::getFkfDto()->getTxKey();
 
     return <<<EOD
-public static FicList {$stdTxMethodName}(){
+public FicList {$stdTxMethodName}(){
 
   FicList ficList = new FicList();
 
