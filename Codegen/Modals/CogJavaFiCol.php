@@ -249,9 +249,9 @@ class CogJavaFiCol implements ICogGenClassCode
 import ozpasyazilim.utils.table.FiCol;
 import ozpasyazilim.utils.table.FicList;
 import ozpasyazilim.utils.datatypes.Fkf;
-import ozpasyazilim.utils.fidborm.AbsFicTableV2;
+import ozpasyazilim.utils.fidborm.AbsFecTable;
       
-public class {{classPref}}{{entityName}} extends AbsFicTableV2
+public class {{classPref}}{{entityName}} extends AbsFecTable
 {
 
   public static {{classPref}}{{entityName}} bui() {

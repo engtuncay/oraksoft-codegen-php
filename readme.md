@@ -7,13 +7,13 @@
 
 # Code Generation
 
-➖ CodegenCont , ana yönlendirmeyi yapan sınıf
+• CodegenCont , ana yönlendirmeyi yapan sınıf
 
-➖ ICogSpecs , diller için genel metodlar (metodAdı,sınıf ismi gibi) bulunur. Örnek implemente CogSpecsCsharp,CogSpecsPhp gibi
+• ICogSpecs , diller için genel metodlar (metodAdı,sınıf ismi gibi) bulunur. Örnek implemente CogSpecsCsharp,CogSpecsPhp gibi
 
-➖ CogCsharp,CogJava,CogTs gibi sınıflarda; FiCol,FiMeta,FkbCol sınıflarını üretir.
+• CogCsharp,CogJava,CogTs gibi sınıflarda; FiCol,FiMeta,FkbCol sınıflarını üretir.
 
-
+• CgbUtilsName, kod üretmede kullanılan metod isimlerini verir
 
 
 
