@@ -3,6 +3,7 @@
 namespace Codegen\Modals;
 
 use Codegen\FiCols\FicFiMeta;
+use Codegen\OcgConfigs\OcgLogger;
 use Engtuncay\Phputils8\FiCores\FiStrbui;
 use Engtuncay\Phputils8\FiCols\FicFiCol;
 use Engtuncay\Phputils8\FiCores\FiString;
@@ -48,6 +49,8 @@ class CogCsharpFiMeta implements ICogGenClassCode
 
       //String
       $fcTxFieldName = $fkbItem->getFimVal(FimFiCol::fcTxFieldName());
+      $txFieldName = $fcTxFieldName;
+      //OcgLogger::debug("Field Name: " . $txFieldName);
 
       if (FiString::isEmpty($fcTxFieldName)) continue;
 
@@ -66,7 +69,7 @@ class CogCsharpFiMeta implements ICogGenClassCode
 
       //$fcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
 
-      $fkbFimMetParams->addFim(FimFiCodeTemp::fieldName(), $fcTxFieldName);
+      $fkbFimMetParams->addFim(FimFiCodeTemp::fieldName(), $txFieldName);
       $fkbFimMetParams->addFim(FimFiCodeTemp::fieldMethodName(), $iCogSpecs->checkMethodNameStd($fcTxFieldName));
       $fkbFimMetParams->addFim(FimFiCodeTemp::fiMethodBody(), $sbFiMetaMetContent->toString());
       //$fkbFiColMethodBody->add("fieldHeader", $fcTxHeader);
@@ -76,9 +79,11 @@ class CogCsharpFiMeta implements ICogGenClassCode
 
       //$index++;
     }
-
+    
+    //$sbClassContent->append("//update:1549");
     $sbClassContent->append("\n");
     $sbClassContent->append($sbFiMetaMethods->toString());
+    
 
     //
     $txClassPref = "Fim";

@@ -97,7 +97,7 @@ class Api extends ResourceController
 
   public function genCode()
   {
-    OcgLogger::info("genCode() called");
+    OcgLogger::debug("genCode() called");
 
     $request = Services::request();
     //$uploadedFile = $request->getFile('excelFile');
