@@ -48,8 +48,9 @@ class CgbApiUtil
   // }
 
   // 0.6 JavaFic yerine Fec başlatıldı - statik yerine obje temelli col metodları
+  // 0.7 CsharpFic yerine Fec başlatıldı
   public static function getTxVer()
   {
-    return "0.6";
+    return "0.7";
   }
 }

@@ -26,7 +26,7 @@ class CogCsharpFiMeta implements ICogGenClassCode
     //int
     //$index = 0;
 
-    //$sbFclListBody = new FiStrbui();
+    //$sbFclListBody = new FiStrbßui();
     //$sbFclListBodyExtra = new FiStrbui();
     //$sbFclListBodyTrans = new FiStrbui();
     //$sbFiColAddDescDetail = new FiStrbui();
@@ -47,10 +47,11 @@ class CogCsharpFiMeta implements ICogGenClassCode
       $fkbFimMetParams = new Fkb();
 
       //String
-      $fcTxFieldName = $fkbItem->getValueByFiMeta(FimFiCol::fcTxFieldName());
+      $fcTxFieldName = $fkbItem->getFimVal(FimFiCol::fcTxFieldName());
 
       if (FiString::isEmpty($fcTxFieldName)) continue;
 
+      // tfc ile başlayan alanlar
       if (FiString::startWith($fcTxFieldName, "tfc")) {
         if ($fcTxFieldName == FimFtFieldType::tfcTxCodeComm()->ftTxValue) {
           $fkbClassComm = $fkbItem;
@@ -65,8 +66,8 @@ class CogCsharpFiMeta implements ICogGenClassCode
 
       //$fcTxHeader = FiString::orEmpty($fkbItem->getValueByFiCol(FicFiCol::fcTxHeader()));
 
-      $fkbFimMetParams->addFim(FimFiCodeTemp::fieldMethodName(), $iCogSpecs->checkMethodNameStd($fcTxFieldName));
       $fkbFimMetParams->addFim(FimFiCodeTemp::fieldName(), $fcTxFieldName);
+      $fkbFimMetParams->addFim(FimFiCodeTemp::fieldMethodName(), $iCogSpecs->checkMethodNameStd($fcTxFieldName));
       $fkbFimMetParams->addFim(FimFiCodeTemp::fiMethodBody(), $sbFiMetaMetContent->toString());
       //$fkbFiColMethodBody->add("fieldHeader", $fcTxHeader);
 
@@ -111,7 +112,7 @@ class CogCsharpFiMeta implements ICogGenClassCode
     //String
     $template = <<<EOD
 //using OrakYazilimLib.Util.core;
-using OrakUtilDotNetCore.FiDataContainer;
+using OrakUtilDotNetCore.FiContainer;
 
 public class {{classPref}}{{entityName}}
 {
@@ -149,7 +150,8 @@ EOD;
     //   $sbFmtMethodBodyFieldDefs->append(sprintf(" fiMeta.txKey = \"%s\";\n", $txKey));
     // }
 
-    $txValue = $fkb->getValueByFiCol(FicFiMeta::ftTxValue());
+    // $txValue = $fkb->getFicVal(FicFiMeta::ftTxValue());
+    $txValue = $fkb->getFicVal(FicFiCol::fcTxFieldName());
     if ($txValue != null) {
       $sbFimContent->append(sprintf(" fiMeta.txValue = \"%s\";\n", $txValue));
     }

@@ -189,6 +189,11 @@ class Ocg {
 
     // Convert form element to FormData before sending
     const formData = new FormData(form);
+    formData.delete('excelFile');
+    
+    for (const [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+    }
 
     fiPostFormData('/genCode', formData)
       .then((result) => {

@@ -16,6 +16,7 @@ use Codegen\Modals\CogCsharpFiMeta;
 use Codegen\Modals\CogCSharpFkbCol;
 use Codegen\Modals\CogSpecsJava;
 use Codegen\Modals\CogJavaFiCol;
+use Codegen\Modals\CogJavaFiCol2;
 use Codegen\Modals\CogJavaFiMeta;
 use Codegen\Modals\CogJavaFkbCol;
 use Codegen\Modals\CogSpecsJs;
@@ -80,6 +81,7 @@ class Api extends ResourceController
 
       // if ($fdr->getFkbListInit()->size() > 0) {
       // }
+      session()->set('fkblist', $fdr->getFkbListInit());      
 
       $fkbResponse = new Fkb();
       $fkbResponse->add('filename', $originalName);
@@ -98,7 +100,7 @@ class Api extends ResourceController
     OcgLogger::info("genCode() called");
 
     $request = Services::request();
-    $uploadedFile = $request->getFile('excelFile');
+    //$uploadedFile = $request->getFile('excelFile');
 
     //log_message('info', print_r($request,true));
     //log_message('info', print_r($request->getPost(),true));
@@ -143,20 +145,21 @@ class Api extends ResourceController
     // }
 
     // Dosya uzantısını al
-    $fileExtension = pathinfo($uploadedFile->getClientPath(), PATHINFO_EXTENSION);
+    // $fileExtension = pathinfo($uploadedFile->getClientPath(), PATHINFO_EXTENSION);
 
-    //log_message('info', 'file extension:' . $fileExtension);
+    // //log_message('info', 'file extension:' . $fileExtension);
 
-    $allowedExtensions = ['xlsx', 'xls', 'csv'];
+    // $allowedExtensions = ['xlsx', 'xls', 'csv'];
 
-    if (!in_array(strtolower($fileExtension), $allowedExtensions)) {
-      $mess = 'Geçersiz dosya formatı. Sadece csv dosyaları yükleyebilirsiniz.';
-      $fdrData->setTxValue($mess);
-      goto endExcelOkuma;
-    }
+    // if (!in_array(strtolower($fileExtension), $allowedExtensions)) {
+    //   $mess = 'Geçersiz dosya formatı. Sadece csv dosyaları yükleyebilirsiniz.';
+    //   $fdrData->setTxValue($mess);
+    //   goto endExcelOkuma;
+    // }
 
-    $fdrData = CgbCodegen::convertFileToFkbList($uploadedFile);
-    $fkbListData = $fdrData->getFkbListInit();
+    // $fdrData = CgbCodegen::convertFileToFkbList($uploadedFile);
+    // $fkbListData = $fdrData->getFkbListInit();
+    $fkbListData = session()->get('fkblist');
 
     /** @var Fkb $fkbEntityToFkbList */
     $fkbEntityToFkbList = CgbUtils::genFkbMapAsTxEntityToFkl($fkbListData);
@@ -204,6 +207,7 @@ class Api extends ResourceController
     if ($selJava == 1) $cogGenCode = new CogJavaFiCol();
     if ($selJava == 2) $cogGenCode = new CogJavaFiMeta();
     if ($selJava == 3) $cogGenCode = new CogJavaFkbCol();
+    if ($selJava == 4) $cogGenCode = new CogJavaFiCol2();
 
     //---- Typescript
     if ($selTs == 3) $cogGenCode = new CogTsFkbCol();

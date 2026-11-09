@@ -15,6 +15,7 @@ use Engtuncay\Phputils8\FiMetas\FimFiCodeTemp;
 use Engtuncay\Phputils8\FiMetas\FimFiCol;
 
 
+/** @package Codegen\Modals */
 class CogCSharpFiCol implements ICogGenClassCode
 {
   public function genClassCode(FkbList $fkbList): string
@@ -23,13 +24,16 @@ class CogCSharpFiCol implements ICogGenClassCode
     
     $iCogSpecs = $this->getCogSpecs();
     $sbClassContent = new FiStrbui(); //new StringBuilder();
-    $sbGetFkfAllContent = new FiStrbui(); //new StringBuilder();
+    $sbGetFkfAllContent = new FiStrbui(); 
 
     /**
      * ficol metodlar
      */
     $sbFiColMethodsFull = new FiStrbui();
 
+    /**
+     * content olunca, daha sonra metod şablonu içerisine eklenmesi gerekir
+     */
     $sbGetFclDtoContent = new FiStrbui();
     $sbGetTableColsContent = new FiStrbui();
     $sbGetTableColsTransContent = new FiStrbui();
@@ -80,7 +84,7 @@ class CogCSharpFiCol implements ICogGenClassCode
     $sbClassContent->append($txGetFclDtoMetFull);
 
     //
-    $classPref = "Fic";
+    $classPref = "Fec";
 
     // String
     $txEntityName = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxEntityName());
@@ -101,10 +105,11 @@ class CogCSharpFiCol implements ICogGenClassCode
     return $txClassCodeFull;
   }
 
+  /** @return string  */
   public function getTemplateColMethod(): string
   {
     return <<<EOD
-public static FiCol {{fieldMethodName}}()
+public FiCol {{fieldMethodName}}()
 { 
   FiCol fiCol = new FiCol("{{fieldName}}");
 {{colMethodBody}}
@@ -116,7 +121,7 @@ EOD;
   public function getTemplateColMethodExtra(): string
   {
     return <<<EOD
-public static FiCol {{fieldMethodName}}Ext()
+public FiCol {{fieldMethodName}}Ext()
 {
   FiCol fiCol = {{fieldMethodName}}();
 {{colMethodBody}}
@@ -131,12 +136,15 @@ EOD;
 
     //String
     $templateMain = <<<EOD
-using OrakYazilimLib.Util.core;
-//using OrakUtilDotNetCore.FiCollections;
-//using OrakUtilDotNetCore.FiDataContainer;
+//using OrakYazilimLib.Util.core;
+using OrakUtilDotNetCore.FiContainer;
 
 public class {{classPref}}{{entityName}}
 {
+
+  public static {{classPref}}{{entityName}} Bui() {
+    return new {{classPref}}{{entityName}}();
+  }
 
 {{classContent}}
 
@@ -274,7 +282,7 @@ EOD;
     $txNameGetTableColsTrans = $this->getCogSpecs()->checkMethodNameStd(CgbUtilsName::getMetNameGetTableColsTrans());
 
     return <<<EOD
-public static FicList {$txNameGetTableColsTrans}() {
+public FicList {$txNameGetTableColsTrans}() {
   FicList ficList = new FicList();
   
   {{{$plahGetTableColsTrans}}}
@@ -294,7 +302,7 @@ EOD;
     $txNameGetTableCols = $this->getCogSpecs()->checkMethodNameStd(CgbUtilsName::getMetNameGetTableCols());
 
     return <<<EOD
-public static FicList {$txNameGetTableCols}() {
+public FicList {$txNameGetTableCols}() {
   FicList ficList = new FicList();
 
   {{{$plahGetTableCols}}}
@@ -387,7 +395,7 @@ EOD
     //FimFcColClassTempAreas::getFkfAll();
 
     return <<<EOD
-public static Fkf {$stdTxMethodName}(){
+public override Fkf {$stdTxMethodName}(){
 
   Fkf fkf = new Fkf();
   
@@ -486,7 +494,7 @@ EOD;
 
     // content alanına placeholder olarak method ismini koyarız
     return <<<EOD
-public static FicList {$stdTxMethodName}(){
+public FicList {$stdTxMethodName}(){
 
   FicList ficList = new FicList();
 

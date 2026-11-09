@@ -62,7 +62,7 @@ class CogJavaFiCol implements ICogGenClassCode
         continue;
       }
 
-      
+
       $this->processFiColsMethods($sbFiColMethodsFull, $fkbItem);
       $this->processGetTableColsContent($sbGetTableColsContent, $fkbItem);
       $this->processGetTableColsTransContent($sbGetTableColsTransContent, $fkbItem);
@@ -107,12 +107,12 @@ class CogJavaFiCol implements ICogGenClassCode
     $sbClassContent->append($txGetFclDtoMetFull);
     $sbClassContent->append("\n\n");
     $sbClassContent->append($txGetFkfDefsMetFull);
-    
+
     //$sbClassBody->append("\n")->append($txResGenTableColsMethodExtra)->append("\n");
 
     // Class Şablonu Uygulaması
     $classPref = "Fec";
-    
+
     // String
     $txEntityName = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxEntityName());
     $txTablePrefix = $fkbList->get(0)?->getValueByFiCol(FicFiCol::fcTxPrefix());
@@ -167,7 +167,11 @@ class CogJavaFiCol implements ICogGenClassCode
 
     $fcTxIdType = $fkbItem->getFicVal(FicFiCol::fcTxIdType());
     if ($fcTxIdType != null) {
-      $sbFiColMethodContent->append(" fiCol.setFcTxIdType(\"$fcTxIdType\");\n");
+      if ($fcTxIdType == "auto") {
+        $sbFiColMethodContent->append(" fiCol.setFcTxIdType(FimFcIdTypes.auto().getTxKey());\n");
+      } else {
+        $sbFiColMethodContent->append(" fiCol.setFcTxIdType(\"$fcTxIdType\");\n");
+      }
     }
 
     $fcBoTransient = $fkbItem->getFicValAsBool(FicFiCol::fcBoTransient());
@@ -250,6 +254,7 @@ import ozpasyazilim.utils.table.FiCol;
 import ozpasyazilim.utils.table.FicList;
 import ozpasyazilim.utils.datatypes.Fkf;
 import ozpasyazilim.utils.fidborm.AbsFecTable;
+import ozpasyazilim.utils.metadata.fimCodegen.FimFcIdTypes;
       
 public class {{classPref}}{{entityName}} extends AbsFecTable
 {
